@@ -21,124 +21,110 @@ package com.algods.leetcode;
 import java.util.*;
 
 public class CourseSchedule2 {
-	private Iterable<Integer> order;
 	
-	class Bag<Item> implements Iterable<Item>{
-		private Node<Item> first;
-		private int n;
-		
-		private class Node<Item>{
-			private Item item;
-			private Node<Item> next;
-		}
-		public Bag() {
-			first=null;
-			n=0;
-		}
-		public boolean isEmpty() {
-			return n==0;
-		}
-		public int size(){
-			return n;
-		}
-		public void add(Item item) {
-			Node<Item> oldFirst=first;
-			first= new Node<Item>();
-			first.item=item;
-			first.next=oldFirst;
-		}
-		public Iterator<Item> iterator(){
-			return new LinkedIterator(first);
-		}
-		private class LinkedIterator implements Iterator<Item> {
-	        private Node<Item> current;
-
-	        public LinkedIterator(Node<Item> first) {
-	            current = first;
+	class Digraph  {  
+	    private int V;
+	    private ArrayList<ArrayList<Integer>> adj;
+	    private boolean hasCycle;
+	    private int[] edgeTo;
+	    private boolean[] onStack;
+	    boolean visited[];
+	    private Stack<Integer> stackCycle;
+	    
+	    Digraph(int v){  
+	        V = v;
+	        adj = new ArrayList<ArrayList<Integer>>(v);  
+	        for (int i=0; i<v; i++)  
+	            adj.add(new ArrayList<Integer>());
+	        hasCycle=false;
+	        edgeTo=new int[v];
+	        onStack=new boolean[v];
+	        visited= new boolean[v];
+	        for (int i = 0; i < V; i++)  
+	            visited[i] = false;
+	    }  
+	    
+	    void addEdge(int v,int w) { 
+	    	adj.get(v).add(w); 
+	    }  
+	    
+	    void dfs(int v, ArrayList<Integer> courses) { 
+	        visited[v] = true;
+	        onStack[v] = true;
+	        
+	        Iterator<Integer> it = adj.get(v).iterator();  
+	        while (it.hasNext())  {
+	        	int w = it.next();
+	        	if(stackCycle != null) {
+		        	System.out.println("- cycle- short - circuit -");
+		        	return;
+		        } else if (!visited[w]) {
+		        	edgeTo[w]=v;
+		        	dfs(w, courses);
+		        } else if(onStack[w]) {// visited already, but remember, this is a Directed graph
+//		        	System.out.println("ever");
+		        	stackCycle = new Stack<Integer>();
+		        	for(int x=v; x !=w; x = edgeTo[x])
+		        		stackCycle.push(x);
+		        	stackCycle.push(w);
+//		        	stackCycle.push(v);
+		        	
+		        	if(stackCycle !=null) {
+		        		int first = -1, last = -1;
+		                for (int c : stackCycle) {
+		                    if (first == -1) first = c;
+		                    last = c;
+		                }
+		                if (first != last) {
+//		                    System.err.printf("cycle begins with %d and ends with %d\n", first, last);
+		                    hasCycle=true;
+		                }
+		        	}
+		        }
 	        }
-
-	        public boolean hasNext()  { return current != null;                     }
-	        public void remove()      { throw new UnsupportedOperationException();  }
-
-	        public Item next() {
-	            if (!hasNext()) throw new NoSuchElementException();
-	            Item item = current.item;
-	            current = current.next; 
-	            return item;
-	        }
-	    }
-	}
-	class Digraph{
-		private final int Vertices;
-		private int Edges;
-		private Bag<Integer>[] adjacents;
-		private int[] indegree;
-		
-		public Digraph(int v) {
-			this.Vertices=v;
-			this.Edges=0;
-			adjacents=(Bag<Integer>[]) new Bag[v];
-			for (int i = 0; i < Vertices; i++) {
-	            adjacents[v] = new Bag<Integer>();
-	        }
-		}
-		public void addEdge(int v, int w) {
-	        validateVertex(v);
-	        validateVertex(w);
-	        adjacents[v].add(w);
-	        indegree[w]++;
-	        Edges++;
-	    }
-		public Iterable<Integer> adj(int v) {
-	        validateVertex(v);
-	        return adjacents[v];
-	    }
-	    public int outdegree(int v) {
-	        validateVertex(v);
-	        return adjacents[v].size();
-	    }
-		public int V() {
-			return Vertices;
-		}
-		public int E() {
-			return Edges;
-		}
-		private void validateVertex(int v) {
-	        if (v < 0 || v >= Vertices)
-	            throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (Vertices-1));
-	    }
-	    public String toString() {
-	        StringBuilder s = new StringBuilder();
-	        s.append(Vertices + " vertices, " + Edges + " edges \n");
-	        for (int v = 0; v < Vertices; v++) {
-	            s.append(String.format("%d: ", v));
-	            for (int w : adjacents[v]) {
-	                s.append(String.format("%d ", w));
+	        onStack[v]=false;
+	        courses.add(v);
+	    }  
+	    
+	    int[] topologicalSort(int numCourses)  {  
+	        ArrayList<Integer> courses = new ArrayList<Integer>();
+	        int[] result;
+	        for (int i = 0; i < V; i++)
+	            if (visited[i] == false && !hasCycle) {
+	            	dfs(i, courses);
 	            }
-	            s.append("\n");
+	    
+	        int c=0;
+	        if(hasCycle) {
+	        	result= new int[0];
+//	        	System.out.println("in "+result);
+	        }else {
+	        	result=new int[numCourses];
+		        for(int i: courses) {
+//		        	System.out.println(i+" ");
+		        	result[c++]=i;
+		        }
 	        }
-	        return s.toString();
+	        return result;
 	    }
 	}
+	
 	public int[] findOrder(int numCourses, int[][] prerequisites) {
-        int[] result = null;
-        Digraph G= new Digraph(prerequisites.length);
+        int[] result;
+        Digraph G= new Digraph(numCourses);
         for(int[] edge: prerequisites) {
         	G.addEdge(edge[0], edge[1]);
         }
         
-        DirectedCycle finder = new DirectedCycle(G);
-        if (!finder.hasCycle()) {
-            DepthFirstOrder dfs = new DepthFirstOrder(G);
-            order = dfs.reversePost();
-            
-        }
-        
+        result= G.topologicalSort(numCourses);
+//        System.out.println(Arrays.toString(result));
         return result;
     }
 	public static void main(String[] args) {
-		System.out.println(new CourseSchedule2().findOrder(2, new int[][]{{1,0}}));
-		System.out.println(new CourseSchedule2().findOrder(4, new int[][]{{1,0},{2,0},{3,1},{3,2}}));
+		System.out.println(Arrays.toString(new CourseSchedule2().findOrder(2, new int[][]{{1,0}})));
+		System.out.println(Arrays.toString(new CourseSchedule2().findOrder(4, new int[][]{{1,0},{2,0},{3,1},{3,2}})));
+		System.out.println(Arrays.toString(new CourseSchedule2().findOrder(2, new int[][]{{1,0},{0,1}})));// should be empty set
+		System.out.println(Arrays.toString(new CourseSchedule2().findOrder(3, new int[][]{{0,1},{0,2},{1,2}})));
 	}
 
 }
