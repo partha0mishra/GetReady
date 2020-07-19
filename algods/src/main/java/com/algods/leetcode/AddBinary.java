@@ -39,5 +39,4 @@ public class AddBinary {
 		System.out.println(new AddBinary().addBinary("1010", "1011"));// 10101
 		System.out.println(new AddBinary().addBinary("0", "0"));// 0
 	}
-
 }
