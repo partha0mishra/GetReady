@@ -17,7 +17,7 @@ class ListNode {
 public class RemoveLinkedListVal {
 //	 Definition for singly-linked list.	 
 	 
-//*
+/*
 	public ListNode removeElements(ListNode head, int val) {
         ListNode current=head;
         ListNode prev=null;
@@ -47,8 +47,18 @@ public class RemoveLinkedListVal {
         
         return head;
     }
-//    */
-
+    */
+	public ListNode removeElements(ListNode head, int val) {
+		if(head != null) {
+			if(head.val == val) {
+				head=removeElements(head.next,val);
+			}else {
+				head.next=removeElements(head.next,val);
+			}
+		}
+		
+		return head;
+	}
 	public void printList(ListNode head, String msg) {
 		System.out.print("tree ["+msg+"] ");
 		while (head !=null) {
