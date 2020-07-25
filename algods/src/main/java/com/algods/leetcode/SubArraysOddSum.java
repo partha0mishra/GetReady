@@ -36,16 +36,31 @@ public class SubArraysOddSum {
 	public int numOfSubarrays(int[] arr) {
 		int result=0;
 		int modNum=1000000007;
-		// o(n2) sub-optimum
-		for(int i=0; i< arr.length; i++) {
-			int sum=0;
-			for(int j=i; j< arr.length; j++) {
-//				System.out.println("i: "+i+" j: "+j+" val: "+arr[j]);
-				sum+=arr[j] %modNum;
-//					System.out.println(arr[k]+" sum: "+sum);
-				if(sum %2 ==1) result++;
+		
+		// found code. don't yet understand it
+		// since it's about finding odd/even, we can just consider all numbers as 0 and 1
+		int ee=0, eo=0,temp;
+		for(int i: arr) {
+			++eo;
+			if(i %2 ==1) {
+				temp=ee;
+				ee=eo;
+				eo=temp;
 			}
+			result+=ee;
+			result%=modNum;
 		}
+		
+		// o(n2) sub-optimum
+//		for(int i=0; i< arr.length; i++) {
+//			int sum=0;
+//			for(int j=i; j< arr.length; j++) {
+////				System.out.println("i: "+i+" j: "+j+" val: "+arr[j]);
+//				sum+=arr[j] %modNum;
+////					System.out.println(arr[k]+" sum: "+sum);
+//				if(sum %2 ==1) result++;
+//			}
+//		}
 		
 		return result;
     }
