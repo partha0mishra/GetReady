@@ -10,9 +10,7 @@ Explanation: The process is like: 3 + 8 = 11, 1 + 1 = 2.
 
 public class AddDigits {
     public int addDigits(int num) {
-        int mod9= num%9;
-        if(mod9 ==0 && num !=0) return 9;
-        else return mod9;
+    	return (num ==0) ? 0: (num-1) %9 +1;
     }
     
 	public static void main(String[] args) {
