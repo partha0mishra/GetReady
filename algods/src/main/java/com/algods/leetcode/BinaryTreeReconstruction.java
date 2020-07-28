@@ -35,6 +35,8 @@ public class BinaryTreeReconstruction {
     	TreeNode root= buildTree(0, inorder.length-1);
         return root;
     }
+    // root is the one with max index at post-order
+    
     private TreeNode buildTree(int inOrderFrom, int inOrderTo) {
     	int rootElement= getMaxIndexedInorderElement(inOrderFrom, inOrderTo);
     	TreeNode root= new TreeNode(rootElement);

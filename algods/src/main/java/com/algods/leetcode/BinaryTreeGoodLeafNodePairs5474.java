@@ -48,58 +48,84 @@ public class BinaryTreeGoodLeafNodePairs5474 {
 	         this.right = right;
 	     }
 	 }
+	 class Node {
+	    TreeNode node;
+	    int d;
+	    
+	    public Node(TreeNode node, int d) {
+	        this.node = node;
+	        this.d = d;
+	    }
+	 }
+    int count = 0;
+    
+    private List<Node> traverse(TreeNode root, int distance) {
+        if(root==null) return new ArrayList<>();
+        if(root.left==null && root.right==null) {
+            return Arrays.asList(new Node(root, 1));
+        }
+
+        List<Node> left = traverse(root.left, distance);
+        List<Node> right = traverse(root.right, distance);
+        // System.out.println(left.size());
+        // System.out.println(right.size());
+        List<Node> res = new ArrayList<>();
+        for(Node l: left) {
+            for(Node r: right) {
+                if(l.d+r.d<=distance) {
+                    // System.out.println(root.val+"<"+r.node.val+","+l.node.val);
+                    count++;
+                }
+            }
+        }
+        for(Node r: right) {
+            res.add(new Node(r.node, r.d+1));
+        }
+        for(Node l: left) {
+            res.add(new Node(l.node, l.d+1));
+        }
+        return res;
+    }
+    
     public int countPairs(TreeNode root, int distance) {
-    	int count=0;
-    	// get all leaf nodes
-    	ArrayList<TreeNode> leafNodes= new ArrayList<TreeNode>();
-    	populateLeafNodes(root,leafNodes);
-        
-    	// get distances between each pair and match against the given distance
-    	for(int i=0; i< leafNodes.size() -1; i++) {
-    		for(int j=i+1; j< leafNodes.size(); j++) {
-    			int d=distance(root,leafNodes.get(i),leafNodes.get(j));
-//    			System.out.println(leafNodes.get(i).val+" "+leafNodes.get(j).val+" > "+d);
-    			if(d <= distance)
-    				count++;
-    		}
-    	}
-    	return count;
+        traverse(root, distance);
+        return count;
     }
-    private void populateLeafNodes(TreeNode root, ArrayList<TreeNode> leafNodes) {
-    	if(root == null) return;
-		if(root.left == null && root.right == null) leafNodes.add(root);
-		populateLeafNodes(root.left,leafNodes);
-		populateLeafNodes(root.right,leafNodes);
-	}
-	private TreeNode lca(TreeNode root, TreeNode first, TreeNode second) {
-    	if(root == null) return root;
-    	if(root.equals(first) || root.equals(second)) return root;
-    	
-    	TreeNode left= lca(root.left,first,second);
-    	TreeNode right= lca(root.right,first,second);
-    	
-    	if(left != null && right != null) return root;
-    	if(left != null) return left;
-    	else return right;
-    }
-    private int distance(TreeNode root, TreeNode first, TreeNode second) {
-    	TreeNode lca=lca(root,first,second);
-//    	System.out.print("lca: "+lca.val);
-    	int l1=findLevel(lca,first,0);
-//    	System.out.print("  l1 :"+l1);
-    	int l2=findLevel(lca,second,0);
-//    	System.out.println("  l2 :"+l2);
-    	return  l1+l2;
-    }
-	private int findLevel(TreeNode lca, TreeNode node, int level) {
-		if(lca == null) return -1;
-		if(lca.equals(node)) return level;
-		int leftLevel=findLevel(lca.left,node,level+1);
-		if(leftLevel == -1) {
-			return findLevel(lca.right,node,level+1);
-		}
-		return leftLevel;
-	}
+
+	 
+	 
+	/* First Try - sub- optimal 
+	 * public int countPairs(TreeNode root, int distance) { int count=0; // get all
+	 * leaf nodes ArrayList<TreeNode> leafNodes= new ArrayList<TreeNode>();
+	 * populateLeafNodes(root,leafNodes);
+	 * 
+	 * // get distances between each pair and match against the given distance
+	 * for(int i=0; i< leafNodes.size() -1; i++) { for(int j=i+1; j<
+	 * leafNodes.size(); j++) { int
+	 * d=distance(root,leafNodes.get(i),leafNodes.get(j)); //
+	 * System.out.println(leafNodes.get(i).val+" "+leafNodes.get(j).val+" > "+d);
+	 * if(d <= distance) count++; } } return count; } private void
+	 * populateLeafNodes(TreeNode root, ArrayList<TreeNode> leafNodes) { if(root ==
+	 * null) return; if(root.left == null && root.right == null)
+	 * leafNodes.add(root); populateLeafNodes(root.left,leafNodes);
+	 * populateLeafNodes(root.right,leafNodes); } private TreeNode lca(TreeNode
+	 * root, TreeNode first, TreeNode second) { if(root == null) return root;
+	 * if(root.equals(first) || root.equals(second)) return root;
+	 * 
+	 * TreeNode left= lca(root.left,first,second); TreeNode right=
+	 * lca(root.right,first,second);
+	 * 
+	 * if(left != null && right != null) return root; if(left != null) return left;
+	 * else return right; } private int distance(TreeNode root, TreeNode first,
+	 * TreeNode second) { TreeNode lca=lca(root,first,second); //
+	 * System.out.print("lca: "+lca.val); int l1=findLevel(lca,first,0); //
+	 * System.out.print("  l1 :"+l1); int l2=findLevel(lca,second,0); //
+	 * System.out.println("  l2 :"+l2); return l1+l2; } private int
+	 * findLevel(TreeNode lca, TreeNode node, int level) { if(lca == null) return
+	 * -1; if(lca.equals(node)) return level; int
+	 * leftLevel=findLevel(lca.left,node,level+1); if(leftLevel == -1) { return
+	 * findLevel(lca.right,node,level+1); } return leftLevel; }
+	 */
 	public static void main(String[] args) {
 		BinaryTreeGoodLeafNodePairs5474 instance= new BinaryTreeGoodLeafNodePairs5474();
 		TreeNode root= instance.new TreeNode(1);
