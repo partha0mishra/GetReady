@@ -21,15 +21,28 @@ Explanation: There are three ways to climb to the top.
  */
 public class ClimbingStairs {
     public int climbStairs(int n) {
-    	int[] cache =new int[n+1];
-    	if(n==1) return 1;
-    	cache[1]=1;
-    	cache[2]=2;
-    	for(int i=3; i<=n; i++) {
-    		cache[i]=cache[i-1]+cache[i-2];
+    	int resultMinusTwo=1, resultMinusOne=2, result=0;
+    	if(n == 1) return resultMinusTwo;
+    	if(n == 2) return resultMinusOne;
+    	
+    	for(int i=2; i<n; i++) {
+    		result= resultMinusTwo+resultMinusOne;
+    		resultMinusTwo=resultMinusOne;
+    		resultMinusOne=result;
     	}
-        return cache[n];
+        return result;
     }
+	
+	/** Attempt 01 */
+//    public int climbStairs(int n) {
+//    	int[] cache =new int[n+1];// this is the cache to keep previous results
+//    	cache[0]=1;// starting point
+//    	cache[1]=2;// starting point
+//    	for(int i=2; i<n; i++) {// calculations beyond 2 elements.
+//    		cache[i]=cache[i-1]+cache[i-2];// we already know the previous elements are there
+//    	}
+//        return cache[n-1];// return once the calculations are done
+//    }
     
 	public static void main(String[] args) {
 		ClimbingStairs instance= new ClimbingStairs();
