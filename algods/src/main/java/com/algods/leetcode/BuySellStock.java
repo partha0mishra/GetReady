@@ -14,6 +14,7 @@ package com.algods.leetcode;
  * Explanation: transactions = [buy, sell, cooldown, buy, sell]
  */
 public class BuySellStock {
+	
     public int maxProfit(int[] prices) {
     	// boundary condition: only 1 day
         if(prices.length <=1 ) return 0;
