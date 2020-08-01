@@ -1,4 +1,7 @@
 package com.algods.leetcode;
+
+import java.util.regex.*;
+
 /*
  * Given a word, you need to judge whether the usage of capitals in it is right or not.
  * We define the usage of capitals in a word to be right when one of the following cases holds:
@@ -17,19 +20,24 @@ package com.algods.leetcode;
  * Note: The input will be a non-empty word consisting of uppercase and lowercase latin letters.
  */
 public class DetectCapital {
-	/** Approach 02 using Characters: faster and less memory */
+	/** Approach 03 - Pattern matching : NOT OPTIMUM */
 	public boolean detectCapitalUse(String word) {
-        int n= word.length();// number of total words
-        int caps=0;
-        for(int i=0;i<n;i++)
-            if(word.charAt(i)-'A'<26)
-                caps++;// number of caps
-        
-        if(caps==n) return true;// all CAPS
-        else if(caps==1 && word.charAt(0)-'A'<26) return true;// Starting caps
-        else if(caps==0)  return true;// all lowercase
-        else return false;   
+		return word.matches("[A-Z]*|.[a-z]*");
     }
+	
+	/** Approach 02 using Characters: faster and less memory */
+//	public boolean detectCapitalUse(String word) {
+//        int n= word.length();// number of total words
+//        int caps=0;
+//        for(int i=0;i<n;i++)
+//            if(word.charAt(i)-'A'<26)
+//                caps++;// number of caps
+//        
+//        if(caps==n) return true;// all CAPS
+//        else if(caps==1 && word.charAt(0)-'A'<26) return true;// Starting caps
+//        else if(caps==0)  return true;// all lowercase
+//        else return false;   
+//    }
 	/** Approach 01 easy one */
 //	public boolean detectCapitalUse(String word) {
 //		if(word.equals(word.toLowerCase())) return true;// All are lowercase
