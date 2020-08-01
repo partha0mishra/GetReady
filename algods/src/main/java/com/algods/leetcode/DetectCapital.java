@@ -17,14 +17,28 @@ package com.algods.leetcode;
  * Note: The input will be a non-empty word consisting of uppercase and lowercase latin letters.
  */
 public class DetectCapital {
+	/** Approach 02 using Characters: faster and less memory */
 	public boolean detectCapitalUse(String word) {
-		if(word.equals(word.toLowerCase())) return true;// All are lowercase
-		if(word.equals(word.toUpperCase())) return true;// All are uppercase
-		if(word.substring(0, 1).equals(word.substring(0, 1).toUpperCase()) // first letter is capitalized 
-				&& word.substring(1).equals(word.substring(1).toLowerCase())) return true;// rest all lowercase
-		
-		return false;// let's default to False
+        int n= word.length();// number of total words
+        int caps=0;
+        for(int i=0;i<n;i++)
+            if(word.charAt(i)-'A'<26)
+                caps++;// number of caps
+        
+        if(caps==n) return true;// all CAPS
+        else if(caps==1 && word.charAt(0)-'A'<26) return true;// Starting caps
+        else if(caps==0)  return true;// all lowercase
+        else return false;   
     }
+	/** Approach 01 easy one */
+//	public boolean detectCapitalUse(String word) {
+//		if(word.equals(word.toLowerCase())) return true;// All are lowercase
+//		if(word.equals(word.toUpperCase())) return true;// All are uppercase
+//		if(word.substring(0, 1).equals(word.substring(0, 1).toUpperCase()) // first letter is capitalized 
+//				&& word.substring(1).equals(word.substring(1).toLowerCase())) return true;// rest all lowercase
+//		
+//		return false;// let's default to False
+//    }
 	public static void main(String[] args) {
 		DetectCapital instance = new DetectCapital();
 		System.out.println(instance.detectCapitalUse("USA"));// True
