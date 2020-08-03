@@ -1,7 +1,5 @@
 package com.algods.leetcode;
 
-import sun.security.jca.GetInstance.Instance;
-
 /*
  * Given the root of a binary tree and an integer distance. 
  * A pair of two different leaf nodes of a binary tree is said to be good if the length of the 

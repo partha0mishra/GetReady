@@ -36,7 +36,7 @@ public class DirectedGraphAllPaths {
 		isVisited[s] = true;
 		
 		if(s == d) {
-			result.add(new ArrayList(pathList));
+			result.add(new ArrayList<Integer>(pathList));
 			isVisited[s]=false;
 			return;
 		}
