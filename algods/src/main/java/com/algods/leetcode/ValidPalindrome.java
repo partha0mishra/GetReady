@@ -17,37 +17,30 @@ package com.algods.leetcode;
  * s consists only of printable ASCII characters.
  */
 public class ValidPalindrome {
-	char leftChar;
-	char rightChar;
-	int diff;
     public boolean isPalindrome(String s) {
         if(s.trim().length() ==0) return true;
         int left=0;
         int right=s.length()-1;
-        diff='a'-'A';// that's needed to change a lower-case to an upper-case
         
         while(left < right) {
-        	leftChar=s.charAt(left);
-        	rightChar=s.charAt(right);
+        	char leftChar=upper(s.charAt(left));
+        	char rightChar=upper(s.charAt(right));
         	// skip it if it's not a valid char
-        	if(!isValid(leftChar,true)) {left++; continue;}
-        	if(!isValid(rightChar,false)) {right--; continue;}
+        	if(!isValid(leftChar)) {left++; continue;}
+        	if(!isValid(rightChar)) {right--; continue;}
         	// if the characters are valid and same, check next chars
         	if(leftChar == rightChar) {left++; right--;}
         	else return false; // fail fast if they're not same
         }
         return true;
     }
-    private boolean isValid(char c,boolean left) {
-    	if (c-'A' >=0 && c-'Z' <=0) return true;
-    	else if(c-'0' >=0 && c-'9' <=0) return true;
-    	else if(c-'a' >=0 && c-'z' <=0) {
-    		if(left) leftChar=(char) (leftChar - diff);
-    		else rightChar=(char) (rightChar - diff);
-    		return true;
-    	}
-    	
+    private boolean isValid(char c) {
+    	if ((c-'A' >=0 && c-'Z' <=0) || (c-'0' >=0 && c-'9' <=0)) return true;
     	return false;
+    }
+    private char upper(char c) {
+    	if(c-'a' >=0) {	return (char)(c - 32);} // 'a' - 'A' = 32
+    	else return c;
     }
 	public static void main(String[] args) {
 		ValidPalindrome instance = new ValidPalindrome();
