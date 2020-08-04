@@ -11,6 +11,19 @@ package com.algods.leetcode;
  * 
  */
 public class PowerOfFour {
+	//* Approach 04: Power of 2 @ even Pos. for 32 bit int, we'll have to shift 32 times max 
+	// 3ms 38.7 MB
+    public boolean isPowerOfFour(int num) {
+        int pos = 0;
+        while(num > 0){
+            pos++;
+            if((num & 1) == 1)
+                break;
+            num >>= 1;
+        }
+        return pos % 2 == 1 && num == 1;
+    } 
+    //*/
 	/* Approach 03: check if the number is divisible by 2 and sqrt is multiple of 4 
 	public boolean isPowerOfFour(int num) {
         if(num==1 || num==4) return true;
@@ -31,7 +44,7 @@ public class PowerOfFour {
         return false;
     }
 	//*/
-//* Approach 01: using Math.log [4ms 38.9 MB]
+/* Approach 01: using Math.log [4ms 38.9 MB]. Added Math.floor : [1 ms 37 MB]
 	public boolean isPowerOfFour(int num) {
 		if(num ==0) return false;
         Double logDiv=Math.log(num)/Math.log(4);
