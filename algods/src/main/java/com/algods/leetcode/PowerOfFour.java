@@ -44,7 +44,7 @@ public class PowerOfFour {
         return false;
     }
 	//*/
-	/* Approach 02A: NAIVE but faster. Doesn't exceed time limit. 2 ms
+	//* Approach 02A: NAIVE but faster. Doesn't exceed time limit. 2 ms
 	public boolean isPowerOfFour(int num) {
         while(num > 1) {
             if(num % 4 != 0) 
@@ -53,7 +53,6 @@ public class PowerOfFour {
         }
         return num == 1;
     }
-    //*/
 /* Approach 01: using Math.log [4ms 38.9 MB]. Added Math.floor : [1 ms 37 MB]
 	public boolean isPowerOfFour(int num) {
 		if(num ==0) return false;
