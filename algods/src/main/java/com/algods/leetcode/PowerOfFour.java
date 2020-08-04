@@ -11,6 +11,13 @@ package com.algods.leetcode;
  * 
  */
 public class PowerOfFour {
+	//* Approach 05: (num & (num -1)) unsets all the bits except the lsb. If that's not set then num was a multiple of 2
+	// 0xAAAAAAAA = (1010101010101010)2 => if '&' of that with num is 0, then the bits are on at even positions. 
+	public boolean isPowerOfFour(int num) {
+		return num!=0 
+				&& (num & (num-1)) ==0
+				&& (num & 0xAAAAAAAA) ==0;
+	}
 	/* Approach 04: Power of 2 @ even Pos. for 32 bit int, we'll have to shift 32 times max 
 	// 3ms 38.7 MB
     public boolean isPowerOfFour(int num) {
@@ -44,7 +51,7 @@ public class PowerOfFour {
         return false;
     }
 	//*/
-	//* Approach 02A: NAIVE but faster. Doesn't exceed time limit. 2 ms
+	/* Approach 02A: NAIVE but faster. Doesn't exceed time limit. 2 ms
 	public boolean isPowerOfFour(int num) {
         while(num > 1) {
             if(num % 4 != 0) 
@@ -53,6 +60,7 @@ public class PowerOfFour {
         }
         return num == 1;
     }
+    //*/
 /* Approach 01: using Math.log [4ms 38.9 MB]. Added Math.floor : [1 ms 37 MB]
 	public boolean isPowerOfFour(int num) {
 		if(num ==0) return false;
