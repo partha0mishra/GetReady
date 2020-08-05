@@ -30,7 +30,7 @@ import static org.junit.Assert.assertTrue;
  * obj.addWord(word);
  * boolean param_2 = obj.search(word);
  */
-public class WordDictionary {
+public class WordDictionaryTrie {
 	class Trie{
 		Trie[] letters;
 		boolean end;
@@ -41,7 +41,7 @@ public class WordDictionary {
 	}
 	Trie allWords;
 	/** Initialize your data structure here. */
-    public WordDictionary() {
+    public WordDictionaryTrie() {
         allWords=new Trie();
     }
     
@@ -88,7 +88,7 @@ public class WordDictionary {
     }
     
 	public static void main(String[] args) {
-		WordDictionary instance = new WordDictionary();
+		WordDictionaryTrie instance = new WordDictionaryTrie();
 		assertFalse(instance.search("a"));//false
 		assertFalse(instance.search("."));//false
 		assertFalse(instance.search("a."));//false
