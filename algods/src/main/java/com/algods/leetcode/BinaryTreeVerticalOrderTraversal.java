@@ -56,7 +56,7 @@ public class BinaryTreeVerticalOrderTraversal {
 	        this.right = right;
 	    }
 	}
-    /** Approach 02: works
+    //** Approach 02: works
 	public List<List<Integer>> verticalTraversal(TreeNode root) {
         List<List<Integer>> res = new ArrayList<>();
         if(root == null)    return res;
@@ -67,7 +67,7 @@ public class BinaryTreeVerticalOrderTraversal {
 		//At the end while storing result in a List<> we are sorting the List<>
         Map<Integer, Map<Integer, List<Integer>>> map = new HashMap<>();
 		
-		//We are storing the horizinal position from root, so we know which vertical
+		//We are storing the horizontal position from root, so we know which vertical
 		//line this node will corresponds to.
         Map<String, Integer> horizPosMap = new HashMap<>();
         q.offer(root);
@@ -134,8 +134,8 @@ public class BinaryTreeVerticalOrderTraversal {
         }
         return res;
     }
-    */
-    //** Approach 01: doesn't sort the inner array lists as needed :(
+    //*/
+    /** Approach 01: doesn't sort the inner array lists when numbers have same X and Y
 	public List<List<Integer>> verticalTraversal(TreeNode root) { 	
     	TreeMap<Integer, ArrayList<Integer>> tmap= new TreeMap<Integer, ArrayList<Integer>>();
     	traverse(root,tmap);
