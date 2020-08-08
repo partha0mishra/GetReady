@@ -32,12 +32,13 @@ import static org.junit.Assert.assertTrue;
  * 0 <= k <= 10^9
  * s, t contain only lowercase English letters.
  */
-import java.util.HashSet;
+import java.util.*;
 public class ConvertStringKMoves {
+	/* Approach 02: Accepted*/
 	public boolean canConvertString(String s, String t, int k) {
 		if(s.length() != t.length()) return false;
 		int rotate=26;// a -> b = a -> 26+b
-		HashSet<Integer> diffMap= new HashSet<Integer>();
+		ArrayList<Integer> diffList= new ArrayList<Integer>();
 		
 		for(int i=0; i<s.length(); i++) {
 			int diff=t.charAt(i) - s.charAt(i);// Math.abs won't work
@@ -45,16 +46,46 @@ public class ConvertStringKMoves {
 			if(diff <0 ) diff=diff+rotate;
 			if(diff > k) return false; // needs 100 shifts but allowed 10
 			
-			while(diffMap.contains(diff)) {
-				diff=diff+rotate;
-				if(diff > k) return false;
-			}
-			
-			diffMap.add(diff);// utilized
+			diffList.add(diff);// utilized
 		}
-		
+		Collections.sort(diffList);
+		Iterator<Integer> it=diffList.iterator();
+		int prevNum=0, found=0;
+		while(it.hasNext()){
+			int num=it.next();
+			if(num == prevNum) {
+				found++;
+				num=num+found*rotate;
+			}else {
+				found=0;
+				prevNum=num;
+			}
+			if(num > k) return false;
+		}
         return true;
     }
+	/* Approach 01 - time limit exceeded */
+//	public boolean canConvertString(String s, String t, int k) {
+//		if(s.length() != t.length()) return false;
+//		int rotate=26;// a -> b = a -> 26+b
+//		HashSet<Integer> diffMap= new HashSet<Integer>();
+//		
+//		for(int i=0; i<s.length(); i++) {
+//			int diff=t.charAt(i) - s.charAt(i);// Math.abs won't work
+//			if(diff == 0) continue;
+//			if(diff <0 ) diff=diff+rotate;
+//			if(diff > k) return false; // needs 100 shifts but allowed 10
+//			
+//			while(diffMap.contains(diff)) {
+//				diff=diff+rotate;
+//				if(diff > k) return false;
+//			}
+//			
+//			diffMap.add(diff);// utilized
+//		}
+//		
+//        return true;
+//    }
 	public static void main(String[] args) {
 		ConvertStringKMoves instance = new ConvertStringKMoves();
 		assertFalse("01",instance.canConvertString("a", "ab", 10));
