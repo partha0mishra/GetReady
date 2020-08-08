@@ -23,6 +23,7 @@ Return 3. The paths that sum to 8 are:
 2.  5 -> 2 -> 1
 3. -3 -> 11
  */
+import java.util.*;
 public class PathSumBinaryTree {
 /**
  * Definition for a binary tree node. */
@@ -39,24 +40,48 @@ public class PathSumBinaryTree {
 	    }
 	}
 	int paths=0;
-    public int pathSum(TreeNode root, int sum) {
-        if(root == null) return 0;
+	/* Approach 02: O(n) using HashMap*/
+	public int pathSum(TreeNode root, int sum) {
+        Map<Integer, Integer> map = new HashMap<Integer,Integer>();
+        map.put(0, 1);
+        helper(root, 0, sum, map);
+        return paths;
+    }
+
+    private void helper(TreeNode root, int currSum, int target, Map<Integer, Integer> map) {
+        if (root == null)
+            return;
         
-        findPaths(root,sum);// DFS from root
-        pathSum(root.left,sum);// DFS from left
-        pathSum(root.right,sum);// DFS from right
-    	return paths;
+		currSum += root.val;
+        
+		if (map.containsKey(currSum - target))
+            paths += map.get(currSum - target);
+        
+		map.put(currSum, map.getOrDefault(currSum, 0) + 1);
+        helper(root.left, currSum, target, map);
+        helper(root.right, currSum, target, map);
+        map.put(currSum, map.get(currSum) - 1);
     }
-    private void findPaths(TreeNode root, int sum) {
-    	if(root != null) {
-    		if(root.val == sum) {// sum matched here
-    			paths++;
-    		}
-    		sum -= root.val;
-    		findPaths(root.left,sum);// takes root's value into account
-    		findPaths(root.right,sum);// takes root's value into account
-    	}
-    }
+	
+	/* Approach 01: O(n2)*/
+//    public int pathSum(TreeNode root, int sum) {
+//        if(root == null) return 0;
+//        
+//        findPaths(root,sum);// DFS from root
+//        pathSum(root.left,sum);// DFS from left
+//        pathSum(root.right,sum);// DFS from right
+//    	return paths;
+//    }
+//    private void findPaths(TreeNode root, int sum) {
+//    	if(root != null) {
+//    		if(root.val == sum) {// sum matched here
+//    			paths++;
+//    		}
+//    		sum -= root.val;
+//    		findPaths(root.left,sum);// takes root's value into account
+//    		findPaths(root.right,sum);// takes root's value into account
+//    	}
+//    }
 	public static void main(String[] args) {
 		PathSumBinaryTree instance = new PathSumBinaryTree();
 		TreeNode root=instance.new TreeNode(10);
