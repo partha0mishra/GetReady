@@ -36,51 +36,76 @@ s consists of '(' and ')' only.
  * 
  */
 import java.util.Stack;
+/* COPIED ONLY*/
 public class BalanceParenthesesMinInsertions {
-    public int minInsertions(String s) {
-        Stack<Character> stack = new Stack<>();
-        int count = 0;
-        for (char c : s.toCharArray()) {
-            if (c == ')') {
-                if (!stack.isEmpty()) {
-                    if (stack.peek() == ')') {
-                        stack.pop();
-                        stack.pop();
-                    } else {
-                        stack.add(c);
-                    }
+/* Approach 02: without using Stack*/
+	public int minInsertions(String s) {
+        int res = 0, left = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') { // when (
+                left++;
+            } else if (i == s.length() - 1 || s.charAt(i + 1) == '(') { // when single )
+                if (left > 0) {
+                    res++;
+                    left--;
                 } else {
-                    count++;
-                    stack.add('(');
-                    stack.add(c);
+                    res += 2;
                 }
-            } else {
-                if (!stack.isEmpty()) {
-                    if (stack.peek() == '(') {
-                        stack.add(c);
-                    } else {
-                        count++;
-                        stack.pop();
-                    }
-                } else {
-                    stack.add(c);
-                }
+            } else { // when double )
+                if (left > 0) left--;
+                else res++;
+                i++; // advance pointer since we have process double ) in a time
             }
         }
-
-        while (!stack.isEmpty()) {
-            if (stack.peek() == '(') {
-                count += 2;
-                stack.pop();
-            } else {
-                count++;
-                stack.pop();
-                stack.pop();
-            }
-        }
-
-        return count;
+        res += left * 2;
+        return res;
     }
+	
+	/* Approach 01: using Stack*/
+//    public int minInsertions(String s) {
+//        Stack<Character> stack = new Stack<>();
+//        int count = 0;
+//        for (char c : s.toCharArray()) {
+//            if (c == ')') {
+//                if (!stack.isEmpty()) {
+//                    if (stack.peek() == ')') {
+//                        stack.pop();
+//                        stack.pop();
+//                    } else {
+//                        stack.add(c);
+//                    }
+//                } else {
+//                    count++;
+//                    stack.add('(');
+//                    stack.add(c);
+//                }
+//            } else {
+//                if (!stack.isEmpty()) {
+//                    if (stack.peek() == '(') {
+//                        stack.add(c);
+//                    } else {
+//                        count++;
+//                        stack.pop();
+//                    }
+//                } else {
+//                    stack.add(c);
+//                }
+//            }
+//        }
+//
+//        while (!stack.isEmpty()) {
+//            if (stack.peek() == '(') {
+//                count += 2;
+//                stack.pop();
+//            } else {
+//                count++;
+//                stack.pop();
+//                stack.pop();
+//            }
+//        }
+//
+//        return count;
+//    }
 	
 	public static void main(String[] args) {
 		BalanceParenthesesMinInsertions instance = new BalanceParenthesesMinInsertions();
