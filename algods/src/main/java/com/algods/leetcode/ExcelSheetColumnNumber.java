@@ -22,17 +22,30 @@ package com.algods.leetcode;
  * Input: "ZY"
  * Output: 701
  * 
+ * "ABCDE" : 494265
+ * "FXSHRXW" : 2147483647
+ * 
  * 1 <= s.length <= 7
  * s consists only of uppercase English letters.
  * s is between "A" and "FXSHRXW".
  */
 public class ExcelSheetColumnNumber {
+	// Approach 02: using Loop - less memory footprint than approach 01
     public int titleToNumber(String s) {
-    	if(s==null || s.length()==0) return 0;
-    	char c=s.charAt(s.length()-1);
+    	int result=0;
     	// base 26 BUT starting at 1 (A=0 >> 1)
-    	return (c-'A'+1)+26*titleToNumber(s.substring(0, s.length()-1));
+    	for(char c: s.toCharArray()) {
+    		result=26*result+(c-'A'+1);
+    	}
+    	return result;
     }
+	// Approach 01: Recursive
+//    public int titleToNumber(String s) {
+//    	if(s==null || s.length()==0) return 0;
+//    	char c=s.charAt(s.length()-1);
+//    	// base 26 BUT starting at 1 (A=0 >> 1)
+//    	return (c-'A'+1)+26*titleToNumber(s.substring(0, s.length()-1));
+//    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
