@@ -30,15 +30,24 @@ package com.algods.leetcode;
  * s is between "A" and "FXSHRXW".
  */
 public class ExcelSheetColumnNumber {
-	// Approach 02: using Loop - less memory footprint than approach 01
+	// Approach 03: using Loop PLUS String.charAt() - less memory footprint than String.toCharArray
     public int titleToNumber(String s) {
     	int result=0;
     	// base 26 BUT starting at 1 (A=0 >> 1)
-    	for(char c: s.toCharArray()) {
-    		result=26*result+(c-'A'+1);
+    	for(int i=0; i< s.length(); i++) {
+    		result=26*result+(s.charAt(i)-'A'+1);
     	}
     	return result;
-    }
+    }	
+	// Approach 02: using Loop - less memory footprint than approach 01
+//    public int titleToNumber(String s) {
+//    	int result=0;
+//    	// base 26 BUT starting at 1 (A=0 >> 1)
+//    	for(char c: s.toCharArray()) {
+//    		result=26*result+(c-'A'+1);
+//    	}
+//    	return result;
+//    }
 	// Approach 01: Recursive
 //    public int titleToNumber(String s) {
 //    	if(s==null || s.length()==0) return 0;
