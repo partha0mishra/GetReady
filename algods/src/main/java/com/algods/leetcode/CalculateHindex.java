@@ -20,15 +20,33 @@ import java.util.Arrays;
  * Note: If there are several possible values for h, the maximum one is taken as the h-index.
  */
 public class CalculateHindex {
-    public int hIndex(int[] citations) {
-    	Arrays.sort(citations);
-    	int hIndex=1;
-    	for(int i=citations.length-1; i>=0;i--) {
-    		if(citations[i] < hIndex) break;
-    		hIndex++;
+    /* Approach 02: Count Sort - O(N) */
+	public int hIndex(int[] citations) {
+		int[] countOfCitations= new int[citations.length+2];
+    	for(int i =0; i< citations.length; i++)	{
+    		int citation= citations[i] > citations.length? citations.length: citations[i];
+    		countOfCitations[citation]++;
     	}
-    	return hIndex-1;
+    	
+    	for(int i=citations.length; i>=0; i--) {
+    		// Accumulation: This is the reason behind citations.length+2
+    		countOfCitations[i]+=countOfCitations[i+1];
+    		// we don't have to go backward if a higher number is matched.
+    		if(countOfCitations[i] >= i) return i;
+    	}
+    	
+    	return 0;
     }
+	/* Approach 01: sort and find from last: Sub-optimum */
+//    public int hIndex(int[] citations) {
+//    	Arrays.sort(citations);
+//    	int hIndex=1;
+//    	for(int i=citations.length-1; i>=0;i--) {
+//    		if(citations[i] < hIndex) break;
+//    		hIndex++;
+//    	}
+//    	return hIndex-1;
+//    }
     public static void main(String[] args) {
     	CalculateHindex instance= new CalculateHindex();
     	System.out.println(instance.hIndex(new int[]{1,0,0,0,1}));//1
