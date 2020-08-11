@@ -79,7 +79,7 @@ public class QuickSort {
 			}
 		}
 		tEnd=System.currentTimeMillis();
-		System.out.println("Validation Time: "+(tEnd-tStart));
+		System.out.println("Validdation Time: "+(tEnd-tStart));
 	}
 	private static void printArray(int[] nums) {
 		for(int n: nums) System.out.printf("%3d",n);
