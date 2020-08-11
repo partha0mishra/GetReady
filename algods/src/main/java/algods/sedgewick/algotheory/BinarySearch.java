@@ -11,21 +11,19 @@ import algods.sedgewick.sort.advanced.QuickSort;
 
 public class BinarySearch {
 	public boolean search(int[] nums, int n) {
+//		printArray(nums);
 		int lo=0, hi=nums.length-1;
-		while(lo < hi) {
+//		if(n > nums[hi] || n< nums[lo]) return false;
+		while(lo <= hi) {
 			int mid=lo+(hi-lo)/2;
-			if(n > nums[mid]) lo=mid;
-			else if(n < nums[mid]) hi=mid;
-			else if(n == nums[mid]) {
-				System.out.println(mid+": "+nums[mid]);
-				return true;
-			}
-			else return false;
+			if(n > nums[mid]) lo=mid+1;
+			else if(n < nums[mid]) hi=mid-1;
+			else return true;
 		}
 		return false;
 	}
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=10000000;
+		final int NUM_ARRAY_SIZE=100000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet
@@ -67,5 +65,9 @@ public class BinarySearch {
 			System.out.println("Search Time: "+(tEnd-tStart)+" : "+result+" for num : "+i);
 		}
 		
+	}
+	private static void printArray(int[] nums) {
+		for(int n: nums) System.out.printf("%5d",n);
+		System.out.println();
 	}
 }
