@@ -1,4 +1,4 @@
-package algods.topcoder.easy;
+package com.algods.topcoder.easy;
 
 public class AB {
 	private static final String EMPTY="";

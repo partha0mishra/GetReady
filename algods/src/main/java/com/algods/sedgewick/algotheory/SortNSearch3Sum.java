@@ -1,10 +1,10 @@
-package algods.sedgewick.algotheory;
+package com.algods.sedgewick.algotheory;
 
 import java.util.HashSet;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import algods.sedgewick.sort.advanced.QuickSort;
+import com.algods.sedgewick.sort.advanced.QuickSort;
 
 public class SortNSearch3Sum {
 	public boolean findSum(int[] n, int sum) {

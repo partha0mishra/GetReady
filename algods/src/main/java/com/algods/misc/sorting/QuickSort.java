@@ -1,4 +1,4 @@
-package algods.sorting;
+package com.algods.misc.sorting;
 
 public class QuickSort {
 	public void sort(int[] array) {

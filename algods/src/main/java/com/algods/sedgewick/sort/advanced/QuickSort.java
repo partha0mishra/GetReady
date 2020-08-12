@@ -1,4 +1,4 @@
-package algods.sedgewick.sort.advanced;
+package com.algods.sedgewick.sort.advanced;
 
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;

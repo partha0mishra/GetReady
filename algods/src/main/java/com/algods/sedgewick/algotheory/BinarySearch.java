@@ -1,4 +1,4 @@
-package algods.sedgewick.algotheory;
+package com.algods.sedgewick.algotheory;
 /**
  * Binary Search:
  * Just using a little QuickSort to sort the array.
@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import algods.sedgewick.sort.advanced.QuickSort;
+import com.algods.sedgewick.sort.advanced.QuickSort;
 
 public class BinarySearch {
 	public boolean search(int[] nums, int n) {

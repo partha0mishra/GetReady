@@ -1,4 +1,4 @@
-package algods.util;
+package com.algods.sedgewick.util;
 
 /******************************************************************************
  *  Compilation:  javac Stopwatch.java

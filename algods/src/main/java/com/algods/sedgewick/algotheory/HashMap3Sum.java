@@ -1,4 +1,4 @@
-package algods.sedgewick.algotheory;
+package com.algods.sedgewick.algotheory;
 
 import java.util.HashSet;
 import java.util.Random;

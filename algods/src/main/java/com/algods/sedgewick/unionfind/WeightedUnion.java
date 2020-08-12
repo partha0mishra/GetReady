@@ -1,33 +1,32 @@
-package algods.sedgewick.unionfind;
+package com.algods.sedgewick.unionfind;
 /**
- * 
  * @author Partha.X.Mishra
- *
- * Weighted Union (putting smaller tree under taller one) + Path Compression (taking care of root assignment while searching)
+ * 
+ * WeightedUnion
+ * Making shorter tree child of a taller tree
+ * Reduces worst-time complexity to log(N)
+ * Additional space O(N) to keep sizes
  */
-public class PathCompression {
+public class WeightedUnion {
 	private int[] id;
 	private int[] size;
 	public void initialize(int n) {
-		id= new int[n];
-		size= new int[n];
+		id=new int[n];
+		size=new int[n];
 		for(int i=0; i<n; i++) {
 			id[i]=i;
-			size[i]=1;// initialize
+			size[i]=1;// it would be a disaster to keep it 0
 		}
 	}
-	public void union(int p, int q) {
-		System.out.println("Union "+p+" & "+q);
+	public void union(int p, int q) {// check the size before union
+		System.out.println("Union: "+p+" & "+q);
 		int rootP=root(p);
 		int rootQ=root(q);
-		if(size[rootP] > size[rootQ]) {id[rootQ]=rootP; size[rootP]+=size[rootQ];}
-		else {id[rootP]=rootQ; size[rootQ]+=size[rootP];}
+		if(size[rootP] > size[rootQ]) {id[rootQ]=rootP;size[rootP]+=size[rootQ];}
+		else {id[rootP] = rootQ; size[rootQ]+=size[rootP];}
 	}
 	private int root(int p) {
-		while(p != id[p]) {
-			id[p]=id[id[p]];// Path compression
-			p=id[p];// keep tracing back
-		}
+		while(p != id[p]) p=id[p];
 		return p;
 	}
 	public boolean connected(int p, int q) {
@@ -43,7 +42,7 @@ public class PathCompression {
 		System.out.println("\n-----------------------------------");
 	}
 	public static void main(String[] args) {
-		PathCompression instance= new PathCompression();
+		WeightedUnion instance= new WeightedUnion();
 		instance.initialize(10);
 		instance.print();
 		instance.union(2, 4);
@@ -67,8 +66,5 @@ public class PathCompression {
 		instance.union(0, 1);
 		instance.print();
 		System.out.println(instance.connected(0, 1));
-		instance.print();
-		System.out.println(instance.connected(5, 6));// this should call 2 root methods and compress paths really well
-		instance.print();
 	}
 }

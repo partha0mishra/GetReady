@@ -1,4 +1,4 @@
-package algods.msproblem;
+package com.algods.msproblem;
 
 import java.io.*;
 import java.util.*;

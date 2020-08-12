@@ -1,4 +1,4 @@
-package algods.sorting;
+package com.algods.misc.sorting;
 
 public class MergeSort {
 	public void sort(int[] array) {

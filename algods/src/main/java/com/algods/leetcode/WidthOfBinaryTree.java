@@ -3,7 +3,7 @@ package com.algods.leetcode;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import algods.util.*;
+import com.algods.sedgewick.util.*;
 
 // Definition for a binary tree node.
 class TreeNode {

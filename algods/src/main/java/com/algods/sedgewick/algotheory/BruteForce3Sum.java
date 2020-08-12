@@ -1,4 +1,4 @@
-package algods.sedgewick.algotheory;
+package com.algods.sedgewick.algotheory;
 /**
  * 3 Sum: Brute Force
  * O(n3) - takes around a min for a random integer set of 10K

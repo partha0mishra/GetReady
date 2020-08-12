@@ -1,9 +1,10 @@
 package algods;
 
 import static org.junit.jupiter.api.Assertions.*;
-import algods.sorting.*;
 
 import org.junit.jupiter.api.Test;
+
+import com.algods.misc.sorting.*;
 
 class TestSorting {
 

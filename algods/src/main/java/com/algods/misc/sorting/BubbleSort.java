@@ -1,4 +1,4 @@
-package algods.sorting;
+package com.algods.misc.sorting;
 
 public class BubbleSort {
 	public void sort(int[] array) {

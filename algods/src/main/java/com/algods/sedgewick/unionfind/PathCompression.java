@@ -1,36 +1,49 @@
-package algods.sedgewick.unionfind;
+package com.algods.sedgewick.unionfind;
 /**
- * @author Partha.X.Mishra
  * 
- * QuickUnion - LAZY implementation
- * Doing a union only as a minimum work
- * Finding ROOT is the way of finding connection. Find() takes o(N)
+ * @author Partha.X.Mishra
+ *
+ * Weighted Union (putting smaller tree under taller one) + Path Compression (taking care of root assignment while searching)
  */
-public class QuickUnion {
+public class PathCompression {
 	private int[] id;
+	private int[] size;
 	public void initialize(int n) {
 		id= new int[n];
-		for(int i=0; i<n; i++) id[i]=i;
+		size= new int[n];
+		for(int i=0; i<n; i++) {
+			id[i]=i;
+			size[i]=1;// initialize
+		}
 	}
 	public void union(int p, int q) {
-		id[root(p)]=root(q);
+		System.out.println("Union "+p+" & "+q);
+		int rootP=root(p);
+		int rootQ=root(q);
+		if(size[rootP] > size[rootQ]) {id[rootQ]=rootP; size[rootP]+=size[rootQ];}
+		else {id[rootP]=rootQ; size[rootQ]+=size[rootP];}
 	}
 	private int root(int p) {
-		while(p != id[p]) p=id[p];
+		while(p != id[p]) {
+			id[p]=id[id[p]];// Path compression
+			p=id[p];// keep tracing back
+		}
 		return p;
 	}
 	public boolean connected(int p, int q) {
-		return root(p) == root(q);
+		return root(p)==root(q);
 	}
 	private void print() {
 		System.out.printf ("i : ");
 		for(int i=0; i<id.length; i++) System.out.printf("%2d",i);
 		System.out.printf ("\nid: ");
 		for(int i=0; i<id.length; i++) System.out.printf("%2d",id[i]);
+		System.out.printf ("\nsz: ");
+		for(int i=0; i<id.length; i++) System.out.printf("%2d",size[i]);
 		System.out.println("\n-----------------------------------");
 	}
 	public static void main(String[] args) {
-		QuickUnion instance= new QuickUnion();
+		PathCompression instance= new PathCompression();
 		instance.initialize(10);
 		instance.print();
 		instance.union(2, 4);
@@ -54,5 +67,8 @@ public class QuickUnion {
 		instance.union(0, 1);
 		instance.print();
 		System.out.println(instance.connected(0, 1));
+		instance.print();
+		System.out.println(instance.connected(5, 6));// this should call 2 root methods and compress paths really well
+		instance.print();
 	}
 }
