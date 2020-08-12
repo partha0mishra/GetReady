@@ -11,25 +11,43 @@ package com.algods.leetcode;
  */
 import java.util.*;
 public class PascalsTriangle2 {
+	/* Approach 02: Use the same array, update from the end */
     public List<Integer> getRow(int rowIndex) {// index starting from 0
     	List<Integer> result= new ArrayList<Integer>();
         int[] resultInts=new int[rowIndex+1];// size
-        int[] tempInts=new int[rowIndex+1];// O(n) tempSpace
         resultInts[0]=1;// starting number is always 1
     	for(int i=1; i<= rowIndex; i++) {
-    		// Copy results to temp array to work with
-    		System.arraycopy(resultInts, 0, tempInts, 0, resultInts.length);
     		// last place is 1
     		resultInts[i]=1;
-    		// go from 2nd to penultimate place
-    		// result[i]=temp[i]+temp[i-1]
-    		for(int j=1; j<i; j++) {
-    			resultInts[j]=tempInts[j]+tempInts[j-1];
+    		// go from penultimate to 2nd place
+    		for(int j=i-1; j>0; j--) {
+    			resultInts[j]=resultInts[j]+resultInts[j-1];
     		}
     	}
         for(int i: resultInts) result.add(i);// shame
         return result;
     }
+	
+	/* Approach 01: using a temporary array*/
+//    public List<Integer> getRow(int rowIndex) {// index starting from 0
+//    	List<Integer> result= new ArrayList<Integer>();
+//        int[] resultInts=new int[rowIndex+1];// size
+//        int[] tempInts=new int[rowIndex+1];// O(n) tempSpace
+//        resultInts[0]=1;// starting number is always 1
+//    	for(int i=1; i<= rowIndex; i++) {
+//    		// Copy results to temp array to work with
+//    		System.arraycopy(resultInts, 0, tempInts, 0, resultInts.length);
+//    		// last place is 1
+//    		resultInts[i]=1;
+//    		// go from 2nd to penultimate place
+//    		// result[i]=temp[i]+temp[i-1]
+//    		for(int j=1; j<i; j++) {
+//    			resultInts[j]=tempInts[j]+tempInts[j-1];
+//    		}
+//    	}
+//        for(int i: resultInts) result.add(i);// shame
+//        return result;
+//    }
      
 	public static void main(String[] args) {
 		PascalsTriangle2 instance= new PascalsTriangle2();
