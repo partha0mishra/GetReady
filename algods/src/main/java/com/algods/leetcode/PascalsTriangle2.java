@@ -11,10 +11,9 @@ package com.algods.leetcode;
  */
 import java.util.*;
 public class PascalsTriangle2 {
-	/* Approach 02: Use the same array, update from the end */
+	/* Approach 03: use Integer[] instead of int[] to avoid shameful conversion to ArrayList*/
     public List<Integer> getRow(int rowIndex) {// index starting from 0
-    	List<Integer> result= new ArrayList<Integer>();
-        int[] resultInts=new int[rowIndex+1];// size
+        Integer[] resultInts=new Integer[rowIndex+1];// size
         resultInts[0]=1;// starting number is always 1
     	for(int i=1; i<= rowIndex; i++) {
     		// last place is 1
@@ -24,9 +23,24 @@ public class PascalsTriangle2 {
     			resultInts[j]=resultInts[j]+resultInts[j-1];
     		}
     	}
-        for(int i: resultInts) result.add(i);// shame
-        return result;
+        return Arrays.asList(resultInts);
     }
+	/* Approach 02: Use the same array, update from the end */
+//    public List<Integer> getRow(int rowIndex) {// index starting from 0
+//    	List<Integer> result= new ArrayList<Integer>();
+//        int[] resultInts=new int[rowIndex+1];// size
+//        resultInts[0]=1;// starting number is always 1
+//    	for(int i=1; i<= rowIndex; i++) {
+//    		// last place is 1
+//    		resultInts[i]=1;
+//    		// go from penultimate to 2nd place
+//    		for(int j=i-1; j>0; j--) {
+//    			resultInts[j]=resultInts[j]+resultInts[j-1];
+//    		}
+//    	}
+//        for(int i: resultInts) result.add(i);// shame
+//        return result;
+//    }
 	
 	/* Approach 01: using a temporary array*/
 //    public List<Integer> getRow(int rowIndex) {// index starting from 0
