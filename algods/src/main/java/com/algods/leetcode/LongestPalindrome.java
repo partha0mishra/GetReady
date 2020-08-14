@@ -14,6 +14,7 @@ package com.algods.leetcode;
  */
 import java.util.*;
 public class LongestPalindrome {
+	/* Approach 01: with HashSet*/
     public int longestPalindrome(String s) {
     	if(s == null || s.length()==0) return 0;
         HashSet<Character> hs= new HashSet<Character>();
