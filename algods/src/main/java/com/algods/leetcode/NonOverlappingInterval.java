@@ -24,27 +24,45 @@ package com.algods.leetcode;
  */
 import java.util.*;
 public class NonOverlappingInterval {
-	public int eraseOverlapIntervals(int[][] intervals) {
-        if (intervals.length == 0)  return 0;
+	/* Approach 02: Explained https://leetcode.com/problems/non-overlapping-intervals/discuss/792771/Algorithm-Explained-or-Example-Dry-Run-or-Easy-to-Understand*/
+    public int eraseOverlapIntervals(int[][] intervals) {
+        if (intervals.length == 0) return 0;
 
-        Arrays.sort(intervals, new MyComparator());
-        int end = intervals[0][1];
-        int count = 1;        
+        Arrays.sort(intervals, (a, b) -> a[1] == b[1] ? b[0] - a[0] : a[1] - b[1]);
 
-        for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] >= end) {
-                end = intervals[i][1];
-                count++;
-            }
+        int minErase = 0;
+        int prevEnd = Integer.MIN_VALUE;
+        for (int[] interval : intervals) {
+            if (prevEnd > interval[0]) minErase++;
+            else prevEnd = interval[1];
         }
-        return intervals.length - count;
+
+        return minErase;
     }
-    
-    class MyComparator implements Comparator<int[]> {
-        public int compare(int[] a, int[] b) {
-            return a[1] - b[1];
-        }
-    }
+	
+	
+	/* Approach 01: copied and then understood*/
+//	public int eraseOverlapIntervals(int[][] intervals) {
+//        if (intervals.length == 0)  return 0;
+//
+//        Arrays.sort(intervals, new MyComparator());
+//        int end = intervals[0][1];
+//        int count = 1;        
+//
+//        for (int i = 1; i < intervals.length; i++) {
+//            if (intervals[i][0] >= end) {
+//                end = intervals[i][1];
+//                count++;
+//            }
+//        }
+//        return intervals.length - count;
+//    }
+//    
+//    class MyComparator implements Comparator<int[]> {
+//        public int compare(int[] a, int[] b) {
+//            return a[1] - b[1];
+//        }
+//    }
     public static void main(String[] args) {
     	int[][] input01= {{1,2},{2,3},{3,4},{1,3}};
     	int[][] input02= {{1,2},{1,2},{1,2}};
