@@ -27,23 +27,23 @@ Constraints:
 1 <= n <= 10^4
  */
 public class MinOpsMakeArrayEqual {
-	/* Approach 02: even simpler*/
-//	int minOperations(int n) {
-//	    int res = 0;
-//	    for (int i = 0; i < n / 2; ++i)
-//	        res += n - i * 2 - 1;
-//	    return res;
-//	}
+	/* Approach 02: even simpler code BUT LESS PERFORMANT*/
+	int minOperations(int n) {
+	    int res = 0;
+	    for (int i = 0; i < n / 2; ++i)
+	        res += n - i * 2 - 1;
+	    return res;
+	}
 	/* Approach 01: good enough for an Easy question*/
-    public int minOperations(int n) {
-        if (n <= 1) return 0;
-        int half=n/2;
-        if(n%2==0) {// even
-        	return half*half;//originally complicated : (half*(2+(half-1)*2)/2);        
-        }else {
-        	return half*(half+1);
-        }
-    }
+//    public int minOperations(int n) {
+//        if (n <= 1) return 0;
+//        int half=n/2;
+//        if(n%2==0) {// even
+//        	return half*half;//originally complicated : (half*(2+(half-1)*2)/2);        
+//        }else {
+//        	return half*(half+1);
+//        }
+//    }
     public static void main(String[] args) {
     	MinOpsMakeArrayEqual instance= new MinOpsMakeArrayEqual();
     	System.out.println(instance.minOperations(1));
