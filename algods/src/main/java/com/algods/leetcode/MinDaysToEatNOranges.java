@@ -46,33 +46,64 @@ Constraints:
  */
 import java.util.*;
 public class MinDaysToEatNOranges {
+	/* Approach 03: BFS + Memoization */
+	public int minDays(int n) {
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(n);
+        int res = 0;
+        Set<Integer> set = new HashSet<>();
+        while(!q.isEmpty()){
+            res++;
+            int size = q.size();
+            for(int i = 0; i < size; i++){
+                int cur = q.poll();
+                if(cur == 0){
+                    return res - 1;
+                }
+                if(set.contains(cur)){
+                    continue;
+                }
+                else{
+                    set.add(cur);
+                }
+                if(cur % 3 == 0){
+                    q.offer(cur / 3);
+                }
+                if(cur % 2 == 0){
+                    q.offer(cur / 2);
+                }
+                q.offer(cur - 1);
+            }
+        }
+        return res;
+    }
 	/* Approach 02: DFS + Memoization*/
-    public int minDays(int n) {
-        Map<Integer, Integer> map = new HashMap<>();
-        map.put(1, 1);
-        map.put(2, 2);
-        map.put(3, 2);
-        return helper(n, map);
-    }
-    
-    private int helper(int n, Map<Integer, Integer> map) {
-        if(map.containsKey(n)) return map.get(n);
-        int a = n;
-        if(n % 2 == 0) {
-            a = Math.min(a, 1 + helper(n / 2, map));
-        } else {
-            a = Math.min(a, 1 + helper(n - 1, map));
-        }
-        if(n % 3 == 0) {
-            a = Math.min(a, 1 + helper(n / 3, map));
-        } else if(n % 3 == 1) {
-            a = Math.min(a, 1 + helper(n - 1, map));
-        } else {
-            a = Math.min(a, 2 + helper(n - 2, map));
-        }
-        map.put(n, a);
-        return a;
-    }
+//    public int minDays(int n) {
+//        Map<Integer, Integer> map = new HashMap<>();
+//        map.put(1, 1);
+//        map.put(2, 2);
+//        map.put(3, 2);
+//        return helper(n, map);
+//    }
+//    
+//    private int helper(int n, Map<Integer, Integer> map) {
+//        if(map.containsKey(n)) return map.get(n);
+//        int a = n;
+//        if(n % 2 == 0) {
+//            a = Math.min(a, 1 + helper(n / 2, map));
+//        } else {
+//            a = Math.min(a, 1 + helper(n - 1, map));
+//        }
+//        if(n % 3 == 0) {
+//            a = Math.min(a, 1 + helper(n / 3, map));
+//        } else if(n % 3 == 1) {
+//            a = Math.min(a, 1 + helper(n - 1, map));
+//        } else {
+//            a = Math.min(a, 2 + helper(n - 2, map));
+//        }
+//        map.put(n, a);
+//        return a;
+//    }
 	/* Approach 01: Naive - using memoization - Time limit exceeded*/
 //	private HashMap<Integer,Integer> minHM;
 //    public int minDays(int n) {
