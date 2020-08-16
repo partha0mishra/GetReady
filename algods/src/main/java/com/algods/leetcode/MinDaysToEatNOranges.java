@@ -46,37 +46,46 @@ Constraints:
  */
 import java.util.*;
 public class MinDaysToEatNOranges {
-	/* Approach 03: BFS + Memoization */
+	/* Approach 04: DP good one*/
+	Map<Integer, Integer> dp = new HashMap<>();
 	public int minDays(int n) {
-        Queue<Integer> q = new LinkedList<>();
-        q.offer(n);
-        int res = 0;
-        Set<Integer> set = new HashSet<>();
-        while(!q.isEmpty()){
-            res++;
-            int size = q.size();
-            for(int i = 0; i < size; i++){
-                int cur = q.poll();
-                if(cur == 0){
-                    return res - 1;
-                }
-                if(set.contains(cur)){
-                    continue;
-                }
-                else{
-                    set.add(cur);
-                }
-                if(cur % 3 == 0){
-                    q.offer(cur / 3);
-                }
-                if(cur % 2 == 0){
-                    q.offer(cur / 2);
-                }
-                q.offer(cur - 1);
-            }
-        }
-        return res;
-    }
+	    if (n <= 1)
+	        return n;
+	    if (!dp.containsKey(n))
+	        dp.put(n, 1 + Math.min(n % 2 + minDays(n / 2), n % 3 + minDays(n / 3)));
+	    return dp.get(n);
+	}
+	/* Approach 03: BFS + Memoization */
+//	public int minDays(int n) {
+//        Queue<Integer> q = new LinkedList<>();
+//        q.offer(n);
+//        int res = 0;
+//        Set<Integer> set = new HashSet<>();
+//        while(!q.isEmpty()){
+//            res++;
+//            int size = q.size();
+//            for(int i = 0; i < size; i++){
+//                int cur = q.poll();
+//                if(cur == 0){
+//                    return res - 1;
+//                }
+//                if(set.contains(cur)){
+//                    continue;
+//                }
+//                else{
+//                    set.add(cur);
+//                }
+//                if(cur % 3 == 0){
+//                    q.offer(cur / 3);
+//                }
+//                if(cur % 2 == 0){
+//                    q.offer(cur / 2);
+//                }
+//                q.offer(cur - 1);
+//            }
+//        }
+//        return res;
+//    }
 	/* Approach 02: DFS + Memoization*/
 //    public int minDays(int n) {
 //        Map<Integer, Integer> map = new HashMap<>();
