@@ -21,18 +21,27 @@ Constraints:
 1 <= arr[i] <= 1000
  */
 public class ThreeConsecutiveOdds {
+	/* Approach 02: amazingly simpler*/
     public boolean threeConsecutiveOdds(int[] arr) {
-        if(arr.length <3) return false;
         int odds=0;
-        
-        for(int i: arr) {
-        	if(i%2 !=0) {
-        		odds++;
-        		if(odds ==3) return true;
-        	}else {
-        		odds=0;
-        	}
+        for(int i=0; i< arr.length && odds <3; i++) {
+        	odds= (arr[i] %2 !=0) ? odds+1: 0;
         }
-        return false;
+        return odds==3;
     }
+	/* Approach 01: good enough for easy question*/
+//    public boolean threeConsecutiveOdds(int[] arr) {
+//        if(arr.length <3) return false;
+//        int odds=0;
+//        
+//        for(int i: arr) {
+//        	if(i%2 !=0) {
+//        		odds++;
+//        		if(odds ==3) return true;
+//        	}else {
+//        		odds=0;
+//        	}
+//        }
+//        return false;
+//    }
 }
