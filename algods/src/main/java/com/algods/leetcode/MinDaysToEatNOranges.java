@@ -46,34 +46,60 @@ Constraints:
  */
 import java.util.*;
 public class MinDaysToEatNOranges {
-	
-	/* Approach 01: Naive - using memoization - Time limit exceeded*/
-	private HashMap<Integer,Integer> minHM;
+	/* Approach 02: DFS + Memoization*/
     public int minDays(int n) {
-    	if(n ==1) return 1;
-    	minHM= new HashMap<Integer, Integer>();
-    	minHM.put(0, 0);
-    	minHM.put(1, 1);
-    	minHM.put(2, 2);
-    	int min=0;
-    	
-    	for(int i=3; i<=n; i++) {
-    		boolean div2=false;
-        	boolean div3=false;
-    		if(i%2 ==0) div2=true;
-    		if(i%3 ==0) div3=true;
-    		if(div2 && div3) {
-    			min=Math.min(minHM.get(i/2), minHM.get(i/3));
-    		}else if(div2) {
-    			min=minHM.get(i/2);
-    		}else if(div3) {
-    			min=minHM.get(i/3);
-    		}
-    		min=Math.min(1+ min, 1+minHM.get(i-1));
-    		minHM.put(i, min);
-    	}
-    	return minHM.get(n);
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(1, 1);
+        map.put(2, 2);
+        map.put(3, 2);
+        return helper(n, map);
     }
+    
+    private int helper(int n, Map<Integer, Integer> map) {
+        if(map.containsKey(n)) return map.get(n);
+        int a = n;
+        if(n % 2 == 0) {
+            a = Math.min(a, 1 + helper(n / 2, map));
+        } else {
+            a = Math.min(a, 1 + helper(n - 1, map));
+        }
+        if(n % 3 == 0) {
+            a = Math.min(a, 1 + helper(n / 3, map));
+        } else if(n % 3 == 1) {
+            a = Math.min(a, 1 + helper(n - 1, map));
+        } else {
+            a = Math.min(a, 2 + helper(n - 2, map));
+        }
+        map.put(n, a);
+        return a;
+    }
+	/* Approach 01: Naive - using memoization - Time limit exceeded*/
+//	private HashMap<Integer,Integer> minHM;
+//    public int minDays(int n) {
+//    	if(n ==1) return 1;
+//    	minHM= new HashMap<Integer, Integer>();
+//    	minHM.put(0, 0);
+//    	minHM.put(1, 1);
+//    	minHM.put(2, 2);
+//    	int min=0;
+//    	
+//    	for(int i=3; i<=n; i++) {
+//    		boolean div2=false;
+//        	boolean div3=false;
+//    		if(i%2 ==0) div2=true;
+//    		if(i%3 ==0) div3=true;
+//    		if(div2 && div3) {
+//    			min=Math.min(minHM.get(i/2), minHM.get(i/3));
+//    		}else if(div2) {
+//    			min=minHM.get(i/2);
+//    		}else if(div3) {
+//    			min=minHM.get(i/3);
+//    		}
+//    		min=Math.min(1+ min, 1+minHM.get(i-1));
+//    		minHM.put(i, min);
+//    	}
+//    	return minHM.get(n);
+//    }
     
 	public static void main(String[] args) {
 		MinDaysToEatNOranges instance = new MinDaysToEatNOranges();
