@@ -33,25 +33,54 @@ Constraints:
 1 <= num_people <= 1000*/
 
 public class DistributeCandies {
-    public int[] distributeCandies(int candies, int num_people) {
-    	int[] results=new int[num_people];
-    	int i, distribute=0;
-    	for(i=1, distribute=1; candies > 0; distribute++) {
-    		if(candies < distribute) {
-    			results[i-1]+=candies;
-    			break;
-    		}
-    		results[i-1]+=distribute;
-    		candies -=distribute;
-    		if(i==num_people) {
-    			i=1;
-    		}else {
-    			i++;
-    		}
-    	}
-    	System.out.println(Arrays.toString(results));
-    	return results;
-    }
+	/* Approach 02: Calculations
+	 * https://leetcode.com/discuss/explore/august-leetcoding-challenge/796745/distribute-candies-0-ms-math-heavy-java*/
+	public int[] distributeCandies(int candies, int num_people) {
+		int[] p = new int[num_people];
+
+		int k = (int) Math.floor((Math.sqrt(1 + 8 * (double) candies) - 1) / (double) (2 * num_people));
+		candies -= gauss(k * num_people);
+		for (int i = 0; i < num_people; i++) {
+			p[i] += num_people * gauss(k - 1) + k * (i + 1);
+		}
+
+		int d = k * num_people + 1;
+		int j = d;
+		for (; candies - j >= 0; j++) {
+			p[j - d] += j;
+			candies -= j;
+		}
+
+		if (candies > 0) {
+			p[j - d] += candies;
+		}
+
+		return p;
+	}
+
+	private int gauss(int n) {
+		return n * (n + 1) / 2;
+	}
+	/* Approach 01: Brute force */
+//    public int[] distributeCandies(int candies, int num_people) {
+//    	int[] results=new int[num_people];
+//    	int i, distribute=0;
+//    	for(i=1, distribute=1; candies > 0; distribute++) {
+//    		if(candies < distribute) {
+//    			results[i-1]+=candies;
+//    			break;
+//    		}
+//    		results[i-1]+=distribute;
+//    		candies -=distribute;
+//    		if(i==num_people) {
+//    			i=1;
+//    		}else {
+//    			i++;
+//    		}
+//    	}
+//    	System.out.println(Arrays.toString(results));
+//    	return results;
+//    }
     public static void main(String[] args) {
     	DistributeCandies instance = new DistributeCandies();
     	System.out.println(instance.distributeCandies(7, 4));
