@@ -23,7 +23,8 @@ public class ReorderLinkedList {
 	    ListNode(int val) { this.val = val; }
 	    ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 	}
-	/* Approach 02: 3 steps */
+	/* Approach 02: 3 steps 
+	 * Copied: https://leetcode.com/explore/challenge/card/august-leetcoding-challenge/551/week-3-august-15th-august-21st/3430/discuss/44992/Java-solution-with-3-steps*/
 	public void reorderList(ListNode head) {
         if(head==null||head.next==null) return;
         
