@@ -17,25 +17,36 @@ Note:
  */
 import java.util.*;
 public class SortArrayByParity {
-	/* Approach 02: Exchange odd with Even */
-    public int[] sortArrayByParity(int[] A) {
-    	if(A.length < 2) return A;// empty array or with only one element
-    	int left=-1, right=A.length, hi=A.length-1, lo=0;
-    	while(left < right) {
-    		while(A[++left] %2 ==0)
-    			if(left == hi) break;
-    		while(A[--right] %2 ==1)
-    			if(right == lo) break;
-    		if(left > right) break;
-    		else exchange(A,left,right);
-    	}
+	/* Approach 03: Exchange considering we don't need to care about order
+	 * simpler code although not more performant*/
+	public int[] sortArrayByParity(int[] A) {
+        for (int i = 0, j = 0; j < A.length; j++)
+            if (A[j] % 2 == 0) {
+                int tmp = A[i];
+                A[i++] = A[j];
+                A[j] = tmp;;
+            }
         return A;
-    }
-    private void exchange(int[] A,int left, int right) {
-    	int temp=A[left];
-    	A[left]=A[right];
-    	A[right]=temp;
-    }
+	}
+	/* Approach 02: Exchange odd with Even */
+//    public int[] sortArrayByParity(int[] A) {
+//    	if(A.length < 2) return A;// empty array or with only one element
+//    	int left=-1, right=A.length, hi=A.length-1, lo=0;
+//    	while(left < right) {
+//    		while(A[++left] %2 ==0)
+//    			if(left == hi) break;
+//    		while(A[--right] %2 ==1)
+//    			if(right == lo) break;
+//    		if(left > right) break;
+//    		else exchange(A,left,right);
+//    	}
+//        return A;
+//    }
+//    private void exchange(int[] A,int left, int right) {
+//    	int temp=A[left];
+//    	A[left]=A[right];
+//    	A[right]=temp;
+//    }
 	/* Approach 01: Naive O(n)/ O(n)*/
 //    public int[] sortArrayByParity(int[] A) {
 //    	if(A.length < 2) return A;// empty array or with only one element
