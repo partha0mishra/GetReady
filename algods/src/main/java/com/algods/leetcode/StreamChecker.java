@@ -35,24 +35,41 @@ import java.util.*;
 
 import org.junit.Assert;
 public class StreamChecker {
+	/* Approach 02: Brute force*/
 	private HashSet<String> hsWords;
-	private ArrayList<Character> queries;
+	private StringBuilder queries;
 	public StreamChecker(String[] words) {
         hsWords = new HashSet<String>();
         for(String w: words) hsWords.add(w);
-        queries=new ArrayList<Character>();
+        queries=new StringBuilder();
     }
     
     public boolean query(char letter) {
-    	queries.add(letter);
-    	StringBuilder searchString= new StringBuilder();
-    	for(int index=queries.size()-1; index >= 0; index--) {
-    		StringBuilder tempString=new StringBuilder(queries.get(index).toString());
-    		searchString= tempString.append(searchString);
-    		if(hsWords.contains(searchString.toString())) return true;
+    	queries.append(letter);
+    	for(int index=queries.length()-1; index >= 0; index--) {
+    		if(hsWords.contains(queries.substring(index))) return true;
     	}
     	return false;
     }
+	/* Approach 01: Brute force - TLE*/
+//	private HashSet<String> hsWords;
+//	private ArrayList<Character> queries;
+//	public StreamChecker(String[] words) {
+//        hsWords = new HashSet<String>();
+//        for(String w: words) hsWords.add(w);
+//        queries=new ArrayList<Character>();
+//    }
+//    
+//    public boolean query(char letter) {
+//    	queries.add(letter);
+//    	StringBuilder searchString= new StringBuilder();
+//    	for(int index=queries.size()-1; index >= 0; index--) {
+//    		StringBuilder tempString=new StringBuilder(queries.get(index).toString());
+//    		searchString= tempString.append(searchString);
+//    		if(hsWords.contains(searchString.toString())) return true;
+//    	}
+//    	return false;
+//    }
 	public static void main(String[] args) {
 		String[] words={"cd","f","kl"};
 		StreamChecker streamChecker = new StreamChecker(words); // init the dictionary.
