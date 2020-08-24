@@ -32,6 +32,8 @@ Queries will only consist of lowercase English letters.
 The number of queries is at most 40000.
  */
 import java.util.*;
+
+import org.junit.Assert;
 public class StreamChecker {
 	private HashSet<String> hsWords;
 	private ArrayList<Character> queries;
@@ -43,28 +45,29 @@ public class StreamChecker {
     
     public boolean query(char letter) {
     	queries.add(letter);
-    	String searchString= new String();
+    	StringBuilder searchString= new StringBuilder();
     	for(int index=queries.size()-1; index >= 0; index--) {
-    		searchString=queries.get(index).toString().concat(searchString);
-    		if(hsWords.contains(searchString)) return true;
+    		StringBuilder tempString=new StringBuilder(queries.get(index).toString());
+    		searchString= tempString.append(searchString);
+    		if(hsWords.contains(searchString.toString())) return true;
     	}
     	return false;
     }
 	public static void main(String[] args) {
 		String[] words={"cd","f","kl"};
 		StreamChecker streamChecker = new StreamChecker(words); // init the dictionary.
-		streamChecker.query('a');          // return false
-		streamChecker.query('b');          // return false
-		streamChecker.query('c');          // return false
-		streamChecker.query('d');          // return true, because 'cd' is in the wordlist
-		streamChecker.query('e');          // return false
-		streamChecker.query('f');          // return true, because 'f' is in the wordlist
-		streamChecker.query('g');          // return false
-		streamChecker.query('h');          // return false
-		streamChecker.query('i');          // return false
-		streamChecker.query('j');          // return false
-		streamChecker.query('k');          // return false
-		streamChecker.query('l');          // return true, because 'kl' is in the wordlist
+		Assert.assertFalse(streamChecker.query('a'));          // return false
+		Assert.assertFalse(streamChecker.query('b'));          // return false
+		Assert.assertFalse(streamChecker.query('c'));          // return false
+		Assert.assertTrue(streamChecker.query('d'));          // return true, because 'cd' is in the wordlist
+		Assert.assertFalse(streamChecker.query('e'));          // return false
+		Assert.assertTrue(streamChecker.query('f'));          // return true, because 'f' is in the wordlist
+		Assert.assertFalse(streamChecker.query('g'));          // return false
+		Assert.assertFalse(streamChecker.query('h'));          // return false
+		Assert.assertFalse(streamChecker.query('i'));          // return false
+		Assert.assertFalse(streamChecker.query('j'));          // return false
+		Assert.assertFalse(streamChecker.query('k'));          // return false
+		Assert.assertTrue(streamChecker.query('l'));          // return true, because 'kl' is in the wordlist
 	}
 
 }
