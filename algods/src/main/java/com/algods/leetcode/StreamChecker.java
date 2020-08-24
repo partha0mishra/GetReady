@@ -35,22 +35,61 @@ import java.util.*;
 
 import org.junit.Assert;
 public class StreamChecker {
-	/* Approach 02: Brute force*/
-	private HashSet<String> hsWords;
-	private StringBuilder queries;
+	/* Approach 03: Trie based*/
+	private StringBuilder sb;
+	private TrieNode root;
 	public StreamChecker(String[] words) {
-        hsWords = new HashSet<String>();
-        for(String w: words) hsWords.add(w);
-        queries=new StringBuilder();
+       sb= new StringBuilder();
+       root = new TrieNode();
+       for(String w: words) insert(w);
     }
     
     public boolean query(char letter) {
-    	queries.append(letter);
-    	for(int index=queries.length()-1; index >= 0; index--) {
-    		if(hsWords.contains(queries.substring(index))) return true;
+    	sb.append(letter);
+    	TrieNode node=root;
+    	for(int i=sb.length()-1; i>=0 && node != null; i--) {
+    		char c=sb.charAt(i);
+    		node=node.next.get(c);
+    		if(node != null && node.isWord) {
+    			return true;
+    		}
     	}
     	return false;
     }
+    class TrieNode{
+    	Map<Character, TrieNode> next;
+    	boolean isWord;
+    	public TrieNode() {
+    		next= new HashMap<Character, TrieNode>();
+    	}
+    }
+ // insert in Tried in REVERSE order
+    public void insert(String word) {
+    	TrieNode current=root;
+    	for(int i=word.length() -1; i>=0; i--) {
+    		char c=word.charAt(i);
+    		TrieNode node=current.next.getOrDefault(c, new TrieNode());
+    		current.next.put(c, node);
+    		current=node;
+    	}
+    	current.isWord=true;
+    }
+	/* Approach 02: Brute force*/
+//	private HashSet<String> hsWords;
+//	private StringBuilder queries;
+//	public StreamChecker(String[] words) {
+//        hsWords = new HashSet<String>();
+//        for(String w: words) hsWords.add(w);
+//        queries=new StringBuilder();
+//    }
+//    
+//    public boolean query(char letter) {
+//    	queries.append(letter);
+//    	for(int index=queries.length()-1; index >= 0; index--) {
+//    		if(hsWords.contains(queries.substring(index))) return true;
+//    	}
+//    	return false;
+//    }
 	/* Approach 01: Brute force - TLE*/
 //	private HashSet<String> hsWords;
 //	private ArrayList<Character> queries;
