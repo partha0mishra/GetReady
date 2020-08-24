@@ -35,45 +35,85 @@ import java.util.*;
 
 import org.junit.Assert;
 public class StreamChecker {
-	/* Approach 03: Trie based*/
-	private StringBuilder sb;
-	private TrieNode root;
-	public StreamChecker(String[] words) {
-       sb= new StringBuilder();
-       root = new TrieNode();
-       for(String w: words) insert(w);
+	/* Approach 04: Trie Based - more performant*/
+    class TrieNode {
+        boolean isWord;
+        TrieNode[] next = new TrieNode[26];
     }
-    
+
+    TrieNode root = new TrieNode();
+    StringBuilder sb = new StringBuilder();
+
+    public StreamChecker(String[] words) {
+        createTrie(words);
+    }
+
     public boolean query(char letter) {
-    	sb.append(letter);
-    	TrieNode node=root;
-    	for(int i=sb.length()-1; i>=0 && node != null; i--) {
-    		char c=sb.charAt(i);
-    		node=node.next.get(c);
-    		if(node != null && node.isWord) {
-    			return true;
-    		}
-    	}
-    	return false;
+        sb.append(letter);
+        TrieNode node = root;
+        for (int i = sb.length() - 1; i >= 0 && node != null; i--) {
+            char c = sb.charAt(i);
+            node = node.next[c - 'a'];
+            if (node != null && node.isWord) {
+                return true;
+            }
+        }
+        return false;
     }
-    class TrieNode{
-    	Map<Character, TrieNode> next;
-    	boolean isWord;
-    	public TrieNode() {
-    		next= new HashMap<Character, TrieNode>();
-    	}
+
+    private void createTrie(String[] words) {
+        for (String s : words) {
+            TrieNode node = root;
+            int len = s.length();
+            for (int i = len - 1; i >= 0; i--) {
+                char c = s.charAt(i);
+                if (node.next[c - 'a'] == null) {
+                    node.next[c - 'a'] = new TrieNode();
+                }
+                node = node.next[c - 'a'];
+            }
+            node.isWord = true;
+        }
     }
- // insert in Tried in REVERSE order
-    public void insert(String word) {
-    	TrieNode current=root;
-    	for(int i=word.length() -1; i>=0; i--) {
-    		char c=word.charAt(i);
-    		TrieNode node=current.next.getOrDefault(c, new TrieNode());
-    		current.next.put(c, node);
-    		current=node;
-    	}
-    	current.isWord=true;
-    }
+	/* Approach 03: Trie based*/
+//	private StringBuilder sb;
+//	private TrieNode root;
+//	public StreamChecker(String[] words) {
+//       sb= new StringBuilder();
+//       root = new TrieNode();
+//       for(String w: words) insert(w);
+//    }
+//    
+//    public boolean query(char letter) {
+//    	sb.append(letter);
+//    	TrieNode node=root;
+//    	for(int i=sb.length()-1; i>=0 && node != null; i--) {
+//    		char c=sb.charAt(i);
+//    		node=node.next.get(c);
+//    		if(node != null && node.isWord) {
+//    			return true;
+//    		}
+//    	}
+//    	return false;
+//    }
+//    class TrieNode{
+//    	Map<Character, TrieNode> next;
+//    	boolean isWord;
+//    	public TrieNode() {
+//    		next= new HashMap<Character, TrieNode>();
+//    	}
+//    }
+// // insert in Tried in REVERSE order
+//    public void insert(String word) {
+//    	TrieNode current=root;
+//    	for(int i=word.length() -1; i>=0; i--) {
+//    		char c=word.charAt(i);
+//    		TrieNode node=current.next.getOrDefault(c, new TrieNode());
+//    		current.next.put(c, node);
+//    		current=node;
+//    	}
+//    	current.isWord=true;
+//    }
 	/* Approach 02: Brute force*/
 //	private HashSet<String> hsWords;
 //	private StringBuilder queries;
