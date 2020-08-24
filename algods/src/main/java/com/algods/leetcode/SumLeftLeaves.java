@@ -27,19 +27,27 @@ public class SumLeftLeaves {
 	        this.right = right;
 	    }
 	}
-	private static int sum=0;
-    public int sumOfLeftLeaves(TreeNode root) {
-    	sum=0;
-        traverse(root, false);
-        return sum;
+	/* Approach 02: more concise*/
+	public int sumOfLeftLeaves(TreeNode root) {
+        if(root == null) return 0;
+        if(root.left != null && root.left.left == null && root.left.right == null) 
+        	return root.left.val + sumOfLeftLeaves(root.right);
+        return sumOfLeftLeaves(root.left) + sumOfLeftLeaves(root.right);
     }
-    private void traverse(TreeNode node, boolean sumNeeded) {
-    	if(node == null) return;
-    	traverse(node.left, true);
-    	// check if this is Left AND a leaf
-    	if(sumNeeded && node.left== null && node.right==null) sum+=node.val;
-    	traverse(node.right, false);
-    }
+	/* Approach 01: Straight*/
+//	private static int sum=0;
+//    public int sumOfLeftLeaves(TreeNode root) {
+//    	sum=0;
+//        traverse(root, false);
+//        return sum;
+//    }
+//    private void traverse(TreeNode node, boolean sumNeeded) {
+//    	if(node == null) return;
+//    	traverse(node.left, true);
+//    	// check if this is Left AND a leaf
+//    	if(sumNeeded && node.left== null && node.right==null) sum+=node.val;
+//    	traverse(node.right, false);
+//    }
 	public static void main(String[] args) {
 		SumLeftLeaves instance= new SumLeftLeaves();
 		TreeNode root= instance.new TreeNode(3);
