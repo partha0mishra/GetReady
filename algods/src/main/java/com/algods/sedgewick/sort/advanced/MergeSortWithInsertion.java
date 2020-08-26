@@ -30,7 +30,7 @@ public class MergeSortWithInsertion {
 	}
 	private void merge(int[] nums, int[] aux, int lo, int mid, int hi) {
 		for(int i=lo; i<=hi; i++) aux[i]=nums[i];// copy the ranges
-		int i=0, j=mid+1;// start of 2 sub-ranges to merge
+		int i=lo, j=mid+1;// start of 2 sub-ranges to merge
 		for(int k=lo; k<=hi; k++) {
 			if		(i > mid)	nums[k]=aux[j++];// left array is done
 			else if	(j > hi)	nums[k]=aux[i++];// right array is done
