@@ -4,48 +4,29 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.HashSet;
 
-public class QuickSort {
+public class MergeSort {
 	public void sort(int[] nums) {
-		// first task would be to shuffle, although we might already have a shuffled array here
-		shuffle(nums);
-		sort(nums,0,nums.length-1);
+		int[] aux= new int[nums.length];
+		sort(nums, aux, 0, nums.length-1);
 	}
-	private void shuffle(int[] nums) {
-		Random random=ThreadLocalRandom.current();
-		for(int i=0; i<nums.length; i++) {
-			swap(nums,i,random.nextInt(i+1));
+	private void sort(int[] nums, int[] aux, int lo, int hi) {
+		if(hi <= lo) return;
+		int mid= lo+(hi-lo)/2;
+		sort(nums, aux, lo, mid);
+		sort(nums, aux, mid+1, hi);
+		merge(nums, aux, lo, mid, hi);
+	}
+	private void merge(int[] nums, int[] aux, int lo, int mid, int hi) {
+		for(int i=lo; i<=hi; i++) aux[i]=nums[i];// copy the ranges
+		int i=0, j=mid+1;// start of 2 sub-ranges to merge
+		for(int k=lo; k<=hi; k++) {
+			if		(i > mid)	nums[k]=aux[j++];// left array is done
+			else if	(j > hi)	nums[k]=aux[i++];// right array is done
+			else if (aux[j] < aux[i])	nums[k]=aux[j++];
+			else						nums[k]=aux[i++];
 		}
-//		printArray(nums);
 	}
-	private void swap(int[] nums, int a, int b) {
-		int temp=nums[a];
-		nums[a]=nums[b];
-		nums[b]=temp;
-	}
-	private void sort(int[] nums, int lo, int hi) {
-		if(hi <=lo ) return;
-		int j=partition(nums, lo, hi);// j is put at the right place
-//		System.out.println("J: "+nums[j]);
-//		printArray(nums);
-		sort(nums, lo, j-1);// sort left subarray
-		sort(nums, j+1, hi);// sort right subarray
-	}
-	private int partition(int[] nums, int lo, int hi) {
-		int i=lo, j=hi+1;
-		while(true) {
-			while(nums[++i]< nums[lo])
-				if(i==hi) break;
-			while(nums[--j]> nums[lo]) {}
-//				if(j==lo) break;// this check is not really needed
-//			printArray(nums);
-			if(i >=j ) break;
-			swap(nums, i,j);
-		}
-//		printArray(nums);
-		swap(nums, j, lo);
-//		printArray(nums);
-		return j;
-	}
+	
 	public static void main(String[] args) {
 		final int NUM_ARRAY_SIZE=10000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
@@ -64,7 +45,7 @@ public class QuickSort {
 		}
 //		printArray(nums);
 		
-		QuickSort instance= new QuickSort();
+		MergeSort instance= new MergeSort();
 		long tStart=System.currentTimeMillis();
 		instance.sort(nums);
 		long tEnd=System.currentTimeMillis();
