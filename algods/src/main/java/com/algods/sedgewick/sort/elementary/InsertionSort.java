@@ -5,15 +5,20 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class InsertionSort {
-	public void sort(int[] nums) {
-		System.out.println("Before sort >> ");
-		printArray(nums);
-		for(int i=1; i<nums.length; i++) {
-			for(int j=i; j >0; j--) {
+	// sorting a particular range
+	public void sort(int[] nums, int lo, int hi) {
+		for(int i=lo+1; i<=hi; i++) {
+			for(int j=i; j > lo; j--) {
 				if(nums[j] < nums[j-1]) swap(nums, j, j-1);
 				else break;
 			}
 		}
+		validate(nums, lo, hi);
+	}
+	public void sort(int[] nums) {
+		System.out.println("Before sort >> ");
+		printArray(nums);
+		sort(nums, 0, nums.length-1);
 		System.out.println("After  sort >> ");
 		printArray(nums);
 	}
@@ -23,7 +28,7 @@ public class InsertionSort {
 		nums[j]=temp;
 	}
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=1000;
+		final int NUM_ARRAY_SIZE=10000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet
@@ -60,5 +65,13 @@ public class InsertionSort {
 	private static void printArray(int[] nums) {
 		for(int n: nums) System.out.printf("%4d",n);
 		System.out.println();
+	}
+	private void validate(int[] nums, int lo, int hi) {
+		for(int i=lo; i<hi-1; i++) {
+			if(nums[i] > nums[i+1]) {
+				System.out.println("Debug - wrong: "+nums[i]+" > "+nums[i+1]);
+				break;
+			}
+		}
 	}
 }
