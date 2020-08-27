@@ -1,4 +1,7 @@
 package com.algods.leetcode;
+
+import java.util.Arrays;
+
 /*
  * Given a set of intervals, for each of the interval i, check if there exists an interval j whose 
  * start point is bigger than or equal to the end point of the interval i, which can be called that j is on the "right" of i.
@@ -30,13 +33,67 @@ package com.algods.leetcode;
  * 
  * NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
  */
+import java.util.*;
 public class FindRightInterval {
     public int[] findRightInterval(int[][] intervals) {
-        return null;
+        int[] result = new int[intervals.length];
+        java.util.NavigableMap<Integer, Integer> intervalMap = new TreeMap<>();
+        
+        for (int i = 0; i < intervals.length; ++i) {
+            intervalMap.put(intervals[i][0], i);    
+        }
+        
+        for (int i = 0; i < intervals.length; ++i) {
+            Map.Entry<Integer, Integer> entry = intervalMap.ceilingEntry(intervals[i][1]);
+            result[i] = (entry != null) ? entry.getValue() : -1;
+        }
+        
+        return result;
     }
+//	private Node root;
+//	int[] result;
+//	class Node{
+//		int iLeft, iRight, index;
+//		Node nLeft, nRight;
+//		public Node(int index, int iLeft, int iRight) {
+//			this.index=index;
+//			this.iLeft=iLeft;
+//			this.iRight=iRight;
+//		}
+//	}
+//    public int[] findRightInterval(int[][] intervals) {
+//    	result= new int[intervals.length];// let's update this
+//    	Arrays.fill(result, -1);
+//    	int index=0;
+//    	for(int[] interval: intervals) {
+//    		put(index++,interval[0], interval[1]);
+//    	}
+//        return result;
+//    }
+//    private void put(int index, int iLeft, int iRight) {
+//    	root=put(root, index, iLeft, iRight);
+//    }
+//    private Node put(Node node, int index, int iLeft, int iRight) {
+//    	if(node == null) return new Node(index, iLeft, iRight);
+//    	int cmp=iLeft - node.iLeft;
+//    	if(cmp < 0) node.nLeft=put(node.nLeft, index, iLeft, iRight);
+//    	else if(cmp > 0) node.nRight=put(node.nRight, index, iLeft, iRight);
+//    	
+////    	result[node.index]=
+//    	return node;
+//    }
+//    private int findRightInterval(Node node) {
+//    	if(node.nRight == null) return -1;
+//    	else return Math.max(a, b)
+//    }
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		FindRightInterval instance= new FindRightInterval();
+		int[][] interval01= new int[][] {{1,2}};
+		System.out.println(Arrays.toString(instance.findRightInterval(interval01)));// -1
+		int[][] interval02= new int[][] {{3,4},{2,3},{1,2}};
+		System.out.println(Arrays.toString(instance.findRightInterval(interval02)));// -1,0,1
+		int[][] interval03= new int[][] {{1,4},{2,3},{3,4}};
+		System.out.println(Arrays.toString(instance.findRightInterval(interval03)));// -1,2,-1
 	}
 
 }
