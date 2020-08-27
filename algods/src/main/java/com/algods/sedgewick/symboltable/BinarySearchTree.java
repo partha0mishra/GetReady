@@ -4,7 +4,6 @@ import java.util.NoSuchElementException;
 
 /**
  * BST where left node < root < right node 
- *
  */
 import java.util.*;
 public class BinarySearchTree<Key extends Comparable<Key>, Value> {
@@ -138,6 +137,17 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         }
         return keys;
     }
+    public Iterable<Key> inOrder(){
+    	Queue<Key> keys=new LinkedList<Key>();
+    	inOrder(root, keys);
+    	return keys;
+    }
+    private void inOrder(Node node, Queue<Key> keys) {
+    	if(node == null) return;
+    	inOrder(node.left, keys);
+    	keys.add(node.key);
+    	inOrder(node.right, keys);
+    }
     /* checking for validity of the tree*/
     private boolean check() {
         if (!isBST())            System.out.println("Not in symmetric order");
@@ -207,12 +217,17 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
 		for(int i=0; i< data.length; i++) {
 			instance.put(data[i], i);
 		}
+		System.out.println("-----Level Order -------");
 		for(String s: instance.levelOrder()) {
 			System.out.println(s+" "+instance.get(s));
 		}
-		System.out.println("------------");
+		System.out.println("-----Keys     -------");
 		for(String s: instance.keys()) {
 			System.out.println(s+ " "+instance.get(s));
+		}
+		System.out.println("-----In Order -------");
+		for(String s: instance.inOrder()) {
+			System.out.println(s+ " " +instance.get(s));
 		}
 	}
 }
