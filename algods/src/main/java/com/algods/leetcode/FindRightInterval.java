@@ -32,7 +32,7 @@ package com.algods.leetcode;
  */
 public class FindRightInterval {
     public int[] findRightInterval(int[][] intervals) {
-        
+        return null;
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
