@@ -153,7 +153,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         if (!isBST())            System.out.println("Not in symmetric order");
         if (!isSizeConsistent()) System.out.println("Subtree counts not consistent");
 //        if (!isRankConsistent()) System.out.println("Ranks not consistent");
-		return isBST() && isSizeConsistent() /* && isRankConsistent() */;
+		return isBST() && isSizeConsistent()  && isRankConsistent() ;
     }
 
     // does this binary tree satisfy symmetric order?
@@ -185,6 +185,16 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         else                 return max(x.right); 
     }
     /**
+     * Returns the height of the BST (for debugging).
+     */
+    public int height() {
+        return height(root);
+    }
+    private int height(Node x) {
+        if (x == null) return -1;
+        return 1 + Math.max(height(x.left), height(x.right));
+    }
+    /**
      * Returns all keys in the symbol table in the given range,
      */
     public Iterable<Key> keys(Key lo, Key hi) {
@@ -210,7 +220,15 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         if (x == null) return true;
         if (x.size != size(x.left) + size(x.right) + 1) return false;
         return isSizeConsistent(x.left) && isSizeConsistent(x.right);
-    }     
+    }
+ // check that ranks are consistent
+    private boolean isRankConsistent() {
+        for (int i = 0; i < size(); i++)
+            if (i != rank(select(i))) return false;
+        for (Key key : keys())
+            if (key.compareTo(select(rank(key))) != 0) return false;
+        return true;
+    }
 	public static void main(String[] args) {
 		BinarySearchTree<String, Integer> instance= new BinarySearchTree<>();
 		String[] data=new String[] {"S","E","A","R","C","H","E","X","A","M","P","L","E"};
