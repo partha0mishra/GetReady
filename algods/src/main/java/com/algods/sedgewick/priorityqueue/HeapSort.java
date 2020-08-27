@@ -1,5 +1,6 @@
 package com.algods.sedgewick.priorityqueue;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,10 +11,10 @@ import java.util.concurrent.ThreadLocalRandom;
  * Parent is NO LESS than any child
  * Array is Resized
  */
-public class BinaryHeap {
+public class HeapSort {
 	private int[] items;
 	private int n;
-	public BinaryHeap() {
+	public HeapSort() {
 		items= new int[2];// keeping item[0] as blank; item[1] is max
 		n=0;
 	}
@@ -26,7 +27,7 @@ public class BinaryHeap {
 		int max=items[1];
 		swap(1,n--);
 		sink(1);
-		if(n==items.length/4 && n>1) resize(n);
+//		if(n==items.length/4 && n>1) resize(n);// Don't resize as we need it
 		return max;
 	}
 	private void swim(int k) {
@@ -64,12 +65,21 @@ public class BinaryHeap {
 		for(int i: items) sb.append(i).append(".");
 		return sb.substring(2, sb.length()-1);
 	}
+	public int[] sort() {
+//		System.out.println("n: "+n);
+		int[] result=new int[n];
+		for(int i=0; i< result.length; i++) {
+			delMax();
+		}
+		System.arraycopy(items, 1, result, 0, result.length);
+		return result;
+	}
 	public static void main(String[] args) {
 		final int NUM_ARRAY_SIZE=1000;
 		Random random= ThreadLocalRandom.current();
 		//for(int i=0; i< NUM_ARRAY_SIZE; i++) {nums[i]= random.nextInt(NUM_ARRAY_SIZE);}
 		HashSet<Integer> hm= new HashSet<Integer>();
-		BinaryHeap instance= new BinaryHeap();
+		HeapSort instance= new HeapSort();
 		for(int i=0; i< NUM_ARRAY_SIZE; ) {// let's make sure the numbers are distinct
 			int newNum= random.nextInt(NUM_ARRAY_SIZE*10);
 			if(hm.contains(newNum)) {
@@ -81,35 +91,19 @@ public class BinaryHeap {
 				hm.add(newNum);
 			}
 		}
-		System.out.println(instance);
-		int prev=instance.delMax();
-		System.out.print(prev+".");
-		for(int i=1; i< NUM_ARRAY_SIZE; i++) {
-			int num=instance.delMax();
-			System.out.print(num+".");
-			if(num > prev) System.out.println("Error");
-			else prev=num;
-		}
-		hm= new HashSet<Integer>();
-		for(int i=0; i< NUM_ARRAY_SIZE; ) {// let's make sure the numbers are distinct
-			int newNum= random.nextInt(NUM_ARRAY_SIZE*10);
-			if(hm.contains(newNum)) {
-				continue;
-			}else {
-				instance.insert(newNum);
-				i++;
-//				System.out.println(instance);
-				hm.add(newNum);
+//		System.out.println(instance);
+		int[] sorted=instance.sort();
+//		System.out.println(instance);
+//		System.out.println("Result: "+Arrays.toString(sorted));
+		instance.validate(sorted,0,sorted.length-1);
+	}
+	private void validate(int[] nums, int lo, int hi) {
+		for(int i=lo; i<hi-1; i++) {
+//			System.out.println(nums[i]+" "+nums[i+1]);
+			if(nums[i] > nums[i+1]) {
+				System.out.println("Debug - wrong: "+nums[i]+" > "+nums[i+1]);
+				break;
 			}
-		}
-		System.out.println(instance);
-		prev=instance.delMax();
-		System.out.print(prev+".");
-		for(int i=1; i< NUM_ARRAY_SIZE; i++) {
-			int num=instance.delMax();
-			System.out.print(num+".");
-			if(num > prev) System.out.println("Error");
-			else prev=num;
 		}
 	}
 
