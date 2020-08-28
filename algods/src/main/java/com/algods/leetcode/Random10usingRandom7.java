@@ -33,35 +33,42 @@ public class Random10usingRandom7 {
 		
 		return result;
 	}
+	/*Approach 03: */
+	public int rand10() {
+	    int i,j;
+	    while( (i = rand7()) > 6);  // P(i is even) = P(i is odd) = 0.5
+	    while( (j = rand7()) > 5);  // P(j==1) = P(j==2) = P(j==3) = P(j==4) = P(j==5) = 0.2
+	    return (i%2==0) ? j : j+5;
+	}
 	/* Approach 02: Rejection Sampling
 	 * Generate a 7x7 grid and pick from it*/
-	int[][] grid;
-	public Random10usingRandom7() {
-		grid=new int[7][7];
-		int val=1;
-		int end=40;
-		int run=1;
-		for(int i=0; i<7; i++) {
-			for(int j=0; j<7; j++) {
-				if(run <= end) {
-					grid[i][j]=val++;
-					run++;
-				}else {
-					grid[i][j]=-1;
-				}
-				if(val > 10) val=1;
-				System.out.print(grid[i][j]+" ");
-			}
-			System.out.println();
-		}
-	}
-	public int rand10() {
-		int result=-1;
-		while(result == -1){
-			result=grid[rand7()-1][rand7()-1];
-		}
-		return result;
-	}
+//	int[][] grid;
+//	public Random10usingRandom7() {
+//		grid=new int[7][7];
+//		int val=1;
+//		int end=40;
+//		int run=1;
+//		for(int i=0; i<7; i++) {
+//			for(int j=0; j<7; j++) {
+//				if(run <= end) {
+//					grid[i][j]=val++;
+//					run++;
+//				}else {
+//					grid[i][j]=-1;
+//				}
+//				if(val > 10) val=1;
+//				System.out.print(grid[i][j]+" ");
+//			}
+//			System.out.println();
+//		}
+//	}
+//	public int rand10() {
+//		int result=-1;
+//		while(result == -1){
+//			result=grid[rand7()-1][rand7()-1];
+//		}
+//		return result;
+//	}
 	/* Approach 01: Copied
 	 * https://leetcode.com/problems/implement-rand10-using-rand7/discuss/150301/Three-line-Java-solution-the-idea-can-be-generalized-to-%22Implement-RandM()-Using-RandN()%22 */
 //	public int rand10() {
@@ -69,6 +76,7 @@ public class Random10usingRandom7 {
 //	    while (result >= 40) {result = 7 * (rand7() - 1) + (rand7() - 1);}
 //	    return result % 10 + 1;
 //	}
+	
 	public static void main(String[] args) {
 		Random10usingRandom7 instance= new Random10usingRandom7();
 		for(int i=0; i<10; i++) System.out.println(">"+instance.rand10());
