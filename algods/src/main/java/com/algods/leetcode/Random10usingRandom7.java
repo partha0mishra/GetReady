@@ -25,21 +25,52 @@ package com.algods.leetcode;
  * Could you minimize the number of calls to rand7()?
  */
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 public class Random10usingRandom7 {
 	public int rand7() {
-		Random random= ThreadLocalRandom.current();
-		return random.nextInt(7);
+		Random random= new Random();
+		int result=0;
+		while(result ==0) result=random.nextInt(7);
+		
+		return result;
+	}
+	/* Approach 02: Rejection Sampling
+	 * Generate a 7x7 grid and pick from it*/
+	int[][] grid;
+	public Random10usingRandom7() {
+		grid=new int[7][7];
+		int val=1;
+		int end=40;
+		int run=1;
+		for(int i=0; i<7; i++) {
+			for(int j=0; j<7; j++) {
+				if(run <= end) {
+					grid[i][j]=val++;
+					run++;
+				}else {
+					grid[i][j]=-1;
+				}
+				if(val > 10) val=1;
+				System.out.print(grid[i][j]+" ");
+			}
+			System.out.println();
+		}
+	}
+	public int rand10() {
+		int result=-1;
+		while(result == -1){
+			result=grid[rand7()-1][rand7()-1];
+		}
+		return result;
 	}
 	/* Approach 01: Copied
 	 * https://leetcode.com/problems/implement-rand10-using-rand7/discuss/150301/Three-line-Java-solution-the-idea-can-be-generalized-to-%22Implement-RandM()-Using-RandN()%22 */
-	public int rand10() {
-	    int result = 40;
-	    while (result >= 40) {result = 7 * (rand7() - 1) + (rand7() - 1);}
-	    return result % 10 + 1;
-	}
+//	public int rand10() {
+//	    int result = 40;
+//	    while (result >= 40) {result = 7 * (rand7() - 1) + (rand7() - 1);}
+//	    return result % 10 + 1;
+//	}
 	public static void main(String[] args) {
 		Random10usingRandom7 instance= new Random10usingRandom7();
-		for(int i=0; i<100; i++) System.out.println(">"+instance.rand10());
+		for(int i=0; i<10; i++) System.out.println(">"+instance.rand10());
 	}
 }
