@@ -21,9 +21,22 @@ public class HashingSeparateChainingLinkedList{
 			table[i]= new LinkedList<KVP>();
 	}
 	public void put(int key, int value) {
-		table[hash(key)].add(new KVP(key, value));
-		totalPairs++;
-		resize(totalPairs,tableSize);
+		Iterator<KVP> it=table[hash(key)].iterator();
+		boolean modified=false;
+		while(it.hasNext()) {
+			KVP kvp=it.next();
+			if(kvp.key==key) {
+				kvp.val=value;
+				modified=true;
+				return;
+			}
+		}
+		if(!modified) {
+			System.out.println("New Entry "+key+" "+value);
+			table[hash(key)].add(new KVP(key, value));
+			totalPairs++;
+			resize(totalPairs,tableSize);
+		}
 	}
 	private void resize(int totPairs, int tabSize) {
 		if(totPairs/tabSize < 10 )return;
@@ -70,20 +83,25 @@ public class HashingSeparateChainingLinkedList{
 	public void printTable() {
 		for(int i=0; i<table.length; i++) {
 			for(int j=0; j< table[i].size(); j++) {
-				System.out.print(table[i].get(j).key+" ");
+				System.out.print(table[i].get(j).key+"("+table[i].get(j).val+")");
 			}
 			System.out.println();
 		}
 	}
 	public static void main(String[] args) {
 		HashingSeparateChainingLinkedList instance= new HashingSeparateChainingLinkedList();
-		int numbers=100;
+		int numbers=10;
 		Random random= ThreadLocalRandom.current();
+		instance.put(0, 10);
+		instance.printTable();
+		System.out.println(instance.get(0));
+		instance.put(0, 20);
+		System.out.println(instance.get(0));
 		for(int i=0; i<numbers; i++) {
-			int val=random.nextInt();
+			int val=i*10;//random.nextInt();
 			instance.put(i, val);
 			int check=instance.get(i);
-			if(val != check) System.out.println("Wrong");
+			if(val != check) System.out.println("Wrong "+val+" <> "+check);
 		}
 		instance.get(4);
 		instance.printTable();
@@ -96,6 +114,14 @@ public class HashingSeparateChainingLinkedList{
 		instance.remove(84);
 		instance.printTable();
 		instance.remove(4);
+		// check that put() updates existing value
+		for(int i=0; i<numbers; i++) {
+			int val=i*10+1;//random.nextInt();
+			instance.put(i, val);
+			int check=instance.get(i);
+			if(val != check) System.out.println("Wrong "+val+" <> "+check);
+		}
+		instance.printTable();
 	}
 
 }
