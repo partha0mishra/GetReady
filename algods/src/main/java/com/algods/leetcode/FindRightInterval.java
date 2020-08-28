@@ -35,21 +35,63 @@ import java.util.Arrays;
  */
 import java.util.*;
 public class FindRightInterval {
-    public int[] findRightInterval(int[][] intervals) {
-        int[] result = new int[intervals.length];
-        java.util.NavigableMap<Integer, Integer> intervalMap = new TreeMap<>();
-        
-        for (int i = 0; i < intervals.length; ++i) {
-            intervalMap.put(intervals[i][0], i);    
-        }
-        
-        for (int i = 0; i < intervals.length; ++i) {
-            Map.Entry<Integer, Integer> entry = intervalMap.ceilingEntry(intervals[i][1]);
-            result[i] = (entry != null) ? entry.getValue() : -1;
-        }
-        
-        return result;
-    }
+/* Approach 02: Binary Search - if NOT Allowed to use TreeMap 
+ * 1. Sort starts
+ * 2. For each end, find leftmost start using binary search
+ * 3. To get the original index, we need a map */
+	public int[] findRightInterval(int[][] intervals) {
+		Map<Integer, Integer> map = new HashMap<>();
+		List<Integer> starts = new ArrayList<>();
+		for (int i = 0; i < intervals.length; i++) {
+			map.put(intervals[i][0], i);// considering no two intervals starts same
+			starts.add(intervals[i][0]);
+		}
+	
+		Collections.sort(starts);
+		int[] res = new int[intervals.length];
+		for (int i = 0; i < intervals.length; i++) {
+			int end = intervals[i][1];
+			int start = binarySearch(starts, end);
+			if (start < end) {
+				res[i] = -1;
+			} else {
+				res[i] = map.get(start);
+			}
+		}
+		return res;
+	}
+	
+	public int binarySearch(List<Integer> list, int x) {
+		int left = 0, right = list.size() - 1;
+		while (left < right) {
+			int mid = left + (right - left) / 2;
+			if (list.get(mid) < x) {
+				left = mid + 1;
+				} else {
+					right = mid;
+				}
+			}
+		return list.get(left);
+	}
+	
+/* Approach 01: using TreeMap and Ceiling: Copied */
+//    public int[] findRightInterval(int[][] intervals) {
+//        int[] result = new int[intervals.length];
+//        java.util.NavigableMap<Integer, Integer> intervalMap = new TreeMap<>();
+//        
+//        for (int i = 0; i < intervals.length; ++i) {
+//            intervalMap.put(intervals[i][0], i);    
+//        }
+//        
+//        for (int i = 0; i < intervals.length; ++i) {
+//            Map.Entry<Integer, Integer> entry = intervalMap.ceilingEntry(intervals[i][1]);
+//            result[i] = (entry != null) ? entry.getValue() : -1;
+//        }
+//        
+//        return result;
+//    }
+
+
 //	private Node root;
 //	int[] result;
 //	class Node{
