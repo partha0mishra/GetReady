@@ -44,18 +44,24 @@ public class HashingSeparateChainingLinkedList{
 		printTable();
 	}
 	public int get(int key) {
+		return search(key, false);
+	}
+	public int remove(int key) {
+		return search(key, true);
+	}
+	private int search(int key, boolean remove) {
 		int result=-1;
 		Iterator<KVP> it=table[hash(key)].iterator();
 		while(it.hasNext()) {
 			KVP kvp=it.next();
 			if(kvp.key==key) {
 				result=kvp.val;
+				if(remove) it.remove();
 				break;
 			}
 		}
 		return result;
 	}
-
 	private int hash(int key) {
 //		return key% tableSize;
         return (key & 0x7fffffff) % tableSize;
@@ -71,7 +77,7 @@ public class HashingSeparateChainingLinkedList{
 	}
 	public static void main(String[] args) {
 		HashingSeparateChainingLinkedList instance= new HashingSeparateChainingLinkedList();
-		int numbers=600;
+		int numbers=100;
 		Random random= ThreadLocalRandom.current();
 		for(int i=0; i<numbers; i++) {
 			int val=random.nextInt();
@@ -79,7 +85,17 @@ public class HashingSeparateChainingLinkedList{
 			int check=instance.get(i);
 			if(val != check) System.out.println("Wrong");
 		}
+		instance.get(4);
 		instance.printTable();
+		instance.remove(4);
+		instance.printTable();
+		instance.remove(20);
+		instance.remove(36);
+		instance.remove(52);
+		instance.remove(68);
+		instance.remove(84);
+		instance.printTable();
+		instance.remove(4);
 	}
 
 }
