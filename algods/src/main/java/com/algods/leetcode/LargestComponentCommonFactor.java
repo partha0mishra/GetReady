@@ -31,59 +31,111 @@ Note:
  */
 import java.util.*;
 public class LargestComponentCommonFactor {
-	class Graph{
-		int V; // vertices
-		int E; // edges
-		HashSet<Integer>[] adj; // adjacency bag
-		public Graph(int numVertices) {
-			V= numVertices;
-			adj= new HashSet[V];
-			for(int i=0; i<V; i++) {
-				adj[i]=new HashSet<Integer>();// bag for this vertex
-			}
-		}
-		public int V() {return V;}
-		public void addEdge(int v, int w) {
-			adj[v].add(w);
-			adj[w].add(v);
-		}
-		public Iterable<Integer> adj(int v){return adj[v];}
-	}
-	boolean marked[];
-	int[] cc;
-	int count;
-	public int largestComponentSize(int[] A) {
-        Graph graph= new Graph(A.length);
-        for(int i=0; i< A.length; i++)
-        	for(int j = 0; j< i; j++)
-        		if(gcd(A[i],A[j]) > 1) 
-        			graph.addEdge(i,j);
-        marked= new boolean[A.length];
-        cc= new int[A.length];
-        count=0;
-        for(int v=0; v<graph.V(); v++) {
-        	if(!marked[v]) {
-        		dfs(graph, v);
-        		count++;
-        	}
-        }
-        int[] counts= new int[count];
-//        System.out.println(count);
-        for(int v=0; v< graph.V(); v++) {counts[cc[v]]++;}
-        Arrays.sort(counts);
-        return counts[counts.length-1];
+	/* Approach 02: Union Find 
+	 * https://leetcode.com/problems/largest-component-size-by-common-factor/discuss/200712/Fast-than-100-concise-java-solution
+	 * step 1. foreach element make it as distinct min prime factor save it to a map
+	 * (key is prime factor, value is element index set).
+	 * eg. {10, 30, 18}->{2: {0,1,2}, 3 {1,2}, 5: {0,1}}
+	 * step 2. foreach set do union and find max cnt*/
+	int[] par;
+    int[] cnt;
+    private int find(int i) {
+        if (i == par[i]) return i;
+        return par[i] = find(par[i]);
     }
-	private void dfs(Graph graph, int v) {
-		marked[v]=true;
-		cc[v]=count;
-		for(int w: graph.adj(v)) {
-			if(!marked[w]) 
-				dfs(graph,w);
-		}
-	}
-	private int gcd(int i, int j) {
-		return (j==0) ? i: gcd(j, i%j);
-	}
+    private void union(int i, int j) {
+        int pi = find(i);
+        int pj = find(j);
+        if (pi == pj) return ;
+        par[pi] = pj;
+        cnt[pj] += cnt[pi];
+    }
+    public int largestComponentSize(int[] A) {
+        int N = A.length;
+        par = new int[N];
+        cnt = new int[N];
+        Map<Integer, Set<Integer>> prime2Idx = new HashMap<>();
+        for (int i = 0; i < N; i++) {
+            int d = 2, x = A[i];
+            while (d * d <= x) {
+                if (x % d == 0) {
+                    while (x % d == 0) x /= d;
+                    prime2Idx.putIfAbsent(d, new HashSet<>());
+                    prime2Idx.get(d).add(i);
+                }
+                d++;
+            }
+            if (x > 1) {
+                prime2Idx.putIfAbsent(x, new HashSet<>());
+                prime2Idx.get(x).add(i);
+            }
+        }
+        for (int i = 0; i < N; i++) par[i] = i;
+        Arrays.fill(cnt, 1);
+        int max = 1;
+        for (Set<Integer> s : prime2Idx.values()) {
+            int fir = s.iterator().next();
+            for (int idx : s) {
+                union(idx, fir);
+                max = Math.max(cnt[find(idx)],max);
+            }
+        }
+        return max;
+    }
+	/* Approach 01: DFS - got TLE :( */
+//	class Graph{
+//		int V; // vertices
+//		int E; // edges
+//		HashSet<Integer>[] adj; // adjacency bag
+//		public Graph(int numVertices) {
+//			V= numVertices;
+//			adj= new HashSet[V];
+//			for(int i=0; i<V; i++) {
+//				adj[i]=new HashSet<Integer>();// bag for this vertex
+//			}
+//		}
+//		public int V() {return V;}
+//		public void addEdge(int v, int w) {
+//			adj[v].add(w);
+//			adj[w].add(v);
+//		}
+//		public Iterable<Integer> adj(int v){return adj[v];}
+//	}
+//	boolean marked[];
+//	int[] cc;
+//	int count;
+//	public int largestComponentSize(int[] A) {
+//        Graph graph= new Graph(A.length);
+//        for(int i=0; i< A.length; i++)
+//        	for(int j = 0; j< i; j++)
+//        		if(gcd(A[i],A[j]) > 1) 
+//        			graph.addEdge(i,j);
+//        marked= new boolean[A.length];
+//        cc= new int[A.length];
+//        count=0;
+//        for(int v=0; v<graph.V(); v++) {
+//        	if(!marked[v]) {
+//        		dfs(graph, v);
+//        		count++;
+//        	}
+//        }
+//        int[] counts= new int[count];
+////        System.out.println(count);
+//        for(int v=0; v< graph.V(); v++) {counts[cc[v]]++;}
+//        Arrays.sort(counts);
+//        return counts[counts.length-1];
+//    }
+//	private void dfs(Graph graph, int v) {
+//		marked[v]=true;
+//		cc[v]=count;
+//		for(int w: graph.adj(v)) {
+//			if(!marked[w]) 
+//				dfs(graph,w);
+//		}
+//	}
+//	private int gcd(int i, int j) {
+//		return (j==0) ? i: gcd(j, i%j);
+//	}
 	public static void main(String[] args) {
 		LargestComponentCommonFactor instance= new LargestComponentCommonFactor();
 		int[] input01= {4,6,15,35};
