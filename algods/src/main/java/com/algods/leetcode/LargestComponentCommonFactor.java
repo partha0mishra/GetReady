@@ -31,57 +31,115 @@ Note:
  */
 import java.util.*;
 public class LargestComponentCommonFactor {
-	/* Approach 02: Union Find 
+	/* Approach 03: Union Find*/
+	    class UF {
+	        int[] parent;
+	        int[] size;
+	        int max;
+	        public UF (int N){
+	            parent = new int[N];
+	            size = new int[N];
+	            max = 1;
+	            for (int i = 0; i < N; i++){
+	                parent[i] = i;
+	                size[i] = 1;
+	            }
+	        }
+	        public int find(int x){
+	            if (x == parent[x]){
+	                return x;
+	            }
+	            return parent[x] = find(parent[x]);
+	        }
+	        public void union(int x, int y){
+	            int rootX = find(x);
+	            int rootY = find(y);
+	            if (rootX != rootY){
+	                parent[rootX] = rootY;
+	                size[rootY] += size[rootX];
+	                max = Math.max(max, size[rootY]);
+	            }
+	        }
+	    }
+	    public int largestComponentSize(int[] A) {
+	        int N = A.length;
+	        Map<Integer, Integer> map = new HashMap<>();// key is the factor, val is the node index
+	        UF uf = new UF(N);
+	        for (int i = 0; i < N; i++){
+	            int a = A[i];
+	            for (int j = 2; j * j <= a; j++){
+	                if (a % j == 0){
+	                    if (!map.containsKey(j)){//this means that no index has claimed the factor yet
+	                        map.put(j, i);
+	                    }else{//this means that one index already claimed, so union that one with current
+	                        uf.union(i, map.get(j));
+	                    }
+	                    if (!map.containsKey(a/j)){
+	                        map.put(a/j, i);
+	                    }else{
+	                        uf.union(i, map.get(a/j));
+	                    }
+	                }
+	            }
+	            if (!map.containsKey(a)){//a could be factor too. Don't miss this
+	                map.put(a, i);
+	            }else{
+	                uf.union(i, map.get(a));
+	            }
+	        }
+	        return uf.max;
+	    }
+	/* Approach 02: Union Find with Prime Factor 
 	 * https://leetcode.com/problems/largest-component-size-by-common-factor/discuss/200712/Fast-than-100-concise-java-solution
 	 * step 1. foreach element make it as distinct min prime factor save it to a map
 	 * (key is prime factor, value is element index set).
 	 * eg. {10, 30, 18}->{2: {0,1,2}, 3 {1,2}, 5: {0,1}}
 	 * step 2. foreach set do union and find max cnt*/
-	int[] par;
-    int[] cnt;
-    private int find(int i) {
-        if (i == par[i]) return i;
-        return par[i] = find(par[i]);
-    }
-    private void union(int i, int j) {
-        int pi = find(i);
-        int pj = find(j);
-        if (pi == pj) return ;
-        par[pi] = pj;
-        cnt[pj] += cnt[pi];
-    }
-    public int largestComponentSize(int[] A) {
-        int N = A.length;
-        par = new int[N];
-        cnt = new int[N];
-        Map<Integer, Set<Integer>> prime2Idx = new HashMap<>();
-        for (int i = 0; i < N; i++) {
-            int d = 2, x = A[i];
-            while (d * d <= x) {
-                if (x % d == 0) {
-                    while (x % d == 0) x /= d;
-                    prime2Idx.putIfAbsent(d, new HashSet<>());
-                    prime2Idx.get(d).add(i);
-                }
-                d++;
-            }
-            if (x > 1) {
-                prime2Idx.putIfAbsent(x, new HashSet<>());
-                prime2Idx.get(x).add(i);
-            }
-        }
-        for (int i = 0; i < N; i++) par[i] = i;
-        Arrays.fill(cnt, 1);
-        int max = 1;
-        for (Set<Integer> s : prime2Idx.values()) {
-            int fir = s.iterator().next();
-            for (int idx : s) {
-                union(idx, fir);
-                max = Math.max(cnt[find(idx)],max);
-            }
-        }
-        return max;
-    }
+//	int[] par;
+//    int[] cnt;
+//    private int find(int i) {
+//        if (i == par[i]) return i;
+//        return par[i] = find(par[i]);
+//    }
+//    private void union(int i, int j) {
+//        int pi = find(i);
+//        int pj = find(j);
+//        if (pi == pj) return ;
+//        par[pi] = pj;
+//        cnt[pj] += cnt[pi];
+//    }
+//    public int largestComponentSize(int[] A) {
+//        int N = A.length;
+//        par = new int[N];
+//        cnt = new int[N];
+//        Map<Integer, Set<Integer>> prime2Idx = new HashMap<>();
+//        for (int i = 0; i < N; i++) {
+//            int d = 2, x = A[i];
+//            while (d * d <= x) {
+//                if (x % d == 0) {
+//                    while (x % d == 0) x /= d;
+//                    prime2Idx.putIfAbsent(d, new HashSet<>());
+//                    prime2Idx.get(d).add(i);
+//                }
+//                d++;
+//            }
+//            if (x > 1) {
+//                prime2Idx.putIfAbsent(x, new HashSet<>());
+//                prime2Idx.get(x).add(i);
+//            }
+//        }
+//        for (int i = 0; i < N; i++) par[i] = i;
+//        Arrays.fill(cnt, 1);
+//        int max = 1;
+//        for (Set<Integer> s : prime2Idx.values()) {
+//            int fir = s.iterator().next();
+//            for (int idx : s) {
+//                union(idx, fir);
+//                max = Math.max(cnt[find(idx)],max);
+//            }
+//        }
+//        return max;
+//    }
 	/* Approach 01: DFS - got TLE :( */
 //	class Graph{
 //		int V; // vertices
