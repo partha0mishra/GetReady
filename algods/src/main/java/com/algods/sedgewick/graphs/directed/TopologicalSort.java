@@ -17,8 +17,10 @@ public class TopologicalSort {
 	private void dfs(Digraph graph, int v) {
 		marked[v]=true;
 		for(int i: graph.adj(v)) {
-			if(!marked[i]) dfs(graph, i);
-			order.push(i);
+			if(!marked[i]) {
+				dfs(graph, i);
+				order.push(i);
+			}
 		}
 	}
 	public Iterable<Integer> getOrder(){
