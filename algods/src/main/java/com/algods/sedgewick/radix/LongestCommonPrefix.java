@@ -17,5 +17,4 @@ public class LongestCommonPrefix {
 		System.out.println("3> "+instance.findPrefix("something", "some"));
 		System.out.println("4> "+instance.findPrefix("something", ""));
 	}
-
 }
