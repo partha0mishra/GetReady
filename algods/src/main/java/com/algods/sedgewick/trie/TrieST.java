@@ -1,5 +1,8 @@
 package com.algods.sedgewick.trie;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class TrieST<Value> {
 	public static final int R=256; // extended ASCII
 	private Node root;
@@ -59,6 +62,24 @@ public class TrieST<Value> {
         		return node;
         return null;
 	}
+	public Iterable<String> keys() {
+        return keysWithPrefix("");
+    }
+	public Iterable<String> keysWithPrefix(String prefix) {
+        Queue<String> results = new LinkedList<String>();
+        Node x = get(root, prefix, 0);
+        collect(x, new StringBuilder(prefix), results);
+        return results;
+    }
+	private void collect(Node x, StringBuilder prefix, Queue<String> results) {
+        if (x == null) return;
+        if (x.val != null) results.add(prefix.toString());
+        for (char c = 0; c < R; c++) {
+            prefix.append(c);
+            collect(x.next[c], prefix, results);
+            prefix.deleteCharAt(prefix.length() - 1);
+        }
+    }
 	public String longestPrefixOf(String query) {
         if (query == null) throw new IllegalArgumentException("argument to longestPrefixOf() is null");
         int length = longestPrefixOf(root, query, 0, -1);
@@ -81,7 +102,8 @@ public class TrieST<Value> {
 		String[] words= {"she","sells","sea","shells","by","the","sea","shore"};
 		TrieST<Integer> instance= new TrieST<Integer>();
 		for(int i=0; i< words.length; i++) instance.put(words[i], i);
-		for(int i=0; i< words.length; i++) instance.get(words[i]);
+		for(int i=0; i< words.length; i++) System.out.println(words[i]+" "+instance.get(words[i]));
+		for(String k:instance.keys()) System.out.print(k+" ");
 	}
 
 }
