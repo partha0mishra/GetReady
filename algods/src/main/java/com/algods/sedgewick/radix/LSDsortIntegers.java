@@ -52,6 +52,7 @@ public class LSDsortIntegers {
 		int[] nums1= new int[NUM_ARRAY_SIZE];
 		int[] nums2= new int[NUM_ARRAY_SIZE];
 		int[] nums3= new int[NUM_ARRAY_SIZE];
+		int[] nums4= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet
 		//for(int i=0; i< NUM_ARRAY_SIZE; i++) {nums[i]= random.nextInt(NUM_ARRAY_SIZE);}
@@ -63,8 +64,10 @@ public class LSDsortIntegers {
 			}else {
 				nums1[i]=newNum;
 				nums2[i]=newNum;
-				nums3[i++]=newNum;
+				nums3[i]=newNum;
+				nums4[i]=newNum;
 				hm.add(newNum);
+				i++;
 			}
 		}
 		
@@ -72,7 +75,7 @@ public class LSDsortIntegers {
 		long tStart=System.currentTimeMillis();
 		instance.sort(nums1);
 		long tEnd=System.currentTimeMillis();
-		System.out.println("Radix Sorting    Time: "+(tEnd-tStart));
+		System.out.println("LSD   Sorting    Time: "+(tEnd-tStart));
 		MergeSort mergeSort= new MergeSort();
 		tStart=System.currentTimeMillis();
 		mergeSort.sort(nums2);
@@ -83,6 +86,11 @@ public class LSDsortIntegers {
 		quickSort.sort(nums3);
 		tEnd=System.currentTimeMillis();
 		System.out.println("Quick Sorting    Time: "+(tEnd-tStart));
+		MSDsortIntegers msdSort= new MSDsortIntegers();
+		tStart=System.currentTimeMillis();
+		msdSort.sort(nums4);
+		tEnd=System.currentTimeMillis();
+		System.out.println("MSD   Sorting    Time: "+(tEnd-tStart));
 //		printArray(nums);
 	}
 	private static void printArray(int[] nums) {
