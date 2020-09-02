@@ -1,4 +1,7 @@
 package com.algods.sedgewick.unionfind;
+
+import static org.junit.Assert.assertTrue;
+
 /**
  * @author Partha.X.Mishra
  * 
@@ -8,7 +11,7 @@ package com.algods.sedgewick.unionfind;
  */
 public class QuickUnion {
 	private int[] id;
-	public void initialize(int n) {
+	public QuickUnion(int n) {
 		id= new int[n];
 		for(int i=0; i<n; i++) id[i]=i;
 	}
@@ -30,8 +33,7 @@ public class QuickUnion {
 		System.out.println("\n-----------------------------------");
 	}
 	public static void main(String[] args) {
-		QuickUnion instance= new QuickUnion();
-		instance.initialize(10);
+		QuickUnion instance= new QuickUnion(10);
 		instance.print();
 		instance.union(2, 4);
 		System.out.println(instance.connected(0, 1));
@@ -53,6 +55,7 @@ public class QuickUnion {
 		instance.print();
 		instance.union(0, 1);
 		instance.print();
+		assertTrue(instance.connected(0, 1));
 		System.out.println(instance.connected(0, 1));
 	}
 }
