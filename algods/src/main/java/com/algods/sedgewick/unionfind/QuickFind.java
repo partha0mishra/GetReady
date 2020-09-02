@@ -1,7 +1,8 @@
 package com.algods.sedgewick.unionfind;
+
+import static org.junit.Assert.assertTrue;
+
 /**
- * @author Partha.X.Mishra
- * 
  * QuickFind:
  * Initialize O(N), Union O(N), Find O(1)
  * 
@@ -10,12 +11,12 @@ package com.algods.sedgewick.unionfind;
  */
 public class QuickFind {
 	private int[] id;
-	public void initialize(int n) {
+	public QuickFind(int n) {
 		id= new int[n];
 		for(int i=0; i<n ; i++) id[i]=i;
 	}
 	public void union(int p, int q) {
-		if(id[p] == id[q]) return;// don't waste time if they're already connected.
+		if(connected(p,q)) return;// don't waste time if they're already connected.
 		int pid= id[p];
 		for(int i=0; i<id.length; i++)
 			if(id[i] == pid) id[i]=id[q];
@@ -30,8 +31,7 @@ public class QuickFind {
 		System.out.println("---");
 	}
 	public static void main(String[] args) {
-		QuickFind instance= new QuickFind();
-		instance.initialize(10);
+		QuickFind instance= new QuickFind(10);
 		instance.print();
 		instance.union(2, 4);
 		System.out.println(instance.connected(0, 1));
@@ -52,6 +52,7 @@ public class QuickFind {
 		instance.print();
 		instance.union(0, 1);
 		instance.print();
+		assertTrue(instance.connected(0, 1));
 		System.out.println(instance.connected(0, 1));
 	}
 }
