@@ -10,7 +10,7 @@ package com.algods.sedgewick.unionfind;
 public class WeightedUnion {
 	private int[] id;
 	private int[] size;
-	public void initialize(int n) {
+	public WeightedUnion(int n) {
 		id=new int[n];
 		size=new int[n];
 		for(int i=0; i<n; i++) {
@@ -42,8 +42,7 @@ public class WeightedUnion {
 		System.out.println("\n-----------------------------------");
 	}
 	public static void main(String[] args) {
-		WeightedUnion instance= new WeightedUnion();
-		instance.initialize(10);
+		WeightedUnion instance= new WeightedUnion(10);
 		instance.print();
 		instance.union(2, 4);
 		System.out.println(instance.connected(0, 1));
