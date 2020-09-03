@@ -24,11 +24,12 @@ public class QuickFind {
 	public boolean connected(int p, int q) {
 		return id[p] == id[q];
 	}
-	public void print() {
-		for(int i=0; i<id.length; i++) {
-			System.out.println(i+" "+id[i]);
-		}
-		System.out.println("---");
+	private void print() {
+		System.out.printf ("i : ");
+		for(int i=0; i<id.length; i++) System.out.printf("%2d",i);
+		System.out.printf ("\nid: ");
+		for(int i=0; i<id.length; i++) System.out.printf("%2d",id[i]);
+		System.out.println("\n-----------------------------------");
 	}
 	public static void main(String[] args) {
 		QuickFind instance= new QuickFind(10);
