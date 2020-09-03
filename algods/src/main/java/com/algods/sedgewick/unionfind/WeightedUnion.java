@@ -18,6 +18,7 @@ public class WeightedUnion {
 		}
 	}
 	public void union(int p, int q) {// check the size before union
+		if(connected(p, q)) return;
 		System.out.println("Union: "+p+" & "+q);
 		int rootP=root(p);
 		int rootQ=root(q);
@@ -64,5 +65,11 @@ public class WeightedUnion {
 		instance.union(0, 1);
 		instance.print();
 		System.out.println(instance.connected(0, 1));
+		instance.union(0, 1);// bug if the root's size keeps on increasing.
+		instance.print();
+		instance.union(0, 1);
+		instance.print();
+		instance.union(0, 1);
+		instance.print();
 	}
 }
