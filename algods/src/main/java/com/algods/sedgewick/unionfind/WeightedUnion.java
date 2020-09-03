@@ -8,8 +8,7 @@ package com.algods.sedgewick.unionfind;
  * Additional space O(N) to keep sizes
  */
 public class WeightedUnion {
-	private int[] id;
-	private int[] size;
+	private int[] id, size;
 	public WeightedUnion(int n) {
 		id=new int[n];
 		size=new int[n];
