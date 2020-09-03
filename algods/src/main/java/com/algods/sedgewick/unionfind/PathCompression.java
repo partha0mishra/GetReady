@@ -17,6 +17,7 @@ public class PathCompression {
 		}
 	}
 	public void union(int p, int q) {
+		if(connected(p,q)) return;
 		System.out.println("Union "+p+" & "+q);
 		int rootP=root(p);
 		int rootQ=root(q);
@@ -68,6 +69,12 @@ public class PathCompression {
 		System.out.println(instance.connected(0, 1));
 		instance.print();
 		System.out.println(instance.connected(5, 6));// this should call 2 root methods and compress paths really well
+		instance.print();
+		instance.union(0, 1);// buggy if size keeps on increasing.
+		instance.print();
+		instance.union(0, 1);
+		instance.print();
+		instance.union(0, 1);
 		instance.print();
 	}
 }
