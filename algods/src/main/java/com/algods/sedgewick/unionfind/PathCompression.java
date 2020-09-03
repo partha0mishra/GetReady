@@ -8,7 +8,7 @@ package com.algods.sedgewick.unionfind;
 public class PathCompression {
 	private int[] id;
 	private int[] size;
-	public void initialize(int n) {
+	public PathCompression(int n) {
 		id= new int[n];
 		size= new int[n];
 		for(int i=0; i<n; i++) {
@@ -43,8 +43,7 @@ public class PathCompression {
 		System.out.println("\n-----------------------------------");
 	}
 	public static void main(String[] args) {
-		PathCompression instance= new PathCompression();
-		instance.initialize(10);
+		PathCompression instance= new PathCompression(10);
 		instance.print();
 		instance.union(2, 4);
 		System.out.println(instance.connected(0, 1));
