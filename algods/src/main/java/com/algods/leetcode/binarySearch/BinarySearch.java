@@ -1,4 +1,7 @@
 package com.algods.leetcode.binarySearch;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Binary Search: Template
  * Just using a little QuickSort to sort the array.
@@ -22,8 +25,8 @@ public class BinarySearch {
 	public static void main(String[] args) {
 		int[] num0= {1,3,5,7,9,10,12,14,16,18};
 		BinarySearch bs= new BinarySearch();
-		System.out.println(bs.search(num0, 0));
-		System.out.println(bs.search(num0, 1));
+		assertFalse(bs.search(num0, 0));// false
+		assertTrue(bs.search(num0, 1));// true
 		//*
 		final int NUM_ARRAY_SIZE=100000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
