@@ -48,14 +48,20 @@ public class AllElementsBinSearchTrees {
 	        this.right = right;
 	    }
 	}
-	SortedSet<Integer> result;
     public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
-       result= new TreeSet<>();
-//       List<Integer> res = List.copyOf
-       
-       return null;
+       ArrayList<Integer> result= new ArrayList<>();
+       traverse(root1, result);
+       traverse(root2, result);
+       Collections.sort(result);
+       return result;
         
     }
+	private void traverse(TreeNode node, ArrayList<Integer> result) {
+		if(node == null) return;
+		if(node.left != null) traverse(node.left, result);
+		result.add(node.val);
+		if(node.right != null) traverse(node.right, result);
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
