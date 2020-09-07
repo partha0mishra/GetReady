@@ -22,6 +22,13 @@ package com.algods.leetcode.binarySearch;
  * Output: 0
  */
 import static org.junit.Assert.assertEquals;
+/**
+ * Very classic application of binary search. We are looking for the minimal k value satisfying nums[k] >= target, 
+ * and we can just copy-paste our template. Notice that our solution is correct regardless of whether the input array nums 
+ * has duplicates. Also notice that the input target might be larger than all elements in nums and therefore 
+ * needs to placed at the end of the array. That's why we should initialize right = len(nums) instead of right = len(nums) - 1. 
+ *
+ */
 public class SearchInsertPosition {
 	public int searchInsert(int[] nums, int target) {
         int left=0, right=nums.length;// the target could be bigger than the biggest element
