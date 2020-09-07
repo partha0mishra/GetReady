@@ -16,6 +16,14 @@ package com.algods.leetcode.binarySearch;
  * Then 4 is the first bad version. 
  */
 import static org.junit.Assert.assertEquals;
+/**
+ * CLASSIC Binary Search
+ * First, we initialize left = 1 and right = n to include all possible values. 
+ * Then we notice that we don't even need to design the condition function. 
+ * It's already given by the isBadVersion API. 
+ * Finding the first bad version is equivalent to finding the minimal k satisfying isBadVersion(k) is True. 
+ * Our template can fit in very nicely.
+ */
 public class FirstBadVersion {
 	int firstBadVersion;
 	public FirstBadVersion(int first) {this.firstBadVersion=first;}
