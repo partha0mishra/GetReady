@@ -17,11 +17,11 @@ package com.algods.leetcode.binarySearch;
 import static org.junit.Assert.assertEquals;
 public class CalculateSQRT {
 	public int mySqrt(int x) {
-		if(x<=1) return x;
-		int left=1, right=x;
+		if(x<=1) return x; // special cases of 0 and 1
+		int left=1, right=x; // start from 1. we don't want mid to become Zero.
 		while(left < right) {
 			int mid=left+(right-left)/2;
-			if(mid > x/mid) right=mid;
+			if(mid > x/mid) right=mid; // since mid*mid can cause overflow
 			else left=mid+1;
 		}
 		return left-1;
@@ -30,6 +30,7 @@ public class CalculateSQRT {
 		CalculateSQRT instance = new CalculateSQRT();
 		assertEquals(0,instance.mySqrt(0));
 		assertEquals(1,instance.mySqrt(1));
+		assertEquals(1,instance.mySqrt(2));
 		assertEquals(2,instance.mySqrt(4));
 		assertEquals(2,instance.mySqrt(8));
 		assertEquals(46339,instance.mySqrt(2147395599));
