@@ -56,10 +56,15 @@ bloomDay.length == n
  */
 import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
+/**
+ * he monotonicity of this problem is very clear: if we can make m bouquets after waiting for d days, 
+ * then we can definitely finish that as well if we wait for more than d days. 
+ */
 public class MinDaysMakeMBouquets {
 	public int minDays(int[] bloomDay, int m, int k) {
 		if(m==0 || k==0) return 0;
-		if(bloomDay.length < m*k) return -1;
+		// VERY IMPORTANT - if search-space doesn't have the result, don't get in the search
+//		if(bloomDay.length < m*k) return -1;
         int left=Arrays.stream(bloomDay).min().getAsInt();
         int right=Arrays.stream(bloomDay).max().getAsInt();
         while(left < right){
