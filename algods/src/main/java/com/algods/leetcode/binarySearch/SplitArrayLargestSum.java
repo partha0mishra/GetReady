@@ -24,6 +24,13 @@ package com.algods.leetcode.binarySearch;
 import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 public class SplitArrayLargestSum {
+	/**
+	 * If you take a close look, you would probably see how similar this problem is with LC 1011 above. 
+	 * Similarly, we can design a feasible function: given an input threshold, then decide if we can split the array into 
+	 * several subarrays such that every subarray-sum is less than or equal to threshold. In this way, we discover the monotonicity 
+	 * of the problem: if feasible(m) is True, then all inputs larger than m can satisfy feasible function. 
+	 * You can see that the solution code is exactly the same as LC 1011. 
+	 */
 	public int splitArray(int[] nums, int m) {
         int left =Arrays.stream(nums).max().getAsInt();
         int right=Arrays.stream(nums).sum();
