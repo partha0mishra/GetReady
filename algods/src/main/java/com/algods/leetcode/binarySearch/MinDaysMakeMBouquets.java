@@ -64,7 +64,7 @@ public class MinDaysMakeMBouquets {
 	public int minDays(int[] bloomDay, int m, int k) {
 		if(m==0 || k==0) return 0;
 		// VERY IMPORTANT - if search-space doesn't have the result, don't get in the search
-//		if(bloomDay.length < m*k) return -1;
+		if(bloomDay.length < m*k) return -1;
         int left=Arrays.stream(bloomDay).min().getAsInt();
         int right=Arrays.stream(bloomDay).max().getAsInt();
         while(left < right){
