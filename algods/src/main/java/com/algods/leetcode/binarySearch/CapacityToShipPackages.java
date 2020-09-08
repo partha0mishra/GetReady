@@ -1,6 +1,7 @@
 package com.algods.leetcode.binarySearch;
 /**
- * 1011. Capacity To Ship Packages Within D Days 
+ * 1011. Capacity To Ship Packages Within D Days - MEDIUM
+ * 
  * A conveyor belt has packages that must be shipped from one port to another within D days.
  * The i-th package on the conveyor belt has a weight of weights[i].  
  * Each day, we load the ship with packages on the conveyor belt (in the order given by weights). 
