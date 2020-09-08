@@ -26,6 +26,12 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 
 public class KokoEatingBananas {
+	/**
+	 * Very similar to LC 1011 and LC 410 mentioned above. 
+	 * Let's design a feasible function, given an input speed, determine whether Koko can finish all bananas within H hours with hourly eating speed. 
+	 * Obviously, the lower bound of the search space is 1, and upper bound is max(piles), 
+	 * because Koko can only choose one pile of bananas to eat every hour.
+	 */
 	public int minEatingSpeed(int[] piles, int H) {
         int left=1;// min rate of eating
         int right=Arrays.stream(piles).max().getAsInt();// max rate of eating
@@ -39,8 +45,9 @@ public class KokoEatingBananas {
 	private boolean isFeasible(int[] piles, int rate, int hours) {
 		int count=0;
 		for(int p: piles) {
-			count+=p/rate;
-			count+=(p%rate > 0)? 1:0;
+//			count+=p/rate;
+//			count+=(p%rate > 0)? 1:0;
+			count+=(p-1)/rate+1;
 			if(count > hours) return false;
 		}
 		return true;
