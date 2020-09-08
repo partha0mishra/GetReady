@@ -32,7 +32,7 @@ public class SplitArrayLargestSum {
 	 * You can see that the solution code is exactly the same as LC 1011. 
 	 */
 	public int splitArray(int[] nums, int m) {
-        int left =Arrays.stream(nums).max().getAsInt();
+        int left =Arrays.stream(nums).max().getAsInt();// important to start from Max
         int right=Arrays.stream(nums).sum();
         while(left < right) {
         	int mid=left+(right-left)/2;
@@ -55,9 +55,9 @@ public class SplitArrayLargestSum {
 	}
 	public static void main(String[] args) {
 		SplitArrayLargestSum instance= new SplitArrayLargestSum();
-//		assertEquals(18,instance.splitArray(new int[] {7,2,5,10,8}, 2));
-//		assertEquals( 9,instance.splitArray(new int[] {1,2,3,4,5}, 2));
-		assertEquals( 4,instance.splitArray(new int[] {1,4,4}, 3));
+		assertEquals(18,instance.splitArray(new int[] {7,2,5,10,8}, 2));
+		assertEquals( 9,instance.splitArray(new int[] {1,2,3,4,5}, 2));
+		assertEquals( 4,instance.splitArray(new int[] {1,4,4}, 3));// important.
 	}
 
 }
