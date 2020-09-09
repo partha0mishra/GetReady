@@ -24,7 +24,12 @@ package com.algods.leetcode.binarySearch;
  * It's guaranteed that the result will be in range [1, 2 * 10^9]
  */
 import static org.junit.Assert.assertEquals;
-
+/**
+ * Nothing special. Still finding the Kth-Smallest. We need to design an enough function, 
+ * given an input num, determine whether there are at least n ugly numbers less than or equal to num. 
+ * Since a might be a multiple of b or c, or the other way round, 
+ * we need the help of greatest common divisor to avoid counting duplicate numbers. 
+ */
 public class UglyNumberIII {
 	public int nthUglyNumber(int n, int a, int b, int c) {
         int left=1, right=(int)2e9;
@@ -40,11 +45,11 @@ public class UglyNumberIII {
 		if(count >= n) return true;
 		return false;
 	}
-	long gcd(long a, long b) {
+	long gcd(long a, long b) {// good one to remember
         if (a == 0) return b;
         return gcd(b % a, a);
     }
-    long lcm(long a, long b) {
+    long lcm(long a, long b) {// another good one to remember
         return a * b / gcd(a, b);
     }
 	public static void main(String[] args) {
