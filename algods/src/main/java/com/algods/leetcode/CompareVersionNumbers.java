@@ -65,7 +65,7 @@ public class CompareVersionNumbers {
 		assertEquals(-1,instance.compareVersion("7.5.2.4",	"7.5.3"));
 		assertEquals( 0,instance.compareVersion("1.01",		"1.001"));
 		assertEquals( 0,instance.compareVersion("1.0", 		"1.0.0"));
-		assertEquals(-1,instance.compareVersion("1.0", 		"1.1"));
+		assertEquals(-1,instance.compareVersion("1.0", 		"1.1"));// tricky case
+//		assertEquals( 1,instance.compareVersion("2.10000000000000000000000000000.0", "2.1"));// this case is not handled here
 	}
-
 }
