@@ -28,8 +28,8 @@ public class MaxProductSubarrays {
     }
 	public static void main(String[] args) {
 		MaxProductSubarrays instance= new MaxProductSubarrays();
-//		assertEquals(6,instance.maxProduct(new int[] {2,3,-2,4}));
-//		assertEquals(0,instance.maxProduct(new int[] {-2,0,-1}));
+		assertEquals(6,instance.maxProduct(new int[] {2,3,-2,4}));
+		assertEquals(0,instance.maxProduct(new int[] {-2,0,-1}));
 		assertEquals(48,instance.maxProduct(new int[] {2,3,-2,-1,4}));
 	}
 
