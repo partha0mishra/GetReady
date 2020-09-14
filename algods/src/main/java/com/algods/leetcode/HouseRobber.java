@@ -23,31 +23,44 @@ package com.algods.leetcode;
 import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 public class HouseRobber {
-	int result;
-	HashMap<Integer,Integer> memo;
+	/* Approach 03: DP 
+	 * Quite like a Buy and Sell stocks with 1 day cooling*/
 	public int rob(int[] nums) {
-		result=0;
-		memo=new HashMap<Integer, Integer>();
-		result=robHelp(nums, 0);
-        return result;
-    }
-	private int robHelp(int[]nums, int index) {
-//		System.out.println(index+" "+tempResult);
-		if(index >= nums.length) return 0;
-		int localMax=0, tempResult;
-		for(int i=index; i< nums.length; i++) {
-			if(memo.containsKey(i)) {
-//				System.out.println("got from memo");
-				tempResult=memo.get(i);
-			}else {
-				tempResult=nums[i]+robHelp(nums, i+2);
-			}
-			if(tempResult > localMax) localMax=tempResult;
+		int rob=0, norob=0;
+		for(int i=0; i< nums.length; i++) {
+			int currentRob=norob+nums[i];// to rob the current one, the previous one can't be robbed
+			norob=Math.max(rob, norob);// max of last house's status carries on if this one is not robbed
+			rob=currentRob;
 		}
-//		System.out.println("localmax: "+index+" "+localMax);
-		memo.put(index, localMax);
-		return localMax;
-	}
+		return Math.max(rob, norob);
+    }
+	/* Approach 02: Greeding, BackTracking, Memoization - First time. YEY !!
+	 * Note: TLE without Memoization*/
+//	int result;
+//	HashMap<Integer,Integer> memo;
+//	public int rob(int[] nums) {
+//		result=0;
+//		memo=new HashMap<Integer, Integer>();
+//		result=robHelp(nums, 0);
+//        return result;
+//    }
+//	private int robHelp(int[]nums, int index) {
+////		System.out.println(index+" "+tempResult);
+//		if(index >= nums.length) return 0;
+//		int localMax=0, tempResult;
+//		for(int i=index; i< nums.length; i++) {
+//			if(memo.containsKey(i)) {
+////				System.out.println("got from memo");
+//				tempResult=memo.get(i);
+//			}else {
+//				tempResult=nums[i]+robHelp(nums, i+2);
+//			}
+//			if(tempResult > localMax) localMax=tempResult;
+//		}
+////		System.out.println("localmax: "+index+" "+localMax);
+//		memo.put(index, localMax);
+//		return localMax;
+//	}
 	/* Approach 01: Naive and Wrong - uses only alternating sums*/
 //	public int rob(int[] nums) {
 //		int oddSum=0, evenSum=0;
