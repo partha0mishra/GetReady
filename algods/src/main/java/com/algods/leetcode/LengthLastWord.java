@@ -12,11 +12,16 @@ package com.algods.leetcode;
  */
 import static org.junit.Assert.assertEquals;
 public class LengthLastWord {
+	/* Approach 02: single liner*/
 	public int lengthOfLastWord(String s) {
-        if(s.trim().length() <1) return 0;
-        String[] tokens=s.split(" ");
-        return tokens[tokens.length-1].length();
+        return s.trim().length()-s.trim().lastIndexOf(" ")-1;
     }
+	/* Approach 01: Regular, for such a LOPPA question*/
+//	public int lengthOfLastWord(String s) {
+//        if(s.trim().length() <1) return 0;
+//        String[] tokens=s.split(" ");
+//        return tokens[tokens.length-1].length();
+//    }
 	public static void main(String[] args) {
 		LengthLastWord instance = new LengthLastWord();
 		assertEquals(5,instance.lengthOfLastWord("Hello World"));
