@@ -14,18 +14,18 @@ public class ResizeArrayQueue {
 	}
 	public String dequeue() {
 		if (isEmpty()) throw new IllegalArgumentException("--- empty ---");
-		return items[++first];
+		return items[first++];
 	}
 	private void resize() {
 		int newSize=2*(last-first);
 		System.out.println(">> Resize called at: first "+first+" last "+last+" newSize "+newSize);
 		String[] newItems=new String[newSize];
-		int i;
-		for(i=first; i<last; i++) {
+		for(int i=first; i<last; i++) {
 			newItems[i-first]=items[i];
 		}
+		last=last-first;
 		first=0;
-		last=i;
+		
 		items=newItems;
 	}
 	public boolean isEmpty() {
