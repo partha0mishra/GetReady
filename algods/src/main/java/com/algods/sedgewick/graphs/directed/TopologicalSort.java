@@ -10,8 +10,10 @@ public class TopologicalSort {
 		order= new Stack<Integer>();
 		marked= new boolean[graph.V()];
 		for(int v=0; v< graph.V(); v++) {
-			if(!marked[v]) dfs(graph, v);
-			order.push(v);
+			if(!marked[v]) {
+				dfs(graph, v);
+				order.push(v);
+			}
 		}
 	}
 	private void dfs(Digraph graph, int v) {
@@ -29,12 +31,10 @@ public class TopologicalSort {
 	public boolean marked(int node) {return marked[node];}
 	public static void main(String[] args) {
 		Digraph graph= new Digraph(13);
-		graph.addEdge(0,5);		graph.addEdge(0,1);		graph.addEdge(2,0);		graph.addEdge(2,3);
-		graph.addEdge(3,5);		graph.addEdge(3,2);		graph.addEdge(4,3);		graph.addEdge(4,2);
-		graph.addEdge(5,4);		graph.addEdge(6,9);		graph.addEdge(6,4);		graph.addEdge(6,8);
-		graph.addEdge(6,0);		graph.addEdge(7,6);		graph.addEdge(7,9);		graph.addEdge(8,6);
-		graph.addEdge(9,11);		graph.addEdge(9,10);		graph.addEdge(10,12);		graph.addEdge(11,4);
-		graph.addEdge(11,12);		graph.addEdge(12,9);
+		graph.addEdge(2,3);		graph.addEdge(0,6);		graph.addEdge(0,1);		graph.addEdge(2,0);
+		graph.addEdge(11,12);		graph.addEdge(9,12);		graph.addEdge(9,10);		graph.addEdge(9,11);
+		graph.addEdge(3,5);		graph.addEdge(8,7);		graph.addEdge(5,4);		graph.addEdge(0,5);
+		graph.addEdge(6,4);		graph.addEdge(6,9);		graph.addEdge(7,6);
 		System.out.println(graph);
 		TopologicalSort ts= new TopologicalSort(graph);
 		for(int i: ts.getOrder()) System.out.print(i+" ");
