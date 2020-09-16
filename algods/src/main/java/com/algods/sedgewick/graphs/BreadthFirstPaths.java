@@ -13,12 +13,13 @@ public class BreadthFirstPaths {
 		marked= new boolean[G.V()];
 		edgeTo= new int[G.V()];
 		distTo= new int[G.V()];
+		for(int i=0; i< G.V(); i++)
+			distTo[i]=INFINITY;
 		bfs(G,source);
 	}
 	private void bfs(Graph G, int source) {
 		Queue<Integer> q= new LinkedList<Integer>();
-		for(int i=0; i< G.V(); i++)
-			distTo[i]=INFINITY;
+		
 		distTo[source]=0;
 		marked[source]=true;
 		q.add(source);
