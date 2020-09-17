@@ -61,13 +61,15 @@ public class BinaryHeap {
 		items[i]=items[j];
 		items[j]=temp;
 	}
+	@Override
 	public String toString() {
-		StringBuffer sb= new StringBuffer();
-		for(int i: items) sb.append(i).append(".");
-		return sb.substring(2, sb.length()-1);
+		StringBuilder sb= new StringBuilder();
+		for(int i: items) 
+			sb.append(i).append(".");
+		return sb.substring(2, sb.length()-1).toString();
 	}
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=1000;
+		final int NUM_ARRAY_SIZE=100;
 		Random random= ThreadLocalRandom.current();
 		//for(int i=0; i< NUM_ARRAY_SIZE; i++) {nums[i]= random.nextInt(NUM_ARRAY_SIZE);}
 		HashSet<Integer> hm= new HashSet<Integer>();
@@ -79,11 +81,11 @@ public class BinaryHeap {
 			}else {
 				instance.insert(newNum);
 				i++;
-//				System.out.println(instance);
+				System.out.println(instance);
 				hm.add(newNum);
 			}
 		}
-		System.out.println(instance);
+		System.out.println(">>>> "+instance);
 		int prev=instance.delMax();
 		System.out.print(prev+".");
 		for(int i=1; i< NUM_ARRAY_SIZE; i++) {
@@ -100,11 +102,11 @@ public class BinaryHeap {
 			}else {
 				instance.insert(newNum);
 				i++;
-//				System.out.println(instance);
+				System.out.println(instance);
 				hm.add(newNum);
 			}
 		}
-		System.out.println(instance);
+		System.out.println(">>>> "+instance);
 		prev=instance.delMax();
 		System.out.print(prev+".");
 		for(int i=1; i< NUM_ARRAY_SIZE; i++) {
