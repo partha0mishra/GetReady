@@ -24,7 +24,8 @@ public class BinaryHeap {
 	}
 	public int delMax() {
 		int max=items[1];
-		swap(1,n--);
+//		swap(1,n--);
+		items[1]=items[n--];
 		sink(1);
 		if(n==items.length/4 && n>1) resize(n);
 		return max;
