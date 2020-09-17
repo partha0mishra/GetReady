@@ -42,7 +42,7 @@ public class BinaryHeap {
 		while(2*k <= n) {
 			int j=2*k;
 			if(j < n && items[j]<items[j+1]) j++;
-			if(items[k]> items[j]) break;
+			if(items[k] >= items[j]) break;
 			swap(k,j);
 			k=j;
 		}
