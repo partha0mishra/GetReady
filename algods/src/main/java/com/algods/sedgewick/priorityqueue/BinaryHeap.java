@@ -50,9 +50,10 @@ public class BinaryHeap {
 	private void resize(int origSize) {
 		System.out.println("Resize called at: "+origSize);
 		int[] tempItems= new int[2*origSize];
-		for(int i=0; i< origSize; i++) {
-			tempItems[i]=items[i];
-		}
+		System.arraycopy(items, 0, tempItems, 0, origSize);
+//		for(int i=0; i< origSize; i++) {
+//			tempItems[i]=items[i];
+//		}
 		items=tempItems;
 	}
 	private void swap(int i, int j) {
