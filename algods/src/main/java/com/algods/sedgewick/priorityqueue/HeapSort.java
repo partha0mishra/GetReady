@@ -67,11 +67,19 @@ public class HeapSort {
 	}
 	public int[] sort() {
 //		System.out.println("n: "+n);
-		int[] result=new int[n];
-		for(int i=0; i< result.length; i++) {
-			delMax();
+//		int[] result=new int[n];
+//		for(int i=0; i< result.length; i++) {
+//			delMax();
+//		}
+//		System.arraycopy(items, 1, result, 0, result.length);
+		// OLD CODE Above
+		int numElements=n;
+		int[] result=new int[numElements-1];
+		while (n > 1) {
+			swap(1, n--);
+			sink(1);
 		}
-		System.arraycopy(items, 1, result, 0, result.length);
+		System.arraycopy(items, 1, result, 0, numElements-1);
 		return result;
 	}
 	public static void main(String[] args) {
@@ -94,7 +102,7 @@ public class HeapSort {
 //		System.out.println(instance);
 		int[] sorted=instance.sort();
 //		System.out.println(instance);
-//		System.out.println("Result: "+Arrays.toString(sorted));
+		System.out.println("Result: "+Arrays.toString(sorted));
 		instance.validate(sorted,0,sorted.length-1);
 	}
 	private void validate(int[] nums, int lo, int hi) {
