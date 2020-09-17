@@ -76,7 +76,7 @@ public class HeapSort {
 		int numElements=n;
 		int[] result=new int[numElements-1];
 		while (n > 1) {
-			swap(1, n--);
+			swap(1, n--);// can't use numElements as 'n' is used in sink()
 			sink(1);
 		}
 		System.arraycopy(items, 1, result, 0, numElements-1);
