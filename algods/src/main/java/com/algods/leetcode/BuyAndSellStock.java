@@ -18,22 +18,32 @@ package com.algods.leetcode;
  */
 import static org.junit.Assert.assertEquals;
 public class BuyAndSellStock {
+	/* Approach 02: Kadane's*/
 	public int maxProfit(int[] prices) {
-		if(prices.length <=1) return 0;
-		int max=Integer.MIN_VALUE, min=Integer.MAX_VALUE, result=0;
-		for(int p: prices) {
-			if(p < min) {
-				min=p;
-				max=p;
-			}
-			if(p > max) {
-				max=p;
-			}
-			int r=max-min;
-			if(r> result) result=r;
-		}
-		return result;
+        int maxCur = 0, maxSoFar = 0;
+        for(int i = 1; i < prices.length; i++) {
+            maxCur = Math.max(0, maxCur += prices[i] - prices[i-1]);
+            maxSoFar = Math.max(maxCur, maxSoFar);
+        }
+        return maxSoFar;
     }
+	/* Approach 01: Regular*/
+//	public int maxProfit(int[] prices) {
+//		if(prices.length <=1) return 0;
+//		int max=Integer.MIN_VALUE, min=Integer.MAX_VALUE, result=0;
+//		for(int p: prices) {
+//			if(p < min) {
+//				min=p;
+//				max=p;
+//			}
+//			if(p > max) {
+//				max=p;
+//			}
+//			int r=max-min;
+//			if(r> result) result=r;
+//		}
+//		return result;
+//    }
 	public static void main(String[] args) {
 		BuyAndSellStock instance = new BuyAndSellStock();
 		assertEquals(5,instance.maxProfit(new int[] {7,1,5,3,6,4}));
