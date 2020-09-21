@@ -42,35 +42,40 @@ trips[i].length == 3
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 public class CarPooling {
-	public boolean carPooling(int[][] trips, int capacity) {
-		// sort the intervals
-//		Arrays.sort(trips, (a,b) -> a[2]-b[2]);
-//		int end=trips[trips.length-1][2];
-//		Arrays.sort(trips, (a,b) -> a[1]-b[1]);
-////		for(int[] t: trips) {System.out.println(t[0]+" "+t[1]+" "+t[2]);}
-//		// merge and add capacity requirement
+	/* Approach 02: Clever - since max trips = 1000, use boarding and off-boarding*/
+	public boolean carPooling(int[][] trips, int capacity) {    
+		  int stops[] = new int[1001]; 
+		  for (int t[] : trips) {
+		      stops[t[1]] += t[0];
+		      stops[t[2]] -= t[0];
+//		      System.out.println(stops[t[1]]+" "+stops[t[2]]);
+		  }
+		  for (int i = 0; capacity >= 0 && i < 1001; ++i) capacity -= stops[i];
+		  return capacity >= 0;
+		}
+	/* Approach 01: brute force*/
+//	public boolean carPooling(int[][] trips, int capacity) {
+//		// getting max and min from one iteration
 //		int start=trips[0][1];
-		// getting max and min from one iteration
-		int start=trips[0][1];
-		int end=trips[0][2];
-		
-		for(int[] t: trips) {
-			if(t[1] < start) start=t[1];
-			if(t[2] > end) end=t[2];
-		}
-		
-		int[] load= new int[end-start];
-		
-		for(int[] t: trips) {
-			for(int i=t[1]; i< t[2]; i++) {
-				load[i-start]+=t[0];
-				if(load[i-start] > capacity) return false;
-			}
-		}
-//		for(int l: load) System.out.println(l);
-		
-		return true;
-    }
+//		int end=trips[0][2];
+//		
+//		for(int[] t: trips) {
+//			if(t[1] < start) start=t[1];
+//			if(t[2] > end) end=t[2];
+//		}
+//		
+//		int[] load= new int[end-start];
+//		
+//		for(int[] t: trips) {
+//			for(int i=t[1]; i< t[2]; i++) {
+//				load[i-start]+=t[0];
+//				if(load[i-start] > capacity) return false;
+//			}
+//		}
+////		for(int l: load) System.out.println(l);
+//		
+//		return true;
+//    }
 	public static void main(String[] args) {
 		CarPooling instance = new CarPooling();
 		assertFalse(instance.carPooling(new int[][] {{2,1,5},{3,3,7}}, 4));
