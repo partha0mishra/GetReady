@@ -44,12 +44,21 @@ import static org.junit.Assert.assertFalse;
 public class CarPooling {
 	public boolean carPooling(int[][] trips, int capacity) {
 		// sort the intervals
-		Arrays.sort(trips, (a,b) -> a[2]-b[2]);
-		int end=trips[trips.length-1][2];
-		Arrays.sort(trips, (a,b) -> a[1]-b[1]);
-//		for(int[] t: trips) {System.out.println(t[0]+" "+t[1]+" "+t[2]);}
-		// merge and add capacity requirement
+//		Arrays.sort(trips, (a,b) -> a[2]-b[2]);
+//		int end=trips[trips.length-1][2];
+//		Arrays.sort(trips, (a,b) -> a[1]-b[1]);
+////		for(int[] t: trips) {System.out.println(t[0]+" "+t[1]+" "+t[2]);}
+//		// merge and add capacity requirement
+//		int start=trips[0][1];
+		// getting max and min from one iteration
 		int start=trips[0][1];
+		int end=trips[0][2];
+		
+		for(int[] t: trips) {
+			if(t[1] < start) start=t[1];
+			if(t[2] > end) end=t[2];
+		}
+		
 		int[] load= new int[end-start];
 		
 		for(int[] t: trips) {
@@ -64,10 +73,10 @@ public class CarPooling {
     }
 	public static void main(String[] args) {
 		CarPooling instance = new CarPooling();
-//		assertFalse(instance.carPooling(new int[][] {{2,1,5},{3,3,7}}, 4));
-//		assertTrue(instance.carPooling(new int[][] {{2,1,5},{3,3,7}}, 5));
-//		assertTrue(instance.carPooling(new int[][] {{2,1,5},{3,5,7}}, 3));
-//		assertTrue(instance.carPooling(new int[][] {{3,2,7},{3,7,9},{8,3,9}}, 11));
+		assertFalse(instance.carPooling(new int[][] {{2,1,5},{3,3,7}}, 4));
+		assertTrue(instance.carPooling(new int[][] {{2,1,5},{3,3,7}}, 5));
+		assertTrue(instance.carPooling(new int[][] {{2,1,5},{3,5,7}}, 3));
+		assertTrue(instance.carPooling(new int[][] {{3,2,7},{3,7,9},{8,3,9}}, 11));
 		assertTrue(instance.carPooling(new int[][] {{9,3,4},{9,1,7},{4,2,4},{7,4,5}}, 23));
 	}
 
