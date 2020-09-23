@@ -51,18 +51,19 @@ import static org.junit.Assert.assertEquals;
 public class GasStation {
 	/* Approach 02: Borrowing from Kadane's*/
 	public int canCompleteCircuit(int[] gas, int[] cost) {
-		if(Arrays.stream(gas).sum() < Arrays.stream(cost).sum()) return -1;
-		int index=-1, balance=0;
+		int index=-1, balance=0, totalGas=0, totalCost=0;
 		for(int i=0; i< gas.length; i++) {
 			if(index == -1) index=i;
+			totalGas+=gas[i];
+			totalCost+=cost[i];
 			balance+=gas[i]-cost[i];
-			System.out.println(balance);
+//			System.out.println(balance);
 			if(balance < 0) {
 				balance=0;
 				index=-1;
 			}
 		}
-		return index;
+		return (totalGas < totalCost) ? -1:index;
 	}
 	/* Approach 01: Brute Force. Works, was expecting TLE */
 //	public int canCompleteCircuit(int[] gas, int[] cost) {
@@ -83,8 +84,10 @@ public class GasStation {
 //    }
 	public static void main(String[] args) {
 		GasStation instance = new GasStation();
-//		assertEquals(3,instance.canCompleteCircuit(new int[] {1,2,3,4,5}, new int[] {3,4,5,1,2}));
+		assertEquals(3,instance.canCompleteCircuit(new int[] {1,2,3,4,5}, new int[] {3,4,5,1,2}));
 		assertEquals(-1,instance.canCompleteCircuit(new int[] {2,3,4}, new int[] {3,4,3}));
+		assertEquals(1,instance.canCompleteCircuit(new int[] {0,1}, new int[] {1,0}));
+		assertEquals(1,instance.canCompleteCircuit(new int[] {0,1,1}, new int[] {1,0,1}));
 	}
 
 }
