@@ -49,25 +49,41 @@ Therefore, you can't travel around the circuit once no matter where you start.
  */
 import static org.junit.Assert.assertEquals;
 public class GasStation {
+	/* Approach 02: Borrowing from Kadane's*/
 	public int canCompleteCircuit(int[] gas, int[] cost) {
 		if(Arrays.stream(gas).sum() < Arrays.stream(cost).sum()) return -1;
-		for(int start=0; start< gas.length; start++) {
-			if(gas[start] < cost[start]) continue;
-			int i=start, balance=0;
-			while(true) {
-				balance+=gas[i]-cost[i];
-				System.out.println("["+i+"] : balance "+balance);
-				if(balance < 0) break;
-				i++;
-				if(i == gas.length) i=0;// wrap
-				if(i == start) return start;
+		int index=-1, balance=0;
+		for(int i=0; i< gas.length; i++) {
+			if(index == -1) index=i;
+			balance+=gas[i]-cost[i];
+			System.out.println(balance);
+			if(balance < 0) {
+				balance=0;
+				index=-1;
 			}
 		}
-        return -1;
-    }
+		return index;
+	}
+	/* Approach 01: Brute Force. Works, was expecting TLE */
+//	public int canCompleteCircuit(int[] gas, int[] cost) {
+//		if(Arrays.stream(gas).sum() < Arrays.stream(cost).sum()) return -1;
+//		for(int start=0; start< gas.length; start++) {
+//			if(gas[start] < cost[start]) continue;
+//			int i=start, balance=0;
+//			while(true) {
+//				balance+=gas[i]-cost[i];
+//				System.out.println("["+i+"] : balance "+balance);
+//				if(balance < 0) break;
+//				i++;
+//				if(i == gas.length) i=0;// wrap
+//				if(i == start) return start;
+//			}
+//		}
+//        return -1;
+//    }
 	public static void main(String[] args) {
 		GasStation instance = new GasStation();
-		assertEquals(3,instance.canCompleteCircuit(new int[] {1,2,3,4,5}, new int[] {3,4,5,1,2}));
+//		assertEquals(3,instance.canCompleteCircuit(new int[] {1,2,3,4,5}, new int[] {3,4,5,1,2}));
 		assertEquals(-1,instance.canCompleteCircuit(new int[] {2,3,4}, new int[] {3,4,3}));
 	}
 
