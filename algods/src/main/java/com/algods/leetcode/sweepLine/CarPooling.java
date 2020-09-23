@@ -1,6 +1,4 @@
-package com.algods.leetcode;
-
-import java.util.Arrays;
+package com.algods.leetcode.sweepLine;
 
 /**
  * CAR Pooling
@@ -39,10 +37,12 @@ trips[i].length == 3
 0 <= trips[i][1] < trips[i][2] <= 1000
 1 <= capacity <= 100000
  */
+//import java.util.Arrays;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 public class CarPooling {
-	/* Approach 02: Clever - since max trips = 1000, use boarding and off-boarding*/
+	/* Approach 02: Sweep Line
+	 * Clever - since max trips = 1000, use boarding and off-boarding*/
 	public boolean carPooling(int[][] trips, int capacity) {    
 		  int stops[] = new int[1001]; 
 		  for (int t[] : trips) {
