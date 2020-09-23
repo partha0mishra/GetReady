@@ -13,19 +13,15 @@ package com.algods.leetcode;
  */
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.Set;
 import static org.junit.Assert.assertEquals;
 public class MajorityElement {
     public int majorityElement(int[] nums) {
     	Map<Integer,Integer> map= new TreeMap<Integer,Integer>();
     	for(int n: nums) {
     		map.put(n, map.getOrDefault(n, 0)+1);
+    		if(map.get(n) > nums.length/2) return n;
     	}
-    	Set<Integer> keys= map.keySet();
-    	for(int k: keys) {
-    		if(map.get(k) > nums.length/2) return k;
-    	}
-        return -1;
+    	return -1;
     }
 	public static void main(String[] args) {
 		MajorityElement instance = new MajorityElement();
