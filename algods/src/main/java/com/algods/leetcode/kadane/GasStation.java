@@ -1,4 +1,4 @@
-package com.algods.leetcode.september;
+package com.algods.leetcode.kadane;
 
 import java.util.Arrays;
 
