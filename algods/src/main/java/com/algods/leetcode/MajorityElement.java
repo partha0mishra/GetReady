@@ -18,8 +18,9 @@ public class MajorityElement {
     public int majorityElement(int[] nums) {
     	Map<Integer,Integer> map= new TreeMap<Integer,Integer>();
     	for(int n: nums) {
-    		map.put(n, map.getOrDefault(n, 0)+1);
-    		if(map.get(n) > nums.length/2) return n;
+    		int count=map.getOrDefault(n, 0)+1;
+    		if(count > nums.length/2) return n;
+    		map.put(n, count);
     	}
     	return -1;
     }
