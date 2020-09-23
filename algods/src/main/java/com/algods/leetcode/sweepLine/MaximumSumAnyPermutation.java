@@ -49,7 +49,7 @@ public class MaximumSumAnyPermutation {
         int[] count=new int[nums.length +1];
         for(int[] r: requests) {// only the markers
         	count[r[0]]++;
-        	count[r[1]+1]--;
+        	count[r[1]+1]--;// CLEVER
         }
         for(int i=1; i< count.length; i++) {// populate all - cumulative of markers
         	count[i]+=count[i-1];
