@@ -37,6 +37,7 @@ Constraints:
 -231 <= nums[i] <= 231 - 1
  */
 public class MaximumSubarray {
+	/* Classic Kadane's*/
 	public int maxSubArray(int[] nums) {
         int localMax=nums[0], globalMax=nums[0];
         for(int i=1; i< nums.length; i++){
