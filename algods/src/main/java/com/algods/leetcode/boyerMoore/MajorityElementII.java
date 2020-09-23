@@ -13,7 +13,14 @@ package com.algods.leetcode.boyerMoore;
  */
 import java.util.*;
 public class MajorityElementII {
-	/* Approach 02 - Boyer-Moore Voting Algorithm O(n) time O(1) space */
+	/* Approach 02 - Boyer-Moore Voting Algorithm O(n) time O(1) space 
+	 * REF: https://leetcode.com/problems/majority-element-ii/solution/
+	 * There can be only 1 more than n/2, 2 more than n/3, 3 more than n/4 and so on
+	 * so, we need to keep top 2 elements and their counts
+	 * They don't affect each other's count
+	 * Other elements reduce their counts.
+	 * 
+	 * NOTE: Need a 2nd pass to ascertain their actual counts*/
 	public List<Integer> majorityElement(int[] nums){
 		Integer t1=null, t2=null;
 		int c1=0, c2=0;
