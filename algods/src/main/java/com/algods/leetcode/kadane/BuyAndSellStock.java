@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.kadane;
 /**
  * Best time to buy and sell stock
  * 
