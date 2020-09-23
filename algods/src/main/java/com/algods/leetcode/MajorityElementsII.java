@@ -13,6 +13,8 @@ package com.algods.leetcode;
  */
 import java.util.*;
 public class MajorityElementsII {
+	/* Approach 02 - Boyer-Moore Voting Algorithm O(n) time O(1) space */
+	/* Approach 01 - Naive O(n) time O(n) space*/
 	public List<Integer> majorityElement(int[] nums) {
 		Map<Integer,Integer> hm= new TreeMap<Integer, Integer>();
         for(int n: nums) {
