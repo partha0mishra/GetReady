@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.dfs;
 /*
  * Well-explained solution: https://leetcode.com/problems/unique-paths-iii/solution/
  * 
