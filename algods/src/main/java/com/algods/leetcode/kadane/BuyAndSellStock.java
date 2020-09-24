@@ -28,7 +28,11 @@ public class BuyAndSellStock {
 	public int maxProfit(int[] prices) {
         int maxCur = 0, maxSoFar = 0;
         for(int i = 1; i < prices.length; i++) {
-            maxCur = Math.max(0, maxCur += prices[i] - prices[i-1]);
+        	int diff=prices[i]-prices[i-1];
+        	// decide what to do, go with History or Start afresh
+        	// History => localMax+diff
+        	// Start afresh => 0
+        	maxCur=Math.max(0, maxCur+diff);
             maxSoFar = Math.max(maxCur, maxSoFar);
         }
         return maxSoFar;
