@@ -35,18 +35,29 @@ Constraints:
  */
 import static org.junit.Assert.assertEquals;
 public class BuyAndSellStocksII {
+	/* Approach 02: no Kadane since we don't have to worry about history
+	 * just keep adding positive increments */
 	public int maxProfit(int[] prices) {
-        int localProfit=0, globalProfit=0;
-        for(int i=1; i< prices.length; i++) {
-        	int diff=prices[i]-prices[i-1];
-        	if(diff < 0) {
-        		globalProfit+=localProfit;
-        		localProfit=0;
-        	}else localProfit+=diff;
-        }
-        globalProfit+=localProfit;
-        return globalProfit;
-    }
+		int profit=0;
+		for(int i=1; i< prices.length; i++) {
+			int diff=prices[i]-prices[i-1];
+			if(diff >0) profit+=diff;
+		}
+		return profit;
+	}
+	/* Approach 01: Based on Buy and Sell Stocks I*/
+//	public int maxProfit(int[] prices) {
+//        int localProfit=0, globalProfit=0;
+//        for(int i=1; i< prices.length; i++) {
+//        	int diff=prices[i]-prices[i-1];
+//        	if(diff < 0) {
+//        		globalProfit+=localProfit;
+//        		localProfit=0;
+//        	}else localProfit+=diff;
+//        }
+//        globalProfit+=localProfit;
+//        return globalProfit;
+//    }
 	public static void main(String[] args) {
 		BuyAndSellStocksII instance= new BuyAndSellStocksII();
 		assertEquals(7,instance.maxProfit(new int[] {7,1,5,3,6,4}));
