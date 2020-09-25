@@ -37,24 +37,42 @@ Constraints:
 import java.util.TreeSet;
 import static org.junit.Assert.assertEquals;
 public class FibNumsSumK {
-	/* GREEDY Solution */
+	/* Approach 02: No extra space. 
+	 * Go once up for generation and then come back 
+	 * O(logK) O(1)*/
 	public int findMinFibonacciNumbers(int k) {
-		if(k<2) return k;
-        TreeSet<Integer> ts= new TreeSet<Integer>();
-        int a=0,b=1,tmp,result=0;
-        while(b<k) {// generating FIB numbers
-        	tmp=b;
-        	b+=a;
-        	a=tmp;
-        	ts.add(b);
-//        	System.out.println(b);
-        }
-        while(k>0) {
-        	k-=ts.floor(k);// NOTE
-        	result++;
-        }
-        return result;
+		int a=1, b=1, result=0,tmp;
+		while(b <=k) {
+			tmp=b; b+=a; a=tmp;
+		}// b and a are the last 2 fib numbers. we can now generate the sequence back.
+		while(a> 0) {
+			if(a <=k) {
+				k-=a;
+				result+=1;
+			}
+			// generate the prev number of b-> a-> ?
+			tmp=a;a=b-a;b=tmp;
+		}
+		return result;
     }
+	/* GREEDY Solution */
+//	public int findMinFibonacciNumbers(int k) {
+//		if(k<2) return k;
+//        TreeSet<Integer> ts= new TreeSet<Integer>();
+//        int a=0,b=1,tmp,result=0;
+//        while(b<k) {// generating FIB numbers
+//        	tmp=b;
+//        	b+=a;
+//        	a=tmp;
+//        	ts.add(b);
+////        	System.out.println(b);
+//        }
+//        while(k>0) {
+//        	k-=ts.floor(k);// NOTE
+//        	result++;
+//        }
+//        return result;
+//    }
 	public static void main(String[] args) {
 		FibNumsSumK instance= new FibNumsSumK();
 		assertEquals(2,instance.findMinFibonacciNumbers(7));
