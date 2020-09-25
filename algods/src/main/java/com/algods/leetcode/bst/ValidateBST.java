@@ -17,8 +17,9 @@ public class ValidateBST {
 	         this.right = right;
 	     }
 	 }
-	int tmp=Integer.MIN_VALUE;
+	long tmp=Long.MIN_VALUE;
 	public boolean isValidBST(TreeNode root) {
+		if(root == null) return true;
 		if(root.left == null && root.right == null) {
 			return validate(root.val);
 		}else if(root.left == null) {
@@ -26,7 +27,7 @@ public class ValidateBST {
 		}else
 			return isValidBST(root.left) && validate(root.val) && isValidBST(root.right);
 	}
-	private boolean validate(int val) {
+	private boolean validate(long val) {
 		boolean b=val>tmp;
 		tmp=val;
 		return b;
