@@ -1,7 +1,6 @@
-package com.algods.leetcode;
-/*
- * DOESN'T work
- * 5520. Split a String Into the Max Number of Unique Substrings
+package com.algods.leetcode.dfs;
+/**
+ * 1593. Split a String Into the Max Number of Unique Substrings
  * 
  * Given a string s, return the maximum number of unique substrings that the given string can be split into.
 
@@ -35,30 +34,35 @@ Constraints:
 s contains only lower case English letters.
  */
 import java.util.*;
+import static org.junit.Assert.assertEquals;
 public class SplitStringUniqueSubstrings {
-	int max=1;
+	/* DFS + Backtracking */
+	int result=0;
 	public int maxUniqueSplit(String s) {
-        for(int i=0; i< s.length(); i++) {
-        	findSubArrays(s, s.length(), i, new HashSet<String>(), 0,0);
-        }
-        return max;
+		result=0;// for multiple calling of this method on the same instance of class
+        backtrack(s,0,new HashSet<String>());
+        return result;
     }
-	private void findSubArrays(String s, int length, int sublength, HashSet<String> hashSet, int start, int count) {
-		if(start == length -1) {
-			if(count > max) max=count;
-			return;
-		}
-		String sub=s.substring(start, start+sublength-1);
-		if(hashSet.contains(sub)) {
-			findSubArrays(s,length,sublength+1,hashSet,start,count);
+	private void backtrack(String s, int start, HashSet<String> set) {
+		if(s.length() == start) {
+			result=Math.max(result, set.size());
+//			System.out.println("--"+result);
 		}else {
-			hashSet.add(sub);
-			findSubArrays(s, length, sublength, hashSet, start+sublength, count);
+			for(int i=start+1; i<= s.length(); i++) {
+				String sub=s.substring(start, i);
+				if(set.add(sub)) {// false if it's already in there
+//					System.out.println(sub);
+					backtrack(s, i, set);
+					set.remove(sub);// for backtracking
+				}
+			}
 		}
 	}
 	public static void main(String[] args) {
 		SplitStringUniqueSubstrings instance = new SplitStringUniqueSubstrings();
-		System.out.println(instance.maxUniqueSplit("ababccc"));
+		assertEquals(5,instance.maxUniqueSplit("ababccc"));
+		assertEquals(2,instance.maxUniqueSplit("aba"));
+		assertEquals(1,instance.maxUniqueSplit("aa"));
 	}
 
 }
