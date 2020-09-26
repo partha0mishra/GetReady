@@ -1,6 +1,6 @@
 package com.algods.leetcode.sort;
 /**
- * 147. Insertion Sort List
+ 147. Insertion Sort List
  * 
  * Algorithm of Insertion Sort:
 
@@ -29,6 +29,7 @@ public class InsertionSortList {
 	 }
 	
 	public ListNode insertionSortList(ListNode head) {
+		if(head == null) return head;
 		ListNode start=head;
 		
 		while(start.next !=null) {
@@ -69,6 +70,9 @@ public class InsertionSortList {
 		head.next.next.next.next=instance.new ListNode(0);
 		ListNode result1=instance.insertionSortList(head);
 		printList(result1);
+		
+		ListNode result2=instance.insertionSortList(null);
+		printList(result2);
 	}
 	private static void printList(ListNode node) {
 		while(node !=null) {
