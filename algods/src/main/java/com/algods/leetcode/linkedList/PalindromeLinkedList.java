@@ -1,4 +1,4 @@
-package com.algods.leetcode.sort;
+package com.algods.leetcode.linkedList;
 /**
  * 234. Palindrome Linked List
  * 
