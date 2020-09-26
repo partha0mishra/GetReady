@@ -1,7 +1,5 @@
 package com.algods.leetcode.linkedList;
 
-import com.algods.leetcode.sort.SortList.ListNode;
-
 /**
  * 206. Reverse Linked List
  * 
