@@ -23,20 +23,29 @@ import java.util.*;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 public class WordBreak {
-	public boolean wordBreak(String s, List<String> wordDict) {
-        if(s.length() == 0) return true;
+	HashMap<String,Boolean> cache= new HashMap<String, Boolean>();
+	/* Approach 01: Brute Force.
+	 * Adding cache */
+	public boolean wordBreak(String inputString, List<String> wordDict) {
+        if(inputString.length() == 0) return true;
+        if(cache.containsKey(inputString)) return cache.get(inputString);
+
+        boolean status=false;
         for(String word: wordDict) {
-        	boolean status=false;
-        	if(s.startsWith(word)) status=wordBreak(s.substring(word.length()),wordDict);
-        	if(status) return true;
+        	if(inputString.startsWith(word)) {
+        		status=wordBreak(inputString.substring(word.length()),wordDict);
+        	}
+        	if(status) break;
         }
-        return false;
+        cache.put(inputString, status);
+        return status;
     }
 	public static void main(String[] args) {
 		WordBreak instance= new WordBreak();
 		assertTrue(instance.wordBreak("leetcode", Arrays.asList(new String[] {"leet", "code"})));
 		assertTrue(instance.wordBreak("applepenapple", Arrays.asList(new String[] {"apple", "pen"})));
 		assertFalse(instance.wordBreak("catsandog", Arrays.asList(new String[] {"cats", "dog", "sand", "and", "cat"})));
+		assertFalse(instance.wordBreak("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab", Arrays.asList(new String[] {"a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"})));
 	}
 
 }
