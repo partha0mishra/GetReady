@@ -52,17 +52,66 @@ nums.length == index.length
 0 <= index[i] <= i
  */
 public class CreateTargetArrayGivenOrder {
+	/* Approach 03: Reverse of Approach 02
+	 * At any position, find how many indices are there which are smaller than this
+	 * Increment 'this' value by those many. Using MergeSort =>> O(nLogn)
+	 * Code is complex and copied here from
+	 * https://leetcode.com/problems/create-target-array-in-the-given-order/discuss/549583/O(nlogn)-based-on-%22smaller-elements-after-self%22.*/
+	public int[] createTargetArray(int[] nums, int[] index) {
+        int n = nums.length;
+        int[] a = new int[n];
+        for(int i = 0; i < n; ++i) {
+            a[i] = i;
+        }
+        helper(a, 0, n, index, new int[n]);
+        int[] result = new int[n];
+        for(int i = 0; i < n; ++i) {
+            result[index[i]] = nums[i];
+        }
+        return result;
+    }
+    
+    static void helper(int[] a, int i, int j, int[] index, int[] tmp) {
+        if (j - i <= 1) {
+            return;
+        }
+        int k = (i + j) >>> 1;
+        helper(a, i, k, index, tmp);
+        helper(a, k, j, index, tmp);
+        int x = i;
+        int y = k;
+        int z = 0;
+        int count = 0;
+        while(x < k && y < j) {
+            while(y < j && index[a[y]] <= index[a[x]] + count) {
+                ++count;
+                tmp[z++] = a[y++];
+            }
+            index[a[x]] += count;
+            tmp[z++] = a[x++];
+        }
+        while(x < k) {
+            index[a[x]] += count;
+            tmp[z++] = a[x++];
+        }
+        while(y < j) {
+            tmp[z++] = a[y++];
+        }
+        for(int p = i, q = 0; p < j; ++p, ++q) {
+            a[p] = tmp[q];
+        }
+    }
 	/* Approach 02: Any index >= current value at the left of current position gets incremented
 	 * Still O(n2)*/
-	public int[] createTargetArray(int[] nums, int[] index) {
-		for(int i=1; i< index.length; i++)
-			for(int j=0; j< i; j++)
-				if(index[j] >=index[i]) index[j]++;
-		int[] result=new int[nums.length];
-		for(int i=0; i< index.length; i++)
-			result[index[i]]=nums[i];
-		return result;
-	}
+//	public int[] createTargetArray(int[] nums, int[] index) {
+//		for(int i=1; i< index.length; i++)
+//			for(int j=0; j< i; j++)
+//				if(index[j] >=index[i]) index[j]++;
+//		int[] result=new int[nums.length];
+//		for(int i=0; i< index.length; i++)
+//			result[index[i]]=nums[i];
+//		return result;
+//	}
 	/* Approach 01: Brute*/
 //	public int[] createTargetArray(int[] nums, int[] index) {
 //        int[] result=new int[nums.length];
