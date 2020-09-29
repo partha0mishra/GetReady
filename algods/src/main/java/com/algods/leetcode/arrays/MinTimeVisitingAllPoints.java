@@ -32,21 +32,30 @@ points[i].length == 2
 -1000 <= points[i][0], points[i][1] <= 1000
  * */
 public class MinTimeVisitingAllPoints {
+	/* Approach 02: Using maths */
 	public int minTimeToVisitAllPoints(int[][] points) {
-        if(points.length <2) return points.length;
-        int[] current=points[0];
-        int time=0;
-        for(int i=1; i< points.length;){
-            // System.out.println(current[0]+" "+current[1]);
-            if(current[0] == points[i][0] && current[1] == points[i][1]) {i++; continue;}
-            
-            if(current[0] < points[i][0]) current[0]++;
-            if(current[0] > points[i][0]) current[0]--;
-            if(current[1] < points[i][1]) current[1]++;
-            if(current[1] > points[i][1]) current[1]--;
-            
-            time++;
-        }
-        return time;
-    }
+		int time=0;
+		for(int i=0; i< points.length -1; i++) {
+			time+=Math.max(Math.abs(points[i][0] - points[i+1][0]), Math.abs(points[i][1] - points[i+1][1]));
+		}
+		return time;
+	}
+	/* Approach 01: Brute force*/
+//	public int minTimeToVisitAllPoints(int[][] points) {
+//        if(points.length <2) return points.length;
+//        int[] current=points[0];
+//        int time=0;
+//        for(int i=1; i< points.length;){
+//            // System.out.println(current[0]+" "+current[1]);
+//            if(current[0] == points[i][0] && current[1] == points[i][1]) {i++; continue;}
+//            
+//            if(current[0] < points[i][0]) current[0]++;
+//            if(current[0] > points[i][0]) current[0]--;
+//            if(current[1] < points[i][1]) current[1]++;
+//            if(current[1] > points[i][1]) current[1]--;
+//            
+//            time++;
+//        }
+//        return time;
+//    }
 }
