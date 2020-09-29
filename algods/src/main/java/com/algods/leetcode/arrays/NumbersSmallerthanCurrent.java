@@ -34,16 +34,27 @@ Constraints:
 0 <= nums[i] <= 100
  */
 public class NumbersSmallerthanCurrent {
+	/* Approach 02: Taking advantage of the Constraints */
 	public int[] smallerNumbersThanCurrent(int[] nums) {
-        int[] result= new int[nums.length];
-        for(int i=0; i< nums.length; i++) {
-        	int n=0;
-        	for(int j=0; j< nums.length; j++) {
-        		if(i ==j) continue;
-        		if(nums[j] < nums[i]) n++;
-        	}
-        	result[i]=n;
-        }
-        return result;
-    }
+		int[] counts=new int[101];// since nums[i] ranges [0,100]
+		for(int n: nums) counts[n]++;// counts for each number
+		for(int i=1; i< counts.length; i++) counts[i]+=counts[i-1];// cumulative
+		
+		int[] result= new int[nums.length];
+		for(int i=0; i< nums.length; i++) result[i]= (nums[i] ==0)? 0: counts[nums[i]-1];
+		return result;
+	}
+	/* Approach 01: Brute Force - O(n2) */
+//	public int[] smallerNumbersThanCurrent(int[] nums) {
+//        int[] result= new int[nums.length];
+//        for(int i=0; i< nums.length; i++) {
+//        	int n=0;
+//        	for(int j=0; j< nums.length; j++) {
+//        		if(i ==j) continue;
+//        		if(nums[j] < nums[i]) n++;
+//        	}
+//        	result[i]=n;
+//        }
+//        return result;
+//    }
 }
