@@ -56,13 +56,11 @@ public class CreateTargetArrayGivenOrder {
         int[] result=new int[nums.length];
         Arrays.fill(result, -1);;
         for(int i=0; i< index.length; i++) {
-        	if(result[index[i]] == -1) result[index[i]]=nums[i];
-        	else {
+        	if(result[index[i]] != -1)
         		for(int j=result.length-1;j> index[i]; j--) {
         			result[j]=result[j-1];
         		}
-        		result[index[i]]=nums[i];
-        	}
+        	result[index[i]]=nums[i];
         }
         return result;
     }
