@@ -27,8 +27,22 @@ Constraints:
  * */
 import java.util.Arrays;
 public class MaxProductTwoElements {
+	/* Approach 02: find top 2 elements */
 	public int maxProduct(int[] nums) {
-        Arrays.sort(nums);
-        return (nums[nums.length-1]-1)*(nums[nums.length-2]-1);
+		int maxOne=0, maxTwo=0;
+		for(int n: nums) {
+			if(n> maxOne) {
+				maxTwo=maxOne;
+				maxOne=n;
+			}else if(n> maxTwo) {
+				maxTwo=n;
+			}
+		}
+		return (maxOne-1)*(maxTwo-1);
 	}
+	/* Approach 01: sorting*/
+//	public int maxProduct(int[] nums) {
+//        Arrays.sort(nums);
+//        return (nums[nums.length-1]-1)*(nums[nums.length-2]-1);
+//	}
 }
