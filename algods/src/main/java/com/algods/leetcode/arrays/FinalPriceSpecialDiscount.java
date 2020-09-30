@@ -32,11 +32,23 @@ Constraints:
 1 <= prices.length <= 500
 1 <= prices[i] <= 10^3
  * */
+import java.util.*;
 public class FinalPriceSpecialDiscount {
+	/* Approach 02: Stack-based - single pass: O(n) O(n) */
 	public int[] finalPrices(int[] prices) {
-        for(int i=0; i< prices.length; i++)
-            for(int j = i+1; j< prices.length; j++)
-                if(prices[j] <= prices[i]) {prices[i]-=prices[j]; break;}
-        return prices;
-    }
+		Stack<Integer> s=new Stack<Integer>();
+		for(int i=0; i< prices.length; i++) {
+			while(!s.isEmpty() && prices[s.peek()] >= prices[i])
+				prices[s.pop()]-=prices[i];
+			s.push(i);
+		}
+		return prices;
+	}
+	/* Approach 01: Brute Force */
+//	public int[] finalPrices(int[] prices) {
+//        for(int i=0; i< prices.length; i++)
+//            for(int j = i+1; j< prices.length; j++)
+//                if(prices[j] <= prices[i]) {prices[i]-=prices[j]; break;}
+//        return prices;
+//    }
 }
