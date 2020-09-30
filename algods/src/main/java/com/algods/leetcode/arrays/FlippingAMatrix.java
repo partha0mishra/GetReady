@@ -31,15 +31,15 @@ public class FlippingAMatrix {
         int mid=columns/2;
         boolean even=(columns%2 ==0);
         
-        for(int r=0; r< rows; r++)
+        for(int r=0; r< rows; r++) {
         	for(int c=0; c< mid; c++) {
         		int left=A[r][c]==0? 1:0;
         		int right=A[r][columns-1-c]==0? 1:0;
         		A[r][columns-1-c]=left;
         		A[r][c]=right;
-        		
-        		if(!even) A[r][mid]= A[r][mid]==0? 1:0;
         	}
+        	if(!even) A[r][mid]= A[r][mid]==0? 1:0;
+        }
         
         return A;
     }
