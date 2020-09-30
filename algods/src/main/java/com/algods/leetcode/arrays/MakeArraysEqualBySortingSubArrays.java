@@ -1,13 +1,8 @@
 package com.algods.leetcode.arrays;
 /* 1460. Make Two Arrays Equal by Reversing Sub-arrays
  * Given two integer arrays of equal length target and arr.
-
 In one step, you can select any non-empty sub-array of arr and reverse it. You are allowed to make any number of steps.
-
 Return True if you can make arr equal to target, or False otherwise.
-
- 
-
 Example 1:
 
 Input: target = [1,2,3,4], arr = [2,4,1,3]
