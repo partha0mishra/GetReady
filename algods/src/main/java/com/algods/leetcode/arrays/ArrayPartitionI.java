@@ -15,23 +15,23 @@ import java.util.Arrays;
 public class ArrayPartitionI {
 	/* Knowing max value - use counts */
 	public int arrayPairSum(int[] nums) {
-		int[] exist = new int[20001];// that's the max length
-		for (int i = 0; i < nums.length; i++) {// put a 1 against the numbers found
-			exist[nums[i] + 10000]++;
-		}
-		int sum = 0;
-		boolean odd = true;
-		for (int i = 0; i < exist.length; i++) {// just checking for 1's and taking the odd occurances
-			while (exist[i] > 0) {
-				if (odd) {
-					sum += i - 10000;
-				}
-				odd = !odd;
-				exist[i]--;
-			}
-		}
-		return sum;
-	}
+        int[] counts=new int[20001];// first 10000 for negative values and last 10000 for positive ones
+        for(int n: nums) {
+            counts[10000+n]++; // keeping the count
+        }
+        int result=0;
+        boolean odd=true;
+        for(int i=0; i< counts.length; i++){
+            while(counts[i] >0){// odds and evens
+                if(odd) {
+                    result+=(i-10000); 
+                }
+                odd=!odd;
+                counts[i]--;
+            }
+        }
+        return result;
+    }
 	/* Sort and take odd ones*/
 //	public int arrayPairSum(int[] nums) {
 //        Arrays.sort(nums);
