@@ -25,38 +25,36 @@ You may assume that all operations are valid (for example, no pop or peek operat
 
 import java.util.*;
 public class MyQueue {
-	private Stack<Integer> myStack;
+	private Stack<Integer> input;
+	private Stack<Integer> output;
 	/** Initialize your data structure here. */
     public MyQueue() {
-        myStack= new Stack<Integer>();
+        input= new Stack<Integer>();
+        output=new Stack<Integer>();
     }
     
     /** Push element x to the back of queue. */
     public void push(int x) {
-        myStack.push(x);
+        input.push(x);
     }
     
     /** Removes the element from in front of queue and returns that element. */
     public int pop() {
-        Stack<Integer> tempStack= new Stack<Integer>();
-        while(!myStack.isEmpty()) tempStack.push(myStack.pop());
-        int result=tempStack.pop();
-        while(!tempStack.isEmpty()) myStack.push(tempStack.pop());
-        return result;
+        peek();
+        return output.pop();
     }
     
     /** Get the front element. */
     public int peek() {
-    	Stack<Integer> tempStack= new Stack<Integer>();
-        while(!myStack.isEmpty()) tempStack.push(myStack.pop());
-        int result=tempStack.peek();
-        while(!tempStack.isEmpty()) myStack.push(tempStack.pop());
-        return result;
+    	if(output.isEmpty())
+    		while(!input.isEmpty())
+    			output.push(input.pop());
+    	return output.peek();
     }
     
     /** Returns whether the queue is empty. */
     public boolean empty() {
-        return myStack.isEmpty();
+        return input.isEmpty() && output.isEmpty();
     }
 	public static void main(String[] args) {
 		MyQueue queue = new MyQueue();
