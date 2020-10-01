@@ -36,16 +36,38 @@ Each test case will call ping with strictly increasing values of t.
 At most 104 calls will be made to ping.
  * */
 import java.util.*;
+/* Approach 02: Sliding Window using LinkedList */
 class RecentCounter {
-	private TreeSet<Integer> pingTree;
+	LinkedList<Integer> slideWindow;
+
     public RecentCounter() {
-        pingTree= new TreeSet<>();
+        this.slideWindow = new LinkedList<Integer>();
     }
-    
+
     public int ping(int t) {
-        pingTree.add(t);
-        return pingTree.tailSet(t-3000, true).size();
+        // step 1). append the current call
+        this.slideWindow.addLast(t);
+
+        // step 2). invalidate the outdated pings
+        while (this.slideWindow.size() > 0) {
+            if (this.slideWindow.getFirst() < t - 3000)
+                this.slideWindow.removeFirst();
+            else
+                break;
+        }
+
+        return this.slideWindow.size();
     }
+    /* Approach 01: Using TreeSet*/	
+//	private TreeSet<Integer> pingTree;
+//    public RecentCounter() {
+//        pingTree= new TreeSet<>();
+//    }
+//    
+//    public int ping(int t) {
+//        pingTree.add(t);
+//        return pingTree.tailSet(t-3000, true).size();
+//    }
 
 /**
  * Your RecentCounter object will be instantiated and called as such:
