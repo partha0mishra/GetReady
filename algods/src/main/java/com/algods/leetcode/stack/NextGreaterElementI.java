@@ -24,23 +24,39 @@ The length of both nums1 and nums2 would not exceed 1000.
  * */
 import java.util.*;
 public class NextGreaterElementI {
+	/* Approach 02: Stack and Hashmap - better */
 	public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        int[] result= new int[nums1.length];
-        Arrays.fill(result,-1);
-        Stack<Integer> stack= new Stack<Integer>();
-        HashMap<Integer,Integer> hm= new HashMap<Integer,Integer>();
-        for(int i=0; i< nums1.length; i++) hm.put(nums1[i],i);
-        for(int i=0; i< nums2.length; i++){
-            while(!stack.isEmpty() && nums2[stack.peek()] < nums2[i]){
-            	int p=nums2[stack.pop()];
-                if(hm.containsKey(p)){
-                    result[hm.get(p)]=nums2[i];
-                }
-            }
-            stack.push(i);
-        }
-        return result;
-    }
+		Stack<Integer> stack= new Stack<>();
+		HashMap<Integer,Integer> numIndices=new HashMap<Integer, Integer>();
+		for(int n:nums2) {
+			while(!stack.isEmpty() && stack.peek() < n) {
+				numIndices.put(stack.pop(), n);
+			}
+			stack.push(n);
+		}
+		for(int i=0; i< nums1.length; i++) {
+			nums1[i]=numIndices.getOrDefault(nums1[i], -1);
+		}
+		return nums1;
+	}
+	/* Approach 01: Stack and Hashmap - clumsy*/
+//	public int[] nextGreaterElement(int[] nums1, int[] nums2) {
+//        int[] result= new int[nums1.length];
+//        Arrays.fill(result,-1);
+//        Stack<Integer> stack= new Stack<Integer>();
+//        HashMap<Integer,Integer> hm= new HashMap<Integer,Integer>();
+//        for(int i=0; i< nums1.length; i++) hm.put(nums1[i],i);
+//        for(int i=0; i< nums2.length; i++){
+//            while(!stack.isEmpty() && nums2[stack.peek()] < nums2[i]){
+//            	int p=nums2[stack.pop()];
+//                if(hm.containsKey(p)){
+//                    result[hm.get(p)]=nums2[i];
+//                }
+//            }
+//            stack.push(i);
+//        }
+//        return result;
+//    }
 	 public static void main(String[] args) {
 		 new NextGreaterElementI().nextGreaterElement(new int[] {4,1,2}, new int[] {1,3,4,2});
 	 }
