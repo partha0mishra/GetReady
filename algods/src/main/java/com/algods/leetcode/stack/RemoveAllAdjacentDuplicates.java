@@ -25,19 +25,31 @@ S consists only of English lowercase letters.
 import java.util.*;
 public class RemoveAllAdjacentDuplicates {
 	public String removeDuplicates(String S) {
-        Stack<Character> stack= new Stack<Character>();
-        for(char c: S.toCharArray()) {
-        	if(!stack.isEmpty() && stack.peek()==c) {
-        		while(!stack.isEmpty() && stack.peek() == c)
-        			stack.pop();
-        		
-        	}else stack.push(c);
+		/* Approach 02: Use StringBuilder as a stack*/
+		StringBuilder sb = new StringBuilder();
+        for (char c : S.toCharArray()) {
+            int size = sb.length();
+            if (size > 0 && sb.charAt(size - 1) == c) {
+                sb.deleteCharAt(size - 1);
+            } else {
+                sb.append(c);
+            }
         }
-        StringBuilder result= new StringBuilder();
-        for(int i=0; i< stack.size(); i++){
-        	result.append(stack.get(i));
-        }
-        return result.toString();
+        return sb.toString();
+		/* Approach 01: Stack based */
+//        Stack<Character> stack= new Stack<Character>();
+//        for(char c: S.toCharArray()) {
+//        	if(!stack.isEmpty() && stack.peek()==c) {
+//        		while(!stack.isEmpty() && stack.peek() == c)
+//        			stack.pop();
+//        		
+//        	}else stack.push(c);
+//        }
+//        StringBuilder result= new StringBuilder();
+//        for(int i=0; i< stack.size(); i++){
+//        	result.append(stack.get(i));
+//        }
+//        return result.toString();
     }
 	public static void main(String[] args) {
 		System.out.println(new RemoveAllAdjacentDuplicates().removeDuplicates("a"));
