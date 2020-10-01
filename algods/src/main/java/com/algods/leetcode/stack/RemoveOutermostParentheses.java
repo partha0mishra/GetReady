@@ -41,17 +41,12 @@ S is a valid parentheses string
  * */
 public class RemoveOutermostParentheses {
 	public String removeOuterParentheses(String S) {
-        StringBuilder result=new StringBuilder(), temp=new StringBuilder();
-        int i=0;
-        for(char c: S.toCharArray()) {
-        	i+= (c=='(')? 1:-1;
-        	
-        	if(i==0) {
-        		result.append(temp.substring(1));
-        		temp=new StringBuilder();
-        	}else temp.append(c);
+		StringBuilder s = new StringBuilder();
+        int opened = 0;
+        for (char c : S.toCharArray()) {
+            if (c == '(' && opened++ > 0) s.append(c);
+            if (c == ')' && opened-- > 1) s.append(c);
         }
-        
-        return result.toString();
+        return s.toString();
     }
 }
