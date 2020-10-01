@@ -1,4 +1,4 @@
-package com.algods.leetcode.stack;
+package com.algods.leetcode;
 
 /* 556. Next Greater Element III
  * 
