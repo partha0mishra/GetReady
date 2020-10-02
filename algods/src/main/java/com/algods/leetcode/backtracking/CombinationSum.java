@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.october;
+package com.algods.leetcode.backtracking;
 /* Combination Sum
  * Given an array of distinct integers candidates and a target integer target, 
  * return a list of all unique combinations of candidates where the chosen numbers sum to target. 
@@ -43,6 +43,7 @@ All elements of candidates are distinct.
  * */
 import java.util.*;
 public class CombinationSum {
+	/* Approach 02: Backtracking as a template */
 	public List<List<Integer>> combinationSum(int[] nums, int target) {
 	    List<List<Integer>> list = new ArrayList<>();
 	    Arrays.sort(nums);
@@ -61,6 +62,25 @@ public class CombinationSum {
 	        }
 	    }
 	}
+	/* Approach 01: backtracking by Me*/
+//	List<List<Integer>> result;
+//	public List<List<Integer>> combinationSum(int[] candidates, int target) {
+//		result= new ArrayList<List<Integer>>();
+//		Arrays.sort(candidates);
+//		findSum(candidates,new ArrayList<Integer>(),target,0,0);
+//		return result;
+//    }
+//	private void findSum(int[] candidates, ArrayList<Integer> temp, int target,
+//			int tempSum, int start) {
+//		if(tempSum > target) return;// not working
+//		if(tempSum == target) {result.add(new ArrayList<Integer>(temp)); return;}
+//		for(int i=start; i< candidates.length; i++) {
+//			temp.add(candidates[i]);
+//			findSum(candidates,temp,target,tempSum+candidates[i],i);
+//			temp.remove(temp.size()-1);
+//		}
+//	}
+	
 
 	public static void main(String[] args) {
 		System.out.println(new CombinationSum().combinationSum(new int[] {2,3,6,7}, 7));
