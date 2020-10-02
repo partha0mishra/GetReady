@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.october;
+package com.algods.leetcode.queue;
 /* Number of Recent Calls
  * 
  * You have a RecentCounter class which counts the number of recent requests within a certain time frame.
