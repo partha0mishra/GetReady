@@ -31,16 +31,35 @@ Constraints:
  * */
 import java.util.*;
 public class MinSubsequenceNonIncreasingOrder {
+	/* Approach 02 : 
+	 * Intuition: pick the largest number from the array and add it to subsequence. 
+	 * Repeat till the subsequence sum sub_sum is greater than the half of the total sum half_sum. 
+	 * Priority queue is the natural choice to pull largest numbers.*/
 	public List<Integer> minSubsequence(int[] nums) {
-        int sum=Arrays.stream(nums).sum();
-        int tempSum=0;
-        List<Integer> result=new ArrayList<Integer>();
-        Arrays.sort(nums);
-        for(int i=nums.length-1; i>=0;i--) {
-        	tempSum+=nums[i];
-        	result.add(nums[i]);
-        	if(tempSum > (sum-tempSum)) break;
-        }
-        return result;
-    }
+	    List<Integer> res = new ArrayList<>();
+	    PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Collections.reverseOrder());
+	    int sub_sum = 0, total_sum = 0;
+	    for (int n : nums) {
+	        pq.offer(n);
+	        total_sum += n;
+	    }
+	    while (sub_sum <= total_sum / 2) {
+	        res.add(pq.peek());
+	        sub_sum += pq.poll();
+	    }    
+	    return res;
+	}
+	/* Approach 01: Sort arrays and pick from the biggest ones*/
+//	public List<Integer> minSubsequence(int[] nums) {
+//        int sum=Arrays.stream(nums).sum();
+//        int tempSum=0;
+//        List<Integer> result=new ArrayList<Integer>();
+//        Arrays.sort(nums);
+//        for(int i=nums.length-1; i>=0;i--) {
+//        	tempSum+=nums[i];
+//        	result.add(nums[i]);
+//        	if(tempSum > (sum-tempSum)) break;
+//        }
+//        return result;
+//    }
 }
