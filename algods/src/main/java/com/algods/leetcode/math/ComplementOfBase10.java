@@ -1,5 +1,5 @@
-package com.algods.leetcode.explore.october;
-/* Complement of Base 10 Integer
+package com.algods.leetcode.math;
+/* 1009 Complement of Base 10 Integer
 Every non-negative integer N has a binary representation.  For example, 5 can be represented as "101" in binary, 
 11 as "1011" in binary, and so on.  Note that except for N = 0, there are no leading zeroes in any binary representation.
 
@@ -47,6 +47,7 @@ Negate the whole input number.
 Bit AND numbers in step 1 and 2.
 	 * */
 	public int bitwiseComplement(int N) {
+		if(N ==0) return 1;// corner case
 		return ~N & ((Integer.highestOneBit(N) << 1) - 1);
     }
 }
