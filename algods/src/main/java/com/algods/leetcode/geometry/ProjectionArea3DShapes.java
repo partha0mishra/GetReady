@@ -49,20 +49,35 @@ Note:
 0 <= grid[i][j] <= 50
  * */
 public class ProjectionArea3DShapes {
+	/* Approach 02: a little better*/
 	public int projectionArea(int[][] grid) {
-        int result=0, n=grid.length;
-        int[] maxRow=new int[n], maxCol=new int[n];
-        for(int i=0; i<n; i++) {
-        	for(int j=0; j<n; j++) {
-        		if(grid[i][j] > 0) result+=1; //xz
-        		maxRow[i]=Math.max(maxRow[i], grid[i][j]);
-        		maxCol[j]=Math.max(maxCol[j], grid[i][j]);
-        	}
+        int res = 0, n = grid.length;
+        for (int i = 0; i < n; ++i) {
+            int x = 0, y = 0;
+            for (int j = 0; j < n; ++j) {
+                x = Math.max(x, grid[i][j]);
+                y = Math.max(y, grid[j][i]);
+                if (grid[i][j] > 0) ++res;
+            }
+            res += x + y;
         }
-        result+=Arrays.stream(maxRow).sum();
-        result+=Arrays.stream(maxCol).sum();
-        return result;
+        return res;
     }
+	/* Approach 01: straight-forward grid */
+//	public int projectionArea(int[][] grid) {
+//        int result=0, n=grid.length;
+//        int[] maxRow=new int[n], maxCol=new int[n];
+//        for(int i=0; i<n; i++) {
+//        	for(int j=0; j<n; j++) {
+//        		if(grid[i][j] > 0) result+=1; //xz
+//        		maxRow[i]=Math.max(maxRow[i], grid[i][j]);
+//        		maxCol[j]=Math.max(maxCol[j], grid[i][j]);
+//        	}
+//        }
+//        result+=Arrays.stream(maxRow).sum();
+//        result+=Arrays.stream(maxCol).sum();
+//        return result;
+//    }
 	public static void main(String[] args) {
 		System.out.println(new ProjectionArea3DShapes().projectionArea(new int[][] {{2}}));//5
 		System.out.println(new ProjectionArea3DShapes().projectionArea(new int[][] {{1,2},{3,4}}));//17
