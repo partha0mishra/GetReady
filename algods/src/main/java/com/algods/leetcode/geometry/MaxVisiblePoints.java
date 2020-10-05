@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.october;
+package com.algods.leetcode.geometry;
 
 import java.util.*;
 public class MaxVisiblePoints {
