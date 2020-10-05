@@ -1,4 +1,4 @@
-package com.algods.leetcode.greedy;
+package com.algods.leetcode.geometry;
 /* 874. Walking Robot Simulation
  * 
  * A robot on an infinite grid starts at point (0, 0) and faces north.  The robot can receive one of three possible types of commands:
