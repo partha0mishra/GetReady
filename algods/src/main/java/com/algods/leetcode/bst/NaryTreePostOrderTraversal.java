@@ -35,14 +35,32 @@ public class NaryTreePostOrderTraversal {
 	        children = _children;
 	    }
 	}
+	/* Approach 02: Iterative */
 	public List<Integer> postorder(Node root) {
-        List<Integer> result=new ArrayList<Integer>();
-        travel(root,result);
-        return result;
+        List<Integer> list = new ArrayList<>();
+        if (root == null) return list;
+        
+        Stack<Node> stack = new Stack<>();
+        stack.add(root);
+        
+        while(!stack.isEmpty()) {
+            root = stack.pop();
+            list.add(root.val);
+            for(Node node: root.children)
+                stack.add(node);
+        }
+        Collections.reverse(list);
+        return list;
     }
-	private void travel(Node root, List<Integer> result) {
-		if(root ==null) return;
-		for(Node n: root.children) travel(n,result);
-		result.add(root.val);
-	}
+	/* Approach 01: Recursive */
+//	public List<Integer> postorder(Node root) {
+//        List<Integer> result=new ArrayList<Integer>();
+//        travel(root,result);
+//        return result;
+//    }
+//	private void travel(Node root, List<Integer> result) {
+//		if(root ==null) return;
+//		for(Node n: root.children) travel(n,result);
+//		result.add(root.val);
+//	}
 }
