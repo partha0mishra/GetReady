@@ -19,14 +19,23 @@ package com.algods.leetcode.math;
 import static org.junit.Assert.assertEquals;
 public class FactorialTrailingZeroes {
 	public int trailingZeroes(int n) {
-        int result=0, div=5, d=1;
-        while(d > 0) {
-        	d=n/div;
-        	result+=d;
-        	div*=5;
+        int result=0;
+        n/=5;
+        while(n > 0) {
+        	result+=n;
+        	n/=5;
         }
         return result;
     }
+//	public int trailingZeroes(int n) {
+//        int result=0, div=5, d=1;
+//        while(d > 0) {
+//        	d=n/div;
+//        	result+=d;
+//        	div*=5;
+//        }
+//        return result;
+//    }
 	public static void main(String[] args) {
 		assertEquals(0, new FactorialTrailingZeroes().trailingZeroes(0));
 		assertEquals(0, new FactorialTrailingZeroes().trailingZeroes(1));
