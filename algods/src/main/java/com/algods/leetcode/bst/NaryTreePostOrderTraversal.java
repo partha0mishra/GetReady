@@ -2,8 +2,6 @@ package com.algods.leetcode.bst;
 
 import java.util.List;
 
-import com.algods.leetcode.bst.NaryTreePreOrderTraversal.Node;
-
 /* 590. N-ary Tree Postorder Traversal
  * Given an n-ary tree, return the postorder traversal of its nodes' values.
  * Nary-Tree input serialization is represented in their level order traversal, each group of children is separated by the null value (See examples).
