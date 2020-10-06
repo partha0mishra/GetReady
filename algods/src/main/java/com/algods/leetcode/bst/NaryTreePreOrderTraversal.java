@@ -36,14 +36,32 @@ public class NaryTreePreOrderTraversal {
 	    }
 	}
 	//*/
+	/* Approach 02: Iterative */
 	public List<Integer> preorder(Node root) {
-        List<Integer> result= new ArrayList<Integer>();
-        travel(root,result);
-        return result;
+        List<Integer> list = new ArrayList<>();
+        if (root == null) return list;
+        
+        Stack<Node> stack = new Stack<>();
+        stack.add(root);
+        
+        while (!stack.empty()) {
+            root = stack.pop();
+            list.add(root.val);
+            for (int i = root.children.size() - 1; i >= 0; i--)
+                stack.add(root.children.get(i));
+        }
+        
+        return list;
     }
-    private void travel(Node node, List<Integer> result){
-        if(node == null) return;
-        result.add(node.val);
-        for(Node n: node.children) travel(n,result);
-    }
+	/* Approach 01: Recursion */
+//	public List<Integer> preorder(Node root) {
+//        List<Integer> result= new ArrayList<Integer>();
+//        travel(root,result);
+//        return result;
+//    }
+//    private void travel(Node node, List<Integer> result){
+//        if(node == null) return;
+//        result.add(node.val);
+//        for(Node n: node.children) travel(n,result);
+//    }
 }
