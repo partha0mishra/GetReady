@@ -18,15 +18,21 @@ package com.algods.leetcode.math;
  * */
 import static org.junit.Assert.assertEquals;
 public class FactorialTrailingZeroes {
+	/* Approach 03: Recursive */
 	public int trailingZeroes(int n) {
-        int result=0;
-        n/=5;
-        while(n > 0) {
-        	result+=n;
-        	n/=5;
-        }
-        return result;
-    }
+		return n==0? 0: n/5+ trailingZeroes(n/5);
+	}
+	/* Approach 02: smaller code*/
+//	public int trailingZeroes(int n) {
+//        int result=0;
+//        n/=5;
+//        while(n > 0) {
+//        	result+=n;
+//        	n/=5;
+//        }
+//        return result;
+//    }
+	/* Approach 01: Straignt-forward Iterative*/
 //	public int trailingZeroes(int n) {
 //        int result=0, div=5, d=1;
 //        while(d > 0) {
