@@ -35,15 +35,32 @@ Constraints:
 0 <= num <= 10^6
  */
 public class StepsToReduceNumberToZero {
+	/* Approach 02: Better/ Clever 
+	For the binary representation from right to left(until we find the leftmost 1):
+	if we meet 0, result += 1 because we are doing divide;
+	if we meet 1, result += 2 because we first do "-1" then do a divide;
+	one exception is the leftmost 1, we just do a "-1" and it becomes 0 already.
+	*/
 	public int numberOfSteps (int num) {
+		if(num ==0) return 0;
 		int result=0;
-        while(num >0) {
-        	if(num%2 ==1) num-=1;
-        	else num=num>>1;
-        	result++;
-        }
-        return result;
-    }
+		while(num > 0) {
+			result+=((num & 1) ==1) ? 2:1;
+			num >>=1;
+		}
+		return result-1;
+	}
+	
+	/* Approach 01: Brute force */
+//	public int numberOfSteps (int num) {
+//		int result=0;
+//        while(num >0) {
+//        	if(num%2 ==1) num-=1;
+//        	else num=num>>1;
+//        	result++;
+//        }
+//        return result;
+//    }
 	public static void main(String[] args) {
 		System.out.println(new StepsToReduceNumberToZero().numberOfSteps(14));//6
 		System.out.println(new StepsToReduceNumberToZero().numberOfSteps(8));//4
