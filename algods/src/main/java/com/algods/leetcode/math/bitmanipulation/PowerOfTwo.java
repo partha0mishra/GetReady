@@ -34,8 +34,14 @@ Constraints:
  * 
  * */
 public class PowerOfTwo {
+	/* Approach 02: n&(n-1) will be Zero for 2's powers */
 	public boolean isPowerOfTwo(int n) {
-        if(n<0) return false;
-        return Integer.bitCount(n)==1;
-    }
+		if(n<0) return false;
+		return (n & (n-1)) ==0;
+	}
+	/* Approach 01: how many bits are 1 */
+//	public boolean isPowerOfTwo(int n) {
+//        if(n<0) return false;
+//        return Integer.bitCount(n)==1;
+//    }
 }
