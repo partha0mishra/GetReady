@@ -27,7 +27,8 @@ public class BSTPaths {
 	        buildPath(root, "");
 	        return result;
 	    }
-	    private void buildPath(TreeNode root, String path){
+	    private void buildPath(TreeNode root, String path){// using String path as it's immutable. 
+	    	//Any collection structure for the "path" would have gotten updated UNNECESSARILY
 	        if(root == null) return;
 	        if(path.length() > 0){
 	            path=path.concat("->");
