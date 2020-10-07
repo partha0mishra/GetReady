@@ -22,13 +22,20 @@ Explanation:
 The above arrows point to positions where the corresponding bits are different.
  * */
 public class HammingDistance {
+	/* Approach 02: Doing it the 'bit manipulation' way */
 	public int hammingDistance(int x, int y) {
-		int result=0;
-        while(x > 0 || y > 0) {
-        	if((x&1) != (y&1)) result++;
-        	x>>=1;
-        	y>>=1;
-        }
-        return result;
-    }
+		return Integer.bitCount(x^y);
+	}
+	/* Approach 01: Regular. Works at 100 percentile though*/
+//	public int hammingDistance(int x, int y) {
+//		int result=0;
+//        while(x > 0 || y > 0) {
+//        	// in fact, this was faster
+//        	// if(x%2 != y%2) result++
+//        	if((x&1) != (y&1)) result++; 
+//        	x>>=1;
+//        	y>>=1;
+//        }
+//        return result;
+//    }
 }
