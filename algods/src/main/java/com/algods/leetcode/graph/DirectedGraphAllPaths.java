@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.graph;
 
 /*
  * Given a directed, acyclic graph of N nodes.  
