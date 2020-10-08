@@ -1,12 +1,12 @@
 package com.algods.leetcode.graph;
 
 import java.util.*;
-public class Graph {
+public class Digraph {
 	private final int V;// number of vertices
 	private int E;// number of edges
 	private HashSet<Integer>[] adj;// Adjacency 
 	private int[] indegree;
-	public Graph(int v) {
+	public Digraph(int v) {
 		this.V=v;
 		this.E=0;
 		adj= (HashSet<Integer>[])new HashSet[V];
