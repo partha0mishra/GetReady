@@ -32,6 +32,12 @@ Note:
  */
 import java.util.*;
 public class KClosestPoints {
+	/* Approach 02: less code */
+//	public int[][] kClosest(int[][] points, int K) {
+//        Arrays.sort(points, Comparator.comparing(p -> p[0] * p[0] + p[1] * p[1]));
+//        return Arrays.copyOfRange(points, 0, K);
+//    }
+	/* Approach 01: cleaner */
 	public int[][] kClosest(int[][] points, int K) {
 		if(K >= points.length) return points;// all of them qualify
         HashMap<Integer,Integer> hm= new HashMap<>();
