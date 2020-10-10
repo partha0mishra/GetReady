@@ -23,11 +23,12 @@ public class TopKFrequentElements {
 		for(int i=0; i<size; i++) {
 				hmNumFrequency.put(nums[i], hmNumFrequency.getOrDefault(nums[i], 0)+1);
 		}
-		// Populate MaxHeap with Values
+		// Define PQ and its sorting order
 		PriorityQueue<Map.Entry<Integer,Integer>> pq=new PriorityQueue<>(
 				(a,b) -> a.getValue().equals(b.getValue()) ? 
 						Integer.compare(b.getKey(), a.getKey()): Integer.compare(b.getValue(), a.getValue())
 						);
+		// Populate MaxHeap with Values
 		for(Map.Entry<Integer, Integer> e: hmNumFrequency.entrySet())
 			pq.offer(e);
 		// where K > distinct nums
