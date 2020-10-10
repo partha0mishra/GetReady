@@ -29,7 +29,6 @@ public class Codec {
         		result.addAll(level);
         	}
         }
-        
         return result.toString();
     }
 

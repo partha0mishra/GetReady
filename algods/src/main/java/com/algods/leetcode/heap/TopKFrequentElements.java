@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.heap;
 import java.util.Arrays;
 /*
  * Given a non-empty array of integers, return the k most frequent elements.
