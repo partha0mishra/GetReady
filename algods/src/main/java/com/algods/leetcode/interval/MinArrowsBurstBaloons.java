@@ -40,7 +40,7 @@ Constraints:
 points.length == 2
 -231 <= xstart < xend <= 231 - 1
  */
-public class MinArrowsBurseBaloons {
+public class MinArrowsBurstBaloons {
 	public int findMinArrowShots(int[][] points) {
 		if(points.length < 2) return points.length;// 0 or 1
 		int result=1;// for the last one standing
@@ -62,7 +62,7 @@ public class MinArrowsBurseBaloons {
 		return result;
     }
 	public static void main(String[] args) {
-		MinArrowsBurseBaloons instance= new MinArrowsBurseBaloons();
+		MinArrowsBurstBaloons instance= new MinArrowsBurstBaloons();
 		System.out.println(instance.findMinArrowShots(new int[][] {{-2147483646,-2147483645},{2147483646,2147483647}}));
 	}
 }
