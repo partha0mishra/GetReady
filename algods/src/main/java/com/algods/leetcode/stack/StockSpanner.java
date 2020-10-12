@@ -1,5 +1,7 @@
 package com.algods.leetcode.stack;
 /* 901. Online Stock Span
+ * Monotonic Stack
+ * 
  * Write a class StockSpanner which collects daily price quotes for some stock, 
  * and returns the span of that stock's price for the current day.
  * The span of the stock's price today is defined as the maximum number of consecutive days 
@@ -41,11 +43,9 @@ public class StockSpanner {
 	public int next(int price) {
 		int result=1;// that's the min
 		while(!stack.isEmpty() && stack.peek()[0] <=price) {
-			System.out.println(price+"> "+stack.peek()[0]+" "+stack.peek()[1]);
 			result+=stack.pop()[1];
 		}
 		stack.push(new int[] {price,result});
-		System.out.println(result+" peek: "+stack.peek()[0]+" "+stack.peek()[1]);
 		return result;
 	}
 	public static void main(String[] args) {
