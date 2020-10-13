@@ -2,7 +2,7 @@ package com.algods.epi._05primitive;
 
 import java.util.Random;
 
-public class Famililarity {
+public class Familiarity {
 	public static void main(String[] args) {
 		System.out.println(6&4);// 4
 		System.out.println(1|2);// 3
