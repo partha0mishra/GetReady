@@ -9,7 +9,7 @@ public class NumBitsSetTo1 {
 //	public static short countBits(int i) {
 //		short result=0;
 //		while(i > 0) {
-//			result+=(i & 1);
+//			result+=(i & 1);// for checking odd/ even number of bits (i.e. Parity), just do result ^=(i&1);
 //			i>>>=1;
 //		}
 //		return result;
@@ -19,7 +19,7 @@ public class NumBitsSetTo1 {
 	public static short countBits(int i) {
 		short result=0;
 		while(i != 0) {
-			result +=1;
+			result +=1;// for checking odd/ even number of bits, just do result ^=1;
 			i &=(i-1);
 		}
 		return result;
