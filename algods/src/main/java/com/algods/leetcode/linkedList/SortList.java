@@ -16,6 +16,8 @@ The number of nodes in the list is in the range [0, 5 * 104].
 -105 <= Node.val <= 105
  */
 public class SortList {
+	/* Approach 02 - Bottom up Mergesort O(nLogN) O(1)    */
+	/* Approach 01 - top down merge sort O(nLogN) O(nLogN)*/
 	public ListNode sortList(ListNode head) {
 		if(head ==null || head.next == null) return head;// null or single-node list
         ListNode slow=head, fast=head,head2,list1, list2;
