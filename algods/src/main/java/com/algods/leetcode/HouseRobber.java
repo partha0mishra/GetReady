@@ -34,7 +34,7 @@ public class HouseRobber {
 		}
 		return Math.max(rob, norob);
     }
-	/* Approach 02: Greeding, BackTracking, Memoization - First time. YEY !!
+	/* Approach 02: Greedy, BackTracking, Memoization - First time. YEY !!
 	 * Note: TLE without Memoization*/
 //	int result;
 //	HashMap<Integer,Integer> memo;
