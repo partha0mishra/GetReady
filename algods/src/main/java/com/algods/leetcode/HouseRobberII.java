@@ -37,7 +37,7 @@ public class HouseRobberII {
 	private int rob(int[] nums, int start, int end) {
 		int rob=0,norob=0;
 		for(int i=start; i<= end; i++) {
-			int currentRob=nums[i];
+			int currentRob=norob+nums[i];
 			norob=Math.max(rob, norob);
 			rob=currentRob;
 		}
