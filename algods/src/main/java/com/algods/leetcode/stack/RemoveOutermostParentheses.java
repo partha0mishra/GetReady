@@ -40,6 +40,7 @@ S[i] is "(" or ")"
 S is a valid parentheses string
  * */
 public class RemoveOutermostParentheses {
+	/* Remember: Just removing the outer parentheses won't work */
 	public String removeOuterParentheses(String S) {
 		StringBuilder s = new StringBuilder();
         int opened = 0;

@@ -34,38 +34,30 @@ Constraints:
 s only contains lower case English characters and parentheses.
 It's guaranteed that all parentheses are balanced.
  */
+import java.util.*;
 public class ReverseStringEachPairParentheses {
 	public String reverseParentheses(String s) {
-		return reverseParentheses(s,1);
-	}
-	public String reverseParentheses(String s, int level) {
-//        System.out.println(s+" "+level);
-		int begin=s.indexOf('(');
-		if(begin ==-1) {
-			if(level%2 == 0) return reverse(s);
-			else return s;
-		}
-		int end=s.lastIndexOf(')');
-        String part01=(level%2 ==0)? reverse(s.substring(0,begin)):s.substring(0,begin);
-//        System.out.println("begin: "+part01);
-        String part02=(level%2 ==0)? reverse(s.substring(end+1)):s.substring(end+1);
-//        System.out.println("end: "+part02);
-        String middle=s.substring(begin+1,end);
-//        System.out.println("middle: "+middle);
-        if(part01.length() == 0) {
-        	return reverseParentheses(middle,level+1)+part02;
-        }else if(part02.length() ==0) {
-        	return part01+reverseParentheses(middle,level+1);
-        }else if(level%2 ==0) {
-        	return part02+reverseParentheses(middle,level+1)+part01;
-        }else return part01+reverseParentheses(middle,level+1)+part02;
-    }
-	private String reverse(String s) {
-        int n=s.length();
-		char[] ca= new char[n];
-        for(int i=0; i< n; i++){
-            ca[i]=s.charAt(n-1-i);
+        int n = s.length();
+        Stack<Integer> opened = new Stack<>();
+        int[] pair = new int[n];
+        for (int i = 0; i < n; ++i) {
+            if (s.charAt(i) == '(')
+                opened.push(i);
+            if (s.charAt(i) == ')') {
+                int j = opened.pop();
+                pair[i] = j;
+                pair[j] = i;
+            }
         }
-        return String.valueOf(ca);
-	}
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0, d = 1; i < n; i += d) {
+            if (s.charAt(i) == '(' || s.charAt(i) == ')') {
+                i = pair[i];
+                d = -d;
+            } else {
+                sb.append(s.charAt(i));
+            }
+        }
+        return sb.toString();
+    }
 }
