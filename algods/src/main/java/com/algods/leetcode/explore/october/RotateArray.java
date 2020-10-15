@@ -31,16 +31,13 @@ Constraints:
 0 <= k <= 105
 */
 public class RotateArray {
+	/* Approach 01: use extra array O(n) O(n)*/
 	public void rotate(int[] nums, int k) {
 		if(k ==0) return;
 		int n=nums.length;
-		int pivot=n-k;
         int[] result=new int[n];
         for(int from=0; from< n; from++) {
-        	int to=from+k;
-        	if(to >= pivot) to%=n;
-        	// System.out.println(from+" "+to);
-        	result[to]=nums[from];
+        	result[(from+k)%n]=nums[from];
         }
         for(int i=0; i< n; i++){
             nums[i]=result[i];
