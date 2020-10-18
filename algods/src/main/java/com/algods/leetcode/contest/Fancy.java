@@ -41,36 +41,60 @@ Constraints:
 At most 105 calls total will be made to append, addAll, multAll, and getIndex.
  */
 import java.util.*;
+/* Approach 01: TLE - Need to keep the total quotient of Ops */
 class Fancy {
+	int time=0;
+	class Num{
+		int n,t;
+		public Num(int num, int time) {this.n=num; this.t=time;}
+	}
 	class Ops{
-		char operation;
-		int num;
+		char operation;int num;
 		public Ops(char o, int i) {this.operation=o; this.num=i;}
 	}
-	ArrayList<Long> nums;
-	ArrayList<Ops> ops;
+	
+	ArrayList<Num> nums; HashMap<Integer,Ops> ops;
     public Fancy() {
-        nums=new ArrayList<Long>();
+        nums=new ArrayList<Num>();	
+        ops=new HashMap<Integer,Ops>();
     }
     
     public void append(int val) {
-        nums.add((long)val);
+        nums.add(new Num(val,time));
     }
     
     public void addAll(int inc) {
-        for(int i=0; i< nums.size(); i++) {
-        	nums.set(i, nums.get(i)+(long)inc);
-        }
+        ops.put(time++, new Ops('a',inc));
     }
     
     public void multAll(int m) {
-    	for(int i=0; i< nums.size(); i++) {
-        	nums.set(i, (nums.get(i)*(long)m)%1000000007);
-        }
+    	ops.put(time++, new Ops('m',m));
     }
     
     public int getIndex(int idx) {
         if(idx >= nums.size()) return -1;
-        else return (int)(nums.get(idx)%1000000007);
+        Num n=nums.get(idx);
+        long result=n.n;
+        for(int i=n.t; i< time; i++) {
+        	Ops op=ops.get(i);
+        	if(op.operation == 'a') {result+=op.num;}
+        	else if(op.operation == 'm') {result*=op.num;}
+        	result%=1000000007;
+        }
+        return (int)result;
+    }
+    public static void main(String[] args) {
+    	Fancy fancy = new Fancy();
+    	fancy.append(2);   // fancy sequence: [2]
+    	fancy.addAll(3);   // fancy sequence: [2+3] -> [5]
+    	fancy.append(7);   // fancy sequence: [5, 7]
+    	fancy.multAll(2);  // fancy sequence: [5*2, 7*2] -> [10, 14]
+    	fancy.getIndex(0); // return 10
+    	fancy.addAll(3);   // fancy sequence: [10+3, 14+3] -> [13, 17]
+    	fancy.append(10);  // fancy sequence: [13, 17, 10]
+    	fancy.multAll(2);  // fancy sequence: [13*2, 17*2, 10*2] -> [26, 34, 20]
+    	fancy.getIndex(0); // return 26
+    	fancy.getIndex(1); // return 34
+    	fancy.getIndex(2); // return 20
     }
 }
