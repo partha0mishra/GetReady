@@ -27,6 +27,9 @@ Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
  */
 public class BuySellStock3 {
+	/* From:
+	 * https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/discuss/135704/Detail-explanation-of-DP-solution
+	 * */
     public int maxProfit(int[] prices) {
     	int buy1 = Integer.MAX_VALUE, buy2 = Integer.MAX_VALUE;
         int sell1 = 0, sell2 = 0;
