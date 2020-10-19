@@ -4,12 +4,12 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class HashMap3Sum {
+public class HashSet3Sum {
 	public boolean findSum(int[] n, int sum) {
 		HashSet<Integer> hm=new HashSet<Integer>();
 		for(int i: n) hm.add(i);// All numbers are added.
 		
-		for(int i=0; i<n.length; i++)
+		for(int i=0; i<n.length-1; i++)
 			for(int j=i+1; j<n.length; j++) {
 				int diff=sum-(n[i]+n[j]);
 				if(hm.contains(diff)) return true;
@@ -51,7 +51,7 @@ public class HashMap3Sum {
 		System.out.println("SearchNums: "+searchNums[0]+" "+searchNums[1]+" "+searchNums[2]);
 		
 		int sum=searchNums[0]+searchNums[1]+searchNums[2];
-		HashMap3Sum instance=new HashMap3Sum();
+		HashSet3Sum instance=new HashSet3Sum();
 		long tStart=System.currentTimeMillis();
 		boolean result=instance.findSum(nums, sum);
 		long tEnd=System.currentTimeMillis();
