@@ -1,4 +1,7 @@
 package com.algods.leetcode.contest;
+
+import java.util.Arrays;
+
 /* 5122. Mean of Array After Removing Some Elements
  * Given an integer array arr, return the mean of the remaining integers after removing the smallest 5% and the largest 5% of the elements.
 

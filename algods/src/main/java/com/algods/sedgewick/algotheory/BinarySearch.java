@@ -11,16 +11,25 @@ import com.algods.sedgewick.sort.advanced.QuickSort;
 
 public class BinarySearch {
 	public boolean search(int[] nums, int n) {
+		/* Approach 01: The way everyone writes */
 //		printArray(nums);
-		int lo=0, hi=nums.length-1;
+//		int lo=0, hi=nums.length-1;
 //		if(n > nums[hi] || n< nums[lo]) return false;
-		while(lo <= hi) {
-			int mid=lo+(hi-lo)/2;
-			if(n > nums[mid]) lo=mid+1;
-			else if(n < nums[mid]) hi=mid-1;
-			else return true;
+//		while(lo <= hi) {
+//			int mid=lo+(hi-lo)/2;
+//			if(n > nums[mid]) lo=mid+1;
+//			else if(n < nums[mid]) hi=mid-1;
+//			else return true;
+//		}
+//		return false;
+		/* Approach 02: The SureShot way */
+		int left=0, right=nums.length -1;
+		while(left< right) {
+			int mid=left+(right-left)/2;
+			if(nums[mid] >= n) right=mid;
+			else left=mid+1;
 		}
-		return false;
+		return nums[left] == n;
 	}
 	public static void main(String[] args) {
 		final int NUM_ARRAY_SIZE=100000;

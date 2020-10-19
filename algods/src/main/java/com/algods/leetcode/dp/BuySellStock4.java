@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.dp;
 /* Best Time to Buy and Sell Stock IV
  * You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
  * Design an algorithm to find the maximum profit. You may complete at most k transactions.
