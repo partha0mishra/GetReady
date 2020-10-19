@@ -1,6 +1,6 @@
 package com.algods.sedgewick.stacks;
 
-public class MyLinkedList {
+public class LinkedListStack {
 	private class Node{
 		String item;
 		Node next;
@@ -9,13 +9,13 @@ public class MyLinkedList {
 		}
 	}
 	private Node head;
-	public MyLinkedList() {
+	public LinkedListStack() {
 		head=null;
 	}
 	public void push(String s) {
-		Node oldHead= head;
-		head=new Node(s);
-		head.next=oldHead;
+		Node newNode=new Node(s);
+		newNode.next=head;
+		head=newNode;
 	}
 	public String pop() {
 		if(head == null) throw new IllegalArgumentException("Empty Stack!!");
@@ -34,7 +34,7 @@ public class MyLinkedList {
 		return sb.substring(0, sb.length()-1);
 	}
 	public static void main(String[] args) {
-		MyLinkedList instance = new MyLinkedList();
+		LinkedListStack instance = new LinkedListStack();
 		System.out.println("Stack: " +instance);
 		instance.push("1");
 		System.out.println("Stack: " +instance);
