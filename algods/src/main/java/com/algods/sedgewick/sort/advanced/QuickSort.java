@@ -36,7 +36,7 @@ public class QuickSort {
 			while(nums[++i]< nums[lo])
 				if(i==hi) break;
 			while(nums[--j]> nums[lo]) {}
-//				if(j==lo) break;// this check is not really needed
+//				if(j==lo) break;// this check is not really needed as nums[lo] = pivot < nums[j]
 //			printArray(nums);
 			if(i >=j ) break;
 			swap(nums, i,j);
