@@ -20,14 +20,16 @@ public class BinaryHeap {
 	public void insert(int x) {
 		items[++n]=x;
 		swim(n);
-		if(n==items.length-1) resize(n+1);
+		if(n==items.length-1) resize(); 
+//			resize(n+1);
 	}
 	public int delMax() {
 		int max=items[1];
 //		swap(1,n--);
 		items[1]=items[n--];
 		sink(1);
-		if(n==items.length/4 && n>1) resize(n);
+		if(n==items.length/4 && n>1) resize(); 
+//			resize(n);
 		return max;
 	}
 	private void swim(int k) {
@@ -54,6 +56,12 @@ public class BinaryHeap {
 //		for(int i=0; i< origSize; i++) {
 //			tempItems[i]=items[i];
 //		}
+		items=tempItems;
+	}
+	private void resize() {
+		System.out.println("Resize called at: "+n);
+		int[] tempItems= new int[2*n+1];
+		System.arraycopy(items, 0, tempItems, 0, n+1);
 		items=tempItems;
 	}
 	private void swap(int i, int j) {
