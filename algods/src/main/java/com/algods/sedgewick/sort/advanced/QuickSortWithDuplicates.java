@@ -9,7 +9,7 @@ import java.util.HashSet;
 public class QuickSortWithDuplicates {
 	public void sort(int[] nums) {
 		// first task would be to shuffle, although we might already have a shuffled array here
-		shuffle(nums);
+//		shuffle(nums); // generation is Randomized anyway
 		sort(nums,0,nums.length-1);
 	}
 	private void shuffle(int[] nums) {
@@ -26,24 +26,26 @@ public class QuickSortWithDuplicates {
 	}
 	private void sort(int[] nums, int lo, int hi) {
 		if(hi <=lo ) return;
+//		printArray(nums, lo, hi);
 		int i=lo, lt=lo, gt=hi;// taking nums[lt] as pivot
 		while(i<=gt) {
 			if(nums[i] < nums[lt]) swap(nums, lt++, i++);
 			else if(nums[i] > nums[lt]) swap(nums, i, gt--);
 			else i++;
 		}
+//		printArray(nums, lo, hi);
 		sort(nums, lo, lt-1);// sort left subarray
 		sort(nums, gt+1, hi);// sort right subarray
 	}
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=1000000;
-		int[] nums= new int[NUM_ARRAY_SIZE];
+		final int NUM_ARRAY_SIZE=10000000;
+		int[] nums= new int[NUM_ARRAY_SIZE*5];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet
 		//for(int i=0; i< NUM_ARRAY_SIZE; i++) {nums[i]= random.nextInt(NUM_ARRAY_SIZE);}
 		HashSet<Integer> hm= new HashSet<Integer>();
-		for(int i=0; i< NUM_ARRAY_SIZE; ) {// let's make sure the numbers are distinct
-			int newNum= random.nextInt(NUM_ARRAY_SIZE*10);
+		for(int i=0; i< NUM_ARRAY_SIZE *5; ) {// let's make sure the numbers are distinct
+			int newNum= random.nextInt(NUM_ARRAY_SIZE);
 //			if(hm.contains(newNum)) {
 //				continue;
 //			}else {
@@ -81,5 +83,8 @@ public class QuickSortWithDuplicates {
 		for(int n: nums) System.out.printf("%4d",n);
 		System.out.println();
 	}
-
+	private static void printArray(int[] nums, int lo, int hi) {
+		for(int i=lo; i<=hi; i++) System.out.printf("%4d",nums[i]);
+		System.out.println();
+	}
 }
