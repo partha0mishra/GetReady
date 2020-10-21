@@ -38,7 +38,6 @@ asteroids[i] != 0
  */
 import java.util.Deque;
 import java.util.ArrayDeque;
-import java.util.Arrays;
 public class AsteroidCollision {
 	public int[] asteroidCollision(int[] asteroids) {
         Deque<Integer> list= new ArrayDeque<>();
