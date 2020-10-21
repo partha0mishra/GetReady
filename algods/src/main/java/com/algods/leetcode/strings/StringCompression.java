@@ -46,7 +46,6 @@ chars[i] is a lower-case English letter, upper-case English letter, digit, or sy
 public class StringCompression {
 	public int compress(char[] chars) {
 		if(chars == null || chars.length <2) return chars.length;
-//		Arrays.sort(chars); // NO SORTING for RLE
 		char current=chars[0];
 		int count=1, result=0;
 		for(int i=1; i< chars.length; i++) {
