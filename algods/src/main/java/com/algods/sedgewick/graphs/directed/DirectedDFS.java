@@ -13,7 +13,8 @@ public class DirectedDFS {
 		if(!marked[node]) {
 			marked[node]=true;
 			for(int n: graph.adj(node)) {
-				if (!marked[n]) dfs(graph, n);
+//				if (!marked[n]) 
+					dfs(graph, n);
 			}
 		}
 	}

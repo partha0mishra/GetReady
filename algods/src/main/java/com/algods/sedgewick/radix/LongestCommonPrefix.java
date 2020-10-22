@@ -1,15 +1,22 @@
 package com.algods.sedgewick.radix;
 
 public class LongestCommonPrefix {
+	/* Approach 02: CP Way */
 	public String findPrefix(String a, String b) {
-		int minLength=Math.min(a.length(), b.length());
-		StringBuffer result= new StringBuffer();
-		for(int i=0; i<minLength; i++) {
-			if(a.charAt(i) != b.charAt(i)) break;
-			else result.append(a.charAt(i));
-		}
-		return result.toString();
+		int i=0;
+		while(i < a.length() && i< b.length() && a.charAt(i) == b.charAt(i)) i++;
+		return a.substring(0,i);
 	}
+	/* Approach 01: The Regular way*/
+//	public String findPrefix(String a, String b) {
+//		int minLength=Math.min(a.length(), b.length());
+//		StringBuilder result= new StringBuilder();
+//		for(int i=0; i<minLength; i++) {
+//			if(a.charAt(i) != b.charAt(i)) break;
+//			else result.append(a.charAt(i));
+//		}
+//		return result.toString();
+//	}
 	public static void main(String[] args) {
 		LongestCommonPrefix instance= new LongestCommonPrefix();
 		System.out.println("1> "+instance.findPrefix("something", "anything"));
