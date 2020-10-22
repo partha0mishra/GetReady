@@ -14,14 +14,15 @@ package com.algods.leetcode.bst;
  * -1000 <= Node.val <= 1000
  */
 public class MinDepthBST {
-	int minDepth=0;
+	int minDepth=Integer.MAX_VALUE;
 	public int minDepth(TreeNode root) {
-        findMinDepth(root,0);
+        if(root == null) return 0;
+        findMinDepth(root,1);
         return minDepth;
     }
 	private void findMinDepth(TreeNode node, int i) {
-		if(node == null) {minDepth=i; return;}
-		findMinDepth(node.left,i+1);
-		findMinDepth(node.right,i+1);
+		if(node.left == null && node.right== null) {minDepth=Math.min(minDepth,i); return;}
+		if(node.left != null) findMinDepth(node.left,i+1);
+		if(node.right != null) findMinDepth(node.right,i+1);
 	}
 }
