@@ -1,7 +1,7 @@
 package com.algods.sedgewick.radix;
 
 public class LongestCommonPrefix {
-	/* Approach 02: CP Way */
+	/* Approach 02: CP Way*/
 	public String findPrefix(String a, String b) {
 		int i=0;
 		while(i < a.length() && i< b.length() && a.charAt(i) == b.charAt(i)) i++;

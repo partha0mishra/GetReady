@@ -7,7 +7,7 @@ public class KeyIndexedCounting {
 		int R=26;// Radix - 26 small letters
 		int N=input.length;
 		int[] count=new int[R+1];
-		char[] aux= new char[input.length];
+		char[] aux= new char[N];
 		
 		// computing frequencies of [R]
 		for(int i=0; i<N; i++) count[input[i] -'a' +1]++;
