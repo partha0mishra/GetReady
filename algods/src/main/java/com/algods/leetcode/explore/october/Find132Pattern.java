@@ -33,25 +33,49 @@ n == nums.length
  */
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
+import java.util.Stack;
 public class Find132Pattern {
-	/* Approach 01: keep track of minimum so far and check if there's a lesser element greater than the min */
+	/* Approach 02: 
+	 * a. Generate array of mins as previous approach.
+	 * b. Check from right (using stack) if we find a number that has a lesser number at right
+	 * that's quite similar to using stack to find next greater number but Instead of going right, we're going left. 
+	 */
 	public boolean find132pattern(int[] nums) {
         int minVal=Integer.MAX_VALUE;
         int n=nums.length;
+        int[] mins=new int[n];
         
-        minVal=Integer.MAX_VALUE;
         for(int i=0; i< n; i++) {
-        	if(nums[i] > minVal && nextGreaterIsValid(nums,i,minVal)) return true;
+        	mins[i]=minVal;
         	minVal=Math.min(minVal, nums[i]);
+        }
+        Stack<Integer> stack= new Stack<>();
+        for(int i=n-1; i>0; i--) {
+        	while(!stack.isEmpty() && stack.peek() < nums[i]) {
+        		if(stack.pop() > mins[i]) return true;
+        	}
+        	stack.push(nums[i]);
         }
         return false;
     }
-	private boolean nextGreaterIsValid(int[] nums, int pivot, int minVal) {
-		for(int i=pivot+1; i< nums.length; i++) {
-			if(nums[i] < nums[pivot] && nums[i] > minVal) return true;
-		}
-		return false;
-	}
+	/* Approach 01: keep track of minimum so far and check if there's a lesser element greater than the min 
+	 * Brute is O(n3). This solution is O(n2)*/
+//	public boolean find132pattern(int[] nums) {
+//        int minVal=Integer.MAX_VALUE;
+//        int n=nums.length;
+//        
+//        for(int i=0; i< n; i++) {
+//        	if(nums[i] > minVal && nextGreaterIsValid(nums,i,minVal)) return true;
+//        	minVal=Math.min(minVal, nums[i]);
+//        }
+//        return false;
+//    }
+//	private boolean nextGreaterIsValid(int[] nums, int pivot, int minVal) {
+//		for(int i=pivot+1; i< nums.length; i++) {
+//			if(nums[i] < nums[pivot] && nums[i] > minVal) return true;
+//		}
+//		return false;
+//	}
 	public static void main(String[] args) {
 		Find132Pattern instance = new Find132Pattern();
 		assertFalse(instance.find132pattern(new int[]{1,2,3}));
