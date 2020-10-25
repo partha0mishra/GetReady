@@ -1,4 +1,4 @@
-package com.algods.sedgewick.mst;
+package com.algods.sedgewick.graphs.mst;
 
 public class Edge implements Comparable<Edge> { 
 

@@ -1,4 +1,4 @@
-package com.algods.sedgewick.mst;
+package com.algods.sedgewick.graphs.mst;
 
 import java.util.NoSuchElementException;
 import java.util.*;
