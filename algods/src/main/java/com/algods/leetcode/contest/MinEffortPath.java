@@ -39,35 +39,61 @@ columns == heights[i].length
 1 <= heights[i][j] <= 106
 
  */
+import java.util.*;
 public class MinEffortPath {
-	/*Approach 01: TLE */
-	int minEffort=Integer.MAX_VALUE;
+	/* Approach 02: Dijkstra */
 	public int minimumEffortPath(int[][] heights) {
-        int rStart=0, cStart=0, rEnd=heights.length-1, cEnd=heights[0].length-1;
-        int[][] dir= {{1,0},{-1,0},{0,1},{0,-1}};
-        boolean[][] marked=new boolean[heights.length][heights[0].length];
-        dfs(rStart,cStart,heights,rEnd,cEnd,dir,marked,0);
-        // System.out.println(minEffort);
-        return minEffort;
+        int r=heights.length,c=heights[0].length;
+        int[][] dis=new int[r][c];
+        for(int[] d:dis)
+            Arrays.fill(d,Integer.MAX_VALUE);
+        dis[0][0]=0;
+        PriorityQueue<int[]> pq=new PriorityQueue<>((a,b)->(a[2]-b[2]));
+        pq.add(new int[]{0,0,0});
+        int[][] dirs={{-1,0},{1,0},{0,-1},{0,1}};
+        while(!pq.isEmpty()){
+            int[] temp=pq.poll();
+            for(int[] dir:dirs){
+                int x=temp[0]+dir[0],y=temp[1]+dir[1];
+                if(x<0||y<0||x>=r||y>=c) continue;
+                int max=Math.max(temp[2],Math.abs(heights[temp[0]][temp[1]]-heights[x][y]));
+                if(dis[x][y]>max){
+                    dis[x][y]=max;
+                    pq.add(new int[]{x,y,max});
+                }
+            }
+        }
+        System.out.println(dis[r-1][c-1]);
+        return dis[r-1][c-1];
     }
-	private void dfs(int rStart, int cStart, int[][] heights, int rEnd, int cEnd, int[][] dir, boolean[][] marked, int effort) {
-		if(rStart == rEnd && cStart == cEnd) {
-			if(effort < minEffort) minEffort=effort;
-			return;}
-		marked[rStart][cStart]=true;
-		for(int[] d: dir) {
-			int rNext=rStart+d[0], cNext=cStart+d[1];
-			if(rNext <= rEnd && cNext <= cEnd && rNext >=0 && cNext >=0 && !marked[rNext][cNext]) {
-				int e=heights[rStart][cStart];
-				int eNext=heights[rNext][cNext];
-				int stepEffort=Math.abs(e-eNext);
-                // System.out.println(e+" "+eNext+" "+stepEffort);
-				int maxEffort= (stepEffort > effort)? stepEffort: effort;
-				dfs(rNext, cNext, heights, rEnd, cEnd, dir, marked, maxEffort);
-			}
-		}
-		marked[rStart][cStart]=false;
-	}
+	/*Approach 01: TLE */
+//	int minEffort=Integer.MAX_VALUE;
+//	public int minimumEffortPath(int[][] heights) {
+//        int rStart=0, cStart=0, rEnd=heights.length-1, cEnd=heights[0].length-1;
+//        int[][] dir= {{1,0},{-1,0},{0,1},{0,-1}};
+//        boolean[][] marked=new boolean[heights.length][heights[0].length];
+//        dfs(rStart,cStart,heights,rEnd,cEnd,dir,marked,0);
+//        // System.out.println(minEffort);
+//        return minEffort;
+//    }
+//	private void dfs(int rStart, int cStart, int[][] heights, int rEnd, int cEnd, int[][] dir, boolean[][] marked, int effort) {
+//		if(rStart == rEnd && cStart == cEnd) {
+//			if(effort < minEffort) minEffort=effort;
+//			return;}
+//		marked[rStart][cStart]=true;
+//		for(int[] d: dir) {
+//			int rNext=rStart+d[0], cNext=cStart+d[1];
+//			if(rNext <= rEnd && cNext <= cEnd && rNext >=0 && cNext >=0 && !marked[rNext][cNext]) {
+//				int e=heights[rStart][cStart];
+//				int eNext=heights[rNext][cNext];
+//				int stepEffort=Math.abs(e-eNext);
+//                // System.out.println(e+" "+eNext+" "+stepEffort);
+//				int maxEffort= (stepEffort > effort)? stepEffort: effort;
+//				dfs(rNext, cNext, heights, rEnd, cEnd, dir, marked, maxEffort);
+//			}
+//		}
+//		marked[rStart][cStart]=false;
+//	}
 	public static void main(String[] args) {
 		MinEffortPath instance = new MinEffortPath();
 		instance.minimumEffortPath(new int[][] {{1,10,6,7,9,10,4,9}});
