@@ -43,21 +43,18 @@ Constraints:
 
 1 <= n <= 10^5
  */
-import java.util.*;
 public class StoneGame4 {
-	boolean result=true;
 	public boolean winnerSquareGame(int n) {
-		int i=1;
-		ArrayList<Integer> squares=new ArrayList<Integer>();
-		while(true) {
-			int j=i*i;
-			if(j<= n) squares.add(j);
-			else break;
-			i+=1;
+		boolean[] dp= new boolean[n+1];
+		for(int i=1; i<=n; i++) {
+			for(int k=1; k*k <= i; k++) {
+				if(!dp[i-k*k]) {
+					dp[i]= true;
+					break;
+				}
+			}
 		}
-		Collections.sort(squares,Collections.reverseOrder());
-		System.out.println(squares);
-        return result;
+		return dp[n];
     }
 	public static void main(String[] args) {
 		StoneGame4 instance= new StoneGame4();
