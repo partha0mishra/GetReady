@@ -19,7 +19,6 @@ public class DijkstraPQ {
 		settled = new HashSet<Integer>(); 
 		pq = new PriorityQueue<Node>(V, new Node()); 
 	} 
-
 	// Function for Dijkstra's Algorithm 
 	public void dijkstra(List<List<Node> > adj, int src) 
 	{ 
