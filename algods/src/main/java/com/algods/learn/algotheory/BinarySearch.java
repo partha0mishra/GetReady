@@ -1,9 +1,6 @@
-package com.algods.leetcode.binarySearch;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
+package com.algods.learn.algotheory;
 /**
- * Binary Search: Template
+ * Binary Search:
  * Just using a little QuickSort to sort the array.
  */
 import java.util.HashSet;
@@ -14,20 +11,27 @@ import com.algods.learn.sort.advanced.QuickSort;
 
 public class BinarySearch {
 	public boolean search(int[] nums, int n) {
-		int left=0, right=nums.length;
-		while(left < right) {
+		/* Approach 01: The way everyone writes */
+//		printArray(nums);
+//		int lo=0, hi=nums.length-1;
+//		if(n > nums[hi] || n< nums[lo]) return false;
+//		while(lo <= hi) {
+//			int mid=lo+(hi-lo)/2;
+//			if(n > nums[mid]) lo=mid+1;
+//			else if(n < nums[mid]) hi=mid-1;
+//			else return true;
+//		}
+//		return false;
+		/* Approach 02: The SureShot way */
+		int left=0, right=nums.length -1;
+		while(left< right) {
 			int mid=left+(right-left)/2;
 			if(nums[mid] >= n) right=mid;
 			else left=mid+1;
 		}
-		return (nums[left]==n);
+		return nums[left] == n;
 	}
 	public static void main(String[] args) {
-		int[] num0= {1,3,5,7,9,10,12,14,16,18};
-		BinarySearch bs= new BinarySearch();
-		assertFalse(bs.search(num0, 0));// false
-		assertTrue(bs.search(num0, 1));// true
-		//*
 		final int NUM_ARRAY_SIZE=100000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
@@ -69,7 +73,7 @@ public class BinarySearch {
 			tEnd=System.currentTimeMillis();
 			System.out.println("Search Time: "+(tEnd-tStart)+" : "+result+" for num : "+i);
 		}
-	//*/	
+		
 	}
 	private static void printArray(int[] nums) {
 		for(int n: nums) System.out.printf("%5d",n);
