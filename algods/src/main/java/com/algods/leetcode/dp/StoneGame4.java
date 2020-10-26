@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.october;
+package com.algods.leetcode.dp;
 /* Stone Game IV
  * Alice and Bob take turns playing a game, with Alice starting first.
 
