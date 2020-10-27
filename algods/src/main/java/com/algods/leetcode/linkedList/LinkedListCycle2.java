@@ -33,7 +33,16 @@ public class LinkedListCycle2 {
 	 * s= k - m (<- distance from meeting point to the slow pointer) 
 	 * => s= nr -m = (n-1)r + (r-m) 
 	 * Therefore, one pointer starting from Head and another from the Meeting point where slow pointer already is
-	 * there will meet at the meeting point */
+	 * there will meet at the meeting point 
+	 * 
+	 * Another way of looking at it
+	 * let : 
+	 * a= head to the start of cycle
+	 * b= start of cycle to the meeting of slow and fast pointer 
+	 * c= meeting point to start of cycle 
+	 * so, the slow pointer has traveled (a+b) 
+	 * and the fast pointer has traveled (a+b+c+b)
+	 * Considering fast pointer has traveled double the distance, 2(a+b)=(a+2b+c) => a=c*/
 	public ListNode detectCycle(ListNode head) {
 		if(head == null) return null;
 		ListNode result=null, slow=head, fast=head;
