@@ -22,9 +22,10 @@ public class ResizeArrayStack {
 	private void resize(int size) {
 		System.out.println(">> Resize called at: "+top);
 		String[] newItems=new String[2*size];
-		for(int i=0; i<size; i++) {
-			newItems[i]=items[i];
-		}
+		System.arraycopy(items, 0, newItems, 0, size);// size: NUMBER of elements to be copied
+//		for(int i=0; i<size; i++) {
+//			newItems[i]=items[i];
+//		}
 		items=newItems;
 	}
 	public String toString() {
