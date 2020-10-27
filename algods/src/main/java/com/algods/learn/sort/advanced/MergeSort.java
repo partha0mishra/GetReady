@@ -17,7 +17,8 @@ public class MergeSort {
 		merge(nums, aux, lo, mid, hi);
 	}
 	private void merge(int[] nums, int[] aux, int lo, int mid, int hi) {
-		for(int i=lo; i<=hi; i++) aux[i]=nums[i];// copy the ranges
+//		for(int i=lo; i<=hi; i++) aux[i]=nums[i];// copy the ranges
+		System.arraycopy(nums, lo, aux, 0, hi-lo+1);
 		int i=lo, j=mid+1;// start of 2 sub-ranges to merge
 		for(int k=lo; k<=hi; k++) {
 			if		(i > mid)	nums[k]=aux[j++];// left array is done
@@ -28,7 +29,7 @@ public class MergeSort {
 	}
 	
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=100000;
+		final int NUM_ARRAY_SIZE=1000000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet
