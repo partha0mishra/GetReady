@@ -14,7 +14,7 @@ public class MergeSortWithInsertion {
 		sort(nums, aux, 0, nums.length-1);
 	}
 	private void sort(int[] nums, int[] aux, int lo, int hi) {
-		if(hi <= lo) return;
+//		if(hi <= lo) return; // Doesn't seem to be needed
 		if(hi -lo <= CUTOFF) {
 			new InsertionSort().sort(nums,lo,hi);
 			return;

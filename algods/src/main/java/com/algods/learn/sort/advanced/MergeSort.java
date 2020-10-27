@@ -23,7 +23,7 @@ public class MergeSort {
 		for(int k=lo; k<=hi; k++) {
 			if		(i > mid)	nums[k]=aux[j++];// left array is done
 			else if	(j > hi)	nums[k]=aux[i++];// right array is done
-			else if (aux[j] < aux[i])	nums[k]=aux[j++];
+			else if (aux[j] < aux[i])	nums[k]=aux[j++];// no movement at equals keeps it Stable
 			else						nums[k]=aux[i++];
 		}
 	}
