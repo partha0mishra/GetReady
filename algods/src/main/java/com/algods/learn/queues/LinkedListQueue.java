@@ -16,10 +16,10 @@ public class LinkedListQueue {
 		return first==null;
 	}
 	private void enqueue(String s) {// enqueue at Last
-		Node oldLast=last;
-		last=new Node(s);
-		if(first == null) first=last;
-		else oldLast.next=last;// otherwise oldLast.next would throw a Null Pointer error
+		Node nn=new Node(s);
+		if(first==null) first=nn;
+		else last.next=nn;
+		last=nn;// in any case.
 	}
 	private String dequeue() {// dequeue from first
 		if(isEmpty()) throw new IllegalArgumentException("--- Empty ---");
