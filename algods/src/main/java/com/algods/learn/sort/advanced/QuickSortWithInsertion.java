@@ -8,7 +8,7 @@ import com.algods.learn.sort.elementary.InsertionSort;
 import java.util.HashSet;
 
 public class QuickSortWithInsertion {
-	private static final int CUTOFF=7;
+	private static final int CUTOFF=5;
 	public void sort(int[] nums) {
 		// first task would be to shuffle, although we might already have a shuffled array here
 		shuffle(nums);
@@ -29,7 +29,10 @@ public class QuickSortWithInsertion {
 	private void sort(int[] nums, int lo, int hi) {
 		if(hi <=lo ) return;
 		if(hi -lo <= CUTOFF){
-			new InsertionSort().sort(nums, lo, hi);
+//			new InsertionSort().sort(nums, lo, hi);
+			for(int i=lo+1;i<=hi;i++)
+				for(int j=i; j>lo; j--)
+					if(nums[j]<nums[j-1]) {int t=nums[j]; nums[j]=nums[j-1]; nums[j-1]=t;}
 			return;
 		}
 		int j=partition(nums, lo, hi);// j is put at the right place
@@ -55,7 +58,7 @@ public class QuickSortWithInsertion {
 		return j;
 	}
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=100000;
+		final int NUM_ARRAY_SIZE=10000000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet

@@ -47,7 +47,7 @@ public class QuickSort {
 		return j;
 	}
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=10000;
+		final int NUM_ARRAY_SIZE=10000000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet

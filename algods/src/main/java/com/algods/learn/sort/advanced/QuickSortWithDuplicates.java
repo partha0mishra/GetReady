@@ -27,7 +27,7 @@ public class QuickSortWithDuplicates {
 	private void sort(int[] nums, int lo, int hi) {
 		if(hi <=lo ) return;
 //		printArray(nums, lo, hi);
-		int i=lo, lt=lo, gt=hi;// taking nums[lt] as pivot
+		int i=lo+1, lt=lo, gt=hi;// taking nums[lt] as pivot
 		while(i<=gt) {
 			if(nums[i] < nums[lt]) swap(nums, lt++, i++);
 			else if(nums[i] > nums[lt]) swap(nums, i, gt--);
@@ -38,7 +38,7 @@ public class QuickSortWithDuplicates {
 		sort(nums, gt+1, hi);// sort right subarray
 	}
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=10000000;
+		final int NUM_ARRAY_SIZE=1000000;
 		int[] nums= new int[NUM_ARRAY_SIZE*5];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet
