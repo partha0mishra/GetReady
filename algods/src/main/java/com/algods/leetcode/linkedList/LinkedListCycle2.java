@@ -1,5 +1,5 @@
 package com.algods.leetcode.linkedList;
-/* Linked List Cycle II
+/* 142 Linked List Cycle II
  * Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
  * There is a cycle in a linked list if there is some node in the list that can be reached again by 
  * continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer 
@@ -26,17 +26,47 @@ package com.algods.leetcode.linkedList;
  */
 import java.util.*;
 public class LinkedListCycle2 {
-	HashSet<ListNode> hs= new HashSet<>();
+	/* Approach 02: 
+	 * where the slow and fast pointers meet, if slow has taken k steps, the fast has taken 2k steps
+	 * and 2k -k = n*r where r is radius of the cycle => k=nr 
+	 * If the distance to the cycle-start is s from head 
+	 * s= k - m (<- distance from meeting point to the slow pointer) 
+	 * => s= nr -m = (n-1)r + (r-m) 
+	 * Therefore, one pointer starting from Head and another from the Meeting point where slow pointer already is
+	 * there will meet at the meeting point */
 	public ListNode detectCycle(ListNode head) {
 		if(head == null) return null;
-        ListNode result=null;
-        while(head.next != null) {
-        	if(hs.contains(head)) {
-        		result=head; break;
-        	}
-        	else hs.add(head);
-        	head=head.next;
-        }
-        return result;
-    }
+		ListNode result=null, slow=head, fast=head;
+		boolean hasCycle=false;
+		while(fast.next !=null && fast.next.next != null) {
+			slow=slow.next;
+			fast=fast.next.next;
+			if(slow == fast) {hasCycle=true; break;}
+		}
+		
+		if(hasCycle) {
+			fast=head;// just reusing
+			while(fast != slow) {
+				fast=fast.next;
+				slow=slow.next;
+			}
+			result=fast;// or slow
+		}
+		
+		return result;
+	}
+	/* Approach 01: Brute - using HashSet */
+//	HashSet<ListNode> hs= new HashSet<>();
+//	public ListNode detectCycle(ListNode head) {
+//		if(head == null) return null;
+//        ListNode result=null;
+//        while(head.next != null) {
+//        	if(hs.contains(head)) {
+//        		result=head; break;
+//        	}
+//        	else hs.add(head);
+//        	head=head.next;
+//        }
+//        return result;
+//    }
 }
