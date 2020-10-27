@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.october;
+package com.algods.leetcode.arrays;
 /* 5531. Special Array With X Elements Greater Than or Equal X
  * 
  * You are given an array nums of non-negative integers. nums is considered special if there exists a number x such that there are exactly x numbers in nums that are greater than or equal to x.

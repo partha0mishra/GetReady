@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.october;
+package com.algods.leetcode.arrays;
 /* Given an array, rotate the array to the right by k steps, where k is non-negative.
 
 Follow up:

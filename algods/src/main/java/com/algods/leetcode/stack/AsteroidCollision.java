@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.october;
+package com.algods.leetcode.stack;
 /* Asteroid Collision
  * We are given an array asteroids of integers representing asteroids in a row.
 

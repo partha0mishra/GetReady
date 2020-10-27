@@ -1,4 +1,4 @@
-package com.algods.leetcode.contest;
+package com.algods.leetcode.easy;
 
 import java.util.Arrays;
 

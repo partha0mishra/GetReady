@@ -1,4 +1,4 @@
-package com.algods.leetcode.contest;
+package com.algods.leetcode.strings;
 /* 5537. Split Two Strings to Make Palindrome
  * You are given two strings a and b of the same length. Choose an index and split both strings at the same index, splitting a into two strings: aprefix and asuffix where a = aprefix + asuffix, and splitting b into two strings: bprefix and bsuffix where b = bprefix + bsuffix. Check if aprefix + bsuffix or bprefix + asuffix forms a palindrome.
 

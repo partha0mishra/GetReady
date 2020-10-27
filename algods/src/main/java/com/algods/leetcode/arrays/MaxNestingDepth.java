@@ -1,4 +1,4 @@
-package com.algods.leetcode.contest;
+package com.algods.leetcode.arrays;
 /* 5535. Maximum Nesting Depth of the Parentheses
  * A string is a valid parentheses string (denoted VPS) if it meets one of the following:
 

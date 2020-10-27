@@ -1,4 +1,4 @@
-package com.algods.leetcode.contest;
+package com.algods.leetcode.strings;
 /* Repeated DNA Sequences
  * All DNA is composed of a series of nucleotides abbreviated as 'A', 'C', 'G', and 'T', for example: "ACGAATTCCG". 
  * When studying DNA, it is sometimes useful to identify repeated sequences within the DNA.

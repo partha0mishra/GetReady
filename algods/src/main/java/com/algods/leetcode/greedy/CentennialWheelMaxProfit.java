@@ -1,4 +1,4 @@
-package com.algods.leetcode.contest;
+package com.algods.leetcode.greedy;
 /*
  * Maximum Profit of Operating a Centennial Wheel
  * 
