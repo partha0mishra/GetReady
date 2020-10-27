@@ -1,6 +1,10 @@
 package com.algods.learn.graphs.mst;
 /*
  * https://www.geeksforgeeks.org/kruskals-minimum-spanning-tree-algorithm-greedy-algo-2/
+ * 
+ * 1. Sort all the edges in non-decreasing order of their weight. 
+ * 2. Pick the smallest edge. Check if it forms a cycle with the spanning tree formed so far. If cycle is not formed, include this edge. Else, discard it. 
+ * 3. Repeat step#2 until there are (V-1) edges in the spanning tree.
  */
 	// Java program for Kruskal's algorithm to 
 	// find Minimum Spanning Tree of a given 
@@ -10,31 +14,21 @@ package com.algods.learn.graphs.mst;
 	import java.io.*;
 public class Kruskal {
 		// A class to represent a graph edge
-		class Edge implements Comparable<Edge> 
-		{
+		class Edge implements Comparable<Edge> {
 			int src, dest, weight;
-
-			// Comparator function used for 
-			// sorting edgesbased on their weight
-			public int compareTo(Edge compareEdge)
-			{
+			// Comparator function used for sorting edges based on their weight
+			public int compareTo(Edge compareEdge){
 				return this.weight - compareEdge.weight;
 			}
-		};
-
-		// A class to represent a subset for 
-		// union-find
-		class subset 
-		{
+		}
+		// A class to represent a subset for union-find
+		class subset {
 			int parent, rank;
-		};
-
+		}
 		int V, E; // V-> no. of vertices & E->no.of edges
-		Edge edge[]; // collection of all edges
-
+		Edge[] edge; // collection of all edges
 		// Creates a graph with V vertices and E edges
-		Kruskal(int v, int e)
-		{
+		Kruskal(int v, int e){
 			V = v;
 			E = e;
 			edge = new Edge[E];
@@ -42,12 +36,9 @@ public class Kruskal {
 				edge[i] = new Edge();
 		}
 
-		// A utility function to find set of an 
-		// element i (uses path compression technique)
-		int find(subset subsets[], int i)
-		{
-			// find root and make root as parent of i 
-			// (path compression)
+		// A utility function to find set of an element i (uses path compression technique)
+		int find(subset subsets[], int i){
+			// find root and make root as parent of i (path compression)
 			if (subsets[i].parent != i)
 				subsets[i].parent
 					= find(subsets, subsets[i].parent);
@@ -55,10 +46,8 @@ public class Kruskal {
 			return subsets[i].parent;
 		}
 
-		// A function that does union of two sets 
-		// of x and y (uses union by rank)
-		void Union(subset subsets[], int x, int y)
-		{
+		// A function that does union of two sets of x and y (uses union by rank)
+		void Union(subset subsets[], int x, int y){
 			int xroot = find(subsets, x);
 			int yroot = find(subsets, y);
 
@@ -81,8 +70,7 @@ public class Kruskal {
 
 		// The main function to construct MST using Kruskal's
 		// algorithm
-		void KruskalMST()
-		{
+		void KruskalMST(){
 			// This will store the resultant MST
 			Edge result[] = new Edge[V]; 
 		
@@ -94,10 +82,8 @@ public class Kruskal {
 			for (i = 0; i < V; ++i)
 				result[i] = new Edge();
 
-			// Step 1: Sort all the edges in non-decreasing
-			// order of their weight. If we are not allowed to
-			// change the given graph, we can create a copy of
-			// array of edges
+			// Step 1: Sort all the edges in non-decreasing order of their weight. If we are not allowed to
+			// change the given graph, we can create a copy of array of edges
 			Arrays.sort(edge);
 
 			// Allocate memory for creating V subsets
@@ -106,8 +92,7 @@ public class Kruskal {
 				subsets[i] = new subset();
 
 			// Create V subsets with single elements
-			for (int v = 0; v < V; ++v) 
-			{
+			for (int v = 0; v < V; ++v) {
 				subsets[v].parent = v;
 				subsets[v].rank = 0;
 			}
