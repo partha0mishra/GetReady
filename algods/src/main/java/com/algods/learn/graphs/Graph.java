@@ -17,10 +17,11 @@ public class Graph {
 	public int V() {return V;}
 	public int E() {return E;}
 	public void addEdge(int v, int w) {// edge between v and w
-		if(adj[v].contains(w)) return;// this edge already exists
-		adj[v].add(w);
-		adj[w].add(v);
-		E++;
+//		if(adj[v].contains(w)) return;// this edge already exists
+		if(adj[v].add(w)) {// returns 'true' on success
+			adj[w].add(v);
+			E++;
+		}
 	}
 	public Iterable<Integer> adj(int v){
 		return adj[v];
