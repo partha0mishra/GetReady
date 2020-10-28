@@ -1,6 +1,15 @@
 package com.algods.learn.graphs.shortestpath;
 /*
  * https://www.geeksforgeeks.org/dijkstras-shortest-path-algorithm-in-java-using-priorityqueue/
+ * 
+ * 1) Create a set sptSet (shortest path tree set) that keeps track of vertices included in shortest path tree, i.e., whose minimum distance from source is calculated and finalized. Initially, this set is empty.
+2) Assign a distance value to all vertices in the input graph. Initialize all distance values as INFINITE. Assign distance value as 0 for the source vertex so that it is picked first.
+3) While sptSet doesn’t include all vertices
+….a) Pick a vertex u which is not there in sptSet and has minimum distance value.
+….b) Include u to sptSet.
+….c) Update distance value of all adjacent vertices of u. To update the distance values, iterate through all adjacent vertices. 
+For every adjacent vertex v, if sum of distance value of u (from source) and weight of edge u-v, is less than the distance value of v, 
+then update the distance value of v.
  */
 //Java implementation of Dijkstra's Algorithm 
 //using Priority Queue 
@@ -12,8 +21,7 @@ public class DijkstraPQ {
 	private int V; // Number of vertices 
 	List<List<Node> > adj; 
 
-	public DijkstraPQ(int V) 
-	{ 
+	public DijkstraPQ(int V) { 
 		this.V = V; 
 		dist = new int[V]; 
 		settled = new HashSet<Integer>(); 
@@ -33,15 +41,10 @@ public class DijkstraPQ {
 		// Distance to the source is 0 
 		dist[src] = 0; 
 		while (settled.size() != V) { 
-
-			// remove the minimum distance node 
-			// from the priority queue 
+			// remove the minimum distance node from the priority queue 
 			int u = pq.remove().node; 
-
-			// adding the node whose distance is 
-			// finalized 
+			// adding the node whose distance is finalized 
 			settled.add(u); 
-
 			e_Neighbours(u); 
 		} 
 	} 
@@ -115,19 +118,15 @@ class Node implements Comparator<Node> {
 	public int node; 
 	public int cost; 
 
-	public Node() 
-	{ 
-	} 
+	public Node() {} 
 
-	public Node(int node, int cost) 
-	{ 
+	public Node(int node, int cost)	{ 
 		this.node = node; 
 		this.cost = cost; 
 	} 
 
 	@Override
-	public int compare(Node node1, Node node2) 
-	{ 
+	public int compare(Node node1, Node node2){ 
 		if (node1.cost < node2.cost) 
 			return -1; 
 		if (node1.cost > node2.cost) 

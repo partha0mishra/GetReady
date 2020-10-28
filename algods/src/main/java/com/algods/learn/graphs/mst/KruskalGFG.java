@@ -12,7 +12,7 @@ package com.algods.learn.graphs.mst;
 	import java.util.*;
 	import java.lang.*;
 	import java.io.*;
-public class Kruskal {
+public class KruskalGFG {
 		// A class to represent a graph edge
 		class Edge implements Comparable<Edge> {
 			int src, dest, weight;
@@ -28,7 +28,7 @@ public class Kruskal {
 		int V, E; // V-> no. of vertices & E->no.of edges
 		Edge[] edge; // collection of all edges
 		// Creates a graph with V vertices and E edges
-		Kruskal(int v, int e){
+		KruskalGFG(int v, int e){
 			V = v;
 			E = e;
 			edge = new Edge[E];
@@ -150,7 +150,7 @@ public class Kruskal {
 					4	 */
 			int V = 4; // Number of vertices in graph
 			int E = 5; // Number of edges in graph
-			Kruskal graph = new Kruskal(V, E);
+			KruskalGFG graph = new KruskalGFG(V, E);
 
 			// add edge 0-1
 			graph.edge[0].src = 0;
