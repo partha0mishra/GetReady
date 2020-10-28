@@ -10,6 +10,7 @@ public class DepthFirstPaths {
 		this.s=s;
 		edgeTo=new int[G.V()];
 		marked=new boolean[G.V()];
+		edgeTo[s]=s;// if the source is not 0
 		dfs(G,s);
 	}
 	private void dfs(Graph G, int v) {
@@ -27,9 +28,14 @@ public class DepthFirstPaths {
 	public Iterable<Integer> pathTo(int v){
 		if(!hasPathTo(v)) return null;
 		Stack<Integer> path=new Stack<Integer>();
-		for(int x=v; x !=s; x=edgeTo[x])// track back source from the node
-			path.push(x);
-		path.push(s);
+//		for(int x=v; x !=s; x=edgeTo[x])// track back source from the node
+//			path.push(x);
+		while(v != edgeTo[v]) {
+			path.push(v);
+			v=edgeTo[v];
+		}
+		path.push(v);
+//		path.push(s);
 		return path;
 	}
 	public static void main(String[] args) {
@@ -43,7 +49,7 @@ public class DepthFirstPaths {
 		graph.addEdge(3, 4);
 		graph.addEdge(3, 5);
 		System.out.println(graph);
-		int source=0;
+		int source=1;
 		DepthFirstPaths dfp=new DepthFirstPaths(graph, source);
 		for(int destination=0; destination < graph.V(); destination++)
 			if(dfp.hasPathTo(destination)) {
