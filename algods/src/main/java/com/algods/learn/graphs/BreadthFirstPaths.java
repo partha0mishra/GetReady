@@ -1,6 +1,6 @@
 package com.algods.learn.graphs;
 
-import java.util.LinkedList;
+import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -18,19 +18,19 @@ public class BreadthFirstPaths {
 		bfs(G,source);
 	}
 	private void bfs(Graph G, int source) {
-		Queue<Integer> q= new LinkedList<Integer>();
+		Queue<Integer> q= new ArrayDeque<Integer>();
 		
 		distTo[source]=0;
 		marked[source]=true;
-		q.add(source);
+		q.offer(source);
 		while(!q.isEmpty()) {
-			int v=q.remove();
+			int v=q.poll();
 			for(int w: G.adj(v)) {
 				if(!marked[w]) {
 					edgeTo[w]=v;
 					distTo[w]=distTo[v]+1;
 					marked[w]=true;
-					q.add(w);
+					q.offer(w);
 				}
 			}
 		}
@@ -41,12 +41,12 @@ public class BreadthFirstPaths {
 	public int distTo(int node) {
 		return distTo[node];
 	}
-	public Iterable<Integer> pathTo(int destination){
-		if(!hasPathTo(destination)) return null;
+	public Iterable<Integer> pathTo(int v){
+		if(!hasPathTo(v)) return null;
 		Stack<Integer> path= new Stack<Integer>();
-		int v;
-		for(v=destination; distTo[v] !=0; v=edgeTo[v]) {
+		while(v !=edgeTo[v]) {
 			path.push(v);
+			v=edgeTo[v];
 		}
 		path.push(v);
 		return path;
