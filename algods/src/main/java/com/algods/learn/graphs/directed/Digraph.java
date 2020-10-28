@@ -6,7 +6,7 @@ public class Digraph {
 	private final int V;// Number of Vertices
 	private int E;// Number of Edges
 	private HashSet<Integer>[] adj;// Adjacency array
-	private int[] indegree;
+	private int[] indegree;// Nodes with indegree==0 are the 'sources' 
 	
 	public Digraph(int V) {
 		this.V=V;
@@ -17,9 +17,10 @@ public class Digraph {
 			adj[v]=new HashSet<Integer>();
 	}
 	public void addEdge(int from, int to) {
-		adj[from].add(to);
-		indegree[to]++;
-		E++;
+		if(adj[from].add(to)) {
+			indegree[to]++;
+			E++;
+		}
 	}
 	public int V() {return V;}
 	public int E() {return E;}
@@ -29,7 +30,7 @@ public class Digraph {
 	public Digraph reverse() {
 		Digraph reverseDigraph= new Digraph(V);
 		for(int from=0; from<V; from++) {
-			for(int to: adj(from)) {
+			for(int to: adj[from]) {
 				reverseDigraph.addEdge(to, from);
 			}
 		}
@@ -72,6 +73,8 @@ public class Digraph {
 		graph.addEdge(11,12);
 		graph.addEdge(12,9);
 		System.out.println(graph);
+		Digraph reverse= graph.reverse();
+		System.out.println(reverse);
 	}
 
 }
