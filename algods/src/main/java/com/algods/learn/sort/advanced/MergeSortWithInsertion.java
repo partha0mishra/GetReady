@@ -8,7 +8,7 @@ import com.algods.learn.sort.elementary.InsertionSort;
 import java.util.HashSet;
 
 public class MergeSortWithInsertion {
-	private static final int CUTOFF=7;
+	private static final int CUTOFF=13;
 	public void sort(int[] nums) {
 		int[] aux= new int[nums.length];
 		sort(nums, aux, 0, nums.length-1);
@@ -16,7 +16,10 @@ public class MergeSortWithInsertion {
 	private void sort(int[] nums, int[] aux, int lo, int hi) {
 //		if(hi <= lo) return; // Doesn't seem to be needed
 		if(hi -lo <= CUTOFF) {
-			new InsertionSort().sort(nums,lo,hi);
+//			new InsertionSort().sort(nums,lo,hi);
+			for(int i=lo+1; i<=hi; i++)
+				for(int j=i; j>lo && nums[j]<nums[j-1]; j--)
+				{int t=nums[j]; nums[j]=nums[j-1]; nums[j-1]=t;}
 			return;
 		}
 		int mid= lo+(hi-lo)/2;
@@ -40,7 +43,7 @@ public class MergeSortWithInsertion {
 	}
 	
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=100000;
+		final int NUM_ARRAY_SIZE=10000000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet

@@ -10,7 +10,7 @@ public class ShellSort {
 		printArray(nums);
 		int len=nums.length;
 		int h=1;
-		while(h < len/3) h=3*h+1;
+		while(h < len/3) h=3*h+1;// finding max(h) -> max width of shell
 		while(h >=1) {
 			for(int i=h; i< len; i++) {
 				for(int j=i; j >=h && nums[j] < nums[j-h]; j-=h) {
@@ -28,7 +28,7 @@ public class ShellSort {
 		nums[j]=temp;
 	}
 	public static void main(String[] args) {
-		final int NUM_ARRAY_SIZE=100;
+		final int NUM_ARRAY_SIZE=10000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
 		// NOT Dealing with Duplicates yet

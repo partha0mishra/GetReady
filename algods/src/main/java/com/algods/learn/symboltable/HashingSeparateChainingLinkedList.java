@@ -1,7 +1,5 @@
 package com.algods.learn.symboltable;
 
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.*;
 public class HashingSeparateChainingLinkedList{
 	class KVP{
@@ -35,21 +33,22 @@ public class HashingSeparateChainingLinkedList{
 			System.out.println("New Entry "+key+" "+value);
 			table[hash(key)].add(new KVP(key, value));
 			totalPairs++;
-			resize(totalPairs,tableSize);
+			resize();
 		}
 	}
-	private void resize(int totPairs, int tabSize) {
-		if(totPairs/tabSize < 10 )return;
-		System.out.println("Resize called at: "+tabSize);
-		LinkedList<KVP>[] newTable= new LinkedList[2*tabSize];
-		for(int i=0; i<newTable.length; i++) {
+	private void resize() {
+		if(totalPairs/tableSize < 10 )return;
+		System.out.println("Resize called at: "+tableSize);
+		tableSize=3*tableSize+1;// otherwise the hash function would go for a TOSS
+		LinkedList<KVP>[] newTable= new LinkedList[tableSize];
+		for(int i=0; i<tableSize; i++) {
 			newTable[i]=new LinkedList<KVP>();
 		}
-		tableSize=2*tableSize;// otherwise the hash function would go for a TOSS
-		for(int i=0; i<tabSize; i++) {
-			for(int j=0; j<table[i].size();j++) {
-				KVP kvp=table[i].get(j);
-				newTable[hash(kvp.key)].add(kvp);
+		for(int i=0; i<table.length; i++) {
+			Iterator<KVP> it= table[i].iterator();
+			while(it.hasNext()) {
+				KVP element=it.next();
+				newTable[hash(element.key)].add(element);
 			}
 		}
 		printTable();
@@ -83,20 +82,17 @@ public class HashingSeparateChainingLinkedList{
 	public void printTable() {
 		for(int i=0; i<table.length; i++) {
 			for(int j=0; j< table[i].size(); j++) {
-				System.out.print(table[i].get(j).key+"("+table[i].get(j).val+")");
+				System.out.print("("+table[i].get(j).key+","+table[i].get(j).val+") ");
 			}
 			System.out.println();
 		}
 	}
 	public static void main(String[] args) {
 		HashingSeparateChainingLinkedList instance= new HashingSeparateChainingLinkedList();
-		int numbers=10;
-		Random random= ThreadLocalRandom.current();
+		int numbers=100;
 		instance.put(0, 10);
 		instance.printTable();
-		System.out.println(instance.get(0));
 		instance.put(0, 20);
-		System.out.println(instance.get(0));
 		for(int i=0; i<numbers; i++) {
 			int val=i*10;//random.nextInt();
 			instance.put(i, val);

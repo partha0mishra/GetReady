@@ -5,13 +5,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import com.algods.learn.sort.elementary.InsertionSort;
 
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class QuickSortWithInsertion {
 	private static final int CUTOFF=5;
 	public void sort(int[] nums) {
 		// first task would be to shuffle, although we might already have a shuffled array here
-		shuffle(nums);
+//		shuffle(nums);
 		sort(nums,0,nums.length-1);
 	}
 	private void shuffle(int[] nums) {
@@ -78,6 +79,8 @@ public class QuickSortWithInsertion {
 		QuickSortWithInsertion instance= new QuickSortWithInsertion();
 		long tStart=System.currentTimeMillis();
 		instance.sort(nums);
+//		Arrays.sort(nums);// to compare it against
+		
 		long tEnd=System.currentTimeMillis();
 		System.out.println("Sorting    Time: "+(tEnd-tStart));
 //		printArray(nums);
