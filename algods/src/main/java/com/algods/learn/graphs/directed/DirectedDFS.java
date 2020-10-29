@@ -10,7 +10,7 @@ public class DirectedDFS {
 	}
 	private void dfs(Digraph graph, int node) {
 		count++;
-		if(!marked[node]) {
+		if(!marked[node]) {// for cyclic graph
 			marked[node]=true;
 			for(int n: graph.adj(node)) {
 //				if (!marked[n]) 

@@ -25,7 +25,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
 	public int size(Node node) {return node== null ? 0:node.size;}
 	public boolean contains(Key key) {return get(key)!=null;}
 	public Value get(Key key) {return get(root,key);}
-	public Value get(Node node, Key key) {
+	private Value get(Node node, Key key) {
 		if(key == null) throw new IllegalArgumentException("Key is Null");
 		if(node == null) return null;
 		int cmp=key.compareTo(node.key);
