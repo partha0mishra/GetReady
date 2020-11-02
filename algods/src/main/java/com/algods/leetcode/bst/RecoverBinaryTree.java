@@ -29,15 +29,16 @@ public class RecoverBinaryTree {
 	/* learnt from here: https://leetcode.com/problems/recover-binary-search-tree/discuss/32535/No-Fancy-Algorithm-just-Simple-and-Powerful-In-Order-Traversal
 	 * That solution fails at root=Integer.MIN-VALUE
 	 * Therefore, setting prev as null */
-	private TreeNode first;
-    private TreeNode second;
-    private TreeNode pre;
+	private TreeNode first;// element Bigger than next
+    private TreeNode second;// element Smaller than prev
+    private TreeNode pre;// tracking for the previous one always
     public void recoverTree(TreeNode root) {
         if(root==null) return;
         first = null;
         second = null;
         pre = null;
         inorder(root);
+        // swap the first and second val
         int temp = first.val;
         first.val = second.val;
         second.val = temp;
