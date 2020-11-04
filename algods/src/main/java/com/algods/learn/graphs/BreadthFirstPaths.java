@@ -25,6 +25,7 @@ public class BreadthFirstPaths {
 		q.offer(source);
 		while(!q.isEmpty()) {
 			int v=q.poll();
+//			marked[v]=true; // NOOOOO
 			for(int w: G.adj(v)) {
 				if(!marked[w]) {
 					edgeTo[w]=v;

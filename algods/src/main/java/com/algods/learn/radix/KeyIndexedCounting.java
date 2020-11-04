@@ -17,6 +17,7 @@ public class KeyIndexedCounting {
 		for(int i=0; i<N; i++) aux[count[input[i] - 'a']++]=input[i];
 		// copy
 		System.arraycopy(aux, 0, input, 0, N);
+//		input=aux;
 	}
 	public static void main(String[] args) {
 		KeyIndexedCounting instance= new KeyIndexedCounting();
