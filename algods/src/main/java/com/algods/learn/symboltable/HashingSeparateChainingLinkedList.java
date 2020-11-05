@@ -76,6 +76,8 @@ public class HashingSeparateChainingLinkedList{
 	}
 	private int hash(int key) {
 //		return key% tableSize;
+		// -1 % 10 == -1 which we certainly don't want for indexing into an array. 
+		// Forcing the sign bit to 0 avoids this problem
         return (key & 0x7fffffff) % tableSize;
     }
 	
