@@ -3,8 +3,8 @@ package com.algods.learn.radix;
 import java.util.Arrays;
 
 public class MSDSort {
-	private static final int BITS_PER_BYTE =   8;
-    private static final int BITS_PER_INT  =  32;   // each Java int is 32 bits 
+//	private static final int BITS_PER_BYTE =   8;
+//    private static final int BITS_PER_INT  =  32;   // each Java int is 32 bits 
     private static final int R             = 256;   // extended ASCII alphabet size
     private static final int CUTOFF        =  15;   // cutoff to insertion sort
 	public void sort(String[] a) {
