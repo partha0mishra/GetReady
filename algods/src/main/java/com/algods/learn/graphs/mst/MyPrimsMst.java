@@ -49,12 +49,11 @@ public class MyPrimsMst {
 			@Override
 			public int compare(Vertex v1, Vertex v2) {return Integer.compare(v1.cost, v2.cost);}
 		} 
-		int[] parent;
 		void primsMst(Graph graph) { 
 			// Whether a vertex is in PriorityQueue or not 
 			HashSet<Integer> mstSet = new HashSet<Integer>(); 
 			Vertex[] vertices = new Vertex[graph.V];
-			parent=new int[graph.V];
+			int[] parent=new int[graph.V];
 			for (int i = 0; i < graph.V; i++) { 
 				// Initialize key values to infinity 
 				vertices[i]=new Vertex(i,Integer.MAX_VALUE);
@@ -88,9 +87,10 @@ public class MyPrimsMst {
 				} 
 			} 
 
-			// Prints the vertex pair of mst 
+			// Prints the vertex pair of mst
+			System.out.println("from - to");
 			for (int o = 1; o < graph.V; o++) 
-				System.out.println(parent[o] + " "
+				System.out.println("   "+parent[o] + " "
 								+ "-"
 								+ " " + o); 
 		} 
