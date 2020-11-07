@@ -13,31 +13,32 @@ Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 8 -> 0 -> 7
  */
 public class AddTwoNumbers2 {
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        long num1=0, num2=0, num3;
-        while(l1 != null){
-            num1=10*num1+l1.val;
-            l1=l1.next;
+	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        StringBuilder sb1=new StringBuilder(),sb2=new StringBuilder();
+        while(l1 != null) {sb1.append(l1.val);l1=l1.next;}
+        while(l2 != null) {sb2.append(l2.val);l2=l2.next;}
+        
+        int maxLen=Math.max(sb1.length(), sb2.length());
+        // System.out.println(maxLen);
+        while(sb1.length() < maxLen) sb1.insert(0, 0);
+        // System.out.println(sb1);
+        while(sb2.length() < maxLen) sb2.insert(0, 0);
+        // System.out.println(sb2);
+        int n=0;
+        ListNode result=null;
+        for(int i=maxLen-1; i>=0; i--) {
+            // System.out.println(i+" "+sb1.charAt(i)+" "+sb2.charAt(i));
+        	n+=(sb1.charAt(i) - '0') +(sb2.charAt(i) -'0');
+        	// System.out.println(n);
+        	ListNode temp=new ListNode(n%10);
+        	n=n/10;
+        	temp.next=result;
+        	result=temp;
         }
-        while(l2 != null){
-            num2=10*num2+l2.val;
-            l2=l2.next;
-        }
-        num3=num1+num2;
-        // System.out.println(num3);
-        char[] ca=String.valueOf(num3).toCharArray();
-        // System.out.println(ca);
-        ListNode result=null, newList=null;
-        for(char c: ca){
-            // System.out.println(c-'0');
-            ListNode newNode= new ListNode(c-'0');
-            if(result == null){
-                newList=newNode;
-                result=newList;
-            }else{
-                newList.next=newNode;
-                newList=newList.next;
-            }
+        if(n > 0){
+            ListNode temp=new ListNode(n);
+            temp.next=result;
+            result=temp;
         }
         return result;
     }
