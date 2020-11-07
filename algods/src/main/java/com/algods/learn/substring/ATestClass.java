@@ -10,9 +10,21 @@ public class ATestClass {
 		}
 		sb.append('C');
 		sb.append(sb);
+		long tStart;
+		System.out.println("Positive Scenario");
+		tStart=System.currentTimeMillis();
 		System.out.println(BruteForceSubstringSearch.search(sb.toString(),pattern));
-		System.out.println(searchWithBackup(sb.toString(),pattern));
-		System.out.println(search(sb.toString(),"ABCX"));
-		System.out.println(searchWithBackup(sb.toString(),"ABCX"));
+		System.out.println("Brute: "+(System.currentTimeMillis()-tStart));
+		tStart=System.currentTimeMillis();
+		System.out.println(SubstringSearchWithBackup.searchWithBackup(sb.toString(),pattern));
+		System.out.println("Backup: "+(System.currentTimeMillis()-tStart));
+		////
+		System.out.println("Negative Scenario");
+		tStart=System.currentTimeMillis();
+		System.out.println(BruteForceSubstringSearch.search(sb.toString(),"ABCX"));
+		System.out.println("Brute: "+(System.currentTimeMillis()-tStart));
+		tStart=System.currentTimeMillis();
+		System.out.println(SubstringSearchWithBackup.searchWithBackup(sb.toString(),"ABCX"));
+		System.out.println("Backup: "+(System.currentTimeMillis()-tStart));
 	}
 }
