@@ -18,6 +18,9 @@ public class ATestClass {
 		tStart=System.currentTimeMillis();
 		System.out.println(SubstringSearchWithBackup.searchWithBackup(sb.toString(),pattern));
 		System.out.println("Backup: "+(System.currentTimeMillis()-tStart));
+		tStart=System.currentTimeMillis();
+		System.out.println(MyKMP.search(sb.toString(),pattern));
+		System.out.println("KMP: "+(System.currentTimeMillis()-tStart));
 		////
 		System.out.println("Negative Scenario");
 		tStart=System.currentTimeMillis();
@@ -26,5 +29,8 @@ public class ATestClass {
 		tStart=System.currentTimeMillis();
 		System.out.println(SubstringSearchWithBackup.searchWithBackup(sb.toString(),"ABCX"));
 		System.out.println("Backup: "+(System.currentTimeMillis()-tStart));
+		tStart=System.currentTimeMillis();
+		System.out.println(MyKMP.search(sb.toString(),"ABCX"));
+		System.out.println("KMP: "+(System.currentTimeMillis()-tStart));
 	}
 }
