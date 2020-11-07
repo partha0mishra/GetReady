@@ -13,8 +13,8 @@ public class BruteForceSubstringSearch {
 		sb.append(sb);
 		System.out.println(search(sb.toString(),pattern));
 		System.out.println(searchWithBackup(sb.toString(),pattern));
-		System.out.println(search(sb.toString(),"ABX"));
-		System.out.println(searchWithBackup(sb.toString(),"ABX"));
+		System.out.println(search(sb.toString(),"ABCX"));
+		System.out.println(searchWithBackup(sb.toString(),"ABCX"));
 	}
 
 	private static int search(String text, String pattern) {
