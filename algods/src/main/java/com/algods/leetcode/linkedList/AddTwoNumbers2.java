@@ -14,7 +14,7 @@ Output: 7 -> 8 -> 0 -> 7
  */
 public class AddTwoNumbers2 {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int num1=0, num2=0, num3;
+        long num1=0, num2=0, num3;
         while(l1 != null){
             num1=10*num1+l1.val;
             l1=l1.next;
