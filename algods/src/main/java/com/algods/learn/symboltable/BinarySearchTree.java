@@ -89,6 +89,12 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         root = deleteMax(root);
         assert check();
     }
+	private Node deleteMax(Node x) {
+        if (x.right == null) return x.left;
+        x.right = deleteMax(x.right);
+        x.size = size(x.left) + size(x.right) + 1;
+        return x;
+    }
 	public Key select(int rank) {
         if (rank < 0 || rank >= size()) {
             throw new IllegalArgumentException("argument to select() is invalid: " + rank);
@@ -105,12 +111,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         else if (leftSize < rank) return select(x.right, rank - leftSize - 1); 
         else                      return x.key;
     }
-    private Node deleteMax(Node x) {
-        if (x.right == null) return x.left;
-        x.right = deleteMax(x.right);
-        x.size = size(x.left) + size(x.right) + 1;
-        return x;
-    }
+    
     public int rank(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to rank() is null");
         return rank(key, root);
@@ -125,24 +126,24 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         else              return size(x.left); 
     }
     public Iterable<Key> levelOrder() {
-        Queue<Key> keys = new LinkedList<Key>();
+        List<Key> keys = new LinkedList<Key>();
         Queue<Node> queue = new LinkedList<Node>();
-        queue.add(root);
+        queue.offer(root);
         while (!queue.isEmpty()) {
-            Node x = queue.remove();
+            Node x = queue.poll();
             if (x == null) continue;
             keys.add(x.key);
-            queue.add(x.left);
-            queue.add(x.right);
+            queue.offer(x.left);
+            queue.offer(x.right);
         }
         return keys;
     }
     public Iterable<Key> inOrder(){
-    	Queue<Key> keys=new LinkedList<Key>();
+    	List<Key> keys=new LinkedList<Key>();
     	inOrder(root, keys);
     	return keys;
     }
-    private void inOrder(Node node, Queue<Key> keys) {
+    private void inOrder(Node node, List<Key> keys) {
     	if(node == null) return;
     	inOrder(node.left, keys);
     	keys.add(node.key);
@@ -184,6 +185,27 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         if (x.right == null) return x; 
         else                 return max(x.right); 
     }
+    
+    /**
+     * Returns all keys in the symbol table in the given range,
+     */
+    public Iterable<Key> keys(Key lo, Key hi) {
+        if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
+        if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
+
+        List<Key> queue = new LinkedList<Key>();
+        keys(root, queue, lo, hi);
+        return queue;
+    } 
+
+    private void keys(Node x, List<Key> queue, Key lo, Key hi) { 
+        if (x == null) return; 
+        int cmplo = lo.compareTo(x.key); 
+        int cmphi = hi.compareTo(x.key); 
+        if (cmplo < 0) keys(x.left, queue, lo, hi); 
+        if (cmplo <= 0 && cmphi >= 0) queue.add(x.key); 
+        if (cmphi > 0) keys(x.right, queue, lo, hi); 
+    } 
     /**
      * Returns the height of the BST (for debugging).
      */
@@ -194,26 +216,6 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
         if (x == null) return -1;
         return 1 + Math.max(height(x.left), height(x.right));
     }
-    /**
-     * Returns all keys in the symbol table in the given range,
-     */
-    public Iterable<Key> keys(Key lo, Key hi) {
-        if (lo == null) throw new IllegalArgumentException("first argument to keys() is null");
-        if (hi == null) throw new IllegalArgumentException("second argument to keys() is null");
-
-        Queue<Key> queue = new LinkedList<Key>();
-        keys(root, queue, lo, hi);
-        return queue;
-    } 
-
-    private void keys(Node x, Queue<Key> queue, Key lo, Key hi) { 
-        if (x == null) return; 
-        int cmplo = lo.compareTo(x.key); 
-        int cmphi = hi.compareTo(x.key); 
-        if (cmplo < 0) keys(x.left, queue, lo, hi); 
-        if (cmplo <= 0 && cmphi >= 0) queue.add(x.key); 
-        if (cmphi > 0) keys(x.right, queue, lo, hi); 
-    } 
     // are the size fields correct?
     private boolean isSizeConsistent() { return isSizeConsistent(root); }
     private boolean isSizeConsistent(Node x) {
