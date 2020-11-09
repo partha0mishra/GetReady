@@ -34,14 +34,18 @@ public class MyKruskalMst2 {
 		HashSet<Integer> mstSet= new HashSet<>();
 		int eCount=0;
 		for(Edge e: g.edges) {
-			if(mstSet.contains(e.source) && mstSet.contains(e.destination)) {
-				continue;
-			}else {
+			if(mstSet.add(e.source) || mstSet.add(e.destination)) {// !a && !b => a || b
 				mst[eCount++]=e;
-				mstSet.add(e.source);
-				mstSet.add(e.destination);
 				if(eCount == g.V -1) break;
 			}
+//			if(mstSet.contains(e.source) && mstSet.contains(e.destination)) {
+//				continue;
+//			}else {
+//				mst[eCount++]=e;
+//				mstSet.add(e.source);
+//				mstSet.add(e.destination);
+//				if(eCount == g.V -1) break;
+//			}
 		}
 	}
 	public Edge[] getMst() { return mst;}
