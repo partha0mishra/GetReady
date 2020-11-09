@@ -11,7 +11,7 @@ public class MyKruskalMst {
 	class Edge implements Comparable<Edge>{
 		int source, destination, weight;
 		public Edge(int s, int d, int w) {this.source=s; this.destination=d; this.weight=w;}
-		public int compareTo(Edge e) {return this.weight-e.weight;}
+		public int compareTo(Edge e) {return Integer.compare(this.weight,e.weight);}
 	}
 	class Graph{
 		int V, E, eTemp=0;
