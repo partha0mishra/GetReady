@@ -26,14 +26,14 @@ public class DirectedCycle {
 	public static void main(String[] args) {
 		Digraph graph= new Digraph(13);
 		graph.addEdge(0,5);		graph.addEdge(0,1);		graph.addEdge(2,0);		graph.addEdge(2,3);
-		System.out.println(graph);
+//		System.out.println(graph);
 		System.out.println(new DirectedCycle().hasCycle(graph));// no cycle
 		
-//		graph.addEdge(3,5);// not a DIRECTED cycle
+		graph.addEdge(3,5);// not a DIRECTED cycle
 //		System.out.println(graph);
-//		System.out.println(new DirectedCycle().hasCycle(graph));// no cycle
+		System.out.println(new DirectedCycle().hasCycle(graph));// no cycle
 		graph.addEdge(3,2);// creates a cycle
-		System.out.println(graph);
+//		System.out.println(graph);
 		System.out.println(new DirectedCycle().hasCycle(graph));// has cycle
 		
 				graph.addEdge(4,3);		graph.addEdge(4,2);
