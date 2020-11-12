@@ -3,7 +3,7 @@ package com.algods.learn.substring;
 public class ATestClass {
 	public static void main(String[] args) {
 		String text="ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB";
-		String pattern="ABABABC";
+		String pattern="ABABABABABABC";
 		StringBuilder sb= new StringBuilder(text);
 		for(int i=0; i< 20; i++) {
 			sb.append(sb);
@@ -31,5 +31,8 @@ public class ATestClass {
 		tStart=System.currentTimeMillis();
 		System.out.println(new RabinKarp(pattern).search(sb.toString()));
 		System.out.println("Rabin-Karp: "+(System.currentTimeMillis()-tStart));
+		tStart=System.currentTimeMillis();
+		System.out.println(new BoyerMoore(pattern).search(sb.toString()));
+		System.out.println("Boyer-Moore: "+(System.currentTimeMillis()-tStart));
 	}
 }
