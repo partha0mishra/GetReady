@@ -15,6 +15,8 @@ public class MSDSort {
 	private int charAt(String s, int d) {// some strings might be shorter than the other
 		if(d == s.length()) return -1;
 		return s.charAt(d);
+//		if(d < s.length()) return s.charAt(d);
+//		else return -1;
 	}
 	private void sort(String[] a, int lo, int hi, int d, String[] aux) {
 		// cutoff to insertion sort for small subarrays
@@ -61,7 +63,7 @@ public class MSDSort {
 		String[] words= {"bed","bug","dad","yes","zoo","now","for","tip","ilk","dim","tag","jot","sob","nob","sky","hut","men","egg","few","jay","owl","joy","rap","gig","wee","was","wad","fee","tap","tar","dug","jam","all","bad","yet"};
 		instance.sort(words);
 		System.out.println(Arrays.toString(words));
-		String[] words2= {"she","sells","seashells","by","the","sea","shore","the","shells","she","sells","are","surely","seashells"};
+		String[] words2= {"she","sells","seashells","by","bystandardardizationalizational","the","sea","shore","the","shells","she","sells","are","surely","seashells"};
 		instance.sort(words2);
 		System.out.println(Arrays.toString(words2));
 	}
