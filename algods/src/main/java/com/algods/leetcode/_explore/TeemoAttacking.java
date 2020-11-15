@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.september;
+package com.algods.leetcode._explore;
 /**
  * Teemo Attacking
  * 

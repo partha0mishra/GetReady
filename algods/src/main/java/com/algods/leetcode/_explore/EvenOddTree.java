@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.october;
+package com.algods.leetcode._explore;
 /* 5532. Even Odd Tree
  * A binary tree is named Even-Odd if it meets the following conditions:
 

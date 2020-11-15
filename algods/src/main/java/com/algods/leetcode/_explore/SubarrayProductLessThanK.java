@@ -1,4 +1,4 @@
-package com.algods.leetcode.explore.september;
+package com.algods.leetcode._explore;
 /***
  * 713. Subarray Product Less Than K
  * 
