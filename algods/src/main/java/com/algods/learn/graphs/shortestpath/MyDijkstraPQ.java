@@ -22,7 +22,8 @@ public class MyDijkstraPQ {
 		public int id, dist;
 		public Node(int i, int d)	{ this.id = i; this.dist = d; } 
 		@Override
-		public int compareTo(Node n) { return Integer.compare(dist, n.dist);}
+		public int compareTo(Node n) { int diff= Integer.compare(dist, n.dist);
+		return (diff == 0)? Integer.compare(id, n.id): diff;}
 	}
 	private int[] dist;
 	private Set<Integer> sptSet; 
@@ -48,39 +49,37 @@ public class MyDijkstraPQ {
 
 		// Distance to the source is 0 
 		dist[src] = 0; 
-		while (sptSet.size() != V) { 
+		while (sptSet.size() != V && pq.size() > 0) { // Node 5 is NOT reachable at all
 			// remove the minimum distance node from the priority queue 
 			int u = pq.pollFirst().id; 
 			// adding the node whose distance is finalized 
-			sptSet.add(u); 
-			processNeighbors(u); 
+			if(sptSet.add(u)) {// since we're not removing nodes at distance calibrations
+			// Let's process all the neighbors
+				System.out.println("S P T node< "+u+" > cost: "+dist[u]+" pq-size "+pq.size()+" spt-size "+sptSet.size());
+				// All the neighbors of v 
+				for (Node v : adj.get(u)) { 
+					// If current node hasn't already been processed 
+					if (!sptSet.contains(v.id)) { 
+						int newDist = dist[u]+v.dist; 
+						// If new distance is cheaper in cost 
+						if (newDist < dist[v.id]) {
+							dist[v.id] = newDist; 
+						// Add the current node to the queue 
+							pq.add(new Node(v.id, dist[v.id]));
+							System.out.println("added node< "+v.id+" > cost: "+dist[v.id]+" pq-size "+pq.size());
+						}
+					} 
+				}  
+			}
 		} 
 	} 
 	public Iterable<Integer> getSpt() {
 		return sptSet;
 	}
 
-	// Function to process all the neighbors of the passed node 
-	private void processNeighbors(int u) { 
-		System.out.println("S P T node< "+u+" > cost: "+dist[u]+" pq-size "+pq.size());
-		// All the neighbors of v 
-		for (Node v : adj.get(u)) { 
-			// If current node hasn't already been processed 
-			if (!sptSet.contains(v.id)) { 
-				int newDist = dist[u]+v.dist; 
-				// If new distance is cheaper in cost 
-				if (newDist < dist[v.id]) 
-					dist[v.id] = newDist; 
-				// Add the current node to the queue 
-				pq.add(new Node(v.id, dist[v.id]));
-				System.out.println("added node< "+v.id+" > cost: "+dist[v.id]+" pq-size "+pq.size());
-			} 
-		} 
-	} 
-
 	// Driver code 
 	public static void main(String arg[]) { 
-		int V = 5; 
+		int V = 7; 
 		int source = 0; 
 
 		// Adjacency list representation of the connected edges 
@@ -106,6 +105,10 @@ public class MyDijkstraPQ {
 		adj.get(4).add(dpq.new Node(3, 1));
 		// result 0 7 5 4 3
 
+		adj.get(0).add(dpq.new Node(6, 6)); // node 6 at distance 6
+		adj.get(4).add(dpq.new Node(6, 2)); // node 6 AGAIN at distance 5
+		adj.get(3).add(dpq.new Node(6, 0)); // node 6 AGAIN at distance 4
+		
 		// Calculate the single source shortest path 
 		dpq.dijkstra(adj, source); 
 
