@@ -233,6 +233,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
     }
 	public static void main(String[] args) {
 		BinarySearchTree<String, Integer> instance= new BinarySearchTree<>();
+		instance.size();
 		String[] data=new String[] {"S","E","A","R","C","H","E","X","A","M","P","L","E"};
 		for(int i=0; i< data.length; i++) {
 			instance.put(data[i], i);
