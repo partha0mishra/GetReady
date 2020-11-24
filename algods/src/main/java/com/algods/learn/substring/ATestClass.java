@@ -22,15 +22,23 @@ public class ATestClass {
 		tStart=System.currentTimeMillis();
 		System.out.println(BruteForceSubstringSearch.search(sb.toString(),pattern));
 		System.out.println("Brute: "+(System.currentTimeMillis()-tStart));
+		
 		tStart=System.currentTimeMillis();
 		System.out.println(SubstringSearchWithBackup.searchWithBackup(sb.toString(),pattern));
 		System.out.println("Backup: "+(System.currentTimeMillis()-tStart));
+		
 		tStart=System.currentTimeMillis();
 		System.out.println(MyKMP.search(sb.toString(),pattern));
 		System.out.println("KMP: "+(System.currentTimeMillis()-tStart));
+		
+		tStart=System.currentTimeMillis();
+		System.out.println(SimplerKMP.search(sb.toString(),pattern));
+		System.out.println("Simpler KMP: "+(System.currentTimeMillis()-tStart));
+		
 		tStart=System.currentTimeMillis();
 		System.out.println(new RabinKarp(pattern).search(sb.toString()));
 		System.out.println("Rabin-Karp: "+(System.currentTimeMillis()-tStart));
+		
 		tStart=System.currentTimeMillis();
 		System.out.println(new BoyerMoore(pattern).search(sb.toString()));
 		System.out.println("Boyer-Moore: "+(System.currentTimeMillis()-tStart));
