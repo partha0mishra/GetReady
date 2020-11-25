@@ -16,7 +16,7 @@ then update the distance value of v.
 //Java implementation of Dijkstra's Algorithm 
 //using Priority Queue 
 import java.util.*; 
-public class MyDijkstraPQ {
+public class MySimplerDijkstraPQ {
 	//Class to represent a node in the graph 
 	class Node implements Comparable<Node> { 
 		public int id, dist;
@@ -34,7 +34,7 @@ public class MyDijkstraPQ {
 	private int V; // Number of vertices 
 	List<List<Node> > adj; 
 
-	public MyDijkstraPQ(int V) { 
+	public MySimplerDijkstraPQ(int V) { 
 		this.V = V; 
 		dist = new int[V];
 		sptSet = new HashSet<Integer>(); 
@@ -93,7 +93,7 @@ public class MyDijkstraPQ {
 			List<Node> item = new ArrayList<Node>(); 
 			adj.add(item); 
 		} 
-		MyDijkstraPQ dpq = new MyDijkstraPQ(V);
+		MySimplerDijkstraPQ dpq = new MySimplerDijkstraPQ(V);
 		// Inputs for the DPQ graph 
 		adj.get(0).add(dpq.new Node(1, 9)); 
 		adj.get(0).add(dpq.new Node(2, 6)); 
