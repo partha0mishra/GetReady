@@ -22,8 +22,11 @@ public class MyDijkstraPQ {
 		public int id, dist;
 		public Node(int i, int d)	{ this.id = i; this.dist = d; } 
 		@Override
-		public int compareTo(Node n) { int diff= Integer.compare(dist, n.dist);
-		return (diff == 0)? Integer.compare(id, n.id): diff;}
+		public int compareTo(Node n) {
+			return Integer.compare(dist, n.dist);
+//			int diff= Integer.compare(dist, n.dist);
+//			return (diff == 0)? Integer.compare(id, n.id): diff;
+		}
 	}
 	private int[] dist;
 	private Set<Integer> sptSet; 
