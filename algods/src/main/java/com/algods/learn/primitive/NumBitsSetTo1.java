@@ -1,4 +1,4 @@
-package com.algods.epi._05primitive;
+package com.algods.learn.primitive;
 
 public class NumBitsSetTo1 {
 	// Lazy - Integer.bitCount()

@@ -1,4 +1,4 @@
-package com.algods.epi._05primitive;
+package com.algods.learn.primitive;
 
 import java.util.Random;
 

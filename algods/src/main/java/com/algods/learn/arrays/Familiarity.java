@@ -1,4 +1,4 @@
-package com.algods.epi._06arrays;
+package com.algods.learn.arrays;
 
 public class Familiarity {
 
