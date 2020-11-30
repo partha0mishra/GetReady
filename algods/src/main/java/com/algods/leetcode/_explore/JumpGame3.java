@@ -38,13 +38,22 @@ Constraints:
 import java.util.HashSet;
 import static org.junit.Assert.*;
 public class JumpGame3 {
-	HashSet<Integer> visited=new HashSet<>();
+	/* Approach 02: Since the values are all non-negative, we can bypass the Visited HS */
 	public boolean canReach(int[] arr, int start) {
-        if(start <0 || start >= arr.length || visited.contains(start)) return false;
+        if(start <0 || start >= arr.length || arr[start]<0) return false;
         if(arr[start] == 0) return true;
-        visited.add(start);
+//  THIS WON'T WORK      arr[start]=-1;
+        arr[start]=-arr[start];
         return canReach(arr,start+arr[start]) || canReach(arr,start-arr[start]);
-    }
+    }	
+	/* Approach 01: regular and Generic. Good enough  */
+//	HashSet<Integer> visited=new HashSet<>();
+//	public boolean canReach(int[] arr, int start) {
+//        if(start <0 || start >= arr.length || visited.contains(start)) return false;
+//        if(arr[start] == 0) return true;
+//        visited.add(start);
+//        return canReach(arr,start+arr[start]) || canReach(arr,start-arr[start]);
+//    }
 	public static void main(String[] args) {
 		assertTrue(new JumpGame3().canReach(new int[] {4,2,3,0,3,1,2}, 5));
 		assertTrue(new JumpGame3().canReach(new int[] {4,2,3,0,3,1,2}, 0));
