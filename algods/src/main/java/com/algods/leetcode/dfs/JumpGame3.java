@@ -1,4 +1,4 @@
-package com.algods.leetcode._explore;
+package com.algods.leetcode.dfs;
 /* 1306. Jump Game III
  * Given an array of non-negative integers arr, you are initially positioned at start index of the array. When you are at index i, you can jump to i + arr[i] or i - arr[i], check if you can reach to any index with value 0.
 
@@ -38,6 +38,8 @@ Constraints:
 import java.util.HashSet;
 import static org.junit.Assert.*;
 public class JumpGame3 {
+	/* O(n) time as we're going to visit one index only once at max 
+	 * O(n) space - dfs stack */
 	/* Approach 02: Since the values are all non-negative, we can bypass the Visited HS */
 	public boolean canReach(int[] arr, int start) {
         if(start <0 || start >= arr.length || arr[start]<0) return false;
