@@ -1,4 +1,4 @@
-package com.algods.leetcode.arrays;
+package com.algods.leetcode.binarySearch;
 /* 644. Maximum Average Subarray II
  * You are given an integer array nums consisting of n elements, and an integer k.
 
