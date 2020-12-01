@@ -15,23 +15,37 @@ You may assume that word1 does not equal to word2, and word1 and word2 are both 
  */
 import java.util.*;
 public class ShortestWordDistance {
+	/* 03> Single pass
+	 * O(n)
+	 * o(1)
+	 */
+	public int shortestDistance(String[] words, String word1, String word2) {
+		int minDist=words.length;
+		int i=-1, j=-1;// indices for word1 and word2
+		for(int k=0; k< words.length; k++) {
+			if(words[k].equals(word1)) i=k;
+			if(words[k].equals(word2)) j=k;
+			if(i != -1 && j!=-1) minDist=Math.min(minDist, Math.abs(i-j));
+		}
+		return minDist;
+	}
 	/* 02> Brute force
 	 * O(n2)
 	 * O(1) no extra space
 	 */
-	public int shortestDistance(String[] words, String word1, String word2) {
-		int minDist=words.length;
-		for(int i=0; i< words.length; i++) {
-			if(words[i].equals(word1)) {
-				for(int j=0; j< words.length; j++) {
-					if(words[j].equals(word2)) {
-						minDist=Math.min(minDist, Math.abs(i-j));
-					}
-				}
-			}
-		}
-		return minDist;
-	}
+//	public int shortestDistance(String[] words, String word1, String word2) {
+//		int minDist=words.length;
+//		for(int i=0; i< words.length; i++) {
+//			if(words[i].equals(word1)) {
+//				for(int j=0; j< words.length; j++) {
+//					if(words[j].equals(word2)) {
+//						minDist=Math.min(minDist, Math.abs(i-j));
+//					}
+//				}
+//			}
+//		}
+//		return minDist;
+//	}
 	/* 01> Brute force
 	 * O(n2)
 	 * O(n)
