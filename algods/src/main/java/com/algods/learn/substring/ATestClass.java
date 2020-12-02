@@ -42,5 +42,9 @@ public class ATestClass {
 		tStart=System.currentTimeMillis();
 		System.out.println(new BoyerMoore(pattern).search(sb.toString()));
 		System.out.println("Boyer-Moore: "+(System.currentTimeMillis()-tStart));
+		
+		tStart=System.currentTimeMillis();
+		System.out.println(new SimplerBoyerMoore(pattern).search(sb.toString()));
+		System.out.println("Simpler Boyer-Moore: "+(System.currentTimeMillis()-tStart));
 	}
 }

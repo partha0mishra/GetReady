@@ -16,7 +16,7 @@ You may assume that word1 does not equal to word2, and word1 and word2 are both 
 import java.util.*;
 public class ShortestWordDistance {
 	/* 03> Single pass
-	 * O(n)
+	 * O(M*N) 
 	 * o(1)
 	 */
 	public int shortestDistance(String[] words, String word1, String word2) {
