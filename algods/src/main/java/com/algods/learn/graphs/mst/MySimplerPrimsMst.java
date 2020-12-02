@@ -1,6 +1,6 @@
 package com.algods.learn.graphs.mst;
 /*
- * Trying to implement it using Dijkstra-type template
+ * Trying to implement it using Dijkstra-style template
  * ref: MySimplerDijkstraPQ
  */
 import java.util.*;

@@ -12,7 +12,7 @@ public class SimplerRabinKarp {
         long patternHash = createHash(pattern, m - 1);
         long textHash = createHash(text, m - 1);
         primePowerLenMinusOne=(long) Math.pow(prime, m-1);// precomputed
-        for (int i = 1; i <= n - m + 1; i++) {
+        for (int i = 1; i <= n - m + 1; i++) {// matching has for i-1. The loop therefore needs to go till n-m+1
             if(patternHash == textHash && checkEqual(text, i - 1, i + m - 2, pattern, 0, m - 1)) {
                 return i - 1;
             }

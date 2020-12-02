@@ -23,9 +23,9 @@ public class MySimplerDijkstraPQ {
 		public Node(int i, int d)	{ this.id = i; this.dist = d; } 
 		@Override
 		public int compareTo(Node n) {
-			return Integer.compare(dist, n.dist);
-//			int diff= Integer.compare(dist, n.dist);
-//			return (diff == 0)? Integer.compare(id, n.id): diff;
+//			return Integer.compare(dist, n.dist); WONT work for TreeSET
+			int diff= Integer.compare(dist, n.dist);
+			return (diff == 0)? Integer.compare(id, n.id): diff;
 		}
 	}
 	private int[] dist;
@@ -43,9 +43,9 @@ public class MySimplerDijkstraPQ {
 	// Function for Dijkstra's Algorithm 
 	public void dijkstra(List<List<Node> > adj, int src) { 
 		this.adj = adj; 
-
-		for (int i = 0; i < V; i++) 
-			dist[i] = Integer.MAX_VALUE; 
+		Arrays.fill(dist, Integer.MAX_VALUE);
+//		for (int i = 0; i < V; i++) 
+//			dist[i] = Integer.MAX_VALUE; 
 
 		// Add source node to the priority queue 
 		pq.add(new Node(src, 0)); 
