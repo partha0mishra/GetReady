@@ -20,20 +20,30 @@ Explanation: There are three ways to climb to the top.
  * 1 <= n <= 45
  */
 public class ClimbingStairs {
-    public int climbStairs(int n) {
-    	int resultMinusTwo=1, resultMinusOne=2, result=0;
-    	if(n == 1) return resultMinusTwo;
-    	if(n == 2) return resultMinusOne;
-    	
-    	for(int i=2; i<n; i++) {
-    		result= resultMinusTwo+resultMinusOne;
-    		resultMinusTwo=resultMinusOne;
-    		resultMinusOne=result;
-    	}
-        return result;
+	/* Approach 03: just like Fibonacci numbers 
+	 * O(n) O(1) */
+	public int climbStairs(int n) {
+    	int f1=1, f2=2, t;
+        while(n>1){t=f2;f2+=f1;f1=t;n--;}
+        return f1;
     }
+	/* Approach 02: dp
+	 * O(n) O(1)*/
+//    public int climbStairs(int n) {
+//    	int resultMinusTwo=1, resultMinusOne=2, result=0;
+//    	if(n == 1) return resultMinusTwo;
+//    	if(n == 2) return resultMinusOne;
+//    	
+//    	for(int i=2; i<n; i++) {
+//    		result= resultMinusTwo+resultMinusOne;
+//    		resultMinusTwo=resultMinusOne;
+//    		resultMinusOne=result;
+//    	}
+//        return result;
+//    }
 	
-	/** Attempt 01 */
+	/** Attempt 01 
+	 * Recursion with Memo: o(n) o(n)*/
 //    public int climbStairs(int n) {
 //    	int[] cache =new int[n+1];// this is the cache to keep previous results
 //    	cache[0]=1;// starting point
