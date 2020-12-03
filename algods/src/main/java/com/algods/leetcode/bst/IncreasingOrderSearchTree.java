@@ -40,6 +40,9 @@ The number of nodes in the given tree will be between 1 and 100.
 Each node will have a unique integer value from 0 to 1000.
  * */
 public class IncreasingOrderSearchTree {
+	/* O(n) - each node visited once
+	 * O(H) - recursion call stack
+	 * */
 	public TreeNode increasingBST(TreeNode root) {
         return increasingBST(root, null);
     }
