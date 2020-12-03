@@ -21,6 +21,8 @@ public class ReverseLinkedList {
 	     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 	 }
 	
+	 /* Iterative O(n) O(1) 
+	  * Good one */
 	 public ListNode reverseList(ListNode head) {
 		 if(head == null || head.next == null) return head;
 		 ListNode current=head;
@@ -32,6 +34,25 @@ public class ReverseLinkedList {
 		 }
 		 return head;
 	 }
+	 /* Recursive Approach : quite tricky 
+	  * The recursive version is slightly trickier and the key is to work backwards. 
+	  * Assume that the rest of the list had already been reversed, now how do I reverse the front part? 
+	  * Let's assume the list is: n1 → … → nk-1 → nk → nk+1 → … → nm → Ø
+	  * Assume from node nk+1 to nm had been reversed and you are at node nk.
+	  * n1 → … → nk-1 → nk → nk+1 ← … ← nm
+	  * We want nk+1’s next node to point to nk.
+	  * So, nk.next.next = nk;
+	  * Be very careful that n1's next must point to Ø. 
+	  * If you forget about this, your linked list has a cycle in it. 
+	  * This bug could be caught if you test your code with a linked list of size 2.
+	  * O(n) O(n) */
+//	 public ListNode reverseList(ListNode head) {
+//		 if(head == null || head.next == null) return head;
+//		 ListNode p=reverseList(head.next); // reversing up to the node to the right
+//		 head.next.next=head;// shift
+//		 head.next=null;// Otherwise it's a cycle
+//		 return p;
+//	 }
 	 
 	public static void main(String[] args) {
 		ReverseLinkedList instance = new ReverseLinkedList();
