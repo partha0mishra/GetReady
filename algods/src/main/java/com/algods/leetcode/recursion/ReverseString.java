@@ -18,13 +18,31 @@ Input: ["H","a","n","n","a","h"]
 Output: ["h","a","n","n","a","H"]
  */
 public class ReverseString {
-	/* Approach 01: two pointer O(n) O(n) */
-	public void reverseString(char[] s) {
-        int n=s.length;
-        for(int i=0; i< n/2; i++){
-            char c=s[i];
-            s[i]=s[n-1-i];
-            s[n-1-i]=c;
-        }
+	/* Approach 02: tail recursion O(n) O(1) 
+	 * Swap first and last character of the array
+	 * Recursive call for the next characters inside */
+    public void reverseString(char[] s) {
+      helper(0, s.length - 1, s);
     }
+
+    private void helper(int start, int end, char [] s) {
+      if (start >= end) {
+        return;
+      } 
+      // swap between the first and the last elements.
+      char tmp = s[start];
+      s[start] = s[end];
+      s[end] = tmp;
+       
+      helper(start + 1, end - 1, s);
+   }
+	/* Approach 01: two pointer O(n) O(n) */
+//	public void reverseString(char[] s) {
+//        int n=s.length;
+//        for(int i=0; i< n/2; i++){
+//            char c=s[i];
+//            s[i]=s[n-1-i];
+//            s[n-1-i]=c;
+//        }
+//    }
 }
