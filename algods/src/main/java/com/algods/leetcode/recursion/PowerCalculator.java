@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.recursion;
 /*
  * Implement pow(x, n), which calculates x raised to the power n (xn).
  * 
@@ -17,20 +17,32 @@ package com.algods.leetcode;
  */
 
 public class PowerCalculator {
-	/* Faster: 
+	/* Iterative version of Faster Power: O(logN) O(1) */
+	public double myPow(double x, int n) {
+        if(x == 1 || n==0) return 1;
+        long N=n;
+        if(N <0 ) {x=1/x; N=-N;}
+        double result=1, current=x;
+        for(long i=N; i > 0; i/=2){
+            if(i%2 !=0) result*=current;
+            current=current*current;
+        }
+        return result;
+	}
+	/* Faster: O(logN) O(logN)
 	 * pow(x,3) => x*pow(x*x, 3/2)
 	 * pow(x,4) =>   pow(x*x, 4/2) */
-	public double myPow(double x, int n) {
-		if(x == 1 || n== 0) return 1;
-		long N=n;
-		if(N <0 ) {x=1/x; N=-N;}
-		return power(x,N);
-	}
-	private double power(double x, long n) {
-		if(x == 1 || n==0) return 1;
-		if(n%2 == 0) return power(x*x,n/2);
-		else return x*power(x*x,n/2);
-	}
+//	public double myPow(double x, int n) {
+//		if(x == 1 || n== 0) return 1;
+//		long N=n;
+//		if(N <0 ) {x=1/x; N=-N;}
+//		return power(x,N);
+//	}
+//	private double power(double x, long n) {
+//		if(x == 1 || n==0) return 1;
+//		if(n%2 == 0) return power(x*x,n/2);
+//		else return x*power(x*x,n/2);
+//	}
 	/* Iterative: O(n) O(1)*/
 //	public double myPow(double x, int n) {
 //		if(x == 1 || n==0) return 1;
