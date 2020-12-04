@@ -17,15 +17,29 @@ package com.algods.leetcode;
  */
 
 public class PowerCalculator {
-	/* Iterative: */
+	/* Faster: 
+	 * pow(x,3) => x*pow(x*x, 3/2)
+	 * pow(x,4) =>   pow(x*x, 4/2) */
 	public double myPow(double x, int n) {
-		if(x == 1 || n==0) return 1;
+		if(x == 1 || n== 0) return 1;
 		long N=n;
-		if(N <0 ) {x= 1/x; N=-N;}// need a long N to assign -N. if we reverse the sign, Integer.MIN_VALUE is bigger than MAX_VALUE
-		double result=1;
-		for(long i=0; i< N; i++) result*=x;
-		return result;
+		if(N <0 ) {x=1/x; N=-N;}
+		return power(x,N);
 	}
+	private double power(double x, long n) {
+		if(x == 1 || n==0) return 1;
+		if(n%2 == 0) return power(x*x,n/2);
+		else return x*power(x*x,n/2);
+	}
+	/* Iterative: O(n) O(1)*/
+//	public double myPow(double x, int n) {
+//		if(x == 1 || n==0) return 1;
+//		long N=n;
+//		if(N <0 ) {x= 1/x; N=-N;}// need a long N to assign -N. if we reverse the sign, Integer.MIN_VALUE is bigger than MAX_VALUE
+//		double result=1;
+//		for(long i=0; i< N; i++) result*=x;
+//		return result;
+//	}
 	/* Recursion: stack overflow :D */
 //	public double myPow(double x, int n) {
 //		if(x == 1 || n==0) return 1;
