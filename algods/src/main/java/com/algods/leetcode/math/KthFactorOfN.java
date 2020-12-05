@@ -35,15 +35,33 @@ Constraints:
 
 1 <= k <= n <= 1000
  */
+import java.util.*;
 public class KthFactorOfN {
-	/* Brute force: O(N) O(1) */
+	/* check till O(sqrt N)
+	 * when N%i==0, put i and N/i in a heap.
+	 * Takes more memory and IS slower for the amount of data in the tests :) */
 	public int kthFactor(int n, int k) {
         if(k > n) return -1;
-        if(k ==1) return 1;
-        for(int i=2, fact=1;i<=n;i++){
-            if(n%i ==0) fact+=1;
-            if(fact ==k) return i;
+        TreeSet<Integer> pq= new TreeSet<>();
+        int sqrtN= (int) Math.sqrt(n);
+        for(int i=1; i<= sqrtN; i++) {
+        	if(n%i ==0) {pq.add(i); pq.add(n/i);}
         }
-        return -1;
-    }
+        if(pq.size() < k) return -1;
+        int result=-1;
+        while(k-->0) {
+        	result=pq.pollFirst();
+        }
+        return result;
+	}
+	/* Brute force: O(N) O(1) */
+//	public int kthFactor(int n, int k) {
+//        if(k > n) return -1;
+//        if(k ==1) return 1;
+//        for(int i=2, fact=1;i<=n;i++){
+//            if(n%i ==0) fact+=1;
+//            if(fact ==k) return i;
+//        }
+//        return -1;
+//    }
 }
