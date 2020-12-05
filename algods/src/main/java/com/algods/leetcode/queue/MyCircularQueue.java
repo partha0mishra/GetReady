@@ -38,9 +38,14 @@ Please do not use the built-in Queue library.
  * */
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.util.concurrent.locks.ReentrantLock;
+
 import static org.junit.Assert.assertFalse;
 
-public class MyCircularQueue {
+public class MyCircularQueue {/* O(1) O(N) */
+	// lock for ThreadSafety - Doesn't change time/space complexity
+	private ReentrantLock lock= new ReentrantLock();
 	int[] items;
 	int head, tail, lastIndex;
 	 /** Initialize your data structure here. Set the size of the queue to be k. */
@@ -51,22 +56,32 @@ public class MyCircularQueue {
     
     /** Insert an element into the circular queue. Return true if the operation is successful. */
     public boolean enQueue(int value) {
-    	if(isFull()) return false;
-        if(isEmpty()) {head=0;}// first item
-        tail+=1;
-        if(tail == items.length) tail=0;
-        items[tail]=value;
+    	lock.lock();
+    	try {
+	    	if(isFull()) return false;
+	        if(isEmpty()) {head=0;}// first item
+	        tail+=1;
+	        if(tail == items.length) tail=0;
+	        items[tail]=value;
+    	}finally {
+    		lock.unlock();
+    	}
         return true;
     }
     
     /** Delete an element from the circular queue. Return true if the operation is successful. */
     public boolean deQueue() {
-        if(isEmpty()) return false;
-        if(head == tail) {head=-1; tail=-1;}// empty, after deletion of current element of course
-        else {
-        	head+=1;
-        	if(head == items.length) head=0;// wrap
-        }
+    	lock.lock();
+    	try {
+	        if(isEmpty()) return false;
+	        if(head == tail) {head=-1; tail=-1;}// empty, after deletion of current element of course
+	        else {
+	        	head+=1;
+	        	if(head == items.length) head=0;// wrap
+	        }
+    	}finally {
+    		lock.unlock();
+    	}
         return true;
     }
     
