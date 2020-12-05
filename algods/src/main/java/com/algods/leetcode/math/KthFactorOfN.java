@@ -1,14 +1,10 @@
 package com.algods.leetcode.math;
-/*
+/* 1492. The kth Factor of n
+ * 
  * Given two positive integers n and k.
-
-A factor of an integer n is defined as an integer i where n % i == 0.
-
-Consider a list of all factors of n sorted in ascending order, return the kth factor in this list or return -1 if n has less than k factors.
-
- 
-
-Example 1:
+ * A factor of an integer n is defined as an integer i where n % i == 0.
+ * Consider a list of all factors of n sorted in ascending order, return the kth factor in this list or return -1 if n has less than k factors.
+ * Example 1:
 
 Input: n = 12, k = 3
 Output: 3
@@ -40,6 +36,7 @@ Constraints:
 1 <= k <= n <= 1000
  */
 public class KthFactorOfN {
+	/* Brute force: O(N) O(1) */
 	public int kthFactor(int n, int k) {
         if(k > n) return -1;
         if(k ==1) return 1;
