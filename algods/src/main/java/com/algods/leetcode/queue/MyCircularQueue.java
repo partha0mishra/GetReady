@@ -1,7 +1,5 @@
 package com.algods.leetcode.queue;
 
-import java.util.Arrays;
-
 /* 622. Design Circular Queue
  * 
  * Design your implementation of the circular queue. The circular queue is a linear data structure in which the operations are performed based on FIFO (First In First Out) principle and the last position is connected back to the first position to make a circle. It is also called "Ring Buffer".
@@ -43,54 +41,55 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 
 public class MyCircularQueue {
-	int[] queue;
+	int[] items;
 	int head, tail, lastIndex;
 	 /** Initialize your data structure here. Set the size of the queue to be k. */
     public MyCircularQueue(int k) {
-        queue=new int[k];
-        Arrays.fill(queue, -1);// initialize
-        head=0; tail=0; lastIndex=k-1;
+        items=new int[k];
+        head=-1; tail=-1;
     }
     
     /** Insert an element into the circular queue. Return true if the operation is successful. */
     public boolean enQueue(int value) {
-        if(queue[tail]==-1) {// free space
-        	queue[tail++]=value;// insert
-        	if(tail > lastIndex) tail=0;// for future
-        	return true;
-        }
-        return false;
+    	if(isFull()) return false;
+        if(isEmpty()) {head=0;}// first item
+        tail+=1;
+        if(tail == items.length) tail=0;
+        items[tail]=value;
+        return true;
     }
     
     /** Delete an element from the circular queue. Return true if the operation is successful. */
     public boolean deQueue() {
-        if(queue[head] > -1) {// Not empty
-        	queue[head++]=-1;// emptied
-        	if(head > lastIndex) head=0;
-        	return true;
+        if(isEmpty()) return false;
+        if(head == tail) {head=-1; tail=-1;}// empty, after deletion of current element of course
+        else {
+        	head+=1;
+        	if(head == items.length) head=0;// wrap
         }
-        return false;
+        return true;
     }
     
     /** Get the front item from the queue. */
     public int Front() {
-        return queue[head];
+    	if(isEmpty()) return -1;
+        return items[head];
     }
     
     /** Get the last item from the queue. */
     public int Rear() {
-        int pos=(tail ==0)? lastIndex: tail-1;
-        return queue[pos];
+    	if(isEmpty()) return -1;
+        return items[tail];
     }
     
     /** Checks whether the circular queue is empty or not. */
     public boolean isEmpty() {
-        return queue[head]==-1;
+        return head==-1;
     }
     
     /** Checks whether the circular queue is full or not. */
     public boolean isFull() {
-        return queue[tail]!=-1;
+        return (head == tail+1 || (head==0 && tail==items.length -1));
     }
 	public static void main(String[] args) {
 		MyCircularQueue circularQueue = new MyCircularQueue(3); // set the size to be 3
