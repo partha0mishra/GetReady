@@ -1,5 +1,5 @@
 package com.algods.leetcode._explore;
-/* Spiral Matrix II
+/* 59. Spiral Matrix II
  * Given a positive integer n, generate an n x n matrix filled with elements from 1 to n2 in spiral order.
  * Example 1:
  * Input: n = 3
@@ -22,8 +22,9 @@ public class SpiralMatrix2 {
         	int tempX=x+dirs[d][0];// temp
         	int tempY=y+dirs[d][1];// temp
         	if(tempX == n || tempY == n || tempX == -1 || tempY == -1 || result[tempX][tempY] !=0) {// changing direction
-        		d+=1;
-        		if(d == 4) d=0;
+//        		d+=1;
+//        		if(d == 4) d=0;
+        		d=(d+1)%4; // better way than the last 2 lines
             	tempX=x+dirs[d][0];// new x
             	tempY=y+dirs[d][1];// new y
         	}
