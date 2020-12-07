@@ -13,6 +13,7 @@ package com.algods.leetcode._explore;
 public class SpiralMatrix2 {
 	int[][] dirs= {{0,1},{1,0},{0,-1},{-1,0}};
 	public int[][] generateMatrix(int n) {
+		/*Brute force. Traverse the matrix. O(n2) O(1) */
         int[][] result=new int[n][n];
         int x=0, y=0, d=0;
         for(int i=1; i<= n*n; i++) {
