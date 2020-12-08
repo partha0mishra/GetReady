@@ -45,7 +45,8 @@ All the values of nums are unique.
  */
 import java.util.*;
 public class MissingRanges {
-	/* Approach 01: Brute Force O(N) - TLE*/
+	/* Approach 01: Brute Force O(N) - TLE 
+	 * Approach 02: Brute but only working on ranges O(numRanges) */
 	public List<String> findMissingRanges(int[] nums, int lower, int upper) {
         List<String> result= new ArrayList<>();
         int n=nums.length,i;
@@ -56,15 +57,15 @@ public class MissingRanges {
         }
         Integer start=null, end=null;
         for(i=0; i< n && lower<=upper;) {
-        	if(nums[i] < lower) {i++;continue;}
+        	if(nums[i] < lower) {i++;}// skip
+        	else if(nums[i] == lower) {i++; lower++;} 
         	else if(nums[i] > lower) {
-        		if(start == null) start=lower++;
-        		else end=lower++;
-        	}else {// nums[i] == lower
-        		if(start == null && end == null) {lower++; i++;continue;}// just a regular match of values
-        		else if(start != null && end == null) result.add(""+start);// single value missing
+        		start=lower;
+        		end=Math.min(nums[i]-1,upper);
+        		if(start == end) result.add(""+start);
         		else result.add(""+start+"->"+end);
-        		start=null; end=null;lower++; i++;
+        		
+        		if(i< n) lower=nums[i];// otherwise IndexOutOfBounds Exception
         	}
         }
         if(nums[i-1] < upper) {
@@ -75,6 +76,12 @@ public class MissingRanges {
         return result;
     }
 	public static void main(String[] args) {
-		System.out.println(new MissingRanges().findMissingRanges(new int[] {0,1,3,50,75}, 0, 99));
+		System.out.println(new MissingRanges().findMissingRanges(new int[] {0,1,3,50,75}, 0, 99));// [2, 4->49, 51->74, 76->99]
+		System.out.println(new MissingRanges().findMissingRanges(new int[] {}, 1, 1));// ["1"]
+		System.out.println(new MissingRanges().findMissingRanges(new int[] {}, -3, -1));// [-3->-1"]
+		System.out.println(new MissingRanges().findMissingRanges(new int[] {-1}, -1, -1));// []
+		System.out.println(new MissingRanges().findMissingRanges(new int[] {-1}, -2, -1));// [-2]
+		System.out.println(new MissingRanges().findMissingRanges(new int[] {-1}, -1, 0));// [0]
+		System.out.println(new MissingRanges().findMissingRanges(new int[] {-1000000000,1000000000}, -1000000000,1000000000));// [-999999999->999999999]
 	}
 }
