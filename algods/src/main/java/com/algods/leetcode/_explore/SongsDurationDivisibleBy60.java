@@ -32,6 +32,8 @@ Constraints:
 import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class SongsDurationDivisibleBy60 {
+	/* Count[ num % 60] way.
+	 * O(n) O(1) */
 	public static final Integer SIXTY=60;
 	public int numPairsDivisibleBy60(int[] time) {
 		int[] modCounts= new int[SIXTY];
