@@ -17,7 +17,7 @@ public class SimplerKMP {
 		int j=0, patLen=pattern.length();
 		int[] dfa=new int[patLen];// dfa[0]=0 ALWAYS
 		for(int i=1; i< patLen;) {// NO i++
-			if(pattern.charAt(i) == pattern.charAt(j)) {dfa[i]=j+1; i++; j++;}
+			if(pattern.charAt(i) == pattern.charAt(j)) {dfa[i++]=++j;}
 			else {
 				if(j != 0) j=dfa[j-1];
 				else dfa[i++]=0;
