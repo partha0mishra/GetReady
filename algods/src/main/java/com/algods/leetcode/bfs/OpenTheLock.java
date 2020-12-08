@@ -61,7 +61,7 @@ public class OpenTheLock {
 			count+=1;
 			for(int i=0; i< size; i++) {
 				String e=q.poll();
-				System.out.printf("Level: %3d %s \n", count,e);
+//				System.out.printf("Level: %3d %s \n", count,e);
 				if(e.equals(target)) return count;
 				if(!considered.add(e)) continue;
 				for(int j=0; j< 4; j++) {
