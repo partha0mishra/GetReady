@@ -2,6 +2,7 @@ package com.algods.learn.substring;
 /* Copied from Tushar Roy's codebase
  * 
  */
+import static org.junit.Assert.assertEquals;
 public class SimplerRabinKarp {
 	private int prime = 101;
 	private long primePowerLenMinusOne;
@@ -20,7 +21,7 @@ public class SimplerRabinKarp {
                 textHash = recalculateHash(text, i - 1, i + m - 1, textHash, m);
             }
         }
-        return -1;
+        return n;
     }
     
     private long recalculateHash(char[] str,int oldIndex, int newIndex,long oldHash, int patternLen) {
@@ -48,10 +49,10 @@ public class SimplerRabinKarp {
     
     public static void main(String args[]){
         SimplerRabinKarp instance = new SimplerRabinKarp();
-        System.out.println(instance.patternSearch("TusharRoy".toCharArray(), "sharRoy".toCharArray()));
-        System.out.println(instance.patternSearch("TusharRoy".toCharArray(), "Roy".toCharArray()));
-        System.out.println(instance.patternSearch("TusharRoy".toCharArray(), "shas".toCharArray()));
-        System.out.println(instance.patternSearch("TusharRoy".toCharArray(), "usha".toCharArray()));
-        System.out.println(instance.patternSearch("TusharRoy".toCharArray(), "Tus".toCharArray()));
+        assertEquals(2,instance.patternSearch("TusharRoy".toCharArray(), "sharRoy".toCharArray()));
+        assertEquals(6,instance.patternSearch("TusharRoy".toCharArray(), "Roy".toCharArray()));
+        assertEquals(9,instance.patternSearch("TusharRoy".toCharArray(), "shas".toCharArray()));
+        assertEquals(1,instance.patternSearch("TusharRoy".toCharArray(), "usha".toCharArray()));
+        assertEquals(0,instance.patternSearch("TusharRoy".toCharArray(), "Tus".toCharArray()));
     }
 }
