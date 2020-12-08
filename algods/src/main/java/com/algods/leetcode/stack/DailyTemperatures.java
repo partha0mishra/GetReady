@@ -16,7 +16,7 @@ public class DailyTemperatures {
         int[] result=new int[T.length];
         for(int i=T.length-1; i>=0; i--) {
         	int days=0;
-        	while(!stack.isEmpty() && stack.peek()[0] <= T[i]) {// no use
+        	while(!stack.isEmpty() && stack.peek()[0] <= T[i]) {// no use of lower temperature
         		int[] p=stack.pop();
         		days+=p[1];// when you pick me up, you're skipping the lower ones I've picked up earlier
         	}
