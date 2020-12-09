@@ -66,9 +66,9 @@ public class MySimplerDijkstraPQ {
 						int newDist = dist[u]+v.dist; 
 						// If new distance is cheaper in cost 
 						if (newDist < dist[v.id]) {
-							dist[v.id] = newDist; 
+//							dist[v.id] = newDist; 
 						// Add the current node to the queue 
-							pq.add(new Node(v.id, dist[v.id]));
+							pq.add(new Node(v.id, dist[v.id]=newDist));// simpler assignment of new distance
 							System.out.println("added node< "+v.id+" > cost: "+dist[v.id]+" pq-size "+pq.size());
 						}
 					} 
