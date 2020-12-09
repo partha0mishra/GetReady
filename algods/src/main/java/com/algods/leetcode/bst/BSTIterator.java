@@ -45,6 +45,7 @@ Follow up:
 Could you implement next() and hasNext() to run in average O(1) time and use O(h) memory, where h is the height of the tree?
  */
 import java.util.*;
+import static org.junit.Assert.*;
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -61,26 +62,63 @@ import java.util.*;
  * }
  */
 class BSTIterator {
-	/* Approach 01: populate a queue in advance
-	 * populate: O(n), next: O(1), hasNext O(1), O(mem)=O(n)*/
-    Deque<TreeNode> queue;
+	/* Approach 02: populate a stack up to the last left. Improving O(mem)
+	 * populate: O(n), next: O(1), hasNext O(1), O(mem)=O(H) */
+    Deque<TreeNode> stack;
     public BSTIterator(TreeNode root) {
-        queue=new ArrayDeque<>();
+        stack=new ArrayDeque<>();
         populate(root);
     }
     private void populate(TreeNode n){
-        if(n==null) return;
-        populate(n.left);
-        queue.offerFirst(n);
-        populate(n.right);
+       while(n != null) {
+    	   stack.offerFirst(n);
+    	   n=n.left;
+       }
     }
     
     public int next() {
-        return queue.pollLast().val;
+    	TreeNode resultNode=stack.pollFirst();
+    	populate(resultNode.right);
+        return resultNode.val;
     }
     
     public boolean hasNext() {
-        return !queue.isEmpty();
+        return !stack.isEmpty();
+    }
+//	/* Approach 01: populate a queue in advance
+//	 * populate: O(n), next: O(1), hasNext O(1), O(mem)=O(n)*/
+//    Deque<TreeNode> queue;
+//    public BSTIterator(TreeNode root) {
+//        queue=new ArrayDeque<>();
+//        populate(root);
+//    }
+//    private void populate(TreeNode n){
+//        if(n==null) return;
+//        populate(n.left);
+//        queue.offerFirst(n);
+//        populate(n.right);
+//    }
+//    
+//    public int next() {
+//        return queue.pollLast().val;
+//    }
+//    
+//    public boolean hasNext() {
+//        return !queue.isEmpty();
+//    }
+    public static void main(String[] args) {
+    	TreeNode root=new TreeNode(7);root.left=new TreeNode(3); root.right=new TreeNode(15);
+    	root.right.left=new TreeNode(9); root.right.right=new TreeNode(20);
+    	BSTIterator bSTIterator = new BSTIterator(root);
+    	assertEquals(3,bSTIterator.next());    // return 3
+    	assertEquals(7,bSTIterator.next());    // return 7
+    	assertTrue(bSTIterator.hasNext()); // return True
+    	assertEquals(9,bSTIterator.next());    // return 9
+    	assertTrue(bSTIterator.hasNext()); // return True
+    	assertEquals(15,bSTIterator.next());    // return 15
+    	assertTrue(bSTIterator.hasNext()); // return True
+    	assertEquals(20,bSTIterator.next());    // return 20
+    	assertFalse(bSTIterator.hasNext()); // return False
     }
 }
 
