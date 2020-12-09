@@ -38,8 +38,8 @@ public class MySimplerPrimsMst {
 				System.out.println("Added to mst: "+u);
 				for(Node v: adj.get(u)) {
 					if(!mstSet.contains(v.id) && v.dist<dist[v.id]) {// no point adding a longer edge for the same vertex
-						pq.add(new Node(v.id,v.dist));
-						dist[v.id]=v.dist;
+						pq.add(new Node(v.id,dist[v.id]=v.dist));
+//						dist[v.id]=v.dist;
 						parent[v.id]=u;
 						System.out.println("Adding link "+u+" - "+v.id+" ["+v.dist+"]");
 					}
