@@ -74,5 +74,8 @@ public class SimplerKMP {
         String subString = "abcdabcy";
         int result=SimplerKMP.search(str, subString);
         System.out.println(result);
+        String str2 = "abcxabcdabcdabcdab";
+        int result1=SimplerKMP.search(str2, subString);
+        System.out.println(result1);
 	}
 }
