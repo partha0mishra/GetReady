@@ -18,13 +18,13 @@ public class SimplerRabinKarp {
                 return i - 1;
             }
             if(i < n - m + 1) {
-                textHash = recalculateHash(text, i - 1, i + m - 1, textHash, m);
+                textHash = recalculateHash(text, i - 1, i + m - 1, textHash);
             }
         }
         return n;
     }
     
-    private long recalculateHash(char[] str,int oldIndex, int newIndex,long oldHash, int patternLen) {
+    private long recalculateHash(char[] str,int oldIndex, int newIndex,long oldHash) {
         long newHash = oldHash - str[oldIndex];
         newHash = newHash/prime;
         newHash += str[newIndex]*primePowerLenMinusOne;//Math.pow(prime, patternLen - 1);
