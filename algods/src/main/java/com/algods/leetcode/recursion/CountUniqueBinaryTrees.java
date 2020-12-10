@@ -22,20 +22,33 @@ Constraints:
  */
 import static org.junit.Assert.assertEquals;
 public class CountUniqueBinaryTrees {
+	/* dp
+	 */
 	public int numTrees(int n) {
-        if(n==0) return 0;
-        return numTrees(1,n);
+      if(n==0) return 0;
+      int[] dp=new int[n+1];
+      dp[0]=1;
+      dp[1]=1;
+      for(int i=2; i<=n; i++)
+    	  for(int j=1; j<=i; j++)
+    		  dp[i]+=dp[j-1]*dp[i-j];
+      return dp[n];
     }
-	private int numTrees(int start, int end) {
-		int treesAtThisLevel=0;
-		if(start > end) return 1;
-		for(int i=start; i<= end; i++) {
-			int leftTrees=numTrees(start,i-1);
-			int rightTrees=numTrees(i+1,end);
-			treesAtThisLevel+=leftTrees*rightTrees;
-		}
-		return treesAtThisLevel;
-	}
+	/* Recursive approach - TLE @ n=18. needs memo/ dp */
+//	public int numTrees(int n) {
+//        if(n==0) return 0;
+//        return numTrees(1,n);
+//    }
+//	private int numTrees(int start, int end) {
+//		int treesAtThisLevel=0;
+//		if(start > end) return 1;
+//		for(int i=start; i<= end; i++) {
+//			int leftTrees=numTrees(start,i-1);
+//			int rightTrees=numTrees(i+1,end);
+//			treesAtThisLevel+=leftTrees*rightTrees;
+//		}
+//		return treesAtThisLevel;
+//	}
 	public static void main(String[] args) {
 		assertEquals(0,new CountUniqueBinaryTrees().numTrees(0));
 		assertEquals(1,new CountUniqueBinaryTrees().numTrees(1));
