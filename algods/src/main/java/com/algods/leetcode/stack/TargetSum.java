@@ -27,23 +27,42 @@ Your output answer is guaranteed to be fitted in a 32-bit integer.
  */
 import java.util.*;
 public class TargetSum {
-	/* DP
-	 * O(L*N)/ O(L*N)
+	/* DP 1D - since we only need to store the last row's value
+	 * O(L*N) / O(L)
 	 */
 	public int findTargetSumWays(int[] nums, int S) {
-        int[][] dp = new int[nums.length][2001];// adding 1000 since Sum can be from -1000 to 1000
-        dp[0][nums[0] + 1000] = 1;// dp[i][sum]=count
-        dp[0][-nums[0] + 1000] += 1;// 
+        int[] dp = new int[2001];
+        dp[nums[0] + 1000] = 1;
+        dp[-nums[0] + 1000] += 1;
         for (int i = 1; i < nums.length; i++) {
+            int[] next = new int[2001];
             for (int sum = -1000; sum <= 1000; sum++) {
-                if (dp[i - 1][sum + 1000] > 0) {// had some count = the only ones that were resulted
-                    dp[i][sum + nums[i] + 1000] += dp[i - 1][sum + 1000];
-                    dp[i][sum - nums[i] + 1000] += dp[i - 1][sum + 1000];
+                if (dp[sum + 1000] > 0) {
+                    next[sum + nums[i] + 1000] += dp[sum + 1000];
+                    next[sum - nums[i] + 1000] += dp[sum + 1000];
                 }
             }
+            dp = next;
         }
-        return S > 1000 ? 0 : dp[nums.length - 1][S + 1000];
+        return S > 1000 ? 0 : dp[S + 1000];
     }
+	/* DP 2D
+	 * O(L*N)/ O(L*N)
+	 */
+//	public int findTargetSumWays(int[] nums, int S) {
+//        int[][] dp = new int[nums.length][2001];// adding 1000 since Sum can be from -1000 to 1000
+//        dp[0][nums[0] + 1000] = 1;// dp[i][sum]=count
+//        dp[0][-nums[0] + 1000] += 1;// 
+//        for (int i = 1; i < nums.length; i++) {
+//            for (int sum = -1000; sum <= 1000; sum++) {
+//                if (dp[i - 1][sum + 1000] > 0) {// had some count = the only ones that were resulted
+//                    dp[i][sum + nums[i] + 1000] += dp[i - 1][sum + 1000];
+//                    dp[i][sum - nums[i] + 1000] += dp[i - 1][sum + 1000];
+//                }
+//            }
+//        }
+//        return S > 1000 ? 0 : dp[nums.length - 1][S + 1000];
+//    }
 	/* Memoization for a sum at an index. Significantly faster 
 	 * O(<Range of Sum> * <Length of Array>) / O(L*N)*/
 //	HashMap<Integer,Integer> memo;
