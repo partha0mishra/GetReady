@@ -27,25 +27,42 @@ Your output answer is guaranteed to be fitted in a 32-bit integer.
  */
 import java.util.*;
 public class TargetSum {
+	/* 1D DP more elegant 
+	 * Map takes more space than array and is also SLOWER */
+	public int findTargetSumWays(int[] nums, int s) {
+        Map<Integer, Integer> dp = new HashMap<>();
+        dp.put(0, 1);
+        for (int num : nums) {
+            Map<Integer, Integer> dp2 = new HashMap<>();
+            for (int tempSum : dp.keySet()) {
+                int key1 = tempSum + num;
+                dp2.put(key1, dp2.getOrDefault(key1, 0) + dp.get(tempSum));
+                int key2 = tempSum - num;
+                dp2.put(key2, dp2.getOrDefault(key2, 0) + dp.get(tempSum));
+            }
+            dp = dp2;
+        }
+        return dp.getOrDefault(s, 0);
+    }
 	/* DP 1D - since we only need to store the last row's value
 	 * O(L*N) / O(L)
 	 */
-	public int findTargetSumWays(int[] nums, int S) {
-        int[] dp = new int[2001];
-        dp[nums[0] + 1000] = 1;
-        dp[-nums[0] + 1000] += 1;
-        for (int i = 1; i < nums.length; i++) {
-            int[] next = new int[2001];
-            for (int sum = -1000; sum <= 1000; sum++) {
-                if (dp[sum + 1000] > 0) {
-                    next[sum + nums[i] + 1000] += dp[sum + 1000];
-                    next[sum - nums[i] + 1000] += dp[sum + 1000];
-                }
-            }
-            dp = next;
-        }
-        return S > 1000 ? 0 : dp[S + 1000];
-    }
+//	public int findTargetSumWays(int[] nums, int S) {
+//        int[] dp = new int[2001];
+//        dp[nums[0] + 1000] = 1;
+//        dp[-nums[0] + 1000] += 1;
+//        for (int i = 1; i < nums.length; i++) {
+//            int[] next = new int[2001];
+//            for (int sum = -1000; sum <= 1000; sum++) {
+//                if (dp[sum + 1000] > 0) {
+//                    next[sum + nums[i] + 1000] += dp[sum + 1000];
+//                    next[sum - nums[i] + 1000] += dp[sum + 1000];
+//                }
+//            }
+//            dp = next;
+//        }
+//        return S > 1000 ? 0 : dp[S + 1000];
+//    }
 	/* DP 2D
 	 * O(L*N)/ O(L*N)
 	 */
