@@ -15,19 +15,19 @@ public class SortArray {
 	/* MergeSort - O(nLogn) O(n)*/
 	public int[] sortArray(int[] nums) {
         int[] aux=new int[nums.length];
+        System.arraycopy(nums,0,aux,0,nums.length);
         mergeSort(nums, aux, 0, nums.length-1);
         return nums;
     }
     private void mergeSort(int[] n, int[] a, int lo, int hi){
         if(hi <= lo) return;
         int mid=lo+(hi-lo)/2;
-        mergeSort(n,a,lo,mid);
-        mergeSort(n,a,mid+1,hi);
+        mergeSort(a,n,lo,mid);
+        mergeSort(a,n,mid+1,hi);
         merge(n,a,lo,mid,hi);
     }
     private void merge(int[] n, int[] a, int lo, int mid, int hi){
         int i=lo, j=mid+1;
-        System.arraycopy(n,lo,a,lo, hi-lo+1);
         for(int k=lo; k<=hi; k++){
                  if(i > mid)         n[k]=a[j++];
             else if(j > hi)          n[k]=a[i++];
