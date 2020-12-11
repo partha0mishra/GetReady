@@ -41,16 +41,33 @@ Recursive solution is trivial, could you do it iteratively?
  */
 import java.util.*;
 public class BinaryTreeInOrderTraversal {
+	/* Iterative with Stack 
+	 * O(n) O(n)*/
+	 public List < Integer > inorderTraversal(TreeNode root) {
+	        List < Integer > res = new ArrayList < > ();
+	        Stack < TreeNode > stack = new Stack < > ();
+	        TreeNode curr = root;
+	        while (curr != null || !stack.isEmpty()) {
+	            while (curr != null) {
+	                stack.push(curr);
+	                curr = curr.left;
+	            }
+	            curr = stack.pop();
+	            res.add(curr.val);
+	            curr = curr.right;
+	        }
+	        return res;
+	    }
 	/* Recursive O(n) O(n) worst case */
-	public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> result=new ArrayList<>();
-        inorder(root, result);
-        return result;
-    }
-    private void inorder(TreeNode node, List<Integer> result){
-        if(node == null) return;
-        inorder(node.left, result);
-        result.add(node.val);
-        inorder(node.right,result);
-    }
+//	public List<Integer> inorderTraversal(TreeNode root) {
+//        List<Integer> result=new ArrayList<>();
+//        inorder(root, result);
+//        return result;
+//    }
+//    private void inorder(TreeNode node, List<Integer> result){
+//        if(node == null) return;
+//        inorder(node.left, result);
+//        result.add(node.val);
+//        inorder(node.right,result);
+//    }
 }
