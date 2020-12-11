@@ -27,21 +27,37 @@ Your output answer is guaranteed to be fitted in a 32-bit integer.
  */
 import java.util.*;
 public class TargetSum {
-
+	/* DP
+	 * O(L*N)/ O(L*N)
+	 */
+	public int findTargetSumWays(int[] nums, int S) {
+        int[][] dp = new int[nums.length][2001];// adding 1000 since Sum can be from -1000 to 1000
+        dp[0][nums[0] + 1000] = 1;// dp[i][sum]=count
+        dp[0][-nums[0] + 1000] += 1;// 
+        for (int i = 1; i < nums.length; i++) {
+            for (int sum = -1000; sum <= 1000; sum++) {
+                if (dp[i - 1][sum + 1000] > 0) {// had some count = the only ones that were resulted
+                    dp[i][sum + nums[i] + 1000] += dp[i - 1][sum + 1000];
+                    dp[i][sum - nums[i] + 1000] += dp[i - 1][sum + 1000];
+                }
+            }
+        }
+        return S > 1000 ? 0 : dp[nums.length - 1][S + 1000];
+    }
 	/* Memoization for a sum at an index. Significantly faster 
 	 * O(<Range of Sum> * <Length of Array>) / O(L*N)*/
-	HashMap<Integer,Integer> memo;
-	public int findTargetSumWays(int[] nums, int S) {
-		memo=new HashMap<>();
-        return findWays(nums,0,0,S);// int[], position, sum-so-far, targetSum
-    }
-	private int findWays(int[] n, int pos, int sum, int target) {
-		if(pos == n.length) return (sum == target)? 1:0;
-		if(!memo.containsKey(sum*1000+pos)) {
-			memo.put(sum*1000+pos, findWays(n, pos+1, sum+n[pos], target)+ findWays(n, pos+1, sum-n[pos], target));
-		}
-		return memo.get(sum*1000+pos);
-	}
+//	HashMap<Integer,Integer> memo;
+//	public int findTargetSumWays(int[] nums, int S) {
+//		memo=new HashMap<>();
+//        return findWays(nums,0,0,S);// int[], position, sum-so-far, targetSum
+//    }
+//	private int findWays(int[] n, int pos, int sum, int target) {
+//		if(pos == n.length) return (sum == target)? 1:0;
+//		if(!memo.containsKey(sum*1000+pos)) {
+//			memo.put(sum*1000+pos, findWays(n, pos+1, sum+n[pos], target)+ findWays(n, pos+1, sum-n[pos], target));
+//		}
+//		return memo.get(sum*1000+pos);
+//	}
 	/* Recursion + Backtracking: O(2^n) O(n) recursion stack */
 //	public int findTargetSumWays(int[] nums, int S) {
 //        return findWays(nums,0,0,S);// int[], position, sum-so-far, targetSum
