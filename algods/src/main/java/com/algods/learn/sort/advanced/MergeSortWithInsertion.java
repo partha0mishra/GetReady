@@ -3,8 +3,6 @@ package com.algods.learn.sort.advanced;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.algods.learn.sort.elementary.InsertionSort;
-
 import java.util.HashSet;
 
 public class MergeSortWithInsertion {
