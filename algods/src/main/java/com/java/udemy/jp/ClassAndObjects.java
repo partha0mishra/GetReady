@@ -1,7 +1,19 @@
 package com.java.udemy.jp;
 
 class Person {
+	static int num=0;
+	final int x;
 	String name;
+	public static void showName() {
+		// System.out.println(name); 
+		// WONT WORK
+		// We may not have an object when the class is there
+	}
+	public int getNum() {
+		// instance method can access static variables
+		// coz when we have an object, the class is already there
+		return num;
+	}
 	int age;
 	public Person(String n) {
 		this(n,0);
@@ -11,6 +23,8 @@ class Person {
 	public Person(String n, int a) {
 		this.name = n;
 		this.age = a;
+		num+=1;
+		x=age %10;// that's the only time it's set
 	}
 
 	String getName() {
@@ -44,5 +58,6 @@ public class ClassAndObjects {
 		System.out.println("Age :"+jeff.getAge());
 		jeff.futileChangeAge(20);
 		System.out.println("Age :"+jeff.getAge());
+		System.out.println("Number of people: "+Person.num);
 	}
 }
