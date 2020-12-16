@@ -59,5 +59,7 @@ public class ClassAndObjects {
 		jeff.futileChangeAge(20);
 		System.out.println("Age :"+jeff.getAge());
 		System.out.println("Number of people: "+Person.num);
+		
+		System.out.println("Let me show you a STATIC value: "+Math.PI);
 	}
 }
