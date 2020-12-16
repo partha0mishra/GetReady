@@ -42,6 +42,10 @@ class Person {
 	void futileChangeAge(int age) {
 		age=age;
 	}
+	
+	public String toString() {
+		return name+" : "+age;
+	}
 }
 
 public class ClassAndObjects {
@@ -61,5 +65,6 @@ public class ClassAndObjects {
 		System.out.println("Number of people: "+Person.num);
 		
 		System.out.println("Let me show you a STATIC value: "+Math.PI);
+		for(Person p: people) System.out.println(p);// using toString()
 	}
 }
