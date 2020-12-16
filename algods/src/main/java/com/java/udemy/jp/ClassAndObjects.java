@@ -3,7 +3,11 @@ package com.java.udemy.jp;
 class Person {
 	String name;
 	int age;
-
+	public Person(String n) {
+		this(n,0);
+		// "this" keyword to call another constructor.
+		// has to be the first line
+	}
 	public Person(String n, int a) {
 		this.name = n;
 		this.age = a;
