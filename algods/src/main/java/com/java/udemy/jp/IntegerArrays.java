@@ -1,6 +1,6 @@
 package com.java.udemy.jp;
 
-public class Arrays {
+public class IntegerArrays {
 	public static void main(String[] args) {
 		int value=7;
 		int[] values;
