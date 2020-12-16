@@ -20,6 +20,10 @@ class Person {
 	void tellName() {
 		System.out.println("Hallo, ich bin "+name+" !!");
 	}
+	
+	void futileChangeAge(int age) {
+		age=age;
+	}
 }
 
 public class ClassAndObjects {
@@ -33,5 +37,8 @@ public class ClassAndObjects {
 			System.out.println("Name: " + people[i].getName() + ", Age: " + people[i].getAge());
 			people[i].tellName();
 		}
+		System.out.println("Age :"+jeff.getAge());
+		jeff.futileChangeAge(20);
+		System.out.println("Age :"+jeff.getAge());
 	}
 }
