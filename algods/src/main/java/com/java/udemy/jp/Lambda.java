@@ -6,15 +6,31 @@ interface Executable{// functional interface - an interface with a single method
 interface Exec2{
 	public int exec();
 }
+interface Exec3{
+	public int exec(int a);
+}
+interface Exec4{
+	public int exec(int a, int b);
+}
 class Runner{
 	public void run(Executable e) {
 		System.out.println("Executing code block ...");
 		e.execute();
 	}
 	public void run(Exec2 e) {
-		System.out.println("new runner run ");
+		System.out.println("run with exec 2 ");
 		int value=e.exec();
 		System.out.println("Returned value: "+value);
+	}
+	public void run(Exec3 e) {
+		System.out.println("run with exec 3 ");
+		int value=e.exec(2);// of no use
+		System.out.println("Result "+value);
+	}
+	public void run(Exec4 e) {
+		System.out.println("run with exec 3 ");
+		int value=e.exec(2,3);// overridden if other values are supplied
+		System.out.println("Result "+value);
 	}
 }
 
@@ -40,7 +56,13 @@ class Runner{
 			return 42;
 		}
  */
-
+// (int a) -> 8
+/* 
+ * (int a) -> {
+			System.out.println("Passed Value: "+a);
+			return a*a;
+			}
+ */
 public class Lambda {
 	public static void main(String[] args) {
 		// Java 6/ 7 way of executing other code
@@ -63,6 +85,17 @@ public class Lambda {
 		runner.run(() -> {
 			System.out.println(">> Lambda returning value");
 			return 42;
+		});
+		
+		runner.run((int a) -> 8);
+		runner.run((int a) -> {
+			System.out.println("Passed Value: "+a);
+			return a*a;
+		});
+		runner.run((int a, int b) -> 1);// static value return
+		runner.run((int a, int b) -> {
+			System.out.println("Passed Values: "+a+", "+b);
+			return a*b;
 		});
 	}
 }
