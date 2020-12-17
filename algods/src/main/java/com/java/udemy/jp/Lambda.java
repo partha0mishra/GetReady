@@ -56,6 +56,7 @@ class Runner{
 			return 42;
 		}
  */
+// a -> 8
 // (int a) -> 8
 /* 
  * (int a) -> {
@@ -102,6 +103,7 @@ public class Lambda {
 		});
 		
 		runner.run((int a) -> 8);
+		runner.run(a -> 8);// type inferred. even () not needed
 		runner.run((int a) -> {
 			System.out.println("Passed Value: "+a);
 			return a*a;
@@ -111,10 +113,27 @@ public class Lambda {
 			System.out.println("Passed Values: "+a+", "+b);
 			return a*b;
 		});
-		runner.run((a, b) -> 1);// inferred type parameters
+		runner.run((a, b) -> 1);// inferred type parameters for Disambiguous
 		runner.run((a, b) -> {
 			System.out.println("Passed Values: "+a+", "+b);
 			return a*b;
 		});
+		int x=10;
+		runner.run((a, b) -> x);// using outside variable
+		runner.run((a, b) -> {
+			System.out.println("Passed Values: "+a+", "+b);
+			return a*b*x;// using outside variable
+		});
+		runner.run((a, b) -> {
+			System.out.println("Passed Values: "+a+", "+b);
+			// int x=99; CAN'T do this. For ANON class, it's allowed as we can define variables in the scope of the class
+			return a*b*x;// overriding 
+		});
+		System.out.println(" Starting with creating an executable ");
+		Executable ex= () -> {
+			System.out.println(" created directly .. ");
+			System.out.println(" works just fine !!");
+		};
+		runner.run(ex);
 	}
 }
