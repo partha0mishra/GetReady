@@ -3,24 +3,23 @@ package com.java.udemy.jp;
 interface Executable{// functional interface - an interface with a single method. e.g. comparable/ runnable
 	public void execute();
 }
+interface Exec2{
+	public int exec();
+}
 class Runner{
 	public void run(Executable e) {
 		System.out.println("Executing code block ...");
 		e.execute();
 	}
-}
-
-interface Exec2{
-	public int exec();
-}
-
-class Runner2{
 	public void run(Exec2 e) {
 		System.out.println("new runner run ");
 		int value=e.exec();
 		System.out.println("Returned value: "+value);
 	}
 }
+
+
+
 // () -> System.out.println("hello there")
 
 /*
@@ -60,8 +59,8 @@ public class Lambda {
 			System.out.println("hello there");
 		});
 		System.out.println("== returning a value ==");
-		new Runner2().run(() -> 42);
-		new Runner2().run(() -> {
+		runner.run(() -> 42);
+		runner.run(() -> {
 			System.out.println(">> Lambda returning value");
 			return 42;
 		});
