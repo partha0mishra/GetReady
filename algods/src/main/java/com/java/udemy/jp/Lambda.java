@@ -63,6 +63,20 @@ class Runner{
 			return a*a;
 			}
  */
+// (a, b) -> 1
+// (int a, int b) -> 1
+/* 
+ * (a, b) -> {
+			System.out.println("Passed Values: "+a+", "+b);
+			return a*b;
+		}
+ */
+/*
+ * (int a, int b) -> {
+			System.out.println("Passed Values: "+a+", "+b);
+			return a*b;
+		}
+ */
 public class Lambda {
 	public static void main(String[] args) {
 		// Java 6/ 7 way of executing other code
@@ -94,6 +108,11 @@ public class Lambda {
 		});
 		runner.run((int a, int b) -> 1);// static value return
 		runner.run((int a, int b) -> {
+			System.out.println("Passed Values: "+a+", "+b);
+			return a*b;
+		});
+		runner.run((a, b) -> 1);// inferred type parameters
+		runner.run((a, b) -> {
 			System.out.println("Passed Values: "+a+", "+b);
 			return a*b;
 		});
