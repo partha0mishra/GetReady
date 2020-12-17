@@ -9,6 +9,8 @@ class Runner{
 		e.execute();
 	}
 }
+// () -> System.out.println("hello there")
+
 public class Lambda {
 	public static void main(String[] args) {
 		// Java 6/ 7 way of executing other code
@@ -18,5 +20,8 @@ public class Lambda {
 				System.out.println("hello there");
 			}
 		});
+		System.out.println("================================");
+		// Lambda way
+		runner.run(() -> System.out.println("hello there"));
 	}
 }
