@@ -3,6 +3,7 @@ package com.algods.leetcode._explore;
 import java.util.HashMap;
 import java.util.Iterator;
 public class FourSum2 {
+	/* Approach 01: Brute force O(n2) O(n2) */
 	public int fourSumCount(int[] A, int[] B, int[] C, int[] D) {
         HashMap<Long,Integer> cdhm=new HashMap<>();
         HashMap<Long,Integer> abhm=new HashMap<>();
