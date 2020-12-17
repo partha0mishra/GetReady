@@ -22,10 +22,23 @@ class Runner2{
 	}
 }
 // () -> System.out.println("hello there")
+
 /*
  * () -> {
 			System.out.println("putting multiple statements");
 			System.out.println("hello there");
+		}
+ */
+// () -> 42
+/*
+ * () -> {
+ * 		return 42;
+ * 		}
+ */
+/*
+ * () -> {
+			System.out.println(">> Lambda returning value");
+			return 42;
 		}
  */
 
@@ -47,6 +60,7 @@ public class Lambda {
 			System.out.println("hello there");
 		});
 		System.out.println("== returning a value ==");
+		new Runner2().run(() -> 42);
 		new Runner2().run(() -> {
 			System.out.println(">> Lambda returning value");
 			return 42;
