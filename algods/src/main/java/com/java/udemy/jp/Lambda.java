@@ -1,6 +1,6 @@
 package com.java.udemy.jp;
 
-interface Executable{
+interface Executable{// functional interface - an interface with a single method. e.g. comparable/ runnable
 	public void execute();
 }
 class Runner{
@@ -10,6 +10,12 @@ class Runner{
 	}
 }
 // () -> System.out.println("hello there")
+/*
+ * () -> {
+			System.out.println("putting multiple statements");
+			System.out.println("hello there");
+		}
+ */
 
 public class Lambda {
 	public static void main(String[] args) {
@@ -23,5 +29,10 @@ public class Lambda {
 		System.out.println("================================");
 		// Lambda way
 		runner.run(() -> System.out.println("hello there"));
+		System.out.println("======== Passing multiple lines of code ========");
+		runner.run(() -> {
+			System.out.println("putting multiple statements");
+			System.out.println("hello there");
+		});
 	}
 }
