@@ -135,5 +135,10 @@ public class Lambda {
 			System.out.println(" works just fine !!");
 		};
 		runner.run(ex);
+		Object codeBlock= (Executable)() -> {// object - had to be case
+			System.out.println(" created directly .. ");
+			System.out.println(" works just fine !!");
+		};
+		runner.run((Executable)codeBlock);
 	}
 }
