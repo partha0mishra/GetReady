@@ -17,6 +17,7 @@ public class HashSet3Sum {
 		return false;
 	}
 	public static void main(String[] args) {
+		System.out.println(new HashSet3Sum().findSum(new int[] {1,2,3},4));
 		final int NUM_ARRAY_SIZE=10000;
 		int[] nums= new int[NUM_ARRAY_SIZE];
 		Random random= ThreadLocalRandom.current();
