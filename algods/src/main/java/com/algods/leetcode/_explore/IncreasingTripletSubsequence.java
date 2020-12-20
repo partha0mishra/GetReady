@@ -49,6 +49,9 @@ Constraints:
  */
 import static org.junit.Assert.*;
 public class IncreasingTripletSubsequence {
+	/* O(N) O(1)
+	 * find the first_num and then second_num
+	 * */
 	public boolean increasingTriplet(int[] nums) {
         int firstNum=Integer.MAX_VALUE, secondNum=Integer.MAX_VALUE;
         for(int n: nums) {
