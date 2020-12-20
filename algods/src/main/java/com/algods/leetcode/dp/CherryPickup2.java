@@ -1,4 +1,4 @@
-package com.algods.leetcode._explore;
+package com.algods.leetcode.dp;
 /* Cherry Pickup II
  * Given a rows x cols matrix grid representing a field of cherries. Each cell in grid represents the number of cherries that you can collect.
 
