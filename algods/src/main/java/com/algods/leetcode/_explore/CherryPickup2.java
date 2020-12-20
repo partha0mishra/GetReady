@@ -53,6 +53,7 @@ cols == grid[i].length
 import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class CherryPickup2 {
+	/* O(MN^2) M rows, N columns */
 	public int cherryPickup(int[][] grid) {
         int rows=grid.length, cols=grid[0].length;
         int[][][] dp=new int[rows][cols][cols];
@@ -63,27 +64,23 @@ public class CherryPickup2 {
         return getCherries(grid, dp, 0, 0, cols-1);
     }
 	private int getCherries(int[][] grid, int[][][] dp, int row, int col1, int col2) {
-		if(row == grid.length -1) {
-			int result=grid[row][col1];
-			if(col1 != col2) result+=grid[row][col2];
-			dp[row][col1][col2]=result;
-			return result;
-		}
-		int dpHere=0;
 		if(dp[row][col1][col2] == -1) {
-			for(int i=-1; i<2; i++)
-				for(int j=-1; j<2; j++) {
-					int newCol1= col1+ i;
-					int newCol2= col2+ j;
-					if(newCol1 < 0 || newCol2 < 0 || newCol1 >= grid[0].length || newCol2 >= grid[0].length) continue;
-					else dpHere=Math.max(dpHere, getCherries(grid,dp,row+1,newCol1,newCol2));
-				}
+			int dpHere=0;
+			if(row < grid.length -1) {
+				for(int i=-1; i<2; i++)
+					for(int j=-1; j<2; j++) {
+						int newCol1= col1+ i;
+						int newCol2= col2+ j;
+						if(newCol1 < 0 || newCol2 < 0 || newCol1 >= grid[0].length || newCol2 >= grid[0].length) continue;
+						else dpHere=Math.max(dpHere, getCherries(grid,dp,row+1,newCol1,newCol2));
+					}
+			}
 			int val=grid[row][col1];
 			if(col1 != col2) val+=grid[row][col2];
-			
 			dp[row][col1][col2]=dpHere+val;
 			dp[row][col2][col1]=dp[row][col1][col2];
-			System.out.println("["+row+","+col1+","+col2+"] local:"+dpHere+" g[r][c1][c2]"+grid[row][col1]+", "+grid[row][col2]+" DP:"+dp[row][col1][col2]);
+			System.out.println("["+row+","+col1+","+col2+"] local:"+dpHere+" g[r][c1][c2]"+grid[row][col1]+", "
+								+grid[row][col2]+" DP:"+dp[row][col1][col2]);
 		}
 		return dp[row][col1][col2];
 	}
