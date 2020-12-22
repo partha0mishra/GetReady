@@ -1,4 +1,5 @@
 package com.algods.leetcode.backtracking;
+// TODO Anki
 /* N Queens 2
  * The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
 
@@ -25,7 +26,8 @@ Constraints:
 import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class NQueens2 {
-	/* Time complexity : O(N!). 
+	/* Backtracking - carry an ArrayList<> of columns to check canPlace(row,col,usedColsForEachRow)
+	 * Time complexity : O(N!). 
 	 * There is N possibilities to put the first queen, not more than N (N - 2) to put the second one, 
 	 * not more than N(N - 2)(N - 4) for the third one etc. In total that results in O(N!) time complexity.
 	 * Space complexity : O(N) to keep an information about columns.
