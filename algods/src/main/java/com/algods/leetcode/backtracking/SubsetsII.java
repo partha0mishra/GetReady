@@ -1,4 +1,5 @@
 package com.algods.leetcode.backtracking;
+// TODO Anki
 /* 90. Subsets II
  * Given a collection of integers that might contain duplicates, nums, return all possible subsets (the power set).
 
@@ -19,6 +20,10 @@ Output:
  * */
 import java.util.*;
 public class SubsetsII {
+	/* Backtracking
+	 * if(i > start && nums[i]==nums[i-1] Skip
+	 * O(N*2^N)/ O(N*2^N)
+	 */
 	public List<List<Integer>> subsetsWithDup(int[] nums) {
         List<List<Integer>> result= new ArrayList<List<Integer>>();
         Arrays.sort(nums);
