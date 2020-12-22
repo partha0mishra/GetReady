@@ -1,4 +1,5 @@
 package com.algods.leetcode.backtracking;
+// TODO Anki
 /* 78. Subsets
  * 
  * Given a set of distinct integers, nums, return all possible subsets (the power set).
@@ -22,9 +23,12 @@ Output:
  * */
 import java.util.*;
 public class Subsets {
+	/* Backtracking
+	 * O(N*2^N)/ O(N*2^N)
+	 */
 	public List<List<Integer>> subsets(int[] nums) {
 		List<List<Integer>> result= new ArrayList<List<Integer>>();
-		Arrays.sort(nums);
+		Arrays.sort(nums);// first, sort
 		backtrack(nums,result,new ArrayList<Integer>(), 0);
 		return result;
     }
