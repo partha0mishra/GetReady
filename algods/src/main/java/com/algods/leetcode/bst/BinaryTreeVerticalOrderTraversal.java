@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.bst;
 
 import java.util.*;
 

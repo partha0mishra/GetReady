@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.bst;
 /*
  * Given inorder and postorder traversal of a tree, construct the binary tree.
  * Note:

@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.bst;
 
 /*
  * Given the root of a binary tree and an integer distance. 
