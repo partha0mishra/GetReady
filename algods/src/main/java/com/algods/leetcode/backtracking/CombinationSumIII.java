@@ -26,17 +26,17 @@ public class CombinationSumIII {
 	    return ans;
 	}
 
-	private void combination(List<List<Integer>> ans, List<Integer> comb, int k,  int start, int n) {
-		if(n<0) return;// no point going any further
+	private void combination(List<List<Integer>> ans, List<Integer> comb, int k,  int start, int remain) {
+		if(remain<0) return;// no point going any further
 	    if(comb.size() > k) return;// no point going any further
-		if (comb.size() == k && n == 0) {
+		if (comb.size() == k && remain == 0) {
 			List<Integer> li = new ArrayList<Integer>(comb);
 			ans.add(li);
 			return;
 		}
 		for (int i = start; i <= 9; i++) {
 			comb.add(i);
-			combination(ans, comb, k, i+1, n-i);
+			combination(ans, comb, k, i+1, remain-i);
 			comb.remove(comb.size() - 1);
 		}
 	}
