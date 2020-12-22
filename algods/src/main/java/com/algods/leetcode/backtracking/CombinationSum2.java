@@ -1,7 +1,7 @@
 package com.algods.leetcode.backtracking;
 /* 40. Combination Sum II
- * 
- * Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
+ * Given a collection of candidate numbers (candidates) and a target number (target), 
+ * find all unique combinations in candidates where the candidate numbers sums to target.
 
 Each number in candidates may only be used once in the combination.
 
@@ -30,6 +30,9 @@ A solution set is:
  * */
 import java.util.*;
 public class CombinationSum2 {
+	// O(2^N) - for each number, 2 choices - pick it or not
+	// space complexity O(N)
+	//
 	public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         List<List<Integer>> result= new ArrayList<List<Integer>>();
         Arrays.sort(candidates);
