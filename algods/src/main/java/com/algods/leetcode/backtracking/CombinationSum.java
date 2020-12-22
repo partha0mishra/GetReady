@@ -44,6 +44,12 @@ All elements of candidates are distinct.
 import java.util.*;
 public class CombinationSum {
 	/* Approach 02: Backtracking as a template */
+	/* complexity analysis
+	 * this is a recursion with n-ary tree.
+	 * depth of the tree = Target/ Minimum number <= worst case scenario
+	 * O(N^(T/M)+1) Time complexity
+	 * O(T/M) Space Complexity for recursion stack of all those levels
+	 */
 	public List<List<Integer>> combinationSum(int[] nums, int target) {
 	    List<List<Integer>> list = new ArrayList<>();
 	    Arrays.sort(nums);
