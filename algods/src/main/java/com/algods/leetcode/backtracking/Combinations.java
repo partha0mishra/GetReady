@@ -24,20 +24,24 @@ import java.util.*;
 public class Combinations {
 	public List<List<Integer>> combine(int n, int k) {
 		List<List<Integer>> result= new ArrayList<>();
-		for(int i=0; i< n; i++) {
-			result.add(combine(i, n-1,k-1));
-		}
+		combine(result, new ArrayList<Integer>(), n, k, 1);
 		return result;
     }
-	
-	private List<Integer> combine(int i, int j, int k) {
-		// TODO Auto-generated method stub
-		return null;
+	private void combine(List<List<Integer>> result, ArrayList<Integer> partial, int n, int k, int start) {
+		if(partial.size() == k) result.add(new ArrayList<>(partial));
+		else {
+			for(int i=start; i<= n; i++) {// no reuse of digit like [1,2] and [2,1]
+				partial.add(i);
+				combine(result, partial, n, k, i+1);// no repeat
+				partial.remove(partial.size()-1);
+			}
+		}
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Combinations c= new Combinations();
+		System.out.println(c.combine(4, 2));
+		System.out.println(c.combine(1,1));
 	}
 
 }

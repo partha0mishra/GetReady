@@ -29,24 +29,27 @@ public class CombinationSum4 {
 	int result=0;
     public int combinationSum4(int[] nums, int target) {
     	Arrays.sort(nums);
-        backtrack(nums, target, 0);
+        backtrack(nums, target);
         return result;
     }
-    private void backtrack(int[] nums, int target, int partial){
-        if(target < partial) return;
-        else if(target == partial) {result+=1; return;}
+    private void backtrack(int[] nums, int target){
+        if(target < 0) return;
+        else if(target == 0) {result+=1; return;}
         else{
             for(int i=0; i< nums.length; i++){
 //            	System.out.println(nums[i]);
-                partial+=nums[i];
-                backtrack(nums, target, partial);
-                partial-=nums[i];
+            	if(nums[i] ==1) {
+            		backtrack(nums, target-1);
+            	} else {
+            		backtrack(nums, target%nums[i]);
+            	}
             }
         }
     }
 	public static void main(String[] args) {
 		CombinationSum4 cs4= new CombinationSum4();
 		System.out.println(cs4.combinationSum4(new int[] {1,2,3},4));
+		System.out.println(cs4.combinationSum4(new int[] {2,1,3},35));
 	}
 
 }
