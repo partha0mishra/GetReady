@@ -1,4 +1,4 @@
-package com.algods.leetcode;
+package com.algods.leetcode.backtracking;
 /* *
  * Combination Sum III
  * 
@@ -16,6 +16,10 @@ package com.algods.leetcode;
  */
 import java.util.*;
 public class CombinationSumIII {
+	/* Complexity calculations
+	 * Time: if K= number of digits => O( 9!.K/ (9-k)!)
+	 * Space: O(K)
+	 */
 	public List<List<Integer>> combinationSum3(int k, int n) {
 	    List<List<Integer>> ans = new ArrayList<>();
 	    combination(ans, new ArrayList<Integer>(), k, 1, n);
@@ -23,6 +27,8 @@ public class CombinationSumIII {
 	}
 
 	private void combination(List<List<Integer>> ans, List<Integer> comb, int k,  int start, int n) {
+		if(n<0) return;// no point going any further
+	    if(comb.size() > k) return;// no point going any further
 		if (comb.size() == k && n == 0) {
 			List<Integer> li = new ArrayList<Integer>(comb);
 			ans.add(li);
