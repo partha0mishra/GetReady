@@ -36,3 +36,10 @@ Explanation:
 
 In IT department, Max earns the highest salary, both Randy and Joe earn the second highest salary, and Will earns the third highest salary. There are only two employees in the Sales department, Henry earns the highest salary while Sam earns the second highest salary.
 ####
+Select D.Name Department, E.Name Employee, E.Salary Salary
+from Employee E join Department D
+on E.DepartmentId = D.Id
+where 3 > (select count(distinct(E2.salary)) 
+                 from Employee E2
+                where E2.Salary > E.Salary
+                and E2.DepartmentId = E.DepartmentId);
