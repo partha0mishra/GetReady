@@ -24,7 +24,7 @@ public class LevelOrderTraversal {
 	public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> result= new ArrayList<List<Integer>>();
         if(root == null) return result;
-        Queue<TreeNode> q= new LinkedList<TreeNode>();
+        Deque<TreeNode> q= new ArrayDeque<TreeNode>();
         q.offer(root);
         while(!q.isEmpty()){
             int size=q.size();
