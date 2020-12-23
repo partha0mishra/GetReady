@@ -1,4 +1,5 @@
 package com.algods.leetcode.bst;
+// TODO Anki
 /* 107. Binary Tree Level Order Traversal II
  * Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
 
@@ -18,6 +19,9 @@ return its bottom-up level order traversal as:
  * */
 import java.util.*;
 public class BSTLevelOrderReverse {
+	/* Easy BFS. 
+	 * NOTE : Collections.reverse(result)
+	 * O(n)/ O(n)*/
 	public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> result= new ArrayList<List<Integer>>();
         if(root == null) return result;
