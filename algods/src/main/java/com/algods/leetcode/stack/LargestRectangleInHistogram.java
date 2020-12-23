@@ -9,6 +9,7 @@ package com.algods.leetcode.stack;
  * Output: 10
  */
 import java.util.*;
+import static org.junit.Assert.assertEquals;
 public class LargestRectangleInHistogram {
 	/* Approach: Monotonic Stack keeping indices
 	 * REF: https://www.geeksforgeeks.org/largest-rectangle-under-histogram/
@@ -42,4 +43,15 @@ public class LargestRectangleInHistogram {
         }
         return maxArea;
     }
+	public static void main(String[] a) {
+		LargestRectangleInHistogram lrh= new LargestRectangleInHistogram();
+		assertEquals(1,lrh.largestRectangleArea(new int[] {1}));
+		assertEquals(2,lrh.largestRectangleArea(new int[] {1,2}));
+		assertEquals(4,lrh.largestRectangleArea(new int[] {1,2,3}));
+		assertEquals(6,lrh.largestRectangleArea(new int[] {1,2,3,2}));
+		assertEquals(8,lrh.largestRectangleArea(new int[] {1,2,3,2,7}));
+		assertEquals(10,lrh.largestRectangleArea(new int[] {1,2,3,2,7,5}));
+		assertEquals(20,lrh.largestRectangleArea(new int[] {1,2,3,2,7,5,6,6}));
+		assertEquals(25,lrh.largestRectangleArea(new int[] {1,2,3,2,7,5,6,6,5}));
+	}
 }
