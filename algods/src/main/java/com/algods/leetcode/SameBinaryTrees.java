@@ -42,15 +42,14 @@ class SameBinaryTrees {
 	          this.right = right;
 	      }
 	  }
+	/* Recursive implementation 
+	 * O(N)/ space complexity O(logN) for a balanced tree and O(N) for completely unbalanced tree*/
     public boolean isSameTree(TreeNode p, TreeNode q) {
 //    	System.out.println("p: "+p+" q: "+q);
-    	if(p == null && q == null) return true;
-    	else if(p == null && q != null) return false;
-    	else if(p != null && q == null) return false;
-    	else if(p.val == q.val 
-    			&& isSameTree(p.left, q.left)
-    			&& isSameTree(p.right, q.right)) return true;
-    	else return false;
+    	if(p == null) return q==null;
+    	if(q == null) return p==null;
+    	if(p.val == q.val) return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+    	return false;
     }
     
     public static void main(String[] args) {
