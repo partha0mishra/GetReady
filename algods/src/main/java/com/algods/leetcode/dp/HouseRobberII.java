@@ -28,19 +28,37 @@ package com.algods.leetcode.dp;
  * Now the problem has degenerated to the House Robber, which is already been solved.
  */
 public class HouseRobberII {
+	/* Learning phase - continued from HouseRobber 
+	 * MAX(rob(from 0 to n-1), rob(from 1 to n))
+	 */
 	public int rob(int[] nums) {
 		int n=nums.length;
 		if(n == 1 ) return nums[0];// no neighbor scenario
 		return Math.max(rob(nums,0,n-2), rob(nums,1,n-1));
     }
-
 	private int rob(int[] nums, int start, int end) {
-		int rob=0,norob=0;
-		for(int i=start; i<= end; i++) {
-			int currentRob=norob+nums[i];
-			norob=Math.max(rob, norob);
-			rob=currentRob;
+		int prev2=0, prev1=0;
+		for(int i=start; i<=end; i++) {
+			int curr=Math.max(prev1, prev2+nums[i]);
+			prev2=prev1;
+			prev1=curr;
 		}
-		return Math.max(rob, norob);
+		return prev1;
 	}
+	/* Earlier Approaches - less learning, more doing :( */
+//	public int rob(int[] nums) {
+//		int n=nums.length;
+//		if(n == 1 ) return nums[0];// no neighbor scenario
+//		return Math.max(rob(nums,0,n-2), rob(nums,1,n-1));
+//    }
+//
+//	private int rob(int[] nums, int start, int end) {
+//		int rob=0,norob=0;
+//		for(int i=start; i<= end; i++) {
+//			int currentRob=norob+nums[i];
+//			norob=Math.max(rob, norob);
+//			rob=currentRob;
+//		}
+//		return Math.max(rob, norob);
+//	}
 }
