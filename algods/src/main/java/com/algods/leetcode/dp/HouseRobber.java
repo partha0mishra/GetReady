@@ -26,23 +26,34 @@ import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 import java.util.HashMap;
 public class HouseRobber {
-	/* Recurrence Relationship: rob(i)= Math.max(rob(i-1), rob(i-2)+nums[i])
-	 * 
+	/* Recurrence Relationship: rob(i)= Math.max(rob(i-1), rob(i-2)+nums[i]) */
+	/* Learning 03: DP, as we only need robNminus1 and robNminus2 values
+	 * O(N) O(1)
 	 */
+	public int rob(int[] nums) {
+		int n=nums.length;
+		int rnm1=0, rnm2=0;
+		for(int i=0; i< n; i++) {
+			int current=Math.max(rnm1, rnm2+nums[i]);
+			rnm2=rnm1;
+			rnm1=current;
+		}
+		return rnm1;
+	}
 	/* Learning 02: Recursion with Memo
 	 * O(N) O(N)
 	 */
-	public int rob(int[] nums) {
-		int[] memo=new int[nums.length];
-		Arrays.fill(memo, -1);
-		return rob(nums, nums.length -1,memo);
-	}
-	private int rob(int[] nums, int n,int[] memo) {
-		if(n <0) return 0;
-		if(memo[n]==-1)
-			memo[n]=Math.max(rob(nums,n-1,memo), rob(nums, n-2, memo)+nums[n]);
-		return memo[n];
-	}
+//	public int rob(int[] nums) {
+//		int[] memo=new int[nums.length];
+//		Arrays.fill(memo, -1);
+//		return rob(nums, nums.length -1,memo);
+//	}
+//	private int rob(int[] nums, int n,int[] memo) {
+//		if(n <0) return 0;
+//		if(memo[n]==-1)
+//			memo[n]=Math.max(rob(nums,n-1,memo), rob(nums, n-2, memo)+nums[n]);
+//		return memo[n];
+//	}
 	
 	/* Learning 01: Restarting DP learning
 	 * Recursion O(2^N) O(2^N) - Sure TLE
