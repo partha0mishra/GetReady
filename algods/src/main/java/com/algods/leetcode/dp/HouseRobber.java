@@ -22,22 +22,38 @@ package com.algods.leetcode.dp;
  * 0 <= nums[i] <= 400
  */
 import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
 import java.util.HashMap;
 public class HouseRobber {
 	/* Recurrence Relationship: rob(i)= Math.max(rob(i-1), rob(i-2)+nums[i])
 	 * 
 	 */
-	
-	/* Approach 04: Restarting DP learning
-	 * Recursion O(2^N) O(2^N) - Sure TLE
+	/* Learning 02: Recursion with Memo
+	 * O(N) O(N)
 	 */
 	public int rob(int[] nums) {
-		return rob(nums, nums.length -1);
+		int[] memo=new int[nums.length];
+		Arrays.fill(memo, -1);
+		return rob(nums, nums.length -1,memo);
 	}
-	private int rob(int[] nums, int n) {
+	private int rob(int[] nums, int n,int[] memo) {
 		if(n <0) return 0;
-		else return Math.max(rob(nums,n-1), rob(nums, n-2)+nums[n]);
+		if(memo[n]==-1)
+			memo[n]=Math.max(rob(nums,n-1,memo), rob(nums, n-2, memo)+nums[n]);
+		return memo[n];
 	}
+	
+	/* Learning 01: Restarting DP learning
+	 * Recursion O(2^N) O(2^N) - Sure TLE
+	 */
+//	public int rob(int[] nums) {
+//		return rob(nums, nums.length -1);
+//	}
+//	private int rob(int[] nums, int n) {
+//		if(n <0) return 0;
+//		else return Math.max(rob(nums,n-1), rob(nums, n-2)+nums[n]);
+//	}
 	/* Approach 03: DP 
 	 * Quite like a Buy and Sell stocks with 1 day cooling*/
 //	public int rob(int[] nums) {
