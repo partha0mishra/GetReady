@@ -1,5 +1,5 @@
 package com.algods.leetcode.dp;
-
+// TODO Anki
 import com.algods.leetcode.bst.TreeNode;
 
 /* 337. House Robber III
@@ -33,6 +33,8 @@ Output: 9
 Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
  */
 public class HouseRobberIII {
+	
+	/* Earlier approach - less learning, more copying */
 	public int rob(TreeNode root) {
         int[] result=dfs(root);
         return Math.max(result[0], result[1]);
