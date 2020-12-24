@@ -33,19 +33,32 @@ Output: 9
 Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
  */
 public class HouseRobberIII {
-	
-	/* Earlier approach - less learning, more copying */
+	/* Learning 01
+	 * Recursive relationship: rob(i)=Math.max(robChildren(i), i.val+robChildren(i.left)+robChildren(i.right)
+	 * O(N) O(N)
+	 */
 	public int rob(TreeNode root) {
-        int[] result=dfs(root);
-        return Math.max(result[0], result[1]);
-    }
-	private int[] dfs(TreeNode node) {
-		if(node == null) return new int[2];
-		int[] left=dfs(node.left);
-		int[] right=dfs(node.right);
-		int[] result=new int[2];
-		result[0]= node.val+left[1]+right[1];// here[taken]=here.val+left[not taken]+right[not taken]
-		result[1]= Math.max(left[0], left[1])+ Math.max(right[0], right[1]);// here[not taken] = left[taken] + right[taken]
-		return result;
+		if(root == null) return 0;
+		if(root.left == null && root.right == null) return root.val;
+		return Math.max(robChildren(root)
+				, root.val+robChildren(root.left)+robChildren(root.right));
 	}
+	private int robChildren(TreeNode n) {
+		if(n == null) return 0;
+		else return rob(n.left)+rob(n.right);
+	}
+	/* Earlier approach - less learning, more copying */
+//	public int rob(TreeNode root) {
+//        int[] result=dfs(root);
+//        return Math.max(result[0], result[1]);
+//    }
+//	private int[] dfs(TreeNode node) {
+//		if(node == null) return new int[2];
+//		int[] left=dfs(node.left);
+//		int[] right=dfs(node.right);
+//		int[] result=new int[2];
+//		result[0]= node.val+left[1]+right[1];// here[taken]=here.val+left[not taken]+right[not taken]
+//		result[1]= Math.max(left[0], left[1])+ Math.max(right[0], right[1]);// here[not taken] = left[taken] + right[taken]
+//		return result;
+//	}
 }
