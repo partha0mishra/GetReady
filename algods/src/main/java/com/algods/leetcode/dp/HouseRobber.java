@@ -1,4 +1,5 @@
 package com.algods.leetcode.dp;
+// TODO Anki
 /**
  * House Robber
  * You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed, 
@@ -23,17 +24,31 @@ package com.algods.leetcode.dp;
 import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 public class HouseRobber {
+	/* Recurrence Relationship: rob(i)= Math.max(rob(i-1), rob(i-2)+nums[i])
+	 * 
+	 */
+	
+	/* Approach 04: Restarting DP learning
+	 * Recursion O(2^N) O(2^N) - Sure TLE
+	 */
+	public int rob(int[] nums) {
+		return rob(nums, nums.length -1);
+	}
+	private int rob(int[] nums, int n) {
+		if(n <0) return 0;
+		else return Math.max(rob(nums,n-1), rob(nums, n-2)+nums[n]);
+	}
 	/* Approach 03: DP 
 	 * Quite like a Buy and Sell stocks with 1 day cooling*/
-	public int rob(int[] nums) {
-		int rob=0, norob=0;
-		for(int i=0; i< nums.length; i++) {
-			int currentRob=norob+nums[i];// to rob the current one, the previous one can't be robbed
-			norob=Math.max(rob, norob);// max of last house's status carries on if this one is not robbed
-			rob=currentRob;
-		}
-		return Math.max(rob, norob);
-    }
+//	public int rob(int[] nums) {
+//		int rob=0, norob=0;
+//		for(int i=0; i< nums.length; i++) {
+//			int currentRob=norob+nums[i];// to rob the current one, the previous one can't be robbed
+//			norob=Math.max(rob, norob);// max of last house's status carries on if this one is not robbed
+//			rob=currentRob;
+//		}
+//		return Math.max(rob, norob);
+//    }
 	/* Approach 02: Greedy, BackTracking, Memoization - First time. YEY !!
 	 * Note: TLE without Memoization*/
 //	int result;
