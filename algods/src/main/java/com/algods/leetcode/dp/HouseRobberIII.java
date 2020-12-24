@@ -32,21 +32,39 @@ Input: [3,4,5,1,3,null,1]
 Output: 9
 Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
  */
+import java.util.*;
 public class HouseRobberIII {
-	/* Learning 01
-	 * Recursive relationship: rob(i)=Math.max(robChildren(i), i.val+robChildren(i.left)+robChildren(i.right)
+	/* Trying out memoization
 	 * O(N) O(N)
 	 */
+	HashMap<TreeNode,Integer> memo=new HashMap<>();
 	public int rob(TreeNode root) {
 		if(root == null) return 0;
-		if(root.left == null && root.right == null) return root.val;
-		return Math.max(robChildren(root)
-				, root.val+robChildren(root.left)+robChildren(root.right));
+		if(!memo.containsKey(root)) {
+			if(root.left == null && root.right == null) memo.put(root, root.val);
+			else memo.put(root, Math.max(robChildren(root)
+					, root.val+robChildren(root.left)+robChildren(root.right)));
+		}
+		return memo.get(root);
 	}
 	private int robChildren(TreeNode n) {
 		if(n == null) return 0;
 		else return rob(n.left)+rob(n.right);
 	}
+	/* Learning 01
+	 * Recursive relationship: rob(i)=Math.max(robChildren(i), i.val+robChildren(i.left)+robChildren(i.right)
+	 * O(N) O(N)
+	 */
+//	public int rob(TreeNode root) {
+//		if(root == null) return 0;
+//		if(root.left == null && root.right == null) return root.val;
+//		return Math.max(robChildren(root)
+//				, root.val+robChildren(root.left)+robChildren(root.right));
+//	}
+//	private int robChildren(TreeNode n) {
+//		if(n == null) return 0;
+//		else return rob(n.left)+rob(n.right);
+//	}
 	/* Earlier approach - less learning, more copying */
 //	public int rob(TreeNode root) {
 //        int[] result=dfs(root);
