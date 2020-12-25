@@ -38,7 +38,29 @@ Constraints:
 0 <= amount <= 104
  */
 import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
 public class CoinChange {
+	/* Using more generic form - calculating 'ways' 
+	 * O(S*N)/ O(N) 
+	 * */
+	public int coinChange(int[] coins, int amount) {
+		if(coins == null || coins.length ==0 || amount <=0) return 0;
+		int[] dp= new int[amount+1];
+		dp[0]=0;
+		for(int i=1; i<= amount; i++) {
+			dp[i]=Integer.MAX_VALUE;
+			for(int j=0; j< coins.length; j++) {
+				if(coins[j] <= i && dp[i-coins[j]] != -1) {// of course
+					dp[i]=Math.min(dp[i], dp[i-coins[j]]+1);
+				}
+			}
+			if(dp[i] == Integer.MAX_VALUE) dp[i]=-1;
+			System.out.println(i+" "+dp[i]);
+		}
+		return dp[amount];
+	}
+	
 	/* (could have been done using backtracking - resulting in TLE)
 	 * DP Top Down - copied from LC Solution
 	 * O(S*N)/ O(S)
