@@ -1,4 +1,4 @@
-package com.algods.leetcode.dp.ways;
+package com.algods.leetcode.dp.minmaxpath;
 // TODO Anki
 /* Minimum cost climbing stairs
  * On a staircase, the i-th step has some non-negative cost cost[i] assigned (0 indexed).

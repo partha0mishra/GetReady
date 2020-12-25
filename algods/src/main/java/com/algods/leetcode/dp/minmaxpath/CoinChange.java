@@ -1,4 +1,4 @@
-package com.algods.leetcode.dp.ways;
+package com.algods.leetcode.dp.minmaxpath;
 // TODO Anki
 /**
  * 322. Coin Change
