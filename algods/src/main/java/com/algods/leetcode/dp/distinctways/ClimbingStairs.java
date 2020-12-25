@@ -29,6 +29,18 @@ public class ClimbingStairs {
         while(n>1){t=f2;f2+=f1;f1=t;n--;}
         return f1;
     }
+	/** Note: More standardized way
+	 * ref: pattern - Distinct ways
+	 */
+//	public int climbStairs(int n) {
+//        if(n <= 2) return n;
+//    	int[] dp=new int[n+1];
+//        dp[1]=1; dp[2]=2;
+//        for (int stair = 3; stair <= n; ++stair)
+//            for (int step = 1; step <= 2; ++step)
+//                    dp[stair] += dp[stair-step];
+//        return dp[n];
+//    }
 	/* Approach 02: dp
 	 * O(n) O(1)*/
 //    public int climbStairs(int n) {
