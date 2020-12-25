@@ -1,4 +1,5 @@
 package com.algods.leetcode.dp.distinctways;
+// TODO Anki
 /*
  * You are climbing a stair case. It takes n steps to reach to the top.
  * Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
@@ -21,6 +22,7 @@ Explanation: There are three ways to climb to the top.
  */
 public class ClimbingStairs {
 	/* Approach 03: just like Fibonacci numbers 
+	 * Recursive relationship: cs(n) = cs(n-1) + cs(n-2)
 	 * O(n) O(1) */
 	public int climbStairs(int n) {
     	int f1=1, f2=2, t;
