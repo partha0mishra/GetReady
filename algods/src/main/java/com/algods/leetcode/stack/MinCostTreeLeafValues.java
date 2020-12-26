@@ -51,7 +51,7 @@ public class MinCostTreeLeafValues {
 	 */
 	public int mctFromLeafValues(int[] arr) {
         int result=0;
-        Stack<Integer> stack= new Stack<>();
+        Deque<Integer> stack= new ArrayDeque<>();
         stack.push(Integer.MAX_VALUE);
         for(int a: arr) {
         	while(stack.peek() <=a) {
