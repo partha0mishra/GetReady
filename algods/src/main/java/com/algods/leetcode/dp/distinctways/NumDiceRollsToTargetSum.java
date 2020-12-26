@@ -46,22 +46,43 @@ Constraints:
 1 <= target <= 1000
  */
 import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
 public class NumDiceRollsToTargetSum {
+	
 	/**
 	 * Backtracking with memo
 	 * O(f ^ d)/ O(d * target)
 	 * TLE at 30,30,500 
 	 */
 	public int numRollsToTarget(int d, int f, int target) {
-		int[][] dp=new int[d][target+1];// dice no, amount
+		int[][] dp=new int[d+1][target+1];// dice no, amount
+//		if(d > f) {int t=d; d=f; f=d;}// to check that it terminates
 		return backtrack(d,f,0,target,dp);
 	}
+	int cc=0;
 	private int backtrack(int d, int f, int diceNo, int remaining, int[][] dp) {
-		if(remaining ==0 && diceNo == d) return 1;
-		if(remaining < 0 || diceNo == d) return 0;// no chance
-		
-		for(int i=1; i<=f; i++)
-			dp[diceNo][remaining]+=backtrack(d,f,diceNo+1,remaining-i,dp) % 100000007;
+		if(remaining ==0 && diceNo == d) {
+			dp[diceNo][remaining]=1;
+			return 1;
+		}
+		if(remaining < 0 || diceNo == d) {
+//			System.out.println(" *** "+(++cc));
+			return 0;// no chance
+		}
+		if(dp[diceNo][remaining] !=0) {
+//			System.out.println(" *** "+(++cc));
+			return dp[diceNo][remaining]; // NOT Making a difference
+		}
+//		System.out.println(" >"+diceNo+" : "+remaining+" => "+dp[diceNo][remaining]);
+		// try some pruning
+		int start=Math.max(1,remaining - f*(d - diceNo -1));// start from 1 or the max that needs to be started with
+		for(int i=start; i<=f; i++) {
+			if(remaining -i < (d - diceNo -1)) break;
+			dp[diceNo][remaining]+=backtrack(d,f,diceNo+1,remaining-i,dp) % 1000000007;
+            dp[diceNo][remaining]=dp[diceNo][remaining] % 1000000007;
+		}
+//		System.out.println(diceNo+" : "+remaining+" => "+dp[diceNo][remaining]);
 		return dp[diceNo][remaining];
 	}
 	public static void main(String[] args) {
@@ -70,7 +91,10 @@ public class NumDiceRollsToTargetSum {
 		assertEquals(6,(ndrtts.numRollsToTarget(2, 6, 7)));//6
 		assertEquals(1,(ndrtts.numRollsToTarget(2, 5, 10)));
 		assertEquals(0,(ndrtts.numRollsToTarget(1, 2, 3)));
+		assertEquals(432457640,(ndrtts.numRollsToTarget(10, 10, 55)));
+		assertEquals(10,(ndrtts.numRollsToTarget( 3,  6, 15)));
 		assertEquals(222616187,(ndrtts.numRollsToTarget(30, 30, 500)));
+		assertEquals(87756311,(ndrtts.numRollsToTarget(30, 20, 193)));
 	}
 
 }
