@@ -40,27 +40,42 @@ s contains only digits and may contain leading zero(s).
  */
 import static org.junit.Assert.assertEquals;
 public class DecodeWays {
+	/**
+	 * DP - start from the beginning, need to check 1 chars or 2 chars
+	 *  FOR ANOTHER DAY
+	 */
 	public int numDecodings(String s) {
 		int[] dp= new int[s.length()+1];
-        return backtrack(s,0,dp);
+        for(int i=0; i< s.length(); i++) {
+        	
+        }
+        return dp[s.length()];
     }
-	private int backtrack(String s, int index, int[] dp) {
-		if(index > s.length()) return 0;
-		if(index == s.length()) {dp[index]=1; return dp[index];}
-		if(dp[index] != 0) return dp[index];
-		for(int i=1; i<=2; i++) {
-			if(index+i > s.length()) break;// i=1 is okay but i=2 is not
-			String sub=s.substring(index,index+i);
-			int num=0;
-			for(int j=0; j<sub.length();j++) {
-				num=10*num+Integer.valueOf(sub.charAt(j) - '0');
-				if(num ==0) break;
-			}
-			if(num < 1 || num > 26) continue;// prune
-			dp[index]+=backtrack(s,index+i,dp);
-		}
-		return dp[index];
-	}
+	/**
+	 * Backtracking with pruning
+	 * O(N) O(N) 
+	 */
+//	public int numDecodings(String s) {
+//		int[] dp= new int[s.length()+1];
+//        return backtrack(s,0,dp);
+//    }
+//	private int backtrack(String s, int index, int[] dp) {
+//		if(index > s.length()) return 0;
+//		if(index == s.length()) {dp[index]=1; return dp[index];}
+//		if(dp[index] != 0) return dp[index];
+//		for(int i=1; i<=2; i++) {
+//			if(index+i > s.length()) break;// i=1 is okay but i=2 is not
+//			String sub=s.substring(index,index+i);
+//			int num=0;
+//			for(int j=0; j<sub.length();j++) {
+//				num=10*num+Integer.valueOf(sub.charAt(j) - '0');
+//				if(num ==0) break;
+//			}
+//			if(num < 1 || num > 26) continue;// prune
+//			dp[index]+=backtrack(s,index+i,dp);
+//		}
+//		return dp[index];
+//	}
 	public static void main(String[] args) {
 		DecodeWays dw= new DecodeWays();
 		assertEquals(2,(dw.numDecodings("12")));
@@ -71,7 +86,6 @@ public class DecodeWays {
 		assertEquals(1,(dw.numDecodings("10")));
 		assertEquals(0,(dw.numDecodings("10230234056")));// "30" causes 0
 		assertEquals(2,(dw.numDecodings("10210232056")));
-		assertEquals(1,(dw.numDecodings("10")));
 	}
 
 }
