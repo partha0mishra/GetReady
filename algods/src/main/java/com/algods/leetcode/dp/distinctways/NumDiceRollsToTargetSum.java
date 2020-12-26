@@ -57,32 +57,24 @@ public class NumDiceRollsToTargetSum {
 	 */
 	public int numRollsToTarget(int d, int f, int target) {
 		int[][] dp=new int[d+1][target+1];// dice no, amount
-//		if(d > f) {int t=d; d=f; f=d;}// to check that it terminates
 		return backtrack(d,f,0,target,dp);
 	}
-	int cc=0;
 	private int backtrack(int d, int f, int diceNo, int remaining, int[][] dp) {
 		if(remaining ==0 && diceNo == d) {
 			dp[diceNo][remaining]=1;
 			return 1;
 		}
-		if(remaining < 0 || diceNo == d) {
-//			System.out.println(" *** "+(++cc));
-			return 0;// no chance
-		}
+		if(remaining < 0 || diceNo == d) return 0;// no chance
 		if(dp[diceNo][remaining] !=0) {
-//			System.out.println(" *** "+(++cc));
 			return dp[diceNo][remaining]; // NOT Making a difference
 		}
-//		System.out.println(" >"+diceNo+" : "+remaining+" => "+dp[diceNo][remaining]);
 		// try some pruning
 		int start=Math.max(1,remaining - f*(d - diceNo -1));// start from 1 or the max that needs to be started with
 		for(int i=start; i<=f; i++) {
-			if(remaining -i < (d - diceNo -1)) break;
+			if(remaining -i < (d - diceNo -1)*1) break;// remaining is less than the minimum of rest of the dice
 			dp[diceNo][remaining]+=backtrack(d,f,diceNo+1,remaining-i,dp) % 1000000007;
             dp[diceNo][remaining]=dp[diceNo][remaining] % 1000000007;
 		}
-//		System.out.println(diceNo+" : "+remaining+" => "+dp[diceNo][remaining]);
 		return dp[diceNo][remaining];
 	}
 	public static void main(String[] args) {
