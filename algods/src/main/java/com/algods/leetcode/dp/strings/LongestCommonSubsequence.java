@@ -116,41 +116,71 @@ public class LongestCommonSubsequence {
 	 *  O(T) = O(MN) as we're not searching through the second string anymore
 	 *  O(M) = O(MN)
 	 */
-	private int[][] memo;
-	private String text1;
-	private String text2;
+//	private int[][] memo;
+//	private String text1;
+//	private String text2;
+//
+//	public int longestCommonSubsequence(String text1, String text2) {
+//		this.memo = new int[text1.length() + 1][text2.length() + 1];
+//		for (int i = 0; i < text1.length(); i++) {
+//			for (int j = 0; j < text2.length(); j++) {
+//				this.memo[i][j] = -1;
+//			}
+//		}
+//		this.text1 = text1;
+//		this.text2 = text2;
+//		return memoSolve(0, 0);
+//	}
+//
+//	private int memoSolve(int p1, int p2) {        
+//		// Check whether or not we've already solved this subproblem.
+//		// This also covers the base cases where p1 == text1.length
+//		// or p2 == text2.length.
+//		if (memo[p1][p2] != -1) {
+//			return memo[p1][p2];
+//		}
+//
+//		// Recursive cases.
+//		int answer = 0;
+//		if (text1.charAt(p1) == text2.charAt(p2)) {
+//			answer = 1 + memoSolve(p1 + 1, p2 + 1);// consider both of them
+//		} else {
+//			answer = Math.max(memoSolve(p1, p2 + 1), memoSolve(p1 + 1, p2));// discard one in each
+//		}
+//
+//		// Add the best answer to the memo before returning it.
+//		memo[p1][p2] = answer;
+//		return memo[p1][p2];
+//	}
+	/**
+	 * For bottom-up DP
+	 * If we do column-wise (keeping one extra row of 0 at bottom and col of 0 at right for easier calc)
+	 * When 2 letters match dp[i][j]=1+dp[i+1][j+1]
+	 * else MAX(dp[i+1][j], dp[i][j+1])
+	 * 
+	 * O(MN)/ O(MN)
+	 */
+	public int longestCommonSubsequence(String text1, String text2) {    
 
-	public int longestCommonSubsequence(String text1, String text2) {
-		this.memo = new int[text1.length() + 1][text2.length() + 1];
-		for (int i = 0; i < text1.length(); i++) {
-			for (int j = 0; j < text2.length(); j++) {
-				this.memo[i][j] = -1;
+		// Make a grid of 0's with text2.length() + 1 columns 
+		// and text1.length() + 1 rows.
+		int[][] dpGrid = new int[text1.length() + 1][text2.length() + 1];
+
+		// Iterate up each column, starting from the last one.
+		for (int col = text2.length() - 1; col >= 0; col--) {
+			for (int row = text1.length() - 1; row >= 0; row--) {
+				// If the corresponding characters for this cell are the same...
+				if (text1.charAt(row) == text2.charAt(col)) {
+					dpGrid[row][col] = 1 + dpGrid[row + 1][col + 1];
+					// Otherwise they must be different...
+				} else {
+					dpGrid[row][col] = Math.max(dpGrid[row + 1][col], dpGrid[row][col + 1]);
+				}
 			}
 		}
-		this.text1 = text1;
-		this.text2 = text2;
-		return memoSolve(0, 0);
-	}
 
-	private int memoSolve(int p1, int p2) {        
-		// Check whether or not we've already solved this subproblem.
-		// This also covers the base cases where p1 == text1.length
-		// or p2 == text2.length.
-		if (memo[p1][p2] != -1) {
-			return memo[p1][p2];
-		}
-
-		// Recursive cases.
-		int answer = 0;
-		if (text1.charAt(p1) == text2.charAt(p2)) {
-			answer = 1 + memoSolve(p1 + 1, p2 + 1);// consider both of them
-		} else {
-			answer = Math.max(memoSolve(p1, p2 + 1), memoSolve(p1 + 1, p2));// discard one in each
-		}
-
-		// Add the best answer to the memo before returning it.
-		memo[p1][p2] = answer;
-		return memo[p1][p2];
+		// The original problem's answer is in dp_grid[0][0]. Return it.
+		return dpGrid[0][0];
 	}
 	/**
 	 * DP: Pattern of 'DP on Strings'
