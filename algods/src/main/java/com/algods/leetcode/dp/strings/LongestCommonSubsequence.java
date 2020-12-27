@@ -37,6 +37,7 @@ The input strings consist of lowercase English characters only.
 import static org.junit.Assert.assertEquals;
 public class LongestCommonSubsequence {
 	/**
+	 * [Approach 01]
 	 * Very well-written official LC Solution: https://leetcode.com/problems/longest-common-subsequence/solution/
 	 * Recursive:
 	 * define function LCS(text1, text2):
@@ -109,6 +110,7 @@ public class LongestCommonSubsequence {
 //		return memo[p1][p2];
 //	}
 	/**
+	 * [Approach 02]
 	 * Building on the previous approach, optimizing for two scenarios
 	 * If the first letters are different, then (at least) one of those will not be considered
 	 * If they are same, then consider both of them as that's not going to hinder anything that comes later
@@ -153,6 +155,7 @@ public class LongestCommonSubsequence {
 //		return memo[p1][p2];
 //	}
 	/**
+	 * [Approach 03]
 	 * For bottom-up DP
 	 * If we do column-wise (keeping one extra row of 0 at bottom and col of 0 at right for easier calc)
 	 * When 2 letters match dp[i][j]=1+dp[i+1][j+1]
@@ -183,7 +186,9 @@ public class LongestCommonSubsequence {
 		return dpGrid[0][0];
 	}
 	/**
+	 * [Approach 05]
 	 * DP: Pattern of 'DP on Strings'
+	 * Same way as [Approach 03], but we're going from 0,0 to m,n
 	 * O(m*n)/ O(m*n)
 	 */
 //	public int longestCommonSubsequence(String text1, String text2) {
