@@ -16,21 +16,45 @@ Note:
 The input string length won't exceed 1000.
  */
 public class PalindromicSubstrings {
+	/**
+	 * Take every index and extend both sides to find biggest palindrome 
+	 */
+	int count = 0;
+
 	public int countSubstrings(String s) {
-        int n=s.length();
-        int[][] dp=new int[n+1][n+1];
-        for (int l = 1; l < n; ++l) {
-        	for (int i = 0; i < n-l; ++i) {
-        		int j = i + l;
-        		if (s.charAt(i) == s.charAt(j) && dp[i+1][j-1] == j-i-1) {
-        			dp[i][j] = dp[i+1][j-1] + 2;
-        		} else {
-        			dp[i][j] = 0;
-        		}
-        	}
-        }
-        return dp[n][n];
-    }
+		if (s == null || s.length() == 0) return 0;
+
+		for (int i = 0; i < s.length(); i++) { // i is the mid point
+			extendPalindrome(s, i, i); // odd length;
+			extendPalindrome(s, i, i + 1); // even length
+		}
+
+		return count;
+	}
+
+	private void extendPalindrome(String s, int left, int right) {
+		while (left >=0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+			count++; left--; right++;
+		}
+	}
+	/**
+	 * DP Pattern way : DOESN'T work yet
+	 */
+//	public int countSubstrings(String s) {
+//        int n=s.length();
+//        int[][] dp=new int[n+1][n+1];
+//        for (int l = 1; l < n; ++l) {
+//        	for (int i = 0; i < n-l; ++i) {
+//        		int j = i + l;
+//        		if (s.charAt(i) == s.charAt(j) && dp[i+1][j-1] == j-i-1) {
+//        			dp[i][j] = dp[i+1][j-1] + 2;
+//        		} else {
+//        			dp[i][j] = 0;
+//        		}
+//        	}
+//        }
+//        return dp[n][n];
+//    }
 	public static void main(String[] args) {
 		System.out.println(new PalindromicSubstrings().countSubstrings("abc"));
 		System.out.println(new PalindromicSubstrings().countSubstrings("aaa"));
