@@ -1,4 +1,4 @@
-package com.algods.leetcode.dp;
+package com.algods.leetcode.dp.decisionmaking;
 /***
  * 714. Best Time to Buy and Sell Stock with Transaction Fee
  * 

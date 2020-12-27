@@ -1,4 +1,4 @@
-package com.algods.leetcode.dp;
+package com.algods.leetcode.dp.decisionmaking;
 // TODO Anki
 /**
  * House Robber
