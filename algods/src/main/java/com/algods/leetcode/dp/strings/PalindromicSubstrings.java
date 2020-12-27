@@ -15,9 +15,11 @@ Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
 Note:
 The input string length won't exceed 1000.
  */
+import static org.junit.Assert.assertEquals;
 public class PalindromicSubstrings {
 	/**
 	 * Take every index and extend both sides to find biggest palindrome 
+	 * O(N^2)
 	 */
 	int count = 0;
 
@@ -56,7 +58,7 @@ public class PalindromicSubstrings {
 //        return dp[n][n];
 //    }
 	public static void main(String[] args) {
-		System.out.println(new PalindromicSubstrings().countSubstrings("abc"));
-		System.out.println(new PalindromicSubstrings().countSubstrings("aaa"));
+		assertEquals(3,(new PalindromicSubstrings().countSubstrings("abc")));
+		assertEquals(6,(new PalindromicSubstrings().countSubstrings("aaa")));
 	}
 }
