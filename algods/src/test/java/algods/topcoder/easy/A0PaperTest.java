@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import com.algods.topcoder.easy.A0Paper;
+import com.topcoder.easy.A0Paper;
 
 class A0PaperTest {
 	public static final String POSSIBLE="Possible";

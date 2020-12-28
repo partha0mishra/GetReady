@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.algods.topcoder.easy.AB;
+import com.topcoder.easy.AB;
 
 class ABTest {
 	

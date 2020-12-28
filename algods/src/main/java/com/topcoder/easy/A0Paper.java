@@ -1,4 +1,4 @@
-package com.algods.topcoder.easy;
+package com.topcoder.easy;
 
 public class A0Paper {
 	public static final String POSSIBLE="Possible";
