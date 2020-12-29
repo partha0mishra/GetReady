@@ -1,4 +1,5 @@
 package com.leetcode.recursion;
+// TODO Anki
 /* 344. Reverse String
  * Write a function that reverses a string. The input string is given as an array of characters char[].
 
@@ -36,7 +37,7 @@ public class ReverseString {
        
       helper(start + 1, end - 1, s);
    }
-	/* Approach 01: two pointer O(n) O(n) */
+	/* Approach 01: two pointer O(n) O(1) */
 //	public void reverseString(char[] s) {
 //        int n=s.length;
 //        for(int i=0; i< n/2; i++){
