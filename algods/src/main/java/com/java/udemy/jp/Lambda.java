@@ -1,5 +1,7 @@
 package com.java.udemy.jp;
 
+import java.util.Collections;
+
 interface Executable{// functional interface - an interface with a single method. e.g. comparable/ runnable
 	public void execute();
 }
@@ -33,7 +35,6 @@ class Runner{
 		System.out.println("Result "+value);
 	}
 }
-
 
 
 // () -> System.out.println("hello there")
