@@ -1,4 +1,5 @@
-package com.leetcode;
+package com.leetcode.recursion;
+// TODO Anki
 /*
  * Given a non-negative index k where k ≤ 33, return the kth index row of the Pascal's triangle.
  * Note that the row index starts from 0.
@@ -36,7 +37,9 @@ public class PascalsTriangle2 {
 //    	}
 //        return Arrays.asList(resultInts);
 //    }
-	/* Approach 02: Use the same array, update from the end */
+	/* Approach 02: Use the same array, update from the end 
+	 * pascal[i][j] = pascal[i-1][j-1] + pascal[i-1][j] 
+	 * O(k2)/ O(k) */
     public List<Integer> getRow(int rowIndex) {// index starting from 0
     	List<Integer> result= new ArrayList<Integer>();
         int[] resultInts=new int[rowIndex+1];// size
