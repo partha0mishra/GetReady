@@ -1,6 +1,8 @@
 package com.hackerrank.problem.solving;
 
 /**
+ * TLE: but for another day
+ * 
  * John lives in HackerLand, a country with  cities and  bidirectional roads. Each of the roads has a distinct length, and each length is a power of two (i.e.,  raised to some exponent). It's possible for John to reach any city from any other city.
 
 Given a map of HackerLand, can you help John determine the sum of the minimum distances between each pair of cities? Print your answer in binary representation.
