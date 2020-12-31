@@ -36,6 +36,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 public class Flatten2DVector {
 	// Approach 03: using 2 pointers
+	// if N = number of elements, V = number of arrays
+	// Constructor => O(1)
+	// goToNext => Going all the way O(N+V) in N moves. Amortized O( (N+V)/N )=> O(1+V/N) => O(V/N)
+	// Space complexity => O(1)
 	class Vector2D {
 		int[][] elements;
 		int arrayNo=0, elementNo=0;// two pointers
@@ -44,22 +48,22 @@ public class Flatten2DVector {
 	    }
 	    
 	    public int next() {
-	        while(arrayNo < elements.length && elements[arrayNo].length == elementNo) {
-	        	arrayNo+=1;
-	        	elementNo=0;
-	        }
-	        int result=elements[arrayNo][elementNo];
-	        elementNo+=1;
+	    	goToNext();// only if the current one is 
+	        int result=elements[arrayNo][elementNo++];
 	        return result;
 	    }
 	    
 	    public boolean hasNext() {
-	        int aNo=arrayNo, eNo=elementNo;
-	        while(aNo < elements.length && elements[aNo].length == eNo) {
-	        	aNo+=1;
-	        	eNo=0;
+	        goToNext();
+	        return (arrayNo < elements.length);
+	    }
+	    
+	    private void goToNext() {
+	    	// NOTE: goToNext is not moving if the current place has a valid number
+	    	while(arrayNo < elements.length && elements[arrayNo].length == elementNo) {
+	        	arrayNo+=1;
+	        	elementNo=0;
 	        }
-	        return (aNo < elements.length);
 	    }
 	}
 	// Still a BAD approach since we're using O(N) extra space.
