@@ -1,5 +1,5 @@
 package com.leetcode.design;
-/**
+/** TODO Anki
  * Randomized Set
  * Implement the RandomizedSet class:
 
@@ -35,51 +35,91 @@ Constraints:
 At most 105 calls will be made to insert, remove, and getRandom.
 There will be at least one element in the data structure when getRandom is called.
  */
-import java.util.HashSet;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 public class RandomizedSet {
-	// Approach 01: using HashSet
-	// getRandom() is amortized O(1) but not in worst case
-	HashSet<Integer> set;
-	Integer[] elements;
-	boolean changed=false;
-	int position=0;
-	/** Initialize your data structure here. */
-    public RandomizedSet() {
-        set=new HashSet<>();
+	/**
+	 * Using ArrayList to keep data and HashMap to keep indices
+	 * remove() swaps the element with the last one and then deletes the last one
+	 */
+	List<Integer> elements;
+	Map<Integer, Integer> indices;
+	Random random=new Random();
+	public RandomizedSet() {
+		elements= new ArrayList<>();
+		indices=new HashMap<>();
     }
     
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     public boolean insert(int val) {
-        boolean result= set.add(val);
-        if(!changed) changed=result;
-        return result;
+        if(indices.containsKey(val)) return false;
+        indices.put(val, elements.size());
+        elements.add(elements.size(),val);// this has to come second as the list.size() increases
+        
+        return true;
     }
     
     /** Removes a value from the set. Returns true if the set contained the specified element. */
     public boolean remove(int val) {
-        boolean result= set.remove(val);
-        if(!changed) changed=result;
-        return result;
+    	if(!indices.containsKey(val)) return false;
+    	
+    	int lastElement=elements.get(elements.size()-1);
+    	int index=indices.get(val);
+    	elements.set(index, lastElement);
+    	indices.put(lastElement,index);// update
+    	
+    	elements.remove(elements.size()-1);
+    	indices.remove(val);// remove the key
+    	
+    	return true;
     }
     
     /** Get a random element from the set. */
     public int getRandom() {
-    	if(changed) {
-    		Random r= ThreadLocalRandom.current();
-    		position=0;
-    		elements=set.toArray(new Integer[0]);
-    		for(int i=0; i< elements.length; i++) {
-    			int from=i, to=r.nextInt(i+1), tmp=elements[from];
-    			elements[from]=elements[to]; elements[to]=tmp;
-    		}
-    	}
-    	return elements[position++];
+    	return elements.get(random.nextInt(elements.size()));
     }
+	
+	// Approach 01: using HashSet
+	// getRandom() is amortized O(1) but not in worst case
+//	HashSet<Integer> set;
+//	Integer[] elements;
+//	boolean changed=false;
+//	int position=0;
+	/** Initialize your data structure here. */
+//    public RandomizedSet() {
+//        set=new HashSet<>();
+//    }
+//    
+//    /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
+//    public boolean insert(int val) {
+//        boolean result= set.add(val);
+//        if(!changed) changed=result;
+//        return result;
+//    }
+//    
+//    /** Removes a value from the set. Returns true if the set contained the specified element. */
+//    public boolean remove(int val) {
+//        boolean result= set.remove(val);
+//        if(!changed) changed=result;
+//        return result;
+//    }
+//    
+//    /** Get a random element from the set. */
+//    public int getRandom() {
+//    	if(changed) {
+//    		Random r= ThreadLocalRandom.current();
+//    		position=0;
+//    		elements=set.toArray(new Integer[0]);
+//    		for(int i=0; i< elements.length; i++) {
+//    			int from=i, to=r.nextInt(i+1), tmp=elements[from];
+//    			elements[from]=elements[to]; elements[to]=tmp;
+//    		}
+//    	}
+//    	return elements[position++];
+//    }
 	public static void main(String[] args) {
 		RandomizedSet instance= new RandomizedSet();
 		assertTrue(instance.insert(1));
