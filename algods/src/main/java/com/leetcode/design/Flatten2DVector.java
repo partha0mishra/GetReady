@@ -30,27 +30,28 @@ As an added challenge, try to code it using only iterators in C++ or iterators i
  */
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.*;
 public class Flatten2DVector {
-	// Approach 02: creating own iterator
+	// Still a BAD approach since we're using O(N) extra space.
+	// Doing a copy for iteration is NOT Acceptable
+	// Approach 02: using Queue
 	class Vector2D {
-		int[][] myV;
-		int arrayNo, elementNo;
+		Deque<Integer> queue;
 	    public Vector2D(int[][] v) {
-	        myV = v;
-	        arrayNo=0;
-	        elementNo=0;
+	    	queue=new ArrayDeque<>();
+	        for(int[] v1: v) {
+	        	for(int v2: v1) {
+	        		queue.offerLast(v2);
+	        	}
+	        }
 	    }
 	    
 	    public int next() {
-	        while(myV[arrayNo].length <= elementNo){
-	        	arrayNo+=1;
-	        	elementNo=0;
-	        }
-	        return myV[arrayNo][elementNo++];
+	        return queue.pollFirst();
 	    }
 	    
 	    public boolean hasNext() {
-	        return !(arrayNo == (myV.length-1) && elementNo == myV[arrayNo].length);
+	        return queue.peekFirst() != null;
 	    }
 	}
 	// Approach 01: using ArrayList and Iterator interface
@@ -76,7 +77,6 @@ public class Flatten2DVector {
 //	    }
 //	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 
