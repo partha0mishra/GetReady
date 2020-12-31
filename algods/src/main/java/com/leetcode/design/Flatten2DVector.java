@@ -31,28 +31,50 @@ As an added challenge, try to code it using only iterators in C++ or iterators i
 import java.util.ArrayList;
 import java.util.Iterator;
 public class Flatten2DVector {
-	// Approach 01: using ArrayList and Iterator interface
+	// Approach 02: creating own iterator
 	class Vector2D {
-		ArrayList<Integer> elements;
-		Iterator<Integer> it;
+		int[][] myV;
+		int arrayNo, elementNo;
 	    public Vector2D(int[][] v) {
-	        elements= new ArrayList<>();
-	        for(int[] ve: v) {
-	        	for(int e: ve) {
-	        		elements.add(e);
-	        	}
-	        }
-	        it=elements.iterator();
+	        myV = v;
+	        arrayNo=0;
+	        elementNo=0;
 	    }
 	    
 	    public int next() {
-	        return it.next();
+	        while(myV[arrayNo].length <= elementNo){
+	        	arrayNo+=1;
+	        	elementNo=0;
+	        }
+	        return myV[arrayNo][elementNo++];
 	    }
 	    
 	    public boolean hasNext() {
-	        return it.hasNext();
+	        return !(arrayNo == (myV.length-1) && elementNo == myV[arrayNo].length);
 	    }
 	}
+	// Approach 01: using ArrayList and Iterator interface
+//	class Vector2D {
+//		ArrayList<Integer> elements;
+//		Iterator<Integer> it;
+//	    public Vector2D(int[][] v) {
+//	        elements= new ArrayList<>();
+//	        for(int[] ve: v) {
+//	        	for(int e: ve) {
+//	        		elements.add(e);
+//	        	}
+//	        }
+//	        it=elements.iterator();
+//	    }
+//	    
+//	    public int next() {
+//	        return it.next();
+//	    }
+//	    
+//	    public boolean hasNext() {
+//	        return it.hasNext();
+//	    }
+//	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
