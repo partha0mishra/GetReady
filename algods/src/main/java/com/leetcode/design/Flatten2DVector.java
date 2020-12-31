@@ -31,29 +31,59 @@ As an added challenge, try to code it using only iterators in C++ or iterators i
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertEquals;
 public class Flatten2DVector {
-	// Still a BAD approach since we're using O(N) extra space.
-	// Doing a copy for iteration is NOT Acceptable
-	// Approach 02: using Queue
+	// Approach 03: using 2 pointers
 	class Vector2D {
-		Deque<Integer> queue;
+		int[][] elements;
+		int arrayNo=0, elementNo=0;// two pointers
 	    public Vector2D(int[][] v) {
-	    	queue=new ArrayDeque<>();
-	        for(int[] v1: v) {
-	        	for(int v2: v1) {
-	        		queue.offerLast(v2);
-	        	}
-	        }
+	    	elements=v;
 	    }
 	    
 	    public int next() {
-	        return queue.pollFirst();
+	        while(arrayNo < elements.length && elements[arrayNo].length == elementNo) {
+	        	arrayNo+=1;
+	        	elementNo=0;
+	        }
+	        int result=elements[arrayNo][elementNo];
+	        elementNo+=1;
+	        return result;
 	    }
 	    
 	    public boolean hasNext() {
-	        return queue.peekFirst() != null;
+	        int aNo=arrayNo, eNo=elementNo;
+	        while(aNo < elements.length && elements[aNo].length == eNo) {
+	        	aNo+=1;
+	        	eNo=0;
+	        }
+	        return (aNo < elements.length);
 	    }
 	}
+	// Still a BAD approach since we're using O(N) extra space.
+	// Doing a copy for iteration is NOT Acceptable
+	// Approach 02: using Queue
+//	class Vector2D {
+//		Deque<Integer> queue;
+//	    public Vector2D(int[][] v) {
+//	    	queue=new ArrayDeque<>();
+//	        for(int[] v1: v) {
+//	        	for(int v2: v1) {
+//	        		queue.offerLast(v2);
+//	        	}
+//	        }
+//	    }
+//	    
+//	    public int next() {
+//	        return queue.pollFirst();
+//	    }
+//	    
+//	    public boolean hasNext() {
+//	        return queue.peekFirst() != null;
+//	    }
+//	}
 	// Approach 01: using ArrayList and Iterator interface
 //	class Vector2D {
 //		ArrayList<Integer> elements;
@@ -77,7 +107,32 @@ public class Flatten2DVector {
 //	    }
 //	}
 	public static void main(String[] args) {
-
+		int[][] a1= {{},{}};
+		Vector2D v1= new Flatten2DVector().new Vector2D(a1);
+		assertFalse(v1.hasNext());// false
+		
+		int[][] a2= {{1},{}};
+		Vector2D v2= new Flatten2DVector().new Vector2D(a2);
+		assertTrue(v2.hasNext());
+		assertEquals(1,v2.next());
+		assertFalse(v2.hasNext());
+		
+		int[][] a3= {{},{1}};
+		Vector2D v3= new Flatten2DVector().new Vector2D(a3);
+		assertTrue(v3.hasNext());
+		assertEquals(1,v3.next());
+		assertFalse(v3.hasNext());
+		
+		int[][] a4= {{1,2},{3},{4}};
+		Vector2D v4= new Flatten2DVector().new Vector2D(a4);
+		assertTrue(v4.hasNext());
+		assertEquals(1,v4.next());
+		assertEquals(2,v4.next());
+		assertEquals(3,v4.next());
+		assertTrue(v4.hasNext());
+		assertTrue(v4.hasNext());
+		assertEquals(4,v4.next());
+		assertFalse(v4.hasNext());
 	}
 
 }
