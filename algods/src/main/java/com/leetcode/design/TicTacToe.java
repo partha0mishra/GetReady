@@ -25,19 +25,23 @@ public class TicTacToe {
         if(wins(row,col,player)) won=player;
         return won;
     }
-    // Approach 02: less checking 
+    // Approach 02: less checking - 100% runtime
     // check the col from row 0 to size-1 and then row from col 0 to size -1
-    // check the corners if row==col
+    // check the corners if row==col - NOPE. that's wrong.
     private boolean wins(int row, int col, int player) {
     	int r, c;
     	for(r=0; r< size; r++) if(board[r][col] != player) break;// check the column
     	if(r==size) return true;
     	for(c=0; c< size; c++) if(board[row][c] != player) break;// check the row
     	if(c==size) return true;
-		for(r=0, c=0; r<size; r++, c++) if(board[r][c] != player) break;// top left - bottom right corner
-		if(r == size) return true;
-		for(r=size-1, c=0; c< size; r--, c++) if(board[r][c] != player) break;// bottom left - top right corner
-		if(c == size) return true;
+    	if(row == col) {// top left - bottom right corner
+    		for(r=0, c=0; r<size; r++, c++) if(board[r][c] != player) break;
+    		if(r == size) return true;
+    	}
+    	if( size-1-row == col) {// bottom left - top right corner
+    		for(r=size-1, c=0; c< size; r--, c++) if(board[r][c] != player) break;
+    		if(c == size) return true;
+    	}
     	return false;
     }
     
