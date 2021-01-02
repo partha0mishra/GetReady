@@ -1,5 +1,5 @@
 package com.leetcode.arrays;
-/**
+/** TODO Anki
  * 1640. Check Array Formation Through Concatenation
  * You are given an array of distinct integers arr and an array of integer arrays pieces, where the integers in pieces are distinct. Your goal is to form arr by concatenating the arrays in pieces in any order. However, you are not allowed to reorder the integers in each array pieces[i].
 
@@ -45,17 +45,17 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 public class CheckArrayFormationConcatenation {
 	public boolean canFormArray(int[] arr, int[][] pieces) {
-        for(int[] piece: pieces) {
-        	int i, j;
-        	boolean found=false;
-        	for(i=0,j=0; i< arr.length && j < piece.length; i++) {
-        		if(arr[i] == piece[j]) {
+        for(int[] piece: pieces) {// let's check every piece
+        	int i, j;// i iterates on the arr, j on a piece
+        	boolean found=false;// if the first element of the piece is not found
+        	for(i=0,j=0; i< arr.length && j < piece.length; i++) {// we are tracking J, if i is over but J is not
+        		if(arr[i] == piece[j]) {// if the first element is found we ..
         			found=true;
-        			if(j != piece.length) {
+        			if(j != piece.length) {// need to find the other ones too
         				j+=1;
         			}else break;// this piece is found. let's find the next one
         		}else {
-        			if(found == true) return false;
+        			if(found == true) return false;// some initial elements WERE found and subsequently nada
         			found=false;
         		}
         	}
