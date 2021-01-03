@@ -26,41 +26,60 @@ If 99% of all integer numbers from the stream are between 0 and 100, how would y
  */
 import java.util.*;
 public class MedianFinder {
-	TreeMap<Integer,Integer> numFrequencies;
-	int n;
+	LinkedList<Integer> elements;
     /** initialize your data structure here. */
     public MedianFinder() {
-        numFrequencies= new TreeMap<>();
-        n=0;
+        elements= new LinkedList<>();
     }
     
     public void addNum(int num) {
-        numFrequencies.put(num, numFrequencies.getOrDefault(num, 0)+1);
-        n+=1;
+    	elements.add(num);
+    	Collections.sort(elements);
     }
     
-    /**
-     * Approach 02: keeping only previous num is enough
-     * Memory consumption is less but O(T) is still O(N) for each call
-     * that makes it O(N2)
-     */
     public double findMedian() {
-    	int cumu=0, pFreq=0, cFreq=0, prevNum=0, currentNum=0;
-    	for(int key: numFrequencies.keySet()) {
-    		currentNum=key; cFreq=numFrequencies.get(key);
-    		if(pFreq == 0) {prevNum=currentNum; pFreq=cFreq;}
-    		cumu+=cFreq;
-    		if(cumu > n/2) break;
-    		prevNum=currentNum; pFreq=cFreq;
-    	}
-    	// odd: send out (n/2+1)th entry.
-    	// even: send out 
-    	double median=currentNum;// has to be the (n/2 +1)th entry
-    	if(n%2 ==0) {
-    		if(cumu - cFreq== n/2) median=(median+prevNum)/2;
-    	}
+    	int n=elements.size();
+    	double median=elements.get(n/2+1-1);
+    	if(n%2 ==0 ) median=(median + elements.get(n/2-1))/2;
     	return median;
     }
+	
+	// Bruter approaches
+//	TreeMap<Integer,Integer> numFrequencies;
+//	int n;
+//    /** initialize your data structure here. */
+//    public MedianFinder() {
+//        numFrequencies= new TreeMap<>();
+//        n=0;
+//    }
+//    
+//    public void addNum(int num) {
+//        numFrequencies.put(num, numFrequencies.getOrDefault(num, 0)+1);
+//        n+=1;
+//    }
+//    
+//    /**
+//     * Approach 02: keeping only previous num is enough
+//     * Memory consumption is less but O(T) is still O(N) for each call
+//     * that makes it O(N2)
+//     */
+//    public double findMedian() {
+//    	int cumu=0, pFreq=0, cFreq=0, prevNum=0, currentNum=0;
+//    	for(int key: numFrequencies.keySet()) {
+//    		currentNum=key; cFreq=numFrequencies.get(key);
+//    		if(pFreq == 0) {prevNum=currentNum; pFreq=cFreq;}
+//    		cumu+=cFreq;
+//    		if(cumu > n/2) break;
+//    		prevNum=currentNum; pFreq=cFreq;
+//    	}
+//    	// odd: send out (n/2+1)th entry.
+//    	// even: send out 
+//    	double median=currentNum;// has to be the (n/2 +1)th entry
+//    	if(n%2 ==0) {
+//    		if(cumu - cFreq== n/2) median=(median+prevNum)/2;
+//    	}
+//    	return median;
+//    }
     /*
      * Approach 01: keeping counts and calculating cumulatives : TLE
      */
