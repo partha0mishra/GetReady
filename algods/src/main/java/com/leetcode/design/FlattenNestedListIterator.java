@@ -34,34 +34,78 @@ public class FlattenNestedListIterator {
 	   public List<NestedInteger> getList();
 	}
 	/**
-	 * Approach 01- to flatten the list and save it
-	 * NOT the best approach as it's consuming extra space
+	 * Approach 02: Iterative, keeping index
+	 * 
 	 */
 	public class NestedIterator implements Iterator<Integer> {
-		List<Integer> flattenedList;
-		Iterator<Integer> it;
+		int arrayNo;// keeping similar to the vector2D iterator
+		NestedIterator element;
+		List<NestedInteger> nestedList;
 	    public NestedIterator(List<NestedInteger> nestedList) {
-	    	flattenedList= new ArrayList<>();
-	        flatten(nestedList, flattenedList);
-	        it=flattenedList.iterator();
-	    }
-	    private void flatten(List<NestedInteger> nested, List<Integer> flattened) {
-	    	for(int i=0; i< nested.size(); i++) {
-	    		if(nested.get(i).isInteger()) flattened.add(nested.get(i).getInteger());
-	    		else flatten(nested.get(i).getList(),flattened);
-	    	}
+	    	this.nestedList=nestedList;
+	    	element=null;
 	    }
 
 	    @Override
 	    public Integer next() {
-	    	return it.next();
+	    	hasNext();
+	    	if(!nestedList.get(arrayNo).isInteger()) return element.next();
+	    	return nestedList.get(arrayNo++).getInteger();
 	    }
 
 	    @Override
 	    public boolean hasNext() {
-	        return it.hasNext();
+	        while(true) {
+	        	if(arrayNo >= nestedList.size()) {// passed last element in the original list
+	        		return false;
+	        	}
+	        	if(nestedList.get(arrayNo).isInteger()) {
+	        		return true;
+	        	}
+	        	if(element == null) {
+	        		element=new NestedIterator(nestedList.get(arrayNo).getList());
+	        	}
+	        	if(element.hasNext()) return true;
+	        	element=null;
+	        	arrayNo+=1;
+	        }
 	    }
 	}
+	/**
+	 * Approach 01- to flatten the list and save it
+	 * NOT the best approach as it's consuming extra space
+	 * 
+	 * Constructor O(N+L) Number of lists + number of iterations
+	 * next() O(1)
+	 * hasNext() O(1)
+	 * extra space: O(N+D) - numbers saved in a separate list + depth of recursion during flattening
+	 * 
+	 */
+//	public class NestedIterator implements Iterator<Integer> {
+//		List<Integer> flattenedList;
+//		Iterator<Integer> it;
+//	    public NestedIterator(List<NestedInteger> nestedList) {
+//	    	flattenedList= new ArrayList<>();
+//	        flatten(nestedList, flattenedList);
+//	        it=flattenedList.iterator();
+//	    }
+//	    private void flatten(List<NestedInteger> nested, List<Integer> flattened) {
+//	    	for(int i=0; i< nested.size(); i++) {
+//	    		if(nested.get(i).isInteger()) flattened.add(nested.get(i).getInteger());
+//	    		else flatten(nested.get(i).getList(),flattened);
+//	    	}
+//	    }
+//
+//	    @Override
+//	    public Integer next() {
+//	    	return it.next();
+//	    }
+//
+//	    @Override
+//	    public boolean hasNext() {
+//	        return it.hasNext();
+//	    }
+//	}
 	/**
 	 * Your NestedIterator object will be instantiated and called as such:
 	 * NestedIterator i = new NestedIterator(nestedList);
