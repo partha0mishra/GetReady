@@ -41,6 +41,8 @@ public class MedianFinder {
     
     /**
      * Approach 02: keeping only previous num is enough
+     * Memory consumption is less but O(T) is still O(N) for each call
+     * that makes it O(N2)
      */
     public double findMedian() {
     	int cumu=0, pFreq=0, cFreq=0, prevNum=0, currentNum=0;
