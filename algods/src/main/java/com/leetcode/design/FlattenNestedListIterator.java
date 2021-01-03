@@ -33,39 +33,34 @@ public class FlattenNestedListIterator {
 	   // Return null if this NestedInteger holds a single integer
 	   public List<NestedInteger> getList();
 	}
+	/**
+	 * Approach 01- to flatten the list and save it
+	 * NOT the best approach as it's consuming extra space
+	 */
 	public class NestedIterator implements Iterator<Integer> {
-		List<NestedInteger> nestedList;
-		int arrayNo, elementNo;
+		List<Integer> flattenedList;
+		Iterator<Integer> it;
 	    public NestedIterator(List<NestedInteger> nestedList) {
-	        this.nestedList=nestedList;
-	        arrayNo=0; elementNo=0;
+	    	flattenedList= new ArrayList<>();
+	        flatten(nestedList, flattenedList);
+	        it=flattenedList.iterator();
+	    }
+	    private void flatten(List<NestedInteger> nested, List<Integer> flattened) {
+	    	for(int i=0; i< nested.size(); i++) {
+	    		if(nested.get(i).isInteger()) flattened.add(nested.get(i).getInteger());
+	    		else flatten(nested.get(i).getList(),flattened);
+	    	}
 	    }
 
 	    @Override
 	    public Integer next() {
-	    	gotoNext();
-	    	Integer result;
-	    	if(nestedList.get(arrayNo).isInteger()) result=nestedList.get(arrayNo).getInteger();
-	    	else result=nestedList.get(arrayNo).getList().get(elementNo++).getInteger();
-	    	return result;
+	    	return it.next();
 	    }
 
 	    @Override
 	    public boolean hasNext() {
-	        gotoNext();
-	        return arrayNo < nestedList.size();
+	        return it.hasNext();
 	    }
-
-		private void gotoNext() {
-			while(arrayNo < nestedList.size() && getSize(nestedList.get(arrayNo))==elementNo) {
-				arrayNo+=1;
-				elementNo=0;
-			}
-		}
-		private int getSize(NestedInteger ni) {
-			if(ni.isInteger()) return 1;
-			else return ni.getList().size();
-		}
 	}
 	/**
 	 * Your NestedIterator object will be instantiated and called as such:
