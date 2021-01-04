@@ -27,22 +27,52 @@ If 99% of all integer numbers from the stream are between 0 and 100, how would y
 import java.util.*;
 public class MedianFinder {
 	LinkedList<Integer> elements;
-    /** initialize your data structure here. */
-    public MedianFinder() {
-        elements= new LinkedList<>();
-    }
-    
-    public void addNum(int num) {
-    	elements.add(num);
-    	Collections.sort(elements);
-    }
-    
-    public double findMedian() {
-    	int n=elements.size();
-    	double median=elements.get(n/2+1-1);
-    	if(n%2 ==0 ) median=(median + elements.get(n/2-1))/2;
-    	return median;
-    }
+//  /** initialize your data structure here. */
+	  public MedianFinder() {
+	      elements= new LinkedList<>();
+	  }
+	  // handling with Insertion sort
+	  // but moving the elements after insertion point is still too costly to get out of TLE
+	  public void addNum(int num) {
+		LinkedList<Integer> temp= new LinkedList<>();
+	  	boolean added=false;
+	  	for(int e: elements) {
+	  		if(!added && e>num) {
+	  			temp.add(num);
+	  			added=true;
+	  		}
+	  		temp.add(e);
+	  	}
+	  	if(!added) temp.add(num);
+	  	elements=temp;
+	  }
+	  
+	  public double findMedian() {
+	  	int n=elements.size();
+	  	double median=elements.get(n/2+1-1);
+	  	if(n%2 ==0 ) median=(median + elements.get(n/2-1))/2;
+	  	return median;
+	  }
+	/* More streamlined but still brute
+	 * using Collections.sort() not going to cut through TLE
+	 */
+//	LinkedList<Integer> elements;
+//    /** initialize your data structure here. */
+//    public MedianFinder() {
+//        elements= new LinkedList<>();
+//    }
+//    
+//    public void addNum(int num) {
+//    	elements.add(num);
+//    	Collections.sort(elements);
+//    }
+//    
+//    public double findMedian() {
+//    	int n=elements.size();
+//    	double median=elements.get(n/2+1-1);
+//    	if(n%2 ==0 ) median=(median + elements.get(n/2-1))/2;
+//    	return median;
+//    }
 	
 	// Bruter approaches
 //	TreeMap<Integer,Integer> numFrequencies;
