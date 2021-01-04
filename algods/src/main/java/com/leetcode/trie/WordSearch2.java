@@ -79,7 +79,7 @@ public class WordSearch2 {
         	for(int col=0; col< cols; col++) {
 //        		System.out.println("starting with "+row+" "+col+" "+board[row][col]);
 //        		if(myTrie.startsWith(""+board[row][col])) 
-        		if(myTrie.allWords.letters[board[row][col] -'a'] != null)// trying the search myself
+        		if(myTrie.allWords.letters[board[row][col] -'a'] != null)// following the Trie nodes - doubles performance
         		{
 //        			System.out.println("starting with "+row+" "+col+" "+board[row][col]);
         			HashSet<Integer> visited= new HashSet<>();
