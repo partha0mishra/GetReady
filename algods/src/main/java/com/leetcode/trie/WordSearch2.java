@@ -106,6 +106,13 @@ public class WordSearch2 {
 				visited.remove(100*newRow+newCol);
 			}
 		}
+		// what if I remove the trieNode if it doesn't have a child
+		// since we don't need to use the same word anymore, also set the end to false
+		trieNode.end=false;
+		for(TrieNode tn: trieNode.letters) {
+			if(tn != null) return;
+		}
+		trieNode=null;// no child
 	}
 	private void backtrack(int row, int col, int rows, int cols, List<String> result, String soFar, Trie myTrie, HashSet<Integer> visited, char[][] board) {
 		if(myTrie.search(soFar) && !result.contains(soFar)) {result.add(soFar); /*System.out.println(soFar);*/}
