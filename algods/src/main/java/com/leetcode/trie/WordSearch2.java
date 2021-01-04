@@ -106,7 +106,7 @@ public class WordSearch2 {
 				visited.remove(100*newRow+newCol);
 			}
 		}
-		// what if I remove the trieNode if it doesn't have a child
+		// what if I remove the trieNode if it doesn't have a child - improves performance a lot
 		// since we don't need to use the same word anymore, also set the end to false
 		trieNode.end=false;
 		for(TrieNode tn: trieNode.letters) {
