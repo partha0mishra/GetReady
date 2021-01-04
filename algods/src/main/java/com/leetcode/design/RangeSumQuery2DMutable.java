@@ -24,6 +24,12 @@ You may assume the number of calls to update and sumRegion function is distribut
 You may assume that row1 ≤ row2 and col1 ≤ col2.
  */
 public class RangeSumQuery2DMutable {
+	/**
+	 * Approach 01: Brute and STILL NOT TLE :O
+	 * update : O(1)
+	 * sumRegion : O(m*n)
+	 * space: O(1)
+	 */
 	class NumMatrix {
 		int[][] mat;
 	    public NumMatrix(int[][] matrix) {
