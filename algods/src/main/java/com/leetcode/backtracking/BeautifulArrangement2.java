@@ -83,11 +83,13 @@ public class BeautifulArrangement2 {
 //	}
 	public static void main(String[] args) {
 		BeautifulArrangement2 ba2= new BeautifulArrangement2();
-		for(int i: ba2.constructArray(3, 1)) System.out.printf("%2d", i);
-		System.out.println();
-		for(int i: ba2.constructArray(3, 2)) System.out.printf("%2d", i);
-		System.out.println();
-		for(int i: ba2.constructArray(92, 80)) System.out.printf("%3d", i);
+//		for(int i: ba2.constructArray(3, 1)) System.out.printf("%2d", i);
+//		System.out.println();
+//		for(int i: ba2.constructArray(3, 2)) System.out.printf("%2d", i);
+//		System.out.println();
+//		for(int i: ba2.constructArray(92, 80)) System.out.printf("%3d", i);
+//		System.out.println();
+		for(int i: ba2.constructArray(9, 8)) System.out.printf("%3d", i);
 		System.out.println();
 	}
 }
