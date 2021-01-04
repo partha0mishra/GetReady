@@ -26,33 +26,67 @@ If 99% of all integer numbers from the stream are between 0 and 100, how would y
  */
 import java.util.*;
 public class MedianFinder {
-	LinkedList<Integer> elements;
+	/** => FIRST ACCEPTED VERSION
+	 * Trying to move O(n) towards O(logN) 
+	 * using 2 heaps  <smallest [maxHeap][minHeap] largest>
+	 * if there are 2n elements, they will have n each
+	 * if there are 2n+1 elements, maxHeap will have n+1 an minHeap will have n
+	 * the top=max in maxHeap and top=min in minHeap are the median candidates 
+	 */
+	PriorityQueue<Integer> maxHeap, minHeap;
 //  /** initialize your data structure here. */
 	  public MedianFinder() {
-	      elements= new LinkedList<>();
+	      maxHeap=new PriorityQueue<>();
+	      minHeap=new PriorityQueue<>(Collections.reverseOrder());
 	  }
-	  // handling with Insertion sort
-	  // but moving the elements after insertion point is still too costly to get out of TLE
+	  /**
+	   * Add it to the maxHeap
+	   * Now take the maxHeap's max and offer to minHeap
+	   * if maxHeap.size < minHeap, take the min from minHeap and offer to maxheap
+	   */
 	  public void addNum(int num) {
-		LinkedList<Integer> temp= new LinkedList<>();
-	  	boolean added=false;
-	  	for(int e: elements) {
-	  		if(!added && e>num) {
-	  			temp.add(num);
-	  			added=true;
-	  		}
-	  		temp.add(e);
-	  	}
-	  	if(!added) temp.add(num);
-	  	elements=temp;
+		maxHeap.offer(num);
+		minHeap.offer(maxHeap.poll());
+		while(maxHeap.size() < minHeap.size()) {
+			maxHeap.offer(minHeap.poll());
+		}
 	  }
 	  
 	  public double findMedian() {
-	  	int n=elements.size();
-	  	double median=elements.get(n/2+1-1);
-	  	if(n%2 ==0 ) median=(median + elements.get(n/2-1))/2;
+		double median= maxHeap.peek();
+	  	if(maxHeap.size() == minHeap.size())
+	  		median=(median + minHeap.peek())*0.5;
 	  	return median;
 	  }
+	// Tried with Insertion sort
+	// but moving elements after insertion point is still too costly
+//	LinkedList<Integer> elements;
+////  /** initialize your data structure here. */
+//	  public MedianFinder() {
+//	      elements= new LinkedList<>();
+//	  }
+//	  // handling with Insertion sort
+//	  // but moving the elements after insertion point is still too costly to get out of TLE
+//	  public void addNum(int num) {
+//		LinkedList<Integer> temp= new LinkedList<>();
+//	  	boolean added=false;
+//	  	for(int e: elements) {
+//	  		if(!added && e>num) {
+//	  			temp.add(num);
+//	  			added=true;
+//	  		}
+//	  		temp.add(e);
+//	  	}
+//	  	if(!added) temp.add(num);
+//	  	elements=temp;
+//	  }
+//	  
+//	  public double findMedian() {
+//	  	int n=elements.size();
+//	  	double median=elements.get(n/2+1-1);
+//	  	if(n%2 ==0 ) median=(median + elements.get(n/2-1))/2;
+//	  	return median;
+//	  }
 	/* More streamlined but still brute
 	 * using Collections.sort() not going to cut through TLE
 	 */
