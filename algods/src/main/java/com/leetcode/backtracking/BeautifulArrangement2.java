@@ -22,8 +22,14 @@ public class BeautifulArrangement2 {
 	/**
 	 * Approach 02: Construction :O
 	 * O(n) O(n)
-	 * Choose one from top and one from bottom for K times
-	 * Fill in the rest ascending order 
+	 * 
+	 * Let's take first n-k-1 elements. they all have unique gap=1
+	 * For the [rest], keep one and then the next one come from the back
+	 * the first number in the [rest] is still having gap=1. that's not unique
+	 * the last number in the [rest] will also have gap=1. that's not unique
+	 * that leaves, out of k+1 elements in [rest], with k+1 gaps, 2 gaps are same as 1
+	 * and unique gaps are k-1
+	 * total unique gaps = k-1+1 (all other elements have the same gap=1) = k
 	 */
 	public int[] constructArray(int n, int k) {
         int[] ans = new int[n];
