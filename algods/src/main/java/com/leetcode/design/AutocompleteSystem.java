@@ -56,22 +56,22 @@ Please use double-quote instead of single-quote when you write test cases even f
 Please remember to RESET your class variables declared in class AutocompleteSystem, as static/class variables are persisted across multiple test cases. Please see here for more details.
  */
 import java.util.*;
-class Node {
-  String sentence;
-  int times;
-
-  Node(String st, int t) {
-    sentence = st;
-    times = t;
-  }
-}
-
-class Trie {
-  int times;
-  Trie[] branches = new Trie[27];
-}
 
 class AutocompleteSystem {
+	class Node {
+		  String sentence;
+		  int times;
+
+		  Node(String st, int t) {
+		    sentence = st;
+		    times = t;
+		  }
+		}
+
+		class Trie {
+		  int times;
+		  Trie[] branches = new Trie[27];
+		}
   private Trie root;
   private String cur_sent = "";
 
