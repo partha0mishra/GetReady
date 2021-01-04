@@ -26,18 +26,23 @@ If 99% of all integer numbers from the stream are between 0 and 100, how would y
  */
 import java.util.*;
 public class MedianFinder {
-	/** => FIRST ACCEPTED VERSION
-	 * Trying to move O(n) towards O(logN) 
-	 * using 2 heaps  <smallest [maxHeap][minHeap] largest>
-	 * if there are 2n elements, they will have n each
-	 * if there are 2n+1 elements, maxHeap will have n+1 an minHeap will have n
-	 * the top=max in maxHeap and top=min in minHeap are the median candidates 
+	/**
+	 * Accepted version BUT worse in performance
+	 * Although thought TreeSet will be more performant considering the removal is O(1) while
+	 * removal is O(n) in PQ for java
+	 * Probably tricks to keep duplicate elements were costly
 	 */
-	PriorityQueue<Integer> maxHeap, minHeap;
+	TreeSet<Integer> maxHeap, minHeap;
 //  /** initialize your data structure here. */
 	  public MedianFinder() {
-	      maxHeap=new PriorityQueue<>();
-	      minHeap=new PriorityQueue<>(Collections.reverseOrder());
+	      maxHeap=new TreeSet<>((i1, i2) ->{
+	    	  int diff=Integer.compare(i1,i2);
+	    	  return diff==0? 1: diff;
+	      });// forward order but keeping duplicate keys
+	      minHeap=new TreeSet<>((i1,i2) ->{
+	    	  int diff=Integer.compare(i2,i1);
+	    	  return diff==0? 1: diff;
+	      });// reverse order but keeping duplicate keys
 	  }
 	  /**
 	   * Add it to the maxHeap
@@ -45,19 +50,51 @@ public class MedianFinder {
 	   * if maxHeap.size < minHeap, take the min from minHeap and offer to maxheap
 	   */
 	  public void addNum(int num) {
-		maxHeap.offer(num);
-		minHeap.offer(maxHeap.poll());
+		maxHeap.add(num);
+		minHeap.add(maxHeap.pollFirst());
 		while(maxHeap.size() < minHeap.size()) {
-			maxHeap.offer(minHeap.poll());
+			maxHeap.add(minHeap.pollFirst());
 		}
 	  }
 	  
 	  public double findMedian() {
-		double median= maxHeap.peek();
+		double median= maxHeap.first();
 	  	if(maxHeap.size() == minHeap.size())
-	  		median=(median + minHeap.peek())*0.5;
+	  		median=(median + minHeap.first())*0.5;
 	  	return median;
 	  }
+	/** => FIRST ACCEPTED VERSION
+	 * Trying to move O(n) towards O(logN) 
+	 * using 2 heaps  <smallest [maxHeap][minHeap] largest>
+	 * if there are 2n elements, they will have n each
+	 * if there are 2n+1 elements, maxHeap will have n+1 an minHeap will have n
+	 * the top=max in maxHeap and top=min in minHeap are the median candidates 
+	 */
+//	PriorityQueue<Integer> maxHeap, minHeap;
+////  /** initialize your data structure here. */
+//	  public MedianFinder() {
+//	      maxHeap=new PriorityQueue<>();
+//	      minHeap=new PriorityQueue<>(Collections.reverseOrder());
+//	  }
+//	  /**
+//	   * Add it to the maxHeap
+//	   * Now take the maxHeap's max and offer to minHeap
+//	   * if maxHeap.size < minHeap, take the min from minHeap and offer to maxheap
+//	   */
+//	  public void addNum(int num) {
+//		maxHeap.offer(num);
+//		minHeap.offer(maxHeap.poll());
+//		while(maxHeap.size() < minHeap.size()) {
+//			maxHeap.offer(minHeap.poll());
+//		}
+//	  }
+//	  
+//	  public double findMedian() {
+//		double median= maxHeap.peek();
+//	  	if(maxHeap.size() == minHeap.size())
+//	  		median=(median + minHeap.peek())*0.5;
+//	  	return median;
+//	  }
 	// Tried with Insertion sort
 	// but moving elements after insertion point is still too costly
 //	LinkedList<Integer> elements;
