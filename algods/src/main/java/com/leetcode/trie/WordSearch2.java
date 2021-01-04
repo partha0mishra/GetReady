@@ -77,16 +77,36 @@ public class WordSearch2 {
         }
         for(int row=0; row< rows; row++)
         	for(int col=0; col< cols; col++) {
-        		if(myTrie.startsWith(""+board[row][col])) {
+//        		System.out.println("starting with "+row+" "+col+" "+board[row][col]);
+//        		if(myTrie.startsWith(""+board[row][col])) 
+        		if(myTrie.allWords.letters[board[row][col] -'a'] != null)// trying the search myself
+        		{
 //        			System.out.println("starting with "+row+" "+col+" "+board[row][col]);
         			HashSet<Integer> visited= new HashSet<>();
         			visited.add(100*row+col);
-        			backtrack(row,col,rows,cols,result,""+board[row][col], myTrie, visited, board);// row no, col no, rows, cols, result, partial, trie, visited
+        			backtrack(row,col,rows,cols,result,""+board[row][col]
+        					, /*myTrie*/ myTrie.allWords.letters[board[row][col]-'a'] // let me carry only the relevant node
+        					, visited, board);// row no, col no, rows, cols, result, partial, trie, visited
         		}
         	}
         return result;
     }
 	int[][] dirs= {{0,1},{-1,0},{0,-1},{1,0}};
+	// this time, walking through the Trie as well
+	private void backtrack(int row, int col, int rows, int cols, List<String> result, String soFar, TrieNode trieNode,
+			HashSet<Integer> visited, char[][] board) {
+		if(trieNode.end && !result.contains(soFar)) result.add(soFar);
+		for(int[] dir: dirs) {
+			int newRow=row+dir[0], newCol=col+dir[1];
+			if(newRow >=0 && newCol >=0 && newRow < rows && newCol < cols 
+					&& !visited.contains(100*newRow+newCol) && trieNode.letters[board[newRow][newCol]-'a'] != null) {
+//				System.out.println(row+" "+col+" "+dir[0]+" "+dir[1]+" "+newRow+" "+newCol+" "+soFar+board[newRow][newCol]);
+				visited.add(100*newRow+newCol);
+				backtrack(newRow, newCol, rows, cols, result, soFar+board[newRow][newCol], trieNode.letters[board[newRow][newCol]-'a'], visited, board);
+				visited.remove(100*newRow+newCol);
+			}
+		}
+	}
 	private void backtrack(int row, int col, int rows, int cols, List<String> result, String soFar, Trie myTrie, HashSet<Integer> visited, char[][] board) {
 		if(myTrie.search(soFar) && !result.contains(soFar)) {result.add(soFar); /*System.out.println(soFar);*/}
 		for(int[] dir: dirs) {
