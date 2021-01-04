@@ -30,7 +30,13 @@ import static org.junit.Assert.assertTrue;
  * obj.addWord(word);
  * boolean param_2 = obj.search(word);
  */
+
 public class WordDictionaryTrie {
+	/**
+	 * Time complexity: 
+	 * Add - O(M)/ O(M) -> M is the length of the key
+	 * Search - O(M)/ O(1), unless searched for all '.' where the time complexity is O(N* 26^M)
+	 */
 	class Trie{
 		Trie[] letters;
 		boolean end;
@@ -62,7 +68,7 @@ public class WordDictionaryTrie {
 //        System.out.println("search: "+word);
         return findWord(word, allWords);  
     }
-    // find a word in any subTrie
+//    // find a word in any subTrie: Approach 01
     private boolean findWord(String word, Trie trie) {
 //    	System.out.println("word in: "+word);
     	if(trie == null) return false;// has no children
