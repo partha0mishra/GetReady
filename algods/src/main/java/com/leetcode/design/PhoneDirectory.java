@@ -49,10 +49,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 public class PhoneDirectory {
 	/**
-	 * Easy implementation with 2 HashSets - available and used
-	 * constructor: O(n)
-	 * get O(1), check O(1), release O(1)
-	 * extra space O(n)
+	 * Tried with a Deque for released and nothing for allocation
+	 * Performance is NOT better somehow
 	 */
 	Deque<Integer> released;
 	int maxNum, current;
