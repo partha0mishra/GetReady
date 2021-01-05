@@ -49,15 +49,15 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 public class PhoneDirectory {
 	/**
-	 * Tried with a Deque for released and nothing for allocation
+	 * Use HashSet instead of a Queue - much faster solution
 	 * Performance is NOT better somehow
 	 */
-	Deque<Integer> released;
+	HashSet<Integer> released;
 	int maxNum, current;
 	/** Initialize your data structure here
 	    @param maxNumbers - The maximum numbers that can be stored in the phone directory. */
 	public PhoneDirectory(int maxNumbers) {
-		released=new ArrayDeque<>();// keeping released numbers
+		released=new HashSet<>();// keeping released numbers
 		this.maxNum=maxNumbers;// ending at less than this
 		this.current=0;// starting from this number
 	}
@@ -65,7 +65,11 @@ public class PhoneDirectory {
 	/** Provide a number which is not assigned to anyone.
 	    @return - Return an available number. Return -1 if none is available. */
 	public int get() {
-	    if(!released.isEmpty()) return released.pollFirst();// recycle
+	    if(!released.isEmpty()) {
+	    	int num=released.iterator().next();// recycle
+	    	released.remove(num);
+	    	return num;
+	    }
 	    if(current< maxNum) return current++;// new
 	    return -1;// exhausted
 	}
@@ -79,9 +83,45 @@ public class PhoneDirectory {
 	
 	/** Recycle or release a number. */
 	public void release(int number) {
-		if(number < current && !released.contains(number)) // checking for validity: Edge Case
-			released.offerLast(number);
+		if(number < current) // checking for validity: Edge Case
+			released.add(number);
 	}
+	
+	
+//	/**
+//	 * Tried with a Deque for released and nothing for allocation
+//	 * Performance is NOT better somehow
+//	 */
+//	Deque<Integer> released;
+//	int maxNum, current;
+//	/** Initialize your data structure here
+//	    @param maxNumbers - The maximum numbers that can be stored in the phone directory. */
+//	public PhoneDirectory(int maxNumbers) {
+//		released=new ArrayDeque<>();// keeping released numbers
+//		this.maxNum=maxNumbers;// ending at less than this
+//		this.current=0;// starting from this number
+//	}
+//	
+//	/** Provide a number which is not assigned to anyone.
+//	    @return - Return an available number. Return -1 if none is available. */
+//	public int get() {
+//	    if(!released.isEmpty()) return released.pollFirst();// recycle
+//	    if(current< maxNum) return current++;// new
+//	    return -1;// exhausted
+//	}
+//	
+//	/** Check if a number is available or not. */
+//	public boolean check(int number) {
+//	    if(!(number < maxNum)) return false;// no going beyond maxNum
+//	    if( number < current) return released.contains(number);// if it's used, we can only find it if it's released
+//	    return true;// current <= number < maxNum 
+//	}
+//	
+//	/** Recycle or release a number. */
+//	public void release(int number) {
+//		if(number < current && !released.contains(number)) // checking for validity: Edge Case
+//			released.offerLast(number);
+//	}
 	
 //	/**
 //	 * Easy implementation with 2 HashSets - available and used
