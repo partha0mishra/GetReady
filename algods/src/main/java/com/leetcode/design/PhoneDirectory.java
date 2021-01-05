@@ -81,7 +81,8 @@ public class PhoneDirectory {
 	
 	/** Recycle or release a number. */
 	public void release(int number) {
-	    released.offerLast(number);
+		if(number < current && !released.contains(number)) // checking for validity: Edge Case
+			released.offerLast(number);
 	}
 	
 //	/**
