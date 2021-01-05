@@ -44,9 +44,6 @@ Constraints:
 The total number of call of the methods is between [0 - 20000]
  */
 import java.util.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 public class PhoneDirectory {
 	/**
 	 * Another implementation using HashMap and Next pointer
