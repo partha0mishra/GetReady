@@ -22,38 +22,55 @@ public class RemoveAllDuplicatesSortedList {
 	     ListNode(int val) { this.val = val; }
 	     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 	 }
+	 // Done again, with the help of Dummy node this time
 	 public ListNode deleteDuplicates(ListNode head) {
-	        if(head == null) return head;
-	        ListNode previous=head, prevParent=head;
-	        boolean marked=false;
-	        ListNode current=previous.next;
-	        while(current !=null){
-	            if(current.val == previous.val){
-	                marked=true;
-	                // delete current
-	                previous.next=current.next;
-	            }else{
-	                if(marked){
-	                    marked=false;
-	                    // delete previous
-	                    if(previous==head) head=current;
-	                    else  prevParent.next=current;
-	                }else{
-	                    prevParent=previous;
-	                }
-	                previous=current;
-	            }
-	            current=current.next;
-	        }
-	        if(marked){// The last of the duplicates
-	            if(previous==head) head=current;
-	            else  prevParent.next=current;
-	        }
-	        return head;
-	    }
+		 if(head == null || head.next == null) return head;
+		 ListNode dummy=new ListNode();
+		 ListNode prev=dummy, current=head; prev.next=current;
+		 boolean marked=false;
+		 while(current != null) {// current node might need Deletion while being the last one
+			 if(current.next != null && current.val == current.next.val) {
+				 prev.next=current.next;
+				 marked=true;
+			 }else if (marked) {// last one in the series of dups
+				 prev.next=current.next;
+				 marked=false;
+			 } else prev=current;
+			 current=current.next;
+		 }
+		 return dummy.next;
+	 }
+	 // previous approach
+//	 public ListNode deleteDuplicates(ListNode head) {
+//	        if(head == null) return head;
+//	        ListNode previous=head, prevParent=head;
+//	        boolean marked=false;
+//	        ListNode current=previous.next;
+//	        while(current !=null){
+//	            if(current.val == previous.val){
+//	                marked=true;
+//	                // delete current
+//	                previous.next=current.next;
+//	            }else{
+//	                if(marked){
+//	                    marked=false;
+//	                    // delete previous
+//	                    if(previous==head) head=current;
+//	                    else  prevParent.next=current;
+//	                }else{
+//	                    prevParent=previous;
+//	                }
+//	                previous=current;
+//	            }
+//	            current=current.next;
+//	        }
+//	        if(marked){// The last of the duplicates
+//	            if(previous==head) head=current;
+//	            else  prevParent.next=current;
+//	        }
+//	        return head;
+//	    }
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }
