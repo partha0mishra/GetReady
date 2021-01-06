@@ -59,15 +59,15 @@ public class FlattenNestedListIterator {
 	        	if(arrayNo >= nestedList.size()) {// passed last element in the original list
 	        		return false;
 	        	}
-	        	if(nestedList.get(arrayNo).isInteger()) {
+	        	if(nestedList.get(arrayNo).isInteger()) {// this element is available to be served in next()
 	        		return true;
 	        	}
-	        	if(element == null) {
+	        	if(element == null) {// next element is not an integer, we know by now. let's have the list
 	        		element=new NestedIterator(nestedList.get(arrayNo).getList());
 	        	}
-	        	if(element.hasNext()) return true;
-	        	element=null;
-	        	arrayNo+=1;
+	        	if(element.hasNext()) return true;// either an empty list or the end of list
+	        	element=null;// element doesn't have anything next. setting it to null so that it's re-populated above
+	        	arrayNo+=1;// next element to be looked at in the nestedList
 	        }
 	    }
 	}
