@@ -1,6 +1,6 @@
 package com.leetcode.design;
 // TODO Anki
-/*155. Min Stack
+/* 155. Min Stack : NOTE- not removing minimum value, only retrieval
  * 
  * Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
