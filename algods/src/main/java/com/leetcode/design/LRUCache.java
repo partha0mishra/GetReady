@@ -1,5 +1,7 @@
 package com.leetcode.design;
 /** TODO Anki
+ * TODO EVICT() is still Costly and need to be optimized.
+ * 
  * LRU Cache
  * 
  * Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
@@ -46,9 +48,10 @@ import java.util.*;
 public class LRUCache {
 	// keep key-access time in a linkedList/ queue
 	// keep key-<val, access time> in a hashmap
-	// search in the hashmap for get()
-	// at put, add an entry to the end of LinkedList/ queue
-	// evict from the beginning of the LinkedList. Check whether the accessTime matches (latest) for that key in HM
+	// search in the hashmap for get(). Add an entry to the end of LinkedList/ queue with INCREASED accessTime
+	// at put, add an entry to the end of LinkedList/ queue with INCREASED accessTime
+	// when HM size is more evict from the beginning of the LinkedList. Check whether the accessTime matches (latest) for that key in HM
+	// Alternatively, we can do eviction when the List size is more
 	class KeyAccess{
 		int accessTime, key;
 		public KeyAccess(int k, int a) {this.key=k; this.accessTime=a;}
