@@ -1,5 +1,8 @@
 package com.leetcode.design;
 /** TODO Anki
+ * Note: startsWith in this only needs a boolean return
+ * If it were a list, we had to Recurse
+ * 
  * Implement Trie (prefix tree)
  * Implement a trie with insert, search, and startsWith methods.
 
