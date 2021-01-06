@@ -1,5 +1,5 @@
 package com.leetcode.design;
-/**
+/** TODO Anki
  * 716. Max Stack
  * Design a max stack data structure that supports the stack operations and supports finding the stack's maximum element.
 
@@ -80,7 +80,7 @@ public class MaxStack {
     }
     /** Returns Max element. Removes it/ top one if multiple */
     public int popMax() {
-        int max=map.lastKey();
+        int max=map.lastKey();// we could do a map.firstkey() if initialized with >> map= new TreeMap<>(Collections.reverseOrder());
         if(map.get(max) >1) map.put(max, map.get(max)-1);
         else map.remove(max);
         stack.remove(max);
