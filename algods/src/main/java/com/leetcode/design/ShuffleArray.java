@@ -49,11 +49,10 @@ public class ShuffleArray {
 	    }
 	    
 	    /** Returns a random shuffling of the array. */
-	    public int[] shuffle() {
+	    public int[] shuffle() {// O(n) per call 
 	        Random random=ThreadLocalRandom.current();
-	        for(int i=0; i< n.length; i++) {
-	        	int from=i;
-	        	int to=random.nextInt(i+1);
+	        for(int from=0; from< n.length; from++) {
+	        	int to=random.nextInt(from+1);
 	        	int t=temp[from]; temp[from]=temp[to]; temp[to]=t;
 	        }
 	        return temp;
