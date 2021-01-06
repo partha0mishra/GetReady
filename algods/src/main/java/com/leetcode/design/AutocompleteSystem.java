@@ -1,5 +1,5 @@
 package com.leetcode.design;
-/**
+/** TODO Anki
  * 642. Design Search Autocomplete System
  * Design a search autocomplete system for a search engine. Users may input a sentence (at least one word and end with a special character '#'). For each character they type except '#', you need to return the top 3 historical hot sentences that have prefix the same as the part of sentence already typed. Here are the specific rules:
 
@@ -57,169 +57,170 @@ Please remember to RESET your class variables declared in class AutocompleteSyst
  */
 import java.util.*;
 
-class AutocompleteSystem {
-	class Node {
-		  String sentence;
-		  int times;
-
-		  Node(String st, int t) {
-		    sentence = st;
-		    times = t;
-		  }
-		}
-
-		class Trie {
-		  int times;
-		  Trie[] branches = new Trie[27];
-		}
-  private Trie root;
-  private String cur_sent = "";
-
-  public AutocompleteSystem(String[] sentences, int[] times) {
-    root = new Trie();
-    for (int i = 0; i < sentences.length; i++) {
-      insert(root, sentences[i], times[i]);
-    }
-  }
-
-  private int toInt(char c) {
-    return c == ' ' ? 26 : c - 'a';
-  }
-
-  private void insert(Trie t, String s, int times) {
-    for (int i = 0; i < s.length(); i++) {
-      if (t.branches[toInt(s.charAt(i))] == null) {
-        t.branches[toInt(s.charAt(i))] = new Trie();
-      }
-      t = t.branches[toInt(s.charAt(i))];
-    }
-    t.times += times;
-  }
-
-  private List<Node> lookup(Trie t, String s) {
-    List<Node> list = new ArrayList<>();
-    for (int i = 0; i < s.length(); i++) {
-      if (t.branches[toInt(s.charAt(i))] == null) {
-        return new ArrayList<>();
-      }
-      t = t.branches[toInt(s.charAt(i))];
-    }
-    traverse(s, t, list);
-    return list;
-  }
-
-  private void traverse(String s, Trie t, List<Node> list) {
-    if (t.times > 0) list.add(new Node(s, t.times));
-    for (char i = 'a'; i <= 'z'; i++) {
-      if (t.branches[i - 'a'] != null) {
-        traverse(s + i, t.branches[i - 'a'], list);
-      }
-    }
-    if (t.branches[26] != null) {
-      traverse(s + ' ', t.branches[26], list);
-    }
-  }
-
-  public List<String> input(char c) {
-    List<String> res = new ArrayList<>();
-    if (c == '#') {
-      insert(root, cur_sent, 1);
-      cur_sent = "";
-    } else {
-      cur_sent += c;
-      List<Node> list = lookup(root, cur_sent);
-      Collections.sort(
-          list,
-          (a, b) -> a.times == b.times ? a.sentence.compareTo(b.sentence) : b.times - a.times);
-      for (int i = 0; i < Math.min(3, list.size()); i++) res.add(list.get(i).sentence);
-    }
-    return res;
-  }
+// Approach 02: Copied code from LC solution
+//class AutocompleteSystem {
+//	class Node {
+//		  String sentence;
+//		  int times;
+//
+//		  Node(String st, int t) {
+//		    sentence = st;
+//		    times = t;
+//		  }
+//		}
+//
+//		class Trie {
+//		  int times;
+//		  Trie[] branches = new Trie[27];
+//		}
+//  private Trie root;
+//  private String cur_sent = "";
+//
+//  public AutocompleteSystem(String[] sentences, int[] times) {
+//    root = new Trie();
+//    for (int i = 0; i < sentences.length; i++) {
+//      insert(root, sentences[i], times[i]);
+//    }
+//  }
+//
+//  private int toInt(char c) {
+//    return c == ' ' ? 26 : c - 'a';
+//  }
+//
+//  private void insert(Trie t, String s, int times) {
+//    for (int i = 0; i < s.length(); i++) {
+//      if (t.branches[toInt(s.charAt(i))] == null) {
+//        t.branches[toInt(s.charAt(i))] = new Trie();
+//      }
+//      t = t.branches[toInt(s.charAt(i))];
+//    }
+//    t.times += times;
+//  }
+//
+//  private List<Node> lookup(Trie t, String s) {
+//    List<Node> list = new ArrayList<>();
+//    for (int i = 0; i < s.length(); i++) {
+//      if (t.branches[toInt(s.charAt(i))] == null) {
+//        return new ArrayList<>();
+//      }
+//      t = t.branches[toInt(s.charAt(i))];
+//    }
+//    traverse(s, t, list);
+//    return list;
+//  }
+//
+//  private void traverse(String s, Trie t, List<Node> list) {
+//    if (t.times > 0) list.add(new Node(s, t.times));
+//    for (char i = 'a'; i <= 'z'; i++) {
+//      if (t.branches[i - 'a'] != null) {
+//        traverse(s + i, t.branches[i - 'a'], list);
+//      }
+//    }
+//    if (t.branches[26] != null) {
+//      traverse(s + ' ', t.branches[26], list);
+//    }
+//  }
+//
+//  public List<String> input(char c) {
+//    List<String> res = new ArrayList<>();
+//    if (c == '#') {
+//      insert(root, cur_sent, 1);
+//      cur_sent = "";
+//    } else {
+//      cur_sent += c;
+//      List<Node> list = lookup(root, cur_sent);
+//      Collections.sort(
+//          list,
+//          (a, b) -> a.times == b.times ? a.sentence.compareTo(b.sentence) : b.times - a.times);
+//      for (int i = 0; i < Math.min(3, list.size()); i++) res.add(list.get(i).sentence);
+//    }
+//    return res;
+//  }
 // Approach 01: buggy code. needed debuging.
-//public class AutocompleteSystem {
-//	static final char SPACE=' ';
-//	static int getOffset(char c) {
-//		if(c == SPACE) return 26;
-//		return c-'a';
-//	}
-//	class TrieNode{TrieNode[] letters; int ended; String sentence=null;
-//	public TrieNode() {letters=new TrieNode[27]; ended=0;}}
-//	class Trie{
-//		TrieNode sentences; 
-//		public Trie() {sentences=new TrieNode();}
-//		public void add(String sentence, int times) {
-//			TrieNode current=sentences;
-//			for(char w: sentence.toCharArray()) {
-//				int offset=getOffset(w);
-//				if(current.letters[offset] == null)
-//					current.letters[offset]= new TrieNode();
-//				current=current.letters[offset];
-//			}
-//			current.sentence=sentence;
-//			current.ended+=times;
-//		}
-//	}
-//	TrieNode start;
-//	Trie root;
-//	List<String> result;
-//	class SentenceCounts implements Comparable<SentenceCounts>{
-//		String sentence; int count;
-//		SentenceCounts(String s, int c){this.sentence=s; this.count=c;}
-//		@Override
-//		public int compareTo(SentenceCounts sc) {// sort on count desc and then on sentence asc
-//			int diff=Integer.compare(sc.count, this.count);
-////			System.out.println(diff+" "+this.sentence+" "+sc.sentence);
-//			return diff==0 ? this.sentence.compareTo(sc.sentence): diff;
-//		}
-//	}
-//	TreeSet<SentenceCounts> candidates;
-//	static final char HASH='#';
-//    StringBuilder current;
-//	public AutocompleteSystem(String[] sentences, int[] times) {
-//        root=new Trie();
-//        for(int i=0; i< sentences.length; i++) {
-//        	root.add(sentences[i], times[i]);
+public class AutocompleteSystem {
+	static final char SPACE=' ';
+	static int getOffset(char c) {
+		if(c == SPACE) return 26;
+		return c-'a';
+	}
+	class TrieNode{TrieNode[] letters; int ended; String sentence=null;
+	public TrieNode() {letters=new TrieNode[27]; ended=0;}}
+	class Trie{
+		TrieNode sentences; 
+		public Trie() {sentences=new TrieNode();}
+		public void add(String sentence, int times) {
+			TrieNode current=sentences;
+			for(char w: sentence.toCharArray()) {
+				int offset=getOffset(w);
+				if(current.letters[offset] == null)
+					current.letters[offset]= new TrieNode();
+				current=current.letters[offset];
+			}
+			current.sentence=sentence;
+			current.ended+=times;
+		}
+	}
+	TrieNode start;
+	Trie root;
+	List<String> result;
+	class SentenceCounts implements Comparable<SentenceCounts>{
+		String sentence; int count;
+		SentenceCounts(String s, int c){this.sentence=s; this.count=c;}
+		@Override
+		public int compareTo(SentenceCounts sc) {// sort on count desc and then on sentence asc
+			int diff=Integer.compare(sc.count, this.count);
+//			System.out.println(diff+" "+this.sentence+" "+sc.sentence);
+			return diff==0 ? this.sentence.compareTo(sc.sentence): diff;
+		}
+	}
+	TreeSet<SentenceCounts> candidates;
+	static final char HASH='#';
+    StringBuilder current;
+	public AutocompleteSystem(String[] sentences, int[] times) {
+        root=new Trie();
+        for(int i=0; i< sentences.length; i++) {
+        	root.add(sentences[i], times[i]);
+        }
+        start=root.sentences;
+        result= new ArrayList<>();
+        candidates= new TreeSet<>();
+        current= new StringBuilder();
+    }
+    
+    public List<String> input(char c) {
+    	result= new ArrayList<>();
+        if(c == HASH) {
+        	root.add(current.toString(), 1);
+        	start=root.sentences;// beginning
+        	current= new StringBuilder();// blanked out
+        	candidates= new TreeSet<>();// fresh start
+        	return result;// it seems we need a blanked out result
+        }
+        current.append(c);
+        
+        candidates= new TreeSet<>();
+        if(start.letters[getOffset(c)] != null) {
+        	start=start.letters[getOffset(c)];
+        	populateSentences(start,candidates);
+        }else return result;
+//        if(start.ended >0) {
+//        	candidates.add(new SentenceCounts(current.toString(), start.ended));
 //        }
-//        start=root.sentences;
-//        result= new ArrayList<>();
-//        candidates= new TreeSet<>();
-//        current= new StringBuilder();
-//    }
-//    
-//    public List<String> input(char c) {
-//    	result= new ArrayList<>();
-//        if(c == HASH) {
-//        	root.add(current.toString(), 1);
-//        	start=root.sentences;// beginning
-//        	current= new StringBuilder();// blanked out
-//        	candidates= new TreeSet<>();// fresh start
-//        	return result;// it seems we need a blanked out result
-//        }
-//        current.append(c);
-//        
-//        candidates= new TreeSet<>();
-//        if(start.letters[getOffset(c)] != null) {
-//        	start=start.letters[getOffset(c)];
-//        	populateSentences(start,candidates);
-//        }else return result;
-////        if(start.ended >0) {
-////        	candidates.add(new SentenceCounts(current.toString(), start.ended));
-////        }
-//        for(int i=0; i< 3 && candidates.size() > 0; i++) {
-//        	result.add(candidates.pollFirst().sentence);
-//        }
-//        return result;
-//    }
-//	private void populateSentences(TrieNode node, TreeSet<SentenceCounts> candidates2) {
-//		if(node == null) return;
-//		if(node.ended >0) {
-////			System.out.println("Adding: "+node.sentence+" "+node.ended);
-//			candidates2.add(new SentenceCounts(node.sentence, node.ended));
-//		}
-//		for(TrieNode child: node.letters) {
-//			populateSentences(child, candidates2);
-//		}
-//	}
+        for(int i=0; i< 3 && candidates.size() > 0; i++) {
+        	result.add(candidates.pollFirst().sentence);
+        }
+        return result;
+    }
+	private void populateSentences(TrieNode node, TreeSet<SentenceCounts> candidates2) {
+		if(node == null) return;
+		if(node.ended >0) {
+//			System.out.println("Adding: "+node.sentence+" "+node.ended);
+			candidates2.add(new SentenceCounts(node.sentence, node.ended));
+		}
+		for(TrieNode child: node.letters) {
+			populateSentences(child, candidates2);
+		}
+	}
 	public static void main(String[] args) {
 		AutocompleteSystem acs= new AutocompleteSystem(new String[] {"i love you", "island","ironman", "i love leetcode"}
 													 , new int[] {5,3,2,2});
