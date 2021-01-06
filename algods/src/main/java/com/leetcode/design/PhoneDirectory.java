@@ -1,5 +1,5 @@
 package com.leetcode.design;
-/**
+/** TODO Anki
  * 379. Design Phone Directory
  * Design a Phone Directory which supports the following operations:
 
@@ -88,10 +88,10 @@ public class PhoneDirectory {
 		}
 	}
 	
-//	/**
-//	 * Keeping released numbers in both a HashSet (for quick search) and ArrayList (for quick delete)
-//	 * Performance is faster for both O(T) and O(M)
-//	 */
+	/**
+	 * Keeping released numbers in both a HashSet (for quick search) and ArrayList (for quick delete)
+	 * Performance is faster for both O(T) and O(M)
+	 */
 //	HashSet<Integer> released;
 //	ArrayList<Integer> numList;
 //	int maxNum, current;
@@ -131,9 +131,10 @@ public class PhoneDirectory {
 //		}
 //	}
 	
-//	/**
-//	 * Use HashSet instead of a Queue - much faster solution
-//	 */
+	/**
+	 * Use HashSet instead of a Queue - much faster solution
+	 * Keeping currentNum instead of generating the number
+	 */
 //	HashSet<Integer> released;
 //	int maxNum, current;
 //	/** Initialize your data structure here
@@ -170,10 +171,10 @@ public class PhoneDirectory {
 //	}
 	
 	
-//	/**
-//	 * Tried with a Deque for released and nothing for allocation
-//	 * Performance is NOT better somehow
-//	 */
+	/**
+	 * Tried with a Deque for released and nothing for allocation (just keeping the currentNumber value)
+	 * Performance is NOT better somehow
+	 */
 //	Deque<Integer> released;
 //	int maxNum, current;
 //	/** Initialize your data structure here
@@ -205,12 +206,12 @@ public class PhoneDirectory {
 //			released.offerLast(number);
 //	}
 	
-//	/**
-//	 * Easy implementation with 2 HashSets - available and used
-//	 * constructor: O(n)
-//	 * get O(1), check O(1), release O(1)
-//	 * extra space O(n)
-//	 */
+	/**
+	 * Easy implementation with 2 HashSets - available and used
+	 * constructor: O(n)
+	 * get O(1), check O(1), release O(1)
+	 * extra space O(n)
+	 */
 //	HashSet<Integer> available;
 //	HashSet<Integer> used;
 //	/** Initialize your data structure here
