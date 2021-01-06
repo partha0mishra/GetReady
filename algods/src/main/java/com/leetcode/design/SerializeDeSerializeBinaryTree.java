@@ -38,6 +38,16 @@ public class SerializeDeSerializeBinaryTree {
 	/**
 	 * Approach : BFS with Queue
 	 * O(N) O(N)
+	 * Serialize >> using SPACE as Separator and . to indicate null
+	 * offerLast() node into queue
+	 * pollFirst() node, add to StringBuffer, getLeft and getRight and offerLast() them, even when null. if not null, turn on a layer level flag
+	 * if the layer level flag is off, all were null. we don't need to persist these values
+	 * 
+	 * De-serialize >>
+	 * tokenize the string
+	 * take the first token and put to a queue
+	 * go through the tokens till it ends
+	 * take one element from queue and two tokens, assign them to left and right of the element from queue. if a token is not null, add to queue
 	 */
 	/**
 	 * Definition for a binary tree node.
