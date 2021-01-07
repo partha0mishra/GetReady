@@ -1,5 +1,5 @@
 package com.leetcode.recursion;
-/*
+/** TODO Anki
  * Implement pow(x, n), which calculates x raised to the power n (xn).
  * 
  * Input: 2.00000, 10
@@ -15,7 +15,7 @@ package com.leetcode.recursion;
  * -100.0 < x < 100.0
  * n is a 32-bit signed integer, within the range [−231, 231 − 1]
  */
-
+import static org.junit.Assert.assertEquals;
 public class PowerCalculator {
 	/* Iterative version of Faster Power: O(logN) O(1) */
 	public double myPow(double x, int n) {
@@ -23,9 +23,9 @@ public class PowerCalculator {
         long N=n;
         if(N <0 ) {x=1/x; N=-N;}
         double result=1, current=x;
-        for(long i=N; i > 0; i/=2){
+        for(long i=N; i > 0; i/=2){// can't go from 1 to N as it will not reach the odd numbers
             if(i%2 !=0) result*=current;
-            current=current*current;
+            current*=current;
         }
         return result;
 	}
@@ -85,15 +85,15 @@ public class PowerCalculator {
 //		else return a*x*x;
 //	}
 	public static void main(String[] args) {
-		System.out.println(2.00000+" ^ "+10+" = "+new PowerCalculator().myPow(2.00000, 10));//1024
-		System.out.println(2.10000+" ^ "+3+" = "+new PowerCalculator().myPow(2.10000, 3));//9.26100
-		System.out.println(2.00000+" ^ "+-2+" = "+new PowerCalculator().myPow(2.00000, -2));//0.25000
-		System.out.println(2.00000+" ^ "+3+" = "+new PowerCalculator().myPow(2.00000, 3));//8.0000
-		System.out.println(1.0E-5+" ^ "+2147483647+" = "+new PowerCalculator().myPow(1.0E-5, 2147483647));//0.00000
-		System.out.println(2.00000+" ^ "+-2147483648+" = "+new PowerCalculator().myPow(2.00000, -2147483648));//0.00000
-		System.out.println(1.00000+" ^ "+-2147483648+" = "+new PowerCalculator().myPow(1.00000, -2147483648));//1.00000
-		System.out.println(-1.00000+" ^ "+-2147483648+" = "+new PowerCalculator().myPow(-1.00000, -2147483648));//1.00000
-		System.out.println(2.00000+" ^ "+-2147483648+" = "+new PowerCalculator().myPow(2.00000, -2147483648));//0.00000
+		assertEquals(1024.0,(new PowerCalculator().myPow(2.00000, 10)),0.1);//1024
+		assertEquals(9.261,(new PowerCalculator().myPow(2.10000, 3)),0.1);//9.26100
+		assertEquals(0.25,(new PowerCalculator().myPow(2.00000, -2)),0.1);//0.25000
+		assertEquals(8.0,(new PowerCalculator().myPow(2.00000, 3)),0.1);//8.0000
+		assertEquals(0.0,(new PowerCalculator().myPow(1.0E-5, 2147483647)),0.1);//0.00000
+		assertEquals(0.0,(new PowerCalculator().myPow(2.00000, -2147483648)),0.1);//0.00000
+		assertEquals(1.0,(new PowerCalculator().myPow(1.00000, -2147483648)),0.1);//1.00000
+		assertEquals(1.0,(new PowerCalculator().myPow(-1.00000, -2147483648)),0.1);//1.00000
+		assertEquals(0.0,(new PowerCalculator().myPow(2.00000, -2147483648)),0.1);//0.00000
 	}
 
 }
