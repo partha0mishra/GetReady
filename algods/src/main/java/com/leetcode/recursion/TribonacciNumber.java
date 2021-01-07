@@ -1,4 +1,4 @@
-package com.leetcode.easy;
+package com.leetcode.recursion;
 /**
  * 1137. N-th Tribonacci Number
  * 
@@ -31,9 +31,9 @@ The answer is guaranteed to fit within a 32-bit integer, ie. answer <= 2^31 - 1.
 import static org.junit.Assert.assertEquals;
 public class TribonacciNumber {
 	public int tribonacci(int n) {
-        int a=0,b=1,c=1,tb,tc;
+        int a=0,b=1,c=1,t;
         while(n>0) {
-        	tc=c;tb=b;c=a+b+c;b=tc;a=tb;n--;
+        	t=c; c=a+b+c; a=b; b=t; n--;
         }
         return a;
     }
