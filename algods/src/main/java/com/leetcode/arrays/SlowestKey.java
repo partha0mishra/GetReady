@@ -1,4 +1,4 @@
-package com.leetcode.easy;
+package com.leetcode.arrays;
 /* 5546. Slowest Key
  * A newly designed keypad was tested, where a tester pressed a sequence of n keys, one at a time.
 
