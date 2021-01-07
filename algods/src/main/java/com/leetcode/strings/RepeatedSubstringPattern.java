@@ -1,5 +1,6 @@
-package com.leetcode.easy;
+package com.leetcode.strings;
 /**
+ * 459: Repeated Substring Pattern
  * Given a non-empty string check if it can be constructed by taking a substring of it and 
  * appending multiple copies of the substring together. You may assume the given string consists of 
  * lowercase English letters only and its length will not exceed 10000.
@@ -16,7 +17,7 @@ package com.leetcode.easy;
  * Output: True
  * Explanation: It's the substring "abc" four times. (And the substring "abcabc" twice.)
  */
-public class lc_459_RepeatedSubstringPattern {
+public class RepeatedSubstringPattern {
 	/* Approach 02: COPIED
 	 * https://leetcode.com/explore/challenge/card/september-leetcoding-challenge/554/week-1-september-1st-september-7th/3447/discuss/94344/Simple-Java-solution-2-lines*/
 //	public boolean repeatedSubstringPattern(String s) {
@@ -51,7 +52,7 @@ public class lc_459_RepeatedSubstringPattern {
     }
 	
 	public static void main(String[] args) {
-		lc_459_RepeatedSubstringPattern instance = new lc_459_RepeatedSubstringPattern();
+		RepeatedSubstringPattern instance = new RepeatedSubstringPattern();
 		System.out.println(instance.repeatedSubstringPattern("abab"));// true
 		System.out.println(instance.repeatedSubstringPattern("aba"));// false
 		System.out.println(instance.repeatedSubstringPattern("abcabcabcabc"));// true
