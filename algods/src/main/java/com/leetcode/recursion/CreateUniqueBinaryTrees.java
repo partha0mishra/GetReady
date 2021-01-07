@@ -1,5 +1,6 @@
 package com.leetcode.recursion;
-/* 95. Unique Binary Trees II
+/** TODO Anki
+ * 95. Unique Binary Trees II
  * Given an integer n, generate all structurally unique BST's (binary search trees) that store values 1 ... n.
 
 Example:
@@ -30,7 +31,18 @@ Constraints:
 import java.util.*;
 
 import com.leetcode.bst.TreeNode;
-
+/**
+ * generate(1 to n)
+ * > for i: start to end
+ * >> leftTrees = generate(start to i-1)
+ * >> rightTrees = generate(i+1 to end)
+ * >> base case (start > end) add null to List<TreeNode> at this level
+ * > for all left trees: for all right trees: root=TreeNode(i) -> left=left tree -> right=right tree
+ * > return list from this level
+ * 
+ * O(T): nGn => polynomial : 4^n
+ * O(M): nGn => polynomial : 4^n
+ */
 public class CreateUniqueBinaryTrees {
 	public List<TreeNode> generateTrees(int n) {
         if(n==0) return new LinkedList<TreeNode>();
@@ -56,7 +68,6 @@ public class CreateUniqueBinaryTrees {
 					allTreesAtThisLevel.add(root);
 				}
 		}
-		
 		return allTreesAtThisLevel;
 	}
 	public static void main(String[] args) {
