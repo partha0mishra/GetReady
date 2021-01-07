@@ -38,26 +38,37 @@ carType is 1, 2, or 3
 At most 1000 calls will be made to addCar
  */
 public class ParkingSystem {
-	int bigp, mediump, smallp;
-	 public ParkingSystem(int big, int medium, int small) {
-	        bigp=big;
-	        mediump=medium;
-	        smallp=small;
-	    }
-	    
-	    public boolean addCar(int carType) {
-	        if(carType == 1) {
-	        	if(bigp==0) return false;
-	        	else bigp-=1;
-	        	return true;
-	        }
-	        if(carType==2) {
-	        	if(mediump==0) return false;
-	        	else mediump-=1;
-	        	return true;
-	        }
-	        if(smallp==0) return false;
-	        else smallp-=1;
-	        return true;
-	    }
+	int[] cars;
+	public ParkingSystem(int big, int medium, int small) {
+        cars=new int[] {big,medium,small};
+    }
+    
+    public boolean addCar(int carType) {
+        if(cars[carType-1] ==0) return false;
+        cars[carType-1]-=1;
+        return true;
+    }
+	/* Approach 01: good enough since this is easy anyway */
+//	int bigp, mediump, smallp;
+//	public ParkingSystem(int big, int medium, int small) {
+//        bigp=big;
+//        mediump=medium;
+//        smallp=small;
+//    }
+//    
+//    public boolean addCar(int carType) {
+//        if(carType == 1) {
+//        	if(bigp==0) return false;
+//        	else bigp-=1;
+//        	return true;
+//        }
+//        if(carType==2) {
+//        	if(mediump==0) return false;
+//        	else mediump-=1;
+//        	return true;
+//        }
+//        if(smallp==0) return false;
+//        else smallp-=1;
+//        return true;
+//    }
 }
