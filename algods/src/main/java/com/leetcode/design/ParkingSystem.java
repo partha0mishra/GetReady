@@ -1,4 +1,4 @@
-package com.leetcode.easy;
+package com.leetcode.design;
 
 public class ParkingSystem {
 	int bigp, mediump, smallp;
