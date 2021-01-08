@@ -1,5 +1,5 @@
 package com.leetcode.bst;
-/**
+/** TODO Anki
  * Finding root node of N-Ary Tree: Zero indegrees
  * You are given all the nodes of an N-ary tree as an array of Node objects, where each node has a unique value.
 
@@ -76,17 +76,30 @@ public class RootOfNaryTree {
 	};
 	*/
 	/**
-	 * Approach 02: since this is a tree, each node can come max twice
+	 * Approach 03: since this is a tree, each node can come max twice
+	 * using XOR -> since A ^ A = 0 and 0 ^ A = A
 	 */
 	public Node findRoot(List<Node> tree) {// root is a parent and never a child
 		int sum=0; // let's add when we get a parent and deduct when we get a child
         for(Node n: tree) {
-        	sum+=n.val;
-        	for(Node c: n.children) sum-=c.val;
+        	sum^=n.val;
+        	for(Node c: n.children) sum^=c.val;
         }
         for(Node n: tree) if(n.val==sum) return n;
         return null;
     }
+	/**
+	 * Approach 02: since this is a tree, each node can come max twice
+	 */
+//	public Node findRoot(List<Node> tree) {// root is a parent and never a child
+//		int sum=0; // let's add when we get a parent and deduct when we get a child
+//        for(Node n: tree) {
+//        	sum+=n.val;
+//        	for(Node c: n.children) sum-=c.val;
+//        }
+//        for(Node n: tree) if(n.val==sum) return n;
+//        return null;
+//    }
 	/**
 	 * Approach 01: checking if a node is a child of anyone
 	 * O(N)/ O(N)
