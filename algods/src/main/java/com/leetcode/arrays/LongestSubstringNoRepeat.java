@@ -33,35 +33,55 @@ Constraints:
 0 <= s.length <= 5 * 104
 s consists of English letters, digits, symbols and spaces.
  */
-import java.util.HashSet;
+import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class LongestSubstringNoRepeat {
 	/**
-	 * Approach 01: Sliding window
-	 * O(n)/ O(1)
+	 * Approach 02: Sliding window with more slide
+	 * If we keep the index of a character, we can skip till there+1 if we encounter the character again
+	 * O(n)/ O(Min(M,N)) <= Important as we're going to keep the max substring in temporary variable
 	 */
 	public int lengthOfLongestSubstring(String s) {
         if(s.length() == 0) return 0;
         int len=0,i=0, j=0;
-        HashSet<Character> set=new HashSet<>();
-        for(i=0, j=0; i< s.length();) {
+        HashMap<Character,Integer> map=new HashMap<>();// keeping char and index
+        for(i=0, j=0; i< s.length();i++) {
         	char c=s.charAt(i);
-        	if(set.contains(c)) {
+        	if(map.containsKey(c)) {
         		len=Math.max(len, i-j);
-        		set.remove(s.charAt(j));
-        		j+=1;
-        	}else {
-        		set.add(c);
-        		i+=1;
+        		j=Math.max(j, map.get(c)+1);// abba where first a again matches with last a but we can't decrease j
         	}
+        	map.put(c, i);
         }
         return Math.max(len, i-j);
     }
+	/**
+	 * Approach 01: Sliding window
+	 * O(n)/ O(Min(M,N)) <= Important as we're going to keep the max substring in temporary variable
+	 */
+//	public int lengthOfLongestSubstring(String s) {
+//        if(s.length() == 0) return 0;
+//        int len=0,i=0, j=0;
+//        HashSet<Character> set=new HashSet<>();
+//        for(i=0, j=0; i< s.length();) {
+//        	char c=s.charAt(i);
+//        	if(set.contains(c)) {
+//        		len=Math.max(len, i-j);
+//        		set.remove(s.charAt(j));
+//        		j+=1;
+//        	}else {
+//        		set.add(c);
+//        		i+=1;
+//        	}
+//        }
+//        return Math.max(len, i-j);
+//    }
 	public static void main(String[] args) {
 		LongestSubstringNoRepeat lsnr= new LongestSubstringNoRepeat();
 		assertEquals(3, lsnr.lengthOfLongestSubstring("abcabcbb"));
 		assertEquals(1, lsnr.lengthOfLongestSubstring("bbbbb"));
 		assertEquals(3, lsnr.lengthOfLongestSubstring("pwwkew"));
 		assertEquals(0, lsnr.lengthOfLongestSubstring(""));
+		assertEquals(2, lsnr.lengthOfLongestSubstring("abba"));
 	}
 }
