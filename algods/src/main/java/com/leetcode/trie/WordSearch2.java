@@ -37,6 +37,8 @@ public class WordSearch2 {
 	 * Approach 01 - keeping words in a trie and then searching using backtracking [ 1558 ms -> 602 ms ] after optimizations
 	 * Approach 02 - Slimmed Trie to keep the word at the end and not a boolean 'end'
 	 * Approach 03 - at the start of backtracking, change the board[row][col] to '#' change it back to the original character at the end [< 250 ms ]
+	 * Approach 04 - adding all words to the tree in the add function [ < 200 ms]
+	 * Approach 05 - instead of dir[][] used checking of row/ col > 0 / < rows-1, cols-1 [ 64 ms ]
 	 */
 	class TrieNode{
 		TrieNode[] letters= new TrieNode[26]; String w=null;
@@ -44,30 +46,29 @@ public class WordSearch2 {
 	class Trie{
 		TrieNode allWords;
 		public Trie() {allWords=new TrieNode();}
-		public void add(String word) {
-			TrieNode current=allWords;
-			for(char c: word.toCharArray()) {
-				if(current.letters[c-'a'] == null)
-					current.letters[c-'a']=new TrieNode();
-				current=current.letters[c-'a'];
+		public void add(String[] words) {
+			for(String word: words) {
+				TrieNode current=allWords;
+				for(char c: word.toCharArray()) {
+					if(current.letters[c-'a'] == null)
+						current.letters[c-'a']=new TrieNode();
+					current=current.letters[c-'a'];
+				}
+				current.w=word;
 			}
-			current.w=word;
 		}
 	}
 	public List<String> findWords(char[][] board, String[] words) {
         List<String> result=new ArrayList<>();
         int rows=board.length, cols=board[0].length;
         Trie myTrie= new Trie();
-        for(String word: words) {
-        	myTrie.add(word);// all words added
-        }
+        myTrie.add(words);
         for(int row=0; row< rows; row++)
         	for(int col=0; col< cols; col++) {
         			backtrack(row,col, result, myTrie.allWords, board);
         	}
         return result;
     }
-    int[][] dirs= {{0,1},{-1,0},{0,-1},{1,0}};
 	private void backtrack(int row, int col,List<String> result, TrieNode trieNode,
 			char[][] board) {
         char c=board[row][col];
@@ -75,12 +76,12 @@ public class WordSearch2 {
         trieNode=trieNode.letters[c-'a'];
 		if(trieNode.w != null) {result.add(trieNode.w); trieNode.w=null;}
         board[row][col]='#'; // used indicator instead of a hashmap
-		for(int[] dir: dirs) {
-			int newRow=row+dir[0], newCol=col+dir[1];
-			if(newRow >=0 && newCol >=0 && newRow < board.length && newCol < board[0].length ) {
-				backtrack(newRow, newCol, result, trieNode, board);
-			}
-		}
+        
+		if(row > 0) backtrack(row-1, col, result, trieNode, board);// go up
+		if(col > 0) backtrack(row, col-1, result, trieNode, board);// go left
+		if(row < board.length-1) backtrack(row+1, col, result, trieNode, board);// go down
+		if(col < board[0].length-1) backtrack(row, col+1, result, trieNode, board);// go right
+		
 		board[row][col]=c; // True backtracking
 	}
 	/** 
