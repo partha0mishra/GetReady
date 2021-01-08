@@ -27,14 +27,28 @@ Output: true
 
 Constraints:
 
-1 <= word1.length, word2.length <= 103
-1 <= word1[i].length, word2[i].length <= 103
-1 <= sum(word1[i].length), sum(word2[i].length) <= 103
+1 <= word1.length, word2.length <= 10^3
+1 <= word1[i].length, word2[i].length <= 10^3
+1 <= sum(word1[i].length), sum(word2[i].length) <= 10^3
 word1[i] and word2[i] consist of lowercase letters.
  */
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 public class CheckTwoStringArraysEquivalent {
+	/**
+	 * Approach 02: going through the arrays sequentially
+	 */
+	public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+        int n1=word1.length, n2=word2.length, a1=0, a2=0, e1=0, e2=0;// arrayNo and elementNo for both these arrays
+        while(true) {
+        	while(a1 < n1 && e1== word1[a1].length()) {e1=0; a1+=1;}
+        	while(a2 < n2 && e2== word2[a2].length()) {e2=0; a2+=1;}
+        	if(a1 == n1 || a2 == n2) break;
+        	if(word1[a1].charAt(e1++) != word2[a2].charAt(e2++)) return false;
+        }
+        return (a1==n1 && a2==n2);
+    }
+	
 	public static final char HASH='#';
 	class ArrayIterate{
 		String[] word;
@@ -52,16 +66,19 @@ public class CheckTwoStringArraysEquivalent {
 			return word[arrayNo].charAt(elementNo++);
 		}
 	}
-	public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
-        ArrayIterate a1=new ArrayIterate(word1), a2= new ArrayIterate(word2);
-        char a1c, a2c;
-        while(true) {
-        	a1c=a1.getNext(); a2c=a2.getNext();
-        	if(a1c != a2c) return false;
-        	if(a1c == HASH || a2c == HASH) break;
-        }
-        return true;
-    }
+	/**
+	 * Approach 01: creating custom iterator and then comparing characters
+	 */
+//	public boolean arrayStringsAreEqual(String[] word1, String[] word2) {
+//        ArrayIterate a1=new ArrayIterate(word1), a2= new ArrayIterate(word2);
+//        char a1c, a2c;
+//        while(true) {
+//        	a1c=a1.getNext(); a2c=a2.getNext();
+//        	if(a1c != a2c) return false;
+//        	if(a1c == HASH || a2c == HASH) break;
+//        }
+//        return true;
+//    }
 	public static void main(String[] args) {
 		CheckTwoStringArraysEquivalent ct= new CheckTwoStringArraysEquivalent();
 //		ArrayIterate ai= ct.new ArrayIterate(new String[] 
