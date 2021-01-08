@@ -53,19 +53,54 @@ Could you solve this problem in constant space complexity with a linear time alg
  */
 import java.util.*;
 public class RootOfNaryTree {
+	/*
+	// Definition for a Node.
+	class Node {
+	    public int val;
+	    public List<Node> children;
+
+	    
+	    public Node() {
+	        children = new ArrayList<Node>();
+	    }
+	    
+	    public Node(int _val) {
+	        val = _val;
+	        children = new ArrayList<Node>();
+	    }
+	    
+	    public Node(int _val,ArrayList<Node> _children) {
+	        val = _val;
+	        children = _children;
+	    }
+	};
+	*/
 	/**
-	 * Approach 01: checking if a node is a child of anyone
+	 * Approach 02: since this is a tree, each node can come max twice
 	 */
-	public Node findRoot(List<Node> tree) {
-        HashSet<Integer> children=new HashSet<Integer>();
-        ArrayList<Node> candidates= new ArrayList<>();
-        for(Node n: tree){
-            for(Node c: n.children) children.add(c.val);
-            if(!children.contains(n.val)) candidates.add(n);
+	public Node findRoot(List<Node> tree) {// root is a parent and never a child
+		int sum=0; // let's add when we get a parent and deduct when we get a child
+        for(Node n: tree) {
+        	sum+=n.val;
+        	for(Node c: n.children) sum-=c.val;
         }
-        for(Node n: candidates){
-            if(!children.contains(n.val)) return n;
-        }
+        for(Node n: tree) if(n.val==sum) return n;
         return null;
     }
+	/**
+	 * Approach 01: checking if a node is a child of anyone
+	 * O(N)/ O(N)
+	 */
+//	public Node findRoot(List<Node> tree) {
+//        HashSet<Integer> children=new HashSet<Integer>();
+//        ArrayList<Node> candidates= new ArrayList<>();
+//        for(Node n: tree){
+//            for(Node c: n.children) children.add(c.val);
+//            if(!children.contains(n.val)) candidates.add(n);
+//        }
+//        for(Node n: candidates){
+//            if(!children.contains(n.val)) return n;
+//        }
+//        return null;
+//    }
 }
