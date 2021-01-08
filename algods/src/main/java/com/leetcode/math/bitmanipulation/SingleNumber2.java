@@ -28,20 +28,35 @@ Follow up: Your algorithm should have a linear runtime complexity. Could you imp
 import java.util.*;
 public class SingleNumber2 {
 	/**
+	 * Approach 02: Little better
+	 * Keep in hashset and calculate sum of numbers.
+	 * compare that sum from the triple of hashset elements sum
+	 * O(N)/ O(N)
+	 */
+	public int singleNumber(int[] nums) {
+        HashSet<Integer> uniqueNums= new HashSet<>();
+        long sum=0, hashSetSum=0;
+        for(int n: nums){
+            if(uniqueNums.add(n)) {hashSetSum+=3*n;}
+            sum+=n;
+        }
+        return (int)(hashSetSum-sum)/2;// the single number is missing TWICE
+    }
+	/**
 	 * Approach 01: Brute
 	 * Keep in hashmap for the 1st and 3rd time and see which one's duplicate
 	 * O(N)/ O(N)
 	 */
-	public int singleNumber(int[] nums) {
-        HashMap<Integer,Integer> numCount= new HashMap<>();
-        int result=0;
-        for(int n: nums){
-            int c=numCount.getOrDefault(n,0);
-            if(c != 1) result^=n;
-            numCount.put(n,c+1);
-        }
-        return result;
-    }
+//	public int singleNumber(int[] nums) {
+//        HashMap<Integer,Integer> numCount= new HashMap<>();
+//        int result=0;
+//        for(int n: nums){
+//            int c=numCount.getOrDefault(n,0);
+//            if(c != 1) result^=n;
+//            numCount.put(n,c+1);
+//        }
+//        return result;
+//    }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
