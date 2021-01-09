@@ -28,7 +28,7 @@ Follow up: Your algorithm should have a linear runtime complexity. Could you imp
 import java.util.*;
 public class SingleNumber2 {
 	/**
-	 * Approach 02: Little better
+	 * Approach 02: 6x faster
 	 * Keep in hashset and calculate sum of numbers.
 	 * compare that sum from the triple of hashset elements sum
 	 * O(N)/ O(N)
@@ -37,10 +37,10 @@ public class SingleNumber2 {
         HashSet<Integer> uniqueNums= new HashSet<>();
         long sum=0, hashSetSum=0;
         for(int n: nums){
-            if(uniqueNums.add(n)) {hashSetSum+=3*n;}
+            if(uniqueNums.add((Integer)n)) {hashSetSum+=3*(long)n;}// NOTE the (long)
             sum+=n;
         }
-        return (int)(hashSetSum-sum)/2;// the single number is missing TWICE
+        return (int)((hashSetSum-sum)/2);// the single number is missing TWICE
     }
 	/**
 	 * Approach 01: Brute
