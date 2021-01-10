@@ -1,4 +1,4 @@
-package com.leetcode.dfs;
+package com.leetcode.graph.dfs;
 /* 1306. Jump Game III
  * Given an array of non-negative integers arr, you are initially positioned at start index of the array. 
  * When you are at index i, you can jump to i + arr[i] or i - arr[i], check if you can reach to any index with value 0.

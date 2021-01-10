@@ -1,4 +1,4 @@
-package com.leetcode.dfs;
+package com.leetcode.graph.dfs;
 /**
  * Evaluate Division
  * 

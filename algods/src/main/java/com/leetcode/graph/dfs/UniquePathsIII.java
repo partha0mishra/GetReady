@@ -1,4 +1,4 @@
-package com.leetcode.dfs;
+package com.leetcode.graph.dfs;
 /*
  * Well-explained solution: https://leetcode.com/problems/unique-paths-iii/solution/
  * 
