@@ -1,4 +1,4 @@
-package com.leetcode.graph;
+package com.leetcode.graph.bfs;
 
 /*
  * Let s and t be strings and D a dictionary, i.e., a set of strings. Define s to produce t if
