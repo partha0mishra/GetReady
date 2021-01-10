@@ -75,7 +75,7 @@ public class WordLadder {
 //	}
 	/**
 	 * Approach 02: replacing the substring functions as they consume O(M)
-	 * O(T) = O(M * N)
+	 * O(T) = O(M * N), O(Memory) = O(M) to keep the HashSet and Queue;
 	 */
 	public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         int dist=1; HashSet<String> dict= new HashSet<>(wordList);
