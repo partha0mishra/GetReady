@@ -33,7 +33,7 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class WordLadder {
 	/** O(T) is 1/10 of original submission
-	 * Approach 02: Bi-directional BFS
+	 * Approach 03: Bi-directional BFS
 	 * "The idea behind bidirectional search is to run two simultaneous searches—one forward from
 	 * the initial state and the other backward from the goal—hoping that the two searches meet inthe middle. 
 	 * The motivation is that b^(d/2) + b^(d/2) is much less than b^d. b is branch factor, d is depth. "
