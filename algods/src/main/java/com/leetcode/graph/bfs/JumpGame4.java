@@ -1,4 +1,4 @@
-package com.leetcode.bfs;
+package com.leetcode.graph.bfs;
 /**
  * Jump Game IV
  * Given an array of integers arr, you are initially positioned at the first index of the array.

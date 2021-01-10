@@ -1,4 +1,4 @@
-package com.leetcode.bfs;
+package com.leetcode.graph.bfs;
 /* 279. Perfect Squares
  * Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
 
