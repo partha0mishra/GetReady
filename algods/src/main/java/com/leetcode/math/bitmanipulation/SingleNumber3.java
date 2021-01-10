@@ -31,36 +31,40 @@ Each integer in nums will appear twice, only two integers will appear once.
  */
 import java.util.*;
 public class SingleNumber3 {
-//	public int[] singleNumber(int[] nums) {
-//		int seenOnce=0, seenTwice=0, index=0;
-//		int[] result= new int[2];
-//		for(int n:nums) {
-//			int so=seenOnce, st=seenTwice; 
-//			seenOnce=~seenTwice&(seenOnce^n);
-//			seenTwice=~seenOnce&(seenTwice^n);
-//		}
-//        return result;
-//    }
+	/**
+	 * Approach 02: Bit Operations
+	 * O(N)/ O(1)
+	 */
+	public int[] singleNumber(int[] nums) {
+		int seenOnce=0, seenTwice=0, index=0;
+		int[] result= new int[2];
+		for(int n:nums) {
+			int so=seenOnce, st=seenTwice; 
+			seenOnce=~seenTwice&(seenOnce^n);
+			seenTwice=~seenOnce&(seenTwice^n);
+		}
+        return result;
+    }
 	/**
 	 * Approach 01: HashSet
 	 * O(N) O(N)
 	 */
-	public int[] singleNumber(int[] nums) {
-		HashSet<Integer> tempSet= new HashSet<Integer>();
-		int[] result=new int[2];
-		
-		for(int i=0; i< nums.length; i++) {
-			if(tempSet.contains(nums[i])) {
-				tempSet.remove(nums[i]);
-			}else {
-				tempSet.add(nums[i]);
-			}
-		}
-		Iterator<Integer> itSet=tempSet.iterator();
-		int i=0;
-		while(itSet.hasNext()) {
-			result[i++]=itSet.next();
-		}
-        return result;
-    }
+//	public int[] singleNumber(int[] nums) {
+//		HashSet<Integer> tempSet= new HashSet<Integer>();
+//		int[] result=new int[2];
+//		
+//		for(int i=0; i< nums.length; i++) {
+//			if(tempSet.contains(nums[i])) {
+//				tempSet.remove(nums[i]);
+//			}else {
+//				tempSet.add(nums[i]);
+//			}
+//		}
+//		Iterator<Integer> itSet=tempSet.iterator();
+//		int i=0;
+//		while(itSet.hasNext()) {
+//			result[i++]=itSet.next();
+//		}
+//        return result;
+//    }
 }
