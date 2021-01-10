@@ -57,39 +57,76 @@ Constraints:
 import static org.junit.Assert.assertEquals;
 public class SortedArrayThroughInstructions {
 	/**
-	 * Approach 02: Segment Tree
+	 * Approach 03: Binary Indexed Tree
 	 */
 	 public int createSortedArray(int[] instructions) {
-	        int m = (int) 1e5 + 1;
-	        int[] tree = new int[m * 2];
-
+	        int m = 100002;
+	        int[] bit = new int[m];
 	        long cost = 0;
-	        long MOD = (int) 1e9 + 7;
-	        for (int x : instructions) {
-	            cost += Math.min(query(0, x, tree, m), query(x + 1, m, tree, m));
-	            update(x, 1, tree, m);
+	        long MOD = 1000000007;
+
+	        for (int i = 0; i < instructions.length; i++) {
+	            int leftCost = query(instructions[i] - 1, bit);
+	            int rightCost = i - query(instructions[i], bit);
+	            cost += Math.min(leftCost, rightCost);
+	            update(instructions[i], 1, bit, m);
 	        }
 	        return (int) (cost % MOD);
 	    }
 
-	    // implement Segment Tree
-	    private void update(int index, int value, int[] tree, int m) {
-	        index += m;
-	        tree[index] += value;
-	        for (index >>= 1; index > 0; index >>= 1)
-	            tree[index] = tree[index << 1] + tree[(index << 1) + 1];
+	    // implement Binary Index Tree
+	    private void update(int index, int value, int[] bit, int m) {
+	        index++;
+	        while (index < m) {
+	            bit[index] += value;
+	            index += index & -index;
+	        }
 	    }
 
-	    private int query(int left, int right, int[] tree, int m) {
+	    private int query(int index, int[] bit) {
+	        index++;
 	        int result = 0;
-	        for (left += m, right += m; left < right; left >>= 1, right >>= 1) {
-	            if ((left & 1) == 1)
-	                result += tree[left++];
-	            if ((right & 1) == 1)
-	                result += tree[--right];
+	        while (index >= 1) {
+	            result += bit[index];
+	            index -= index & -index;
 	        }
 	        return result;
 	    }
+	/**
+	 * Approach 02: Segment Tree
+	 * O(N logM)/ O(M)
+	 */
+//	 public int createSortedArray(int[] instructions) {
+//	        int m = (int) 1e5 + 1;
+//	        int[] tree = new int[m * 2];
+//
+//	        long cost = 0;
+//	        long MOD = (int) 1e9 + 7;
+//	        for (int x : instructions) {
+//	            cost += Math.min(query(0, x, tree, m), query(x + 1, m, tree, m));
+//	            update(x, 1, tree, m);
+//	        }
+//	        return (int) (cost % MOD);
+//	    }
+//
+//	    // implement Segment Tree
+//	    private void update(int index, int value, int[] tree, int m) {
+//	        index += m;
+//	        tree[index] += value;
+//	        for (index >>= 1; index > 0; index >>= 1)
+//	            tree[index] = tree[index << 1] + tree[(index << 1) + 1];
+//	    }
+//
+//	    private int query(int left, int right, int[] tree, int m) {
+//	        int result = 0;
+//	        for (left += m, right += m; left < right; left >>= 1, right >>= 1) {
+//	            if ((left & 1) == 1)
+//	                result += tree[left++];
+//	            if ((right & 1) == 1)
+//	                result += tree[--right];
+//	        }
+//	        return result;
+//	    }
 	/**
 	 * Approach 01: Brute - just like Insertion Sort : TLE as expected
 	 * O(N^2)/ O(1)
