@@ -54,6 +54,31 @@ Constraints:
 1 <= instructions.length <= 105
 1 <= instructions[i] <= 105
  */
+import static org.junit.Assert.assertEquals;
 public class SortedArrayThroughInstructions {
-
+	/**
+	 * Approach 01: Brute - just like Insertion Sort
+	 * O(N^2)/ O(1)
+	 */
+	public int createSortedArray(int[] instructions) {
+		int result=0;
+        for(int i=1; i< instructions.length; i++) {
+        	int current=instructions[i], min=0, max=0;
+//        	System.out.println(current);
+        	for(int j=0; j<i; j++) {
+//        		System.out.println(instructions[j]);
+        		if(instructions[j] < current) min+=1;
+        		if(instructions[j] > current) max+=1;
+        	}
+        	result+=Math.min(min, max)%1000000007;
+        	result%=1000000007;
+        }
+        return result%1000000007;
+    }
+	public static void main(String[] a) {
+		SortedArrayThroughInstructions sati= new SortedArrayThroughInstructions();
+		assertEquals(1,sati.createSortedArray(new int[] {1,5,6,2}));
+		assertEquals(3,sati.createSortedArray(new int[] {1,2,3,6,5,4}));
+		assertEquals(4,sati.createSortedArray(new int[] {1,3,3,3,2,4,2,1,2}));
+	}
 }
