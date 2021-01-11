@@ -1,4 +1,4 @@
-package com.leetcode.backtracking;
+package com.leetcode.recursion.backtracking;
 /* 
  * Given a robot cleaner in a room modeled as a grid.
 

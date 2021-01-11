@@ -1,4 +1,4 @@
-package com.leetcode.backtracking;
+package com.leetcode.recursion.backtracking;
 // TODO Anki
 /* Sudoku Solver
  * Write a program to solve a Sudoku puzzle by filling the empty cells.

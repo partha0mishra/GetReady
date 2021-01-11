@@ -1,4 +1,4 @@
-package com.leetcode.backtracking;
+package com.leetcode.recursion.backtracking;
 // TODO Anki
 /* 40. Combination Sum II
  * Given a collection of candidate numbers (candidates) and a target number (target), 

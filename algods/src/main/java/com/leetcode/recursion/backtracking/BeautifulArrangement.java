@@ -1,4 +1,4 @@
-package com.leetcode.backtracking;
+package com.leetcode.recursion.backtracking;
 /**
  * Beautiful Arrangement
  * Suppose you have n integers from 1 to n. We define a beautiful arrangement as an array that is constructed by 

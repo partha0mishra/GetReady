@@ -1,4 +1,4 @@
-package com.leetcode.backtracking;
+package com.leetcode.recursion.backtracking;
 /* 131. Palindrome Partitioning
  * 
  * Given a string s, partition s such that every substring of the partition is a palindrome.

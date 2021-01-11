@@ -1,4 +1,4 @@
-package com.leetcode.backtracking;
+package com.leetcode.recursion.backtracking;
 // TODO Anki
 /* 46. Permutations
  * 

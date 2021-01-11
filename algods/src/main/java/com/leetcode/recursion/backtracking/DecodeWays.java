@@ -1,4 +1,4 @@
-package com.leetcode.backtracking;
+package com.leetcode.recursion.backtracking;
 /** Decode Ways
  * A message containing letters from A-Z is being encoded to numbers using the following mapping:
 
