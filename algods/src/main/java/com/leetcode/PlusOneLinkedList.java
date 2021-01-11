@@ -1,4 +1,4 @@
-package com.leetcode._explore;
+package com.leetcode;
 /* Plus One Linked List
  * 
  * Given a non-negative integer represented as a linked list of digits, plus one to the integer.

@@ -1,4 +1,4 @@
-package com.leetcode._explore;
+package com.leetcode;
 /* 
  * You are given an inclusive range [lower, upper] and a sorted unique integer array nums, 
  * where all elements are in the inclusive range.

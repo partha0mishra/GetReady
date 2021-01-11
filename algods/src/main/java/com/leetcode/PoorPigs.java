@@ -1,4 +1,4 @@
-package com.leetcode._explore;
+package com.leetcode;
 /*
  * There are 1000 buckets, one and only one of them is poisonous, while the rest are filled with water. They all look identical. If a pig drinks the poison it will die within 15 minutes. What is the minimum amount of pigs you need to figure out which bucket is poisonous within one hour?
 Answer this question, and write an algorithm for the general case.

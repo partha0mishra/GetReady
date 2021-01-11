@@ -1,4 +1,4 @@
-package com.leetcode._explore;
+package com.leetcode;
 /* Pairs of Songs With Total Durations Divisible by 60
  * You are given a list of songs where the ith song has a duration of time[i] seconds.
 
