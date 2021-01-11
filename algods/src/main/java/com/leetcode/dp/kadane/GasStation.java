@@ -1,4 +1,4 @@
-package com.leetcode.kadane;
+package com.leetcode.dp.kadane;
 
 import java.util.Arrays;
 

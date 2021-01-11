@@ -1,4 +1,4 @@
-package com.leetcode.kadane;
+package com.leetcode.dp.kadane;
 /**
  * Best time to buy and sell stock
  * 
