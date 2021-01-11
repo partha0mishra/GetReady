@@ -1,4 +1,4 @@
-package com.leetcode.geometry;
+package com.leetcode.math.geometry;
 
 import java.util.*;
 public class MaxVisiblePoints {

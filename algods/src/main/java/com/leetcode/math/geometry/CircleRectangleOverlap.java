@@ -1,4 +1,4 @@
-package com.leetcode.geometry;
+package com.leetcode.math.geometry;
 /* 1401. Circle and Rectangle Overlapping
  * Given a circle represented as (radius, x_center, y_center) and an axis-aligned rectangle represented 
  * as (x1, y1, x2, y2), where (x1, y1) are the coordinates of the bottom-left corner, and (x2, y2) are the 

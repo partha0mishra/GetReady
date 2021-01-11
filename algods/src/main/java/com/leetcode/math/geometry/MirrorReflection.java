@@ -1,4 +1,4 @@
-package com.leetcode.geometry;
+package com.leetcode.math.geometry;
 /* 858 Mirror reflection : Geometry problem
  * https://leetcode.com/problems/mirror-reflection/discuss/141773/C%2B%2BJavaPython-1-line-without-using-any-package-or
  * There is a special square room with mirrors on each of the four walls.  Except for the southwest corner, there are receptors on each of the remaining corners, numbered 0, 1, and 2.
