@@ -2,7 +2,7 @@ package com.leetcode.arrays;
 
 import java.util.Arrays;
 
-/**
+/** TODO Anki
  * 88. Merge Sorted Array
  * 
  * Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
@@ -27,27 +27,51 @@ nums1.length == m + n
 nums2.length == n
  */
 public class MergeSortedArrays {
+	/**
+	 * Fill from the back. more efficient implementation
+	 * O(n+m)/ O(1)
+	 */
 	public void merge(int[] nums1, int m, int[] nums2, int n) {
-		if(m ==0) {
-			for(int i=0; i< n; i++) nums1[i]=nums2[i];
-//			nums1=nums2;
-			printArray(nums1);
-			return;
-		}
-		if(n ==0) {
-			printArray(nums1);
-			return; 
-		}
-//        m=m-1; n=n-1;// read and compare from end of numbers and start filling at the end of nums1
-        for(int ip=nums1.length-1;ip>=0; ip--) {// ip -> insertion point
-        	if		(m == 0 ) 					nums1[ip]=nums2[--n];
-        	else if	(n == 0) 					break;
-        	else if (nums1[m-1] >= nums2[n-1]) 	nums1[ip]=nums1[--m];
-        	else								nums1[ip]=nums2[--n];
-//        	printArray(nums1);
-        }
-        printArray(nums1);
-    }
+	    // two get pointers for nums1 and nums2
+	    int p1 = m - 1;
+	    int p2 = n - 1;
+	    // set pointer for nums1
+	    int p = m + n - 1;
+
+	    // while there are still elements to compare
+	    while ((p1 >= 0) && (p2 >= 0))
+	      // compare two elements from nums1 and nums2 
+	      // and add the largest one in nums1 
+	      nums1[p--] = (nums1[p1] < nums2[p2]) ? nums2[p2--] : nums1[p1--];
+
+	    // add missing elements from nums2
+	    System.arraycopy(nums2, 0, nums1, 0, p2 + 1);
+	  }
+	/**
+	 * Fill from the back.
+	 * O(n+m)/ O(1)
+	 */
+//	public void merge(int[] nums1, int m, int[] nums2, int n) {
+//		if(m ==0) {
+//			for(int i=0; i< n; i++) nums1[i]=nums2[i];
+////			nums1=nums2;
+//			printArray(nums1);
+//			return;
+//		}
+//		if(n ==0) {
+//			printArray(nums1);
+//			return; 
+//		}
+////        m=m-1; n=n-1;// read and compare from end of numbers and start filling at the end of nums1
+//        for(int ip=nums1.length-1;ip>=0; ip--) {// ip -> insertion point
+//        	if		(m == 0 ) 					nums1[ip]=nums2[--n];
+//        	else if	(n == 0) 					break;
+//        	else if (nums1[m-1] >= nums2[n-1]) 	nums1[ip]=nums1[--m];
+//        	else								nums1[ip]=nums2[--n];
+////        	printArray(nums1);
+//        }
+//        printArray(nums1);
+//    }
 	private void printArray(int[] n) {
 		for(int i: n) {
 			System.out.print(i+" ");
