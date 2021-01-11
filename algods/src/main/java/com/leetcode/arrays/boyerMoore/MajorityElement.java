@@ -1,4 +1,4 @@
-package com.leetcode.boyerMoore;
+package com.leetcode.arrays.boyerMoore;
 /*
  * Majority Element
  * 
