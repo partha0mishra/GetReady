@@ -22,7 +22,7 @@ public class FenwickTree {
 		}
 	}
 	public int sumRange(int start, int end) {
-		return sum(end+1)-sum(start);// 2 to 5 includes element at 2
+		return sum(end+1)-sum(start);
 	}
 	public int sum(int index) {
 		long sum=0;
@@ -41,8 +41,21 @@ public class FenwickTree {
 		}
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		int[] input= {1,2,3,4,1,2,3,1,2,1,4,3,2,4,3,4,8,9,8};
+		FenwickTree ft= new FenwickTree(input);
+		// Sums exclude the right-side limit
+		assert 0 ==ft.sum(1);//  [0 -1>
+		assert 4 ==ft.sum(2);//  [0 -2>
+		assert 8 ==ft.sum(3);//  [0 -3>
+		assert 12==ft.sum(4);//  [0 -4>
+		assert 16==ft.sum(5);//  [0 -5>
+		assert 16==ft.sum(6);//  [0 -6>
+		assert 16==ft.sum(7);//  [0 -7>
+		assert 18==ft.sum(8);//  [0 -8>
+		assert 18==ft.sum(9);//  [0 -9>
+		assert 19==ft.sum(10);// [0 -10>
+		// sumRange includes both. 
+		// sumRange(a,b) => sum(b+1) - sum(a)=> sum(0,1,..,b) - sum(0,1,..,a-1)
+		assert 8 ==ft.sumRange(1, 2);// 4 ones and 4 twos
 	}
-
 }
