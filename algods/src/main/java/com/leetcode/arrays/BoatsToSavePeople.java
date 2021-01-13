@@ -27,29 +27,52 @@ Note:
 1 <= people.length <= 50000
 1 <= people[i] <= limit <= 30000
  */
+import static org.junit.Assert.assertEquals;
 public class BoatsToSavePeople {
+	/**
+	 * Approach 02:
+	 * Since the sorting took O(N logN), replace it with count sort
+	 * O(N)/ O(N)
+	 */
+	public int numRescueBoats(int[] people, int limit) {
+       int[] count=new int[limit+1];
+       for(int p: people) count[p]+=1;// populate counts
+       for(int i=1; i< count.length; i++) count[i]+=count[i-1];
+//       for(int c: count) System.out.println(c);
+       int[] sorted= new int[people.length];
+       for(int i=0; i< people.length; i++) sorted[count[people[i]-1]++]=people[i];// now it's sorted
+//       for(int s: sorted) System.out.println(s);
+       int left=0, right=people.length-1, boats=0;
+       while(left <= right) {
+       	int delta=limit-sorted[right];
+       	if(sorted[left]<=delta) left+=1;
+       	boats+=1;
+       	right-=1;
+       }
+       return boats;
+    }
 	/**
 	 * Approach 01:
 	 * Sort the array, take from right and if enough space left, take from left
 	 * O(N logN)/ O(1)
 	 */
-	public int numRescueBoats(int[] people, int limit) {
-        int left=0, right=people.length-1, boats=0;
-        Arrays.sort(people);
-        while(left <= right) {
-        	int delta=limit-people[right];
-        	if(people[left]<=delta) left+=1;
-        	boats+=1;
-        	right-=1;
-        }
-        return boats;
-    }
+//	public int numRescueBoats(int[] people, int limit) {
+//        int left=0, right=people.length-1, boats=0;
+//        Arrays.sort(people);
+//        while(left <= right) {
+//        	int delta=limit-people[right];
+//        	if(people[left]<=delta) left+=1;
+//        	boats+=1;
+//        	right-=1;
+//        }
+//        return boats;
+//    }
 	public static void main(String[] args) {
-		assert 1==new BoatsToSavePeople().numRescueBoats(new int[] {1}, 5);
-		assert 1==new BoatsToSavePeople().numRescueBoats(new int[] {1,2}, 5);
-		assert 1==new BoatsToSavePeople().numRescueBoats(new int[] {1,4}, 5);
-		assert 2==new BoatsToSavePeople().numRescueBoats(new int[] {1,5}, 5);
-		assert 2==new BoatsToSavePeople().numRescueBoats(new int[] {1,2,5}, 5);
-		assert 2==new BoatsToSavePeople().numRescueBoats(new int[] {1,2,4,5}, 5);
+//		assertEquals(1,new BoatsToSavePeople().numRescueBoats(new int[] {1}, 5));
+//		assertEquals(1,new BoatsToSavePeople().numRescueBoats(new int[] {1,2}, 5));
+//		assertEquals(1,new BoatsToSavePeople().numRescueBoats(new int[] {1,4}, 5));
+//		assertEquals(2,new BoatsToSavePeople().numRescueBoats(new int[] {1,5}, 5));
+//		assertEquals(2,new BoatsToSavePeople().numRescueBoats(new int[] {1,2,5}, 5));
+		assertEquals(7,new BoatsToSavePeople().numRescueBoats(new int[] {1,1,2,2,2,3,3,4,5,5,3,3}, 5));
 	}
 }
