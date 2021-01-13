@@ -1,8 +1,11 @@
 package com.algods.learn.symboltable;
 
 /**
- * Segment Tree - for a Min(Range) query
- * for a Max(Range) query, need to initialize array (and use default return value as) with MIN_VALUE instead of MAX_VALUE
+ * Segment Tree - 
+ * MIN/ MAX Range query
+ * Build: O(N)
+ * Space: O(N) <= 4N Worst case
+ * Query: O(logN) <= 4 logN Worst case
  */
 public class SegmentTree {
 	public enum ST_TYPE{MIN,MAX};
@@ -47,12 +50,17 @@ public class SegmentTree {
 	}
 	public static void main(String[] args) {
 		int[] input= {0,3,4,2,1,6,-1};// frequencies
-		SegmentTree st= new SegmentTree(input, ST_TYPE.MIN);// creating a segment tree for min range queries
-		assert -1 == st.rangeQuery(0, 6);
-		assert  0 == st.rangeQuery(0, 3);
-		assert  1 == st.rangeQuery(2, 5);
-		assert  6 == st.rangeQuery(5, 5);
+		SegmentTree stMin= new SegmentTree(input, ST_TYPE.MIN);// creating a segment tree for min range queries
+		assert -1 == stMin.rangeQuery(0, 6);
+		assert  0 == stMin.rangeQuery(0, 3);
+		assert  1 == stMin.rangeQuery(2, 5);
+		assert  6 == stMin.rangeQuery(5, 5);
 //		for(int i=0; i< 20; i++) System.out.println(i+" "+st.nextPowerOfTwo(i));// testing out utility method
+		SegmentTree stMax=new SegmentTree(input, ST_TYPE.MAX);
+		assert  6 == stMax.rangeQuery(0, 6);
+		assert  4 == stMax.rangeQuery(0, 3);
+		assert  4 == stMax.rangeQuery(2, 5);
+		assert  6 == stMax.rangeQuery(5, 5);
 	}
 
 }
