@@ -2,10 +2,11 @@ package com.algods.learn.symboltable;
 
 /**
  * Segment Tree - 
- * MIN/ MAX Range query - Can I change it for SUM ??
+ * MIN/ MAX Range query - Can I change it for SUM : seems that's RIGHT.
  * Build: O(N)
  * Space: O(N) <= 4N Worst case
  * Query: O(logN) <= 4 logN Worst case
+ * Update: O(logN) 
  */
 public class SegmentTree {
 	public enum ST_TYPE{MIN, MAX, SUM};
@@ -25,8 +26,7 @@ public class SegmentTree {
 		defaultValue= getDefaultValue(treeType);
 		for(int i=0; i< tree.length; i++) tree[i]=defaultValue;
 		constructTree(input, tree, 0, input.length -1, 0);
-		for(int t: tree) System.out.printf("%3d", t);
-		System.out.println();
+		printTree();
 	}
 	private void constructTree(int[] input, int[] tree, int low, int high, int pos) {
 		if(low == high) {tree[pos]=input[low]; return;}
@@ -49,10 +49,27 @@ public class SegmentTree {
 		return (treeType == ST_TYPE.SUM)? left+right:
 			(treeType == ST_TYPE.MIN)? Math.min(left, right) : Math.max(left, right);
 	}
-	// utility method
+	public void updateTree(int index, int val) {
+		updateTree(index, val, 0, maxInt, 0);
+		printTree();
+	}
+	private void updateTree(int index, int val, int low, int high, int pos) {
+		if(low == high) {tree[pos]=val; return;}// the singular location that needs update
+		int mid=low+(high-low)/2;
+		if(index<= mid) updateTree(index, val, low, mid, 2*pos+1);
+		else 			updateTree(index, val, mid+1, high, 2*pos+2);
+		int left=tree[2*pos+1], right=tree[2*pos+2];
+		tree[pos]=(treeType == ST_TYPE.SUM)? left+right:
+			(treeType == ST_TYPE.MIN)? Math.min(left, right) : Math.max(left, right);// propagate min/ max/ sum updates upward
+	}
+	// utility methods
 	public int nextPowerOfTwo(int num) {
 		if(Integer.bitCount(num) ==1) return num;
 		return Integer.highestOneBit(num)<<1;
+	}
+	public void printTree() {
+		for(int t: tree) System.out.printf("%3d", t);
+		System.out.println();
 	}
 	public static void main(String[] args) {
 		int[] input= {0,3,4,2,1,6,-1};// frequencies
@@ -61,17 +78,23 @@ public class SegmentTree {
 		assert  0 == stMin.rangeQuery(0, 3);
 		assert  1 == stMin.rangeQuery(2, 5);
 		assert  6 == stMin.rangeQuery(5, 5);
+		stMin.updateTree(5, -2);
+		assert -2 == stMin.rangeQuery(0, 6);
 //		for(int i=0; i< 20; i++) System.out.println(i+" "+st.nextPowerOfTwo(i));// testing out utility method
 		SegmentTree stMax=new SegmentTree(input, ST_TYPE.MAX);
 		assert  6 == stMax.rangeQuery(0, 6);
 		assert  4 == stMax.rangeQuery(0, 3);
 		assert  4 == stMax.rangeQuery(2, 5);
 		assert  6 == stMax.rangeQuery(5, 5);
+		stMax.updateTree(5, 7);
+		assert  7 == stMax.rangeQuery(0, 6);
 		SegmentTree stSum=new SegmentTree(input, ST_TYPE.SUM);
 		assert 15 == stSum.rangeQuery(0, 6);
 		assert  9 == stSum.rangeQuery(0, 3);
 		assert 13 == stSum.rangeQuery(2, 5);
 		assert  6 == stSum.rangeQuery(5, 5);
+		stSum.updateTree(5, 0);
+		assert 9 == stSum.rangeQuery(0, 6);
 	}
 
 }
