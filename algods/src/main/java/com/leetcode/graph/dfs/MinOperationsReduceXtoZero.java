@@ -44,6 +44,7 @@ public class MinOperationsReduceXtoZero {
 		x=-x;
         for(int n: nums) x+=n;
 		if(x==0) return nums.length;// we have to remove everything
+		if(x < 0) return -1;
         for(i=0, j=0; i< nums.length && j <=i;) {
         	if(sum < x) {
         		sum+=nums[i];
