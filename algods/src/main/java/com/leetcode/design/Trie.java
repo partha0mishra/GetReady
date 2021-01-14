@@ -1,11 +1,11 @@
 package com.leetcode.design;
 /** TODO Anki
+ * 208. Implement Trie (prefix tree)
+ * Implement a trie with insert, search, and startsWith methods.
+ * 
  * Note: startsWith in this only needs a boolean return
  * If it were a list, we had to Recurse
  * 
- * Implement Trie (prefix tree)
- * Implement a trie with insert, search, and startsWith methods.
-
 Example:
 
 Trie trie = new Trie();
