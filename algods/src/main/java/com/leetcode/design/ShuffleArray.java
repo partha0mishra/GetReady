@@ -35,6 +35,10 @@ At most 5 * 104 calls will be made to reset and shuffle.
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.Random;
 public class ShuffleArray {
+	/**
+	 * O(N)/ O(N) - Fisher Yates
+	 * Although that's the only shuffle algo I know of - as Knuth Shuffle 
+	 */
 	class Solution {
 		int[] n, temp;
 	    public Solution(int[] nums) {
