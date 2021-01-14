@@ -32,7 +32,7 @@ Each integer in nums will appear twice, only two integers will appear once.
 import java.util.*;
 public class SingleNumber3 {
 	/**
-	 * Approach 02: Bit Operations
+	 * Approach 02: Bit Operations - NOT DONE YET
 	 * O(N)/ O(1)
 	 */
 	public int[] singleNumber(int[] nums) {
