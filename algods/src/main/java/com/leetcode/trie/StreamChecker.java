@@ -1,5 +1,6 @@
 package com.leetcode.trie;
-/* 1032. HARD
+/** TODO Anki
+ * 1032. HARD
  * Implement the StreamChecker class as follows:
 
 StreamChecker(words): Constructor, init the data structure with the given words.
@@ -36,46 +37,89 @@ import java.util.*;
 
 import org.junit.Assert;
 public class StreamChecker {
-	/* Approach 04: Trie Based - more performant*/
-    class TrieNode {
-        boolean isWord;
-        TrieNode[] next = new TrieNode[26];
-    }
+	/** NOT Understood YET
+	 * 
+	 * From official solution: https://leetcode.com/problems/stream-of-characters/solution/
+	 * TRICK: reverse the words to create TRIE. Search in reverse of stream (use ArrayDeque) as we know the last word to search with.
+	 * Create: O(N * M)/ O(N * M) <= N=number of words, M=word length
+	 * Query : O(M)/ O(M) <= going down the path for the length of the word  
+	 */
+	class TrieNode {
+	    Map<Character, TrieNode> children = new HashMap<>();
+	    boolean word = false;
+	}
 
-    TrieNode root = new TrieNode();
-    StringBuilder sb = new StringBuilder();
+    TrieNode trie = new TrieNode();
+    Deque<Character> stream = new ArrayDeque<>();
 
     public StreamChecker(String[] words) {
-        createTrie(words);
-    }
-
-    public boolean query(char letter) {
-        sb.append(letter);
-        TrieNode node = root;
-        for (int i = sb.length() - 1; i >= 0 && node != null; i--) {
-            char c = sb.charAt(i);
-            node = node.next[c - 'a'];
-            if (node != null && node.isWord) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void createTrie(String[] words) {
-        for (String s : words) {
-            TrieNode node = root;
-            int len = s.length();
-            for (int i = len - 1; i >= 0; i--) {
-                char c = s.charAt(i);
-                if (node.next[c - 'a'] == null) {
-                    node.next[c - 'a'] = new TrieNode();
+        for (String word : words) {
+            TrieNode node = trie;
+            String reversedWord = new StringBuilder(word).reverse().toString();
+            for (char ch : reversedWord.toCharArray()) {
+                if (!node.children.containsKey(ch)) {
+                    node.children.put(ch, new TrieNode());
                 }
-                node = node.next[c - 'a'];
+                node = node.children.get(ch);
             }
-            node.isWord = true;
+            node.word = true;    
         }
     }
+    public boolean query(char letter) {
+        stream.addFirst(letter);
+        
+        TrieNode node = trie;
+        for (char ch : stream) {
+            if (node.word) {
+                return true;    
+            }
+            if (!node.children.containsKey(ch)) {
+                return false;    
+            }
+            node = node.children.get(ch);    
+        }
+        return node.word;
+    }
+	/* Approach 04: Trie Based - more performant*/
+//    class TrieNode {
+//        boolean isWord;
+//        TrieNode[] next = new TrieNode[26];
+//    }
+//
+//    TrieNode root = new TrieNode();
+//    StringBuilder sb = new StringBuilder();
+//
+//    public StreamChecker(String[] words) {
+//        createTrie(words);
+//    }
+//
+//    public boolean query(char letter) {
+//        sb.append(letter);
+//        TrieNode node = root;
+//        for (int i = sb.length() - 1; i >= 0 && node != null; i--) {
+//            char c = sb.charAt(i);
+//            node = node.next[c - 'a'];
+//            if (node != null && node.isWord) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    private void createTrie(String[] words) {
+//        for (String s : words) {
+//            TrieNode node = root;
+//            int len = s.length();
+//            for (int i = len - 1; i >= 0; i--) {
+//                char c = s.charAt(i);
+//                if (node.next[c - 'a'] == null) {
+//                    node.next[c - 'a'] = new TrieNode();
+//                }
+//                node = node.next[c - 'a'];
+//            }
+//            node.isWord = true;
+//        }
+//    }
 	/* Approach 03: Trie based*/
 //	private StringBuilder sb;
 //	private TrieNode root;
