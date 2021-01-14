@@ -2,10 +2,8 @@ package com.leetcode.trie;
 /** TODO Anki
  * 212. Word Search II
  * Given an m x n board of characters and a list of strings words, return all words on the board.
-
-Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
-
- 
+Each word must be constructed from letters of sequentially adjacent cells, where adjacent cells are horizontally or vertically neighboring. 
+The same letter cell may not be used more than once in a word.
 
 Example 1:
 
@@ -71,9 +69,9 @@ public class WordSearch2 {
     }
 	private void backtrack(int row, int col,List<String> result, TrieNode trieNode,
 			char[][] board) {
-        char c=board[row][col];
-        if(c== '#' || trieNode.letters[c-'a'] == null) return;
-        trieNode=trieNode.letters[c-'a'];
+        char origChar=board[row][col];
+        if(origChar== '#' || trieNode.letters[origChar-'a'] == null) return;
+        trieNode=trieNode.letters[origChar-'a'];
 		if(trieNode.w != null) {result.add(trieNode.w); trieNode.w=null;}
         board[row][col]='#'; // used indicator instead of a hashmap
         
@@ -82,7 +80,7 @@ public class WordSearch2 {
 		if(row < board.length-1) backtrack(row+1, col, result, trieNode, board);// go down
 		if(col < board[0].length-1) backtrack(row, col+1, result, trieNode, board);// go right
 		
-		board[row][col]=c; // True backtracking
+		board[row][col]=origChar; // True backtracking
 	}
 	/** 
 	 * Approach 01: keeping words in a trie and then searching using backtracking
