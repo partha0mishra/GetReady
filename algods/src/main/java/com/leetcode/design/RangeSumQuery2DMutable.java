@@ -1,6 +1,6 @@
 package com.leetcode.design;
 /** TODO Anki 
- * TODO : this is NOT most optimized but it works so far
+ * TODO : this is NOT most optimized but it works so far. TBD using BIT/ Fenwick Tree or Segment Tree
  * 
  * 308. Range Sum Query 2D - Mutable
  * Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
