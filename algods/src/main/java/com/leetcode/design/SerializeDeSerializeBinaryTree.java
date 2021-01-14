@@ -118,19 +118,19 @@ public class SerializeDeSerializeBinaryTree {
 	public static void main(String[] args) {
 		SerializeDeSerializeBinaryTree instance= new SerializeDeSerializeBinaryTree();
 		TreeNode root= null;
-//		root= instance.new TreeNode(1);								// 1
-//		root.left=instance.new TreeNode(2);							// 1 2 .
-//		root.right=instance.new TreeNode(3);						// 1 2 3
-//		root.left.left=instance.new TreeNode(4);					// 1 2 3 4 . . .
-//		root.right.left=instance.new TreeNode(5);					// 1 2 3 4 . 5 .
-//		root.right.right=instance.new TreeNode(6);					// 1 2 3 4 . 5 6
-//		root.left.left.right=instance.new TreeNode(7);				// 1 2 3 4 . 5 6 . 7 . . . .
-//		root.right.right.left=instance.new TreeNode(8);				// 1 2 3 4 . 5 6 . 7 . . 8 .
-//		root.right.right.right=instance.new TreeNode(9);			// 1 2 3 4 . 5 6 . 7 . . 8 9
-//		root.left.left.right.left=instance.new TreeNode(10);		// 1 2 3 4 . 5 6 . 7 . . 8 9 10 . .  .  .  .
-//		root.right.right.left.left=instance.new TreeNode(11);		// 1 2 3 4 . 5 6 . 7 . . 8 9 10 . 11 .  .  .
-//		root.right.right.left.right=instance.new TreeNode(12);		// 1 2 3 4 . 5 6 . 7 . . 8 9 10 . 11 12 .  .
-//		root.right.right.right.right=instance.new TreeNode(13);		// 1 2 3 4 . 5 6 . 7 . . 8 9 10 . 11 12 . 13
+		root= instance.new TreeNode(1);								// 1
+		root.left=instance.new TreeNode(2);							// 1 2 .
+		root.right=instance.new TreeNode(3);						// 1 2 3
+		root.left.left=instance.new TreeNode(4);					// 1 2 3 4 . . .
+		root.right.left=instance.new TreeNode(5);					// 1 2 3 4 . 5 .
+		root.right.right=instance.new TreeNode(6);					// 1 2 3 4 . 5 6
+		root.left.left.right=instance.new TreeNode(7);				// 1 2 3 4 . 5 6 . 7 . . . .
+		root.right.right.left=instance.new TreeNode(8);				// 1 2 3 4 . 5 6 . 7 . . 8 .
+		root.right.right.right=instance.new TreeNode(9);			// 1 2 3 4 . 5 6 . 7 . . 8 9
+		root.left.left.right.left=instance.new TreeNode(10);		// 1 2 3 4 . 5 6 . 7 . . 8 9 10 . .  .  .  .
+		root.right.right.left.left=instance.new TreeNode(11);		// 1 2 3 4 . 5 6 . 7 . . 8 9 10 . 11 .  .  .
+		root.right.right.left.right=instance.new TreeNode(12);		// 1 2 3 4 . 5 6 . 7 . . 8 9 10 . 11 12 .  .
+		root.right.right.right.right=instance.new TreeNode(13);		// 1 2 3 4 . 5 6 . 7 . . 8 9 10 . 11 12 . 13
 		Codec codec=instance.new Codec();
 		String data=codec.serialize(root);
 		System.out.println(data);
