@@ -56,7 +56,7 @@ public class RandomizedSet {
     /** Inserts a value to the set. Returns true if the set did not already contain the specified element. */
     public boolean insert(int val) {
         if(indices.containsKey(val)) return false;
-        indices.put(val, elements.size());
+        indices.put(val, elements.size());// element doesn't yet have index as element.size()
         elements.add(elements.size(),val);// this has to come second as the list.size() increases
         
         return true;
