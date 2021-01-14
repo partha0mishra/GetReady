@@ -2,7 +2,7 @@ package com.leetcode.design;
 /** TODO Anki
  * TODO EVICT() is still Costly and need to be optimized.
  * 
- * LRU Cache
+ * 146. LRU Cache
  * 
  * Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
 
