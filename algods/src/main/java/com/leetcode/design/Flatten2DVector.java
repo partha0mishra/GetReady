@@ -1,8 +1,6 @@
 package com.leetcode.design;
 /** TODO Anki
- * Design and implement an iterator to flatten a 2d vector. It should support the following operations: next and hasNext.
-
- 
+ * 251. Design and implement an iterator to flatten a 2d vector. It should support the following operations: next and hasNext.
 
 Example:
 
