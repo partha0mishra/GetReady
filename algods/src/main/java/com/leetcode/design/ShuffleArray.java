@@ -1,6 +1,6 @@
 package com.leetcode.design;
 /** TODO Anki
- * Given an integer array nums, design an algorithm to randomly shuffle the array.
+ * 384. Given an integer array nums, design an algorithm to randomly shuffle the array.
 
 Implement the Solution class:
 
