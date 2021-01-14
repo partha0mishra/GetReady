@@ -1,5 +1,5 @@
 package com.leetcode.trie;
-/* 
+/* 1032. HARD
  * Implement the StreamChecker class as follows:
 
 StreamChecker(words): Constructor, init the data structure with the given words.

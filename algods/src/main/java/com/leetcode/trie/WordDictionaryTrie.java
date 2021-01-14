@@ -81,7 +81,7 @@ public class WordDictionaryTrie {
     	if(currentChar == '.') {// ending with a . is true
 //    		if(trie.end) return true; // I probably need the chain to END next
     		for(Trie t: trie.letters) {
-    			if(t == null) continue;
+    			if(t == null) continue;// PRUNING
     			// True: if it's found in any subtree
     			if(findWord(restOfWord,t)) return true;
     		}
