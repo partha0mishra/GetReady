@@ -36,12 +36,14 @@ public class MinOperationsReduceXtoZero {
 	 * Approach 02: 
 	 * Note: Array Operations can have better ways of handling such things
 	 * If we transpose this problem to finding subarray with sum=x and then find the max length of that, we are done.
+	 * O(N)/ O(1)
 	 */
 	public int minOperations(int[] nums, int x) {
-		if(x==0) return 0;
+		if(x==0) return 0;// we don't have to remove anything
 		int maxLen=0, i=0, j=0, sum=0;
-		x=Arrays.stream(nums).sum()-x;// this is the value for the max subarray sum
-		if(x==0) return nums.length;// we don't have to remove anything
+		x=-x;
+        for(int n: nums) x+=n;
+		if(x==0) return nums.length;// we have to remove everything
         for(i=0, j=0; i< nums.length && j <=i;) {
         	if(sum < x) {
         		sum+=nums[i];
