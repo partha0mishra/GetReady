@@ -25,22 +25,29 @@ The number of nodes in the tree is in the range [1, 2 * 104].
 All Node.val are unique.
 */
 public class BstRangeSum {
-	/*
-	 * 
+	/**
+	 * Approach 02: recursion without helper function
+	 * O(N)/ O(N)
 	 */
+	public int rangeSumBST(TreeNode root, int L, int R) {
+		 if(root == null) return 0;
+		 if(root.val < L) return rangeSumBST(root.right, L, R);// some valid values can be at the right
+		 else if(root.val > R) return rangeSumBST(root.left, L, R);// some valid values can be at the left
+		 else return root.val+ rangeSumBST(root.left, L, R)+ rangeSumBST(root.right, L, R);// go both ways
+	 }
 	/**
 	 * Approach 01: recursion using helper function
 	 */
-	int sum=0;
-	public int rangeSumBST(TreeNode root, int low, int high) {
-        if(root == null) return 0;
-        rangeSum(root,low,high);
-        return sum;
-    }
-	private void rangeSum(TreeNode root, int low, int high) {
-		if(root == null) return;
-		if(low < root.val) rangeSum(root.left,low,high);
-		if(high > root.val) rangeSum(root.right,low,high);
-		if(low <= root.val && high >=root.val) sum+=root.val;
-	}
+//	int sum=0;
+//	public int rangeSumBST(TreeNode root, int low, int high) {
+//        if(root == null) return 0;
+//        rangeSum(root,low,high);
+//        return sum;
+//    }
+//	private void rangeSum(TreeNode root, int low, int high) {
+//		if(root == null) return;
+//		if(low < root.val) rangeSum(root.left,low,high);
+//		if(high > root.val) rangeSum(root.right,low,high);
+//		if(low <= root.val && high >=root.val) sum+=root.val;
+//	}
 }
