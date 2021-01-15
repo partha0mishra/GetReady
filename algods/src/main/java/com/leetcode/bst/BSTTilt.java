@@ -44,23 +44,39 @@ The number of nodes in the tree is in the range [0, 104].
 import java.util.*;
 public class BSTTilt {
 	/**
-	 * Approach 02: Trying to avoid storing sum in HM
+	 * Approach 03: little more streamlined
 	 * GatherTilt - adds to global tilt and sums values in that process
 	 * O(N)/ O(N) but way faster.
 	 */
 	int totalTilt=0;
 	public int findTilt(TreeNode root) {
-		if(root != null) gatherTilt(root);
+		gatherTilt(root);
 		return totalTilt;
 	}
 	private int gatherTilt(TreeNode node) {
 		if(node == null) return 0;
-		node.val+=gatherTilt(node.left)+gatherTilt(node.right);
-		int leftVal= node.left==null? 0: node.left.val;
-		int rightVal= node.right==null? 0: node.right.val;
-		totalTilt+=Math.abs(leftVal - rightVal);
-		return node.val;
+		int leftSum=gatherTilt(node.left), rightSum=gatherTilt(node.right);
+		totalTilt+=Math.abs(leftSum - rightSum);
+		return node.val+leftSum+rightSum;
 	}
+	/**
+	 * Approach 02: Trying to avoid storing sum in HM
+	 * GatherTilt - adds to global tilt and sums values in that process
+	 * O(N)/ O(N) but way faster.
+	 */
+//	int totalTilt=0;
+//	public int findTilt(TreeNode root) {
+//		if(root != null) gatherTilt(root);
+//		return totalTilt;
+//	}
+//	private int gatherTilt(TreeNode node) {
+//		if(node == null) return 0;
+//		node.val+=gatherTilt(node.left)+gatherTilt(node.right);
+//		int leftVal= node.left==null? 0: node.left.val;
+//		int rightVal= node.right==null? 0: node.right.val;
+//		totalTilt+=Math.abs(leftVal - rightVal);
+//		return node.val;
+//	}
 	/** Approach 01: keeping sum at node levels in an HM
 	 *  O(N)/ O(N)
 	 */
