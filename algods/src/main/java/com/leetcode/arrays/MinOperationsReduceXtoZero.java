@@ -1,4 +1,4 @@
-package com.leetcode.graph.dfs;
+package com.leetcode.arrays;
 /** TODO Anki
  * TODO: look into the binary search solution as well
  * 1658. Minimum Operations to Reduce X to Zero
