@@ -1,6 +1,6 @@
 package com.leetcode.bst;
-/*
- * Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):
+/** TODO Anki
+ * 173. Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):
 
 BSTIterator(TreeNode root) Initializes an object of the BSTIterator class. The root of the BST is given as part of the constructor. The pointer should be initialized to a non-existent number smaller than any element in the BST.
 boolean hasNext() Returns true if there exists a number in the traversal to the right of the pointer, otherwise returns false.
@@ -63,7 +63,12 @@ import static org.junit.Assert.*;
  */
 class BSTIterator {
 	/* Approach 02: populate a stack up to the last left. Improving O(mem)
-	 * populate: O(n), next: O(1), hasNext O(1), O(mem)=O(H) */
+	 * populate: O(n), next: O(1), hasNext O(1), O(mem)=O(H) 
+	 * in this case, first we do traverse(head){fill up stack till head.left !=null; head=head.left;}
+	 * that keeps only O(H) elements
+	 * When we pop(), before returning, do a peek() and then do traverse(peekedNode.right) to keep those in stack
+	 * 
+	 * Approach 01 was to use a queue to keep ALL the elements during in-order traversal. that's O(mem) => O(N)*/
     Deque<TreeNode> stack;
     public BSTIterator(TreeNode root) {
         stack=new ArrayDeque<>();
