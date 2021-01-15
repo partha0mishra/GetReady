@@ -45,17 +45,17 @@ import java.util.*;
 public class BSTTilt {
 	/**
 	 * Approach 03: little more streamlined
-	 * GatherTilt - adds to global tilt and sums values in that process
+	 * findSum() - sums up values to parent nodes and adds to the global tilt while doing so
 	 * O(N)/ O(N) but way faster.
 	 */
 	int totalTilt=0;
 	public int findTilt(TreeNode root) {
-		gatherTilt(root);
+		findSum(root);
 		return totalTilt;
 	}
-	private int gatherTilt(TreeNode node) {
+	private int findSum(TreeNode node) {
 		if(node == null) return 0;
-		int leftSum=gatherTilt(node.left), rightSum=gatherTilt(node.right);
+		int leftSum=findSum(node.left), rightSum=findSum(node.right);
 		totalTilt+=Math.abs(leftSum - rightSum);
 		return node.val+leftSum+rightSum;
 	}
