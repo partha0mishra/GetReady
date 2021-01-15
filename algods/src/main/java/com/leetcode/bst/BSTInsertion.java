@@ -30,16 +30,36 @@ All the values Node.val are unique.
 It's guaranteed that val does not exist in the original BST.
  * */
 public class BSTInsertion {
-	
+	/** 
+	 * Approach 02: Trying Iterative
+	 * Actually easy: go where the value takes us
+	 * O(H)/ O(1) as recursion is converted to Iteration
+	 */
+	 public TreeNode insertIntoBST(TreeNode root, int val) {
+		 TreeNode current=root, prev=root, newNode=new TreeNode(val);
+		 if(root ==null) return newNode;
+		 while(current !=null) {
+			 prev=current;
+			 if(val > current.val) {
+				 current=current.right;
+				 if(current==null) prev.right=newNode;
+			 }
+			 else {
+				 current=current.left;
+				 if(current==null) prev.left=newNode;
+			 }
+		 }
+		 return root;
+	 }
 	/**
+	 * Approach 01: Recursive
 	 * Actually easy: go where the value takes us
 	 * O(H)/ O(H) due to recursion
 	 */
-	 public TreeNode insertIntoBST(TreeNode root, int val) {
-	        if(root==null) return new TreeNode(val);
-	        if(val < root.val) root.left= insertIntoBST(root.left,val);
-	        else root.right= insertIntoBST(root.right,val);
-     
-     return root;
-	 }
+//	 public TreeNode insertIntoBST(TreeNode root, int val) {
+//		 if(root==null) return new TreeNode(val);
+//		 if(val < root.val) root.left= insertIntoBST(root.left,val);
+//		 else root.right= insertIntoBST(root.right,val);
+//		 return root;
+//	 }
 }
