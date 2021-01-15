@@ -1,5 +1,6 @@
 package com.leetcode.bst;
-/* 257. Binary Tree Paths
+/** EASY
+ * 257. Binary Tree Paths
  * Given a binary tree, return all root-to-leaf paths.
 
 Note: A leaf is a node with no children.
@@ -21,8 +22,7 @@ Explanation: All root-to-leaf paths are: 1->2->5, 1->3
 import java.util.*;
 public class BSTPaths {
 	/**
-	 * Approach 01: regular recursion
-	 * O(N)/ O(N)
+	 * Approach 01: Still recursive O(N)/ O(N) - just a little tidier
 	 */
 	List<String> result;
 	public List<String> binaryTreePaths(TreeNode root) {
@@ -45,4 +45,29 @@ public class BSTPaths {
 		if(root.left != null) buildPath(root.left, path);
 		if(root.right != null) buildPath(root.right, path);
 	}
+	/**
+	 * Approach 01: regular recursion
+	 * O(N)/ O(N)
+	 */
+//	List<String> result;
+//	public List<String> binaryTreePaths(TreeNode root) {
+//		// if(root == null) return "";// need a [] when root is null
+//		result=new ArrayList<String>();
+//		buildPath(root, "");
+//		return result;
+//	}
+//	private void buildPath(TreeNode root, String path){// using String path as it's immutable. 
+//		//Any collection structure for the "path" would have gotten updated UNNECESSARILY
+//		if(root == null) return;
+//		if(path.length() > 0){
+//			path=path.concat("->");
+//		}
+//		path=path.concat(String.valueOf(root.val));
+//		if(root.left == null && root.right == null){
+//			result.add(path);
+//			return;
+//		}
+//		if(root.left != null) buildPath(root.left, path);
+//		if(root.right != null) buildPath(root.right, path);
+//	}
 }
