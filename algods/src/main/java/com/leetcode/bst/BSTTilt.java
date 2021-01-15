@@ -3,13 +3,10 @@ package com.leetcode.bst;
  * 563 Binary Tree Tilt
  * Given the root of a binary tree, return the sum of every tree node's tilt.
 
-The tilt of a tree node is the absolute difference between the sum of all left subtree node values and all right subtree node values. If a node does not have a left child, then the sum of the left subtree node values is treated as 0. The rule is similar if there the node does not have a right child.
-
- 
-
+The tilt of a tree node is the absolute difference between the sum of all left subtree node values 
+and all right subtree node values. If a node does not have a left child, then the sum of the 
+left subtree node values is treated as 0. The rule is similar if there the node does not have a right child.
 Example 1:
-
-
 Input: root = [1,2,3]
 Output: 1
 Explanation: 
@@ -46,18 +43,39 @@ The number of nodes in the tree is in the range [0, 104].
  */
 import java.util.*;
 public class BSTTilt {
-	HashMap<TreeNode,Integer> dp=new HashMap<TreeNode,Integer>();
+	/**
+	 * Approach 02: Trying to avoid storing sum in HM
+	 * GatherTilt - adds to global tilt and sums values in that process
+	 * O(N)/ O(N) but way faster.
+	 */
+	int totalTilt=0;
 	public int findTilt(TreeNode root) {
-        if(root == null) return 0;
-        return findTilt(root.left)
-        		+findTilt(root.right)
-        		+Math.abs(sum(root.right)-sum(root.left));
-    }
-	private int sum(TreeNode node) {
-		if(node == null) return 0;
-		if(dp.containsKey(node)) return dp.get(node);
-		int sum=node.val+sum(node.left)+sum(node.right);
-		dp.put(node, sum);
-		return sum;
+		if(root != null) gatherTilt(root);
+		return totalTilt;
 	}
+	private int gatherTilt(TreeNode node) {
+		if(node == null) return 0;
+		node.val+=gatherTilt(node.left)+gatherTilt(node.right);
+		int leftVal= node.left==null? 0: node.left.val;
+		int rightVal= node.right==null? 0: node.right.val;
+		totalTilt+=Math.abs(leftVal - rightVal);
+		return node.val;
+	}
+	/** Approach 01: keeping sum at node levels in an HM
+	 *  O(N)/ O(N)
+	 */
+//	HashMap<TreeNode,Integer> dp=new HashMap<TreeNode,Integer>();
+//	public int findTilt(TreeNode root) {
+//        if(root == null) return 0;
+//        return findTilt(root.left)
+//        		+findTilt(root.right)
+//        		+Math.abs(sum(root.right)-sum(root.left));
+//    }
+//	private int sum(TreeNode node) {
+//		if(node == null) return 0;
+//		if(dp.containsKey(node)) return dp.get(node);
+//		int sum=node.val+sum(node.left)+sum(node.right);
+//		dp.put(node, sum);
+//		return sum;
+//	}
 }
