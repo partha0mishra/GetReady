@@ -21,6 +21,7 @@ import java.util.*;
 public class BSTLevelOrderReverse {
 	/* Easy BFS. 
 	 * NOTE : Collections.reverse(result)
+	 * If that's not allowed, use a Deque as Stack and keep doing offerFirst
 	 * O(n)/ O(n)*/
 	public List<List<Integer>> levelOrderBottom(TreeNode root) {
         List<List<Integer>> result= new ArrayList<List<Integer>>();
