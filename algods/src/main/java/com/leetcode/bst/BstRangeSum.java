@@ -1,5 +1,6 @@
 package com.leetcode.bst;
-/* Range Sum of BST
+/* 
+ * 938. Range Sum of BST
 Given the root node of a binary search tree, return the sum of values of all nodes with a value in the range [low, high].
 
  
@@ -24,6 +25,12 @@ The number of nodes in the tree is in the range [1, 2 * 104].
 All Node.val are unique.
 */
 public class BstRangeSum {
+	/*
+	 * 
+	 */
+	/**
+	 * Approach 01: recursion using helper function
+	 */
 	int sum=0;
 	public int rangeSumBST(TreeNode root, int low, int high) {
         if(root == null) return 0;
