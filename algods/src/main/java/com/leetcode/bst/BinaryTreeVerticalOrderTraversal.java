@@ -57,84 +57,130 @@ public class BinaryTreeVerticalOrderTraversal {
 	        this.right = right;
 	    }
 	}
-    //** Approach 02: works
+	/**
+	 * Way faster and much much more Elegant
+	 * I could not have done this when I tried this first time last August, that's 4 months back.
+	 * Level order traversal: O(N)/ O(N)
+	 * Can still be more simplified
+	 */
+	class TreeNodeXY implements Comparable<TreeNodeXY>{// keeping TreeNode and its coordinates
+		TreeNode node; int x, y;
+		public TreeNodeXY(TreeNode n, int xx, int yy) {node=n; x=xx; y=yy;}
+		public int compareTo(TreeNodeXY other) {
+			if(x == other.x) {
+				if(y == other.y) {
+					return Integer.compare(node.val, other.node.val);
+				}else return Integer.compare(other.y, y);
+			}else return Integer.compare(x, other.x);
+		}
+	}
 	public List<List<Integer>> verticalTraversal(TreeNode root) {
-        List<List<Integer>> res = new ArrayList<>();
-        if(root == null)    return res;
-        Queue<TreeNode> q = new LinkedList<>();
-		
-		//while traversing we are storing values in below format
-		//<HorizonalDistFromRoot, <VerticalLevel, List<Integer>>
-		//At the end while storing result in a List<> we are sorting the List<>
-        Map<Integer, Map<Integer, List<Integer>>> map = new HashMap<>();
-		
-		//We are storing the horizontal position from root, so we know which vertical
-		//line this node will corresponds to.
-        Map<String, Integer> horizPosMap = new HashMap<>();
-        q.offer(root);
-        int level = 0;
-        //level order traversal so we can keep track of height of a node from root
-        while(!q.isEmpty())  {
-            int size = q.size();
-            for(int i=0;i<size;i++) {
-                TreeNode t = q.poll();
-                String key = t.val+"|"+level;
-                int horizPos = 0;
-                int newlevel = level + 1;
-                if(horizPosMap.get(key) != null)    {
-                    horizPos = horizPosMap.get(key);
-                    horizPosMap.remove(key);  //Key is removed to handle duplicate key if any 
-                }
-                Map<Integer, List<Integer>> lm = map.get(horizPos);
-                if(lm==null) {
-                    lm = new HashMap<>();
-                    List<Integer> l = new ArrayList<>();
-                    l.add(t.val);
-                    lm.put(newlevel, l);
-                    map.put(horizPos,lm);
-
-                } else {
-                    List<Integer> l = lm.get(newlevel);
-                    if(l == null)   {
-                        l = new ArrayList<>();
-                        l.add(t.val);
-                        lm.put(newlevel,l);
-                    }   else {
-                        l.add(t.val);
-                        Collections.sort(l);
-                    }
-                }
-                if(t.left != null) {
-                    horizPosMap.put(t.left.val+"|"+newlevel,horizPos-1);
-                    q.offer(t.left);
-                }
-                if(t.right != null) {
-                    horizPosMap.put(t.right.val + "|" + newlevel, horizPos + 1);
-                    q.offer(t.right);
-                }
-            }
-            level++;
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null)    return result;
+        Deque<TreeNodeXY> queue=new LinkedList<>();
+        queue.offerLast(new TreeNodeXY(root,0,0));
+        TreeMap<Integer, TreeSet<TreeNodeXY>> resultMap= new TreeMap<Integer, TreeSet<TreeNodeXY>>();
+        TreeSet<TreeNodeXY> ordered=new TreeSet<>();
+        while(!queue.isEmpty()) {
+        	int size=queue.size();
+        	for(int s=0; s< size; s++) {
+        		TreeNodeXY current=queue.pollFirst();
+        		int x=current.x;
+        		resultMap.computeIfAbsent(x, v -> new TreeSet<TreeNodeXY>()).add(current);
+        		ordered.add(current);
+        		if(current.node.left != null) queue.add(new TreeNodeXY(current.node.left, current.x -1,current.y -1));
+        		if(current.node.right !=null) queue.add(new TreeNodeXY(current.node.right,current.x+1, current.y -1));
+        	}
         }
-		//To find out maximum left side span of the tree and right side span of the tree
-		//min refers to left and max refers to right
-        int min = Integer.MAX_VALUE;
-        int max = Integer.MIN_VALUE;
-        for(Integer r : map.keySet())   {
-            if(r < min) min = r;
-            if(r > max) max = r;
+        
+        Iterator<Integer> it=resultMap.keySet().iterator();
+        while(it.hasNext()) {
+        	int key=it.next();
+        	TreeSet<TreeNodeXY> ts=resultMap.get(key);
+        	ArrayList<Integer> tempList= new ArrayList<>();
+        	for(TreeNodeXY txy: ts) tempList.add(txy.node.val);
+        	result.add(tempList);
         }
-        for(int i=min;i<=max;i++)   {
-            if(map.get(i) == null)  continue;
-            Map<Integer, List<Integer>> hm1 = map.get(i);
-            List<Integer> lo = new ArrayList<>();
-            for(int j=0;j<level+1;j++)    {
-                if(hm1.get(j) != null)
-                    lo.addAll(hm1.get(j));
-            }
-            res.add(lo);
-        }
-        return res;
-    }
+        return result;
+	}
+    //** Approach 02: works
+//	public List<List<Integer>> verticalTraversal(TreeNode root) {
+//        List<List<Integer>> res = new ArrayList<>();
+//        if(root == null)    return res;
+//        Queue<TreeNode> q = new LinkedList<>();
+//		
+//		//while traversing we are storing values in below format
+//		//<HorizonalDistFromRoot, <VerticalLevel, List<Integer>>
+//		//At the end while storing result in a List<> we are sorting the List<>
+//        Map<Integer, Map<Integer, List<Integer>>> map = new HashMap<>();
+//		
+//		//We are storing the horizontal position from root, so we know which vertical
+//		//line this node will corresponds to.
+//        Map<String, Integer> horizPosMap = new HashMap<>();
+//        q.offer(root);
+//        int level = 0;
+//        //level order traversal so we can keep track of height of a node from root
+//        while(!q.isEmpty())  {
+//            int size = q.size();
+//            for(int i=0;i<size;i++) {
+//                TreeNode t = q.poll();
+//                String key = t.val+"|"+level;
+//                int horizPos = 0;
+//                int newlevel = level + 1;
+//                if(horizPosMap.get(key) != null)    {
+//                    horizPos = horizPosMap.get(key);
+//                    horizPosMap.remove(key);  //Key is removed to handle duplicate key if any 
+//                }
+//                Map<Integer, List<Integer>> lm = map.get(horizPos);
+//                if(lm==null) {
+//                    lm = new HashMap<>();
+//                    List<Integer> l = new ArrayList<>();
+//                    l.add(t.val);
+//                    lm.put(newlevel, l);
+//                    map.put(horizPos,lm);
+//
+//                } else {
+//                    List<Integer> l = lm.get(newlevel);
+//                    if(l == null)   {
+//                        l = new ArrayList<>();
+//                        l.add(t.val);
+//                        lm.put(newlevel,l);
+//                    }   else {
+//                        l.add(t.val);
+//                        Collections.sort(l);
+//                    }
+//                }
+//                if(t.left != null) {
+//                    horizPosMap.put(t.left.val+"|"+newlevel,horizPos-1);
+//                    q.offer(t.left);
+//                }
+//                if(t.right != null) {
+//                    horizPosMap.put(t.right.val + "|" + newlevel, horizPos + 1);
+//                    q.offer(t.right);
+//                }
+//            }
+//            level++;
+//        }
+//		//To find out maximum left side span of the tree and right side span of the tree
+//		//min refers to left and max refers to right
+//        int min = Integer.MAX_VALUE;
+//        int max = Integer.MIN_VALUE;
+//        for(Integer r : map.keySet())   {
+//            if(r < min) min = r;
+//            if(r > max) max = r;
+//        }
+//        for(int i=min;i<=max;i++)   {
+//            if(map.get(i) == null)  continue;
+//            Map<Integer, List<Integer>> hm1 = map.get(i);
+//            List<Integer> lo = new ArrayList<>();
+//            for(int j=0;j<level+1;j++)    {
+//                if(hm1.get(j) != null)
+//                    lo.addAll(hm1.get(j));
+//            }
+//            res.add(lo);
+//        }
+//        return res;
+//    }
     //*/
     /** Approach 01: doesn't sort the inner array lists when numbers have same X and Y
 	public List<List<Integer>> verticalTraversal(TreeNode root) { 	
