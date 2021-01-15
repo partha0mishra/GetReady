@@ -34,47 +34,87 @@ public class BinaryTreeZigZagOrder {
 	        this.right = right;
 	    }
 	}
+	/**
+	 * BFS, with a flag to toggle ordering
+	 * Use a Deque and to be TRULY used as a Double-ended one
+	 * 
+	 * if(toggle) current=pollLast(), offerFirst(current.right), offerFirst(current.left)
+	 * else       current=pollFirst(), offerLast(current.left),  offerLast(current.right)
+	 * 
+	 * O(N)/ O(leaves)=> O(N/2) => O(N)
+	 */
 	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-		if(root == null) return new ArrayList<List<Integer>>();
-		boolean moveRight=false; // false- right, true- left. We start with Left
-		List<List<Integer>> result = new ArrayList<List<Integer>>();
-		Queue<TreeNode> nodeQueue= new LinkedList<TreeNode>();
-		nodeQueue.add(root);
-		
-		while(!nodeQueue.isEmpty()) {
-			int nodeCount= nodeQueue.size();
-			ArrayList<Integer> thisLevelNodes= new ArrayList<Integer>();
-			Stack<Integer> thisLevelStack= new Stack<Integer>();
-			while(nodeCount -- >0) {
-				TreeNode thisNode=nodeQueue.remove();
-				
-				if(thisNode !=null) {
-					nodeQueue.add(thisNode.left);
-					nodeQueue.add(thisNode.right);
-					
-					if(moveRight) {
-						// push to stack
-						thisLevelStack.add(thisNode.val);
-					}else {
-						// push to this level ArrayList
-						thisLevelNodes.add(thisNode.val);
-					}
+		List<List<Integer>> result=new ArrayList<List<Integer>>();
+		if(root == null) return result;
+		Deque<TreeNode> queue=new ArrayDeque<>();// use as a queue/ stack
+		boolean right=true;
+		queue.offerLast(root);
+		while(!queue.isEmpty()) {
+			int size=queue.size();
+			ArrayList<Integer> thisLevel=new ArrayList<>();
+			right=!right;
+			for(int s=0; s< size; s++) {
+				TreeNode current;
+				if(right) {
+					current=queue.pollLast();
+					if(current.right != null) queue.offerFirst(current.right);
+					if(current.left != null) queue.offerFirst(current.left);
+				}else {
+					current=queue.pollFirst();
+					if(current.left != null) queue.offerLast(current.left);
+					if(current.right != null) queue.offerLast(current.right);
 				}
+				thisLevel.add(current.val);
 			}
-			if(moveRight) {// get from stack
-				while(!thisLevelStack.isEmpty()) {
-//					System.out.println(thisLevelStack.peek());
-					thisLevelNodes.add(thisLevelStack.pop());
-				}
-			}
-			if(!thisLevelNodes.isEmpty()) {
-				result.add(thisLevelNodes);
-			}
-			moveRight= moveRight? false: true;// flip it
+			result.add(thisLevel);
 		}
-		
 		return result;
-    }
+	}
+		
+	/**
+	 * Approach 01: similar one, but didn't know about Deque 
+	 */
+//	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+//		if(root == null) return new ArrayList<List<Integer>>();
+//		boolean moveRight=false; // false- right, true- left. We start with Left
+//		List<List<Integer>> result = new ArrayList<List<Integer>>();
+//		Queue<TreeNode> nodeQueue= new LinkedList<TreeNode>();
+//		nodeQueue.add(root);
+//		
+//		while(!nodeQueue.isEmpty()) {
+//			int nodeCount= nodeQueue.size();
+//			ArrayList<Integer> thisLevelNodes= new ArrayList<Integer>();
+//			Stack<Integer> thisLevelStack= new Stack<Integer>();
+//			while(nodeCount -- >0) {
+//				TreeNode thisNode=nodeQueue.remove();
+//				
+//				if(thisNode !=null) {
+//					nodeQueue.add(thisNode.left);
+//					nodeQueue.add(thisNode.right);
+//					
+//					if(moveRight) {
+//						// push to stack
+//						thisLevelStack.add(thisNode.val);
+//					}else {
+//						// push to this level ArrayList
+//						thisLevelNodes.add(thisNode.val);
+//					}
+//				}
+//			}
+//			if(moveRight) {// get from stack
+//				while(!thisLevelStack.isEmpty()) {
+////					System.out.println(thisLevelStack.peek());
+//					thisLevelNodes.add(thisLevelStack.pop());
+//				}
+//			}
+//			if(!thisLevelNodes.isEmpty()) {
+//				result.add(thisLevelNodes);
+//			}
+//			moveRight= moveRight? false: true;// flip it
+//		}
+//		
+//		return result;
+//    }
 	public static void main(String[] args) {
 		BinaryTreeZigZagOrder instance = new BinaryTreeZigZagOrder();
 		TreeNode root= instance.new TreeNode(3);
