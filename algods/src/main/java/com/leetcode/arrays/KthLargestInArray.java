@@ -18,21 +18,33 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class KthLargestInArray {
 	/**
+	 * Approach 03: same as earlier but using PriorityQueue instead of TreeSet
+	 * It seems this time it's faster and consumes less memory
+	 */
+	public int findKthLargest(int[] nums, int k) {
+		PriorityQueue<Integer> pq= new PriorityQueue<>();
+		for(int n: nums) {
+            pq.add(n);
+            if(pq.size() > k) pq.poll();
+        }
+		return pq.poll();
+    }
+	/**
 	 * Approach 02
 	 * TreeSet as PQ, keep duplicates
 	 * improving space to O(N logK) by pruning
 	 */
-	public int findKthLargest(int[] nums, int k) {
-		TreeSet<Integer> pq= new TreeSet<>((i1,i2) -> {
-			int diff=Integer.compare(i1,i2);
-			return (diff == 0)? 1: diff;
-		});
-		for(int n: nums) {
-            pq.add(n);
-            if(pq.size() > k) pq.pollFirst();
-        }
-		return pq.pollFirst();
-    }
+//	public int findKthLargest(int[] nums, int k) {
+//		TreeSet<Integer> pq= new TreeSet<>((i1,i2) -> {
+//			int diff=Integer.compare(i1,i2);
+//			return (diff == 0)? 1: diff;
+//		});
+//		for(int n: nums) {
+//            pq.add(n);
+//            if(pq.size() > k) pq.pollFirst();
+//        }
+//		return pq.pollFirst();
+//    }
 	/** Approach 01
 	 * TreeSet as PQ, Sort Descending and allow duplicates
 	 * insert O(N logN), delete O(1) for K elements
