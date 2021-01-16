@@ -34,7 +34,56 @@ Each node's value is between [1, 100].
 
 import java.util.*;
 public class BinaryTreeGoodLeafNodePairs {
-	
+	/**
+	 * We have to do normal post order tree traversal.
+	 * The trick is to keep track of number of leaf nodes with a particular distance. The arrays are used for this purpose.
+	 * For this we maintain an array of size = max distance.
+	 * 
+	 * In above example , assume maximum distance = 4. So we maintain an array of size 4.
+	 * For root node 1,
+	 * left = [ 0,0,1,0,0]
+	 * right = [0,1,0,0,0]
+	 * Here, left[2] = 1, which denotes that there is one leaf node with distance 2 in left subtree of root node 1.
+	 * right[1] = 1, which denotes that there is one leaf node with distance 1 in right subtree of root node 1.
+	 * In this way, we have to recursively, calculate the left and right subtree of every root node.
+	 * Once we have both left and right arrays for a particular root, we have to just calculate total number of good node pairs formed using result += left[l]*right[r];
+	 * Before we backtrack to parent, we have to return the distance for parents by adding up left and right subtrees of current node. 
+	 * Note that we are doing - res[i+1] = left[i]+right[i];
+	 * The intuition is that, if a leaf node is at distance i from current node, it would be at distance i+1 from its parent. 
+	 * Hence, will building the res array, we are adding sum in i+1 th position and return to parent.
+	 */
+	class Solution {
+	    int result = 0;
+	    public int countPairs(TreeNode root, int distance) {
+	        dfs(root,distance);
+	        return result;
+	    }
+	    
+	    int[] dfs(TreeNode root,int distance){
+	        if(root == null)
+	            return new int[distance+1];
+	        if(root.left == null && root.right == null){
+	            int res[] = new int[distance+1];
+	            res[1]++;
+	            return res;
+	        }
+	        int[] left = dfs(root.left,distance);
+	        int[] right = dfs(root.right,distance);
+	        for(int l=1;l<left.length;l++){
+	            for(int r = distance-1;r>=0;r--){
+	                if(l+r <=distance)
+	                result += left[l]*right[r];
+	            }
+	        }
+	        int res[] = new int[distance+1];
+	        //shift by 1
+	        for(int i=res.length-2;i>=1;i--){
+	            res[i+1] = left[i]+right[i];
+	        }
+	        
+	        return res;
+	    }
+	}
 	/**
 	 * Approach 01 in July: copied from GFG and got TLE. Didn't understand much
 	 * Approach 02 below: 
@@ -46,29 +95,29 @@ public class BinaryTreeGoodLeafNodePairs {
 	 * Approach 03: Since I know now that we don't need to add a variable if we can send out the number
 	 * The post-order traversal takes care of accumulating from left and right to the parent and up
 	 */
-	int count=0;
-	public int countPairs(TreeNode root, int distance) {
-		if(root == null) return 0;
-        traverse(root, distance);
-        return count;
-    }
-	private List<Integer> traverse(TreeNode node, int dist) {
-		List<Integer> result= new ArrayList<>();
-		if(node == null) return result;// null node
-		if(node.left == null && node.right==null) {result.add(1); return result;}// LEAF node
-		List<Integer> lefts=traverse(node.left, dist);
-		List<Integer> rights=traverse(node.right, dist);
-		for(int l: lefts) {
-			for(int r: rights) {
-				if(l+r <= dist) {
-					count+=1;// one pair found
-				}
-			}
-		}
-		for(int l: lefts) result.add(l+1);// adding 1 while propagating up
-		for(int r: rights) result.add(r+1);// adding 1 while propagating up
-		return result;
-	}
+//	int count=0;
+//	public int countPairs(TreeNode root, int distance) {
+//		if(root == null) return 0;
+//        traverse(root, distance);
+//        return count;
+//    }
+//	private List<Integer> traverse(TreeNode node, int dist) {
+//		List<Integer> result= new ArrayList<>();
+//		if(node == null) return result;// null node
+//		if(node.left == null && node.right==null) {result.add(1); return result;}// LEAF node
+//		List<Integer> lefts=traverse(node.left, dist);
+//		List<Integer> rights=traverse(node.right, dist);
+//		for(int l: lefts) {
+//			for(int r: rights) {
+//				if(l+r <= dist) {
+//					count+=1;// one pair found
+//				}
+//			}
+//		}
+//		for(int l: lefts) result.add(l+1);// adding 1 while propagating up
+//		for(int r: rights) result.add(r+1);// adding 1 while propagating up
+//		return result;
+//	}
 	 /**
 	  * Approach 02: adding distance attribute to Nodes
 	  */
