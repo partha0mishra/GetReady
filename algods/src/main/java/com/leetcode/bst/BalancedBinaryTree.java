@@ -1,6 +1,6 @@
 package com.leetcode.bst;
 // TODO Anki
-/* Find if a BST is balanced
+/* 110. Find if a BST is balanced
  * Given a binary tree, determine if it is height-balanced.
 For this problem, a height-balanced binary tree is defined as:
 a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
@@ -19,6 +19,8 @@ The number of nodes in the tree is in the range [0, 5000].
  */
 public class BalancedBinaryTree {
 	/* bottom up recursion
+	 * NOTE: when we are going to send something as return, 
+	 * we can rely on calculating left first and then right to do a post-order by default
 	 * O(n) O(n)*/
 	boolean balanced=true;
 	public boolean isBalanced(TreeNode root) {
