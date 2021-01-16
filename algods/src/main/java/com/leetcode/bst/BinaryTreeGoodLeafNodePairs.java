@@ -33,7 +33,7 @@ Each node's value is between [1, 100].
  */
 
 import java.util.*;
-public class BinaryTreeGoodLeafNodePairs5474 {
+public class BinaryTreeGoodLeafNodePairs {
 	
 	 /* Definition for a binary tree node. */
 	 public class TreeNode {
@@ -127,7 +127,7 @@ public class BinaryTreeGoodLeafNodePairs5474 {
 	 * findLevel(lca.right,node,level+1); } return leftLevel; }
 	 */
 	public static void main(String[] args) {
-		BinaryTreeGoodLeafNodePairs5474 instance= new BinaryTreeGoodLeafNodePairs5474();
+		BinaryTreeGoodLeafNodePairs instance= new BinaryTreeGoodLeafNodePairs();
 		TreeNode root= instance.new TreeNode(1);
 		root.left= instance.new TreeNode(2);
 		root.right= instance.new TreeNode(3);
