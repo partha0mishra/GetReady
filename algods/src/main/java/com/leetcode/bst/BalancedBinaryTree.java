@@ -28,11 +28,11 @@ public class BalancedBinaryTree {
         return balanced;
     }
 	private int populateHeights(TreeNode node) {
-		if(!balanced) return -1;// short circuit
-		if(node == null) return -1;
+		if(!balanced || node == null) return -1;// check if the balance is already decided
 		int left=populateHeights(node.left);
+        if(!balanced) return -1;// if the left subtree is not balanced
 		int right=populateHeights(node.right);
-		if(Math.abs(left-right) > 1) balanced=false; 
+		if(Math.abs(left-right) > 1) {balanced=false; return -1;}// get out if it's not balanced
 		return 1+ Math.max(left, right);
 	}
 }
