@@ -18,17 +18,51 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class KthLargestInArray {
 	/**
+	 * Approach 04: using QuickSelect O(N) avg, O(N2) worst. 
+	 * Kth largest= size-k th (0-indexed) smallest 
+	 */
+	int[] nums;
+	public int findKthLargest(int[] nums, int k) {
+		this.nums=nums;
+		return quickSelect(0, nums.length -1, nums.length -k);
+	}
+	private int quickSelect(int left, int right, int kSmallest) {
+		if(left == right) return nums[left];
+		Random random= new Random();
+		int pivotIndex=left+random.nextInt(right-left);
+		pivotIndex=partition(left, right, pivotIndex);
+		if(kSmallest == pivotIndex) return nums[pivotIndex];
+		else if(kSmallest < pivotIndex) return quickSelect(left, pivotIndex-1, kSmallest);
+		else return quickSelect(pivotIndex+1, right, kSmallest);
+	}
+	private int partition(int left, int right, int pivotIndex) {
+		int pivot=nums[pivotIndex];
+		swap(pivotIndex, right);
+		int storeIndex=left;
+		for(int i=left; i<=right; i++) {
+			if(nums[i] < pivot) {
+				swap(storeIndex, i);
+				storeIndex+=1;
+			}
+		}
+		swap(storeIndex, right);
+		return storeIndex;
+	}
+	private void swap(int a, int b) {
+		int t=nums[a]; nums[a]=nums[b]; nums[b]=t;
+	}
+	/**
 	 * Approach 03: same as earlier but using PriorityQueue instead of TreeSet
 	 * It seems this time it's faster and consumes less memory
 	 */
-	public int findKthLargest(int[] nums, int k) {
-		PriorityQueue<Integer> pq= new PriorityQueue<>();
-		for(int n: nums) {
-            pq.add(n);
-            if(pq.size() > k) pq.poll();
-        }
-		return pq.poll();
-    }
+//	public int findKthLargest(int[] nums, int k) {
+//		PriorityQueue<Integer> pq= new PriorityQueue<>();
+//		for(int n: nums) {
+//            pq.add(n);
+//            if(pq.size() > k) pq.poll();
+//        }
+//		return pq.poll();
+//    }
 	/**
 	 * Approach 02
 	 * TreeSet as PQ, keep duplicates
