@@ -35,110 +35,97 @@ Each node's value is between [1, 100].
 import java.util.*;
 public class BinaryTreeGoodLeafNodePairs {
 	
-	 /* Definition for a binary tree node. */
-	 public class TreeNode {
-	     int val;
-	     TreeNode left;
-	     TreeNode right;
-	     TreeNode() {}
-	     TreeNode(int val) { this.val = val; }
-	     TreeNode(int val, TreeNode left, TreeNode right) {
-	         this.val = val;
-	         this.left = left;
-	         this.right = right;
-	     }
-	 }
-	 class Node {
-	    TreeNode node;
-	    int d;
-	    
-	    public Node(TreeNode node, int d) {
-	        this.node = node;
-	        this.d = d;
-	    }
-	 }
-    int count = 0;
-    
-    private List<Node> traverse(TreeNode root, int distance) {
-        if(root==null) return new ArrayList<>();
-        if(root.left==null && root.right==null) {
-            return Arrays.asList(new Node(root, 1));
-        }
-
-        List<Node> left = traverse(root.left, distance);
-        List<Node> right = traverse(root.right, distance);
-        // System.out.println(left.size());
-        // System.out.println(right.size());
-        List<Node> res = new ArrayList<>();
-        for(Node l: left) {
-            for(Node r: right) {
-                if(l.d+r.d<=distance) {
-                    // System.out.println(root.val+"<"+r.node.val+","+l.node.val);
-                    count++;
-                }
-            }
-        }
-        for(Node r: right) {
-            res.add(new Node(r.node, r.d+1));
-        }
-        for(Node l: left) {
-            res.add(new Node(l.node, l.d+1));
-        }
-        return res;
-    }
-    
-    public int countPairs(TreeNode root, int distance) {
+	/**
+	 * Approach 01 in July: copied from GFG and got TLE. Didn't understand much
+	 * Approach 02 below: 
+	 * probably from Naresh's solve: add a measure 'distance' to each node
+	 * post order traversal, result = list of distances of leaf nodes
+	 * if it's leaf node, distance= 1 (from the next parent node)
+	 * for each distance coming from distance list of left and right, see how many add up to or less than intended distance
+	 * add the left and right nodes and send them back.
+	 * Approach 03: Since I know now that we don't need to add a variable if we can send out the number
+	 * The post-order traversal takes care of accumulating from left and right to the parent and up
+	 */
+	int count=0;
+	public int countPairs(TreeNode root, int distance) {
+		if(root == null) return 0;
         traverse(root, distance);
         return count;
     }
-
-	 
-	 
-	/* First Try - sub- optimal 
-	 * public int countPairs(TreeNode root, int distance) { int count=0; // get all
-	 * leaf nodes ArrayList<TreeNode> leafNodes= new ArrayList<TreeNode>();
-	 * populateLeafNodes(root,leafNodes);
-	 * 
-	 * // get distances between each pair and match against the given distance
-	 * for(int i=0; i< leafNodes.size() -1; i++) { for(int j=i+1; j<
-	 * leafNodes.size(); j++) { int
-	 * d=distance(root,leafNodes.get(i),leafNodes.get(j)); //
-	 * System.out.println(leafNodes.get(i).val+" "+leafNodes.get(j).val+" > "+d);
-	 * if(d <= distance) count++; } } return count; } private void
-	 * populateLeafNodes(TreeNode root, ArrayList<TreeNode> leafNodes) { if(root ==
-	 * null) return; if(root.left == null && root.right == null)
-	 * leafNodes.add(root); populateLeafNodes(root.left,leafNodes);
-	 * populateLeafNodes(root.right,leafNodes); } private TreeNode lca(TreeNode
-	 * root, TreeNode first, TreeNode second) { if(root == null) return root;
-	 * if(root.equals(first) || root.equals(second)) return root;
-	 * 
-	 * TreeNode left= lca(root.left,first,second); TreeNode right=
-	 * lca(root.right,first,second);
-	 * 
-	 * if(left != null && right != null) return root; if(left != null) return left;
-	 * else return right; } private int distance(TreeNode root, TreeNode first,
-	 * TreeNode second) { TreeNode lca=lca(root,first,second); //
-	 * System.out.print("lca: "+lca.val); int l1=findLevel(lca,first,0); //
-	 * System.out.print("  l1 :"+l1); int l2=findLevel(lca,second,0); //
-	 * System.out.println("  l2 :"+l2); return l1+l2; } private int
-	 * findLevel(TreeNode lca, TreeNode node, int level) { if(lca == null) return
-	 * -1; if(lca.equals(node)) return level; int
-	 * leftLevel=findLevel(lca.left,node,level+1); if(leftLevel == -1) { return
-	 * findLevel(lca.right,node,level+1); } return leftLevel; }
-	 */
+	private List<Integer> traverse(TreeNode node, int dist) {
+		List<Integer> result= new ArrayList<>();
+		if(node == null) return result;// null node
+		if(node.left == null && node.right==null) {result.add(1); return result;}// LEAF node
+		List<Integer> lefts=traverse(node.left, dist);
+		List<Integer> rights=traverse(node.right, dist);
+		for(int l: lefts) {
+			for(int r: rights) {
+				if(l+r <= dist) {
+					count+=1;// one pair found
+				}
+			}
+		}
+		for(int l: lefts) result.add(l+1);// adding 1 while propagating up
+		for(int r: rights) result.add(r+1);// adding 1 while propagating up
+		return result;
+	}
+	 /**
+	  * Approach 02: adding distance attribute to Nodes
+	  */
+//	 class Node {
+//	    TreeNode node;
+//	    int d;// Distance for each node - to be calculated.
+//	    
+//	    public Node(TreeNode node, int d) {
+//	        this.node = node;
+//	        this.d = d;
+//	    }
+//	 }
+//    int count = 0;
+//    
+//    private List<Node> traverse(TreeNode node, int distance) {
+//        if(node==null) return new ArrayList<>();
+//        if(node.left==null && node.right==null) {// leaf node
+//            return Arrays.asList(new Node(node, 1));
+//        }
+//
+//        List<Node> left = traverse(node.left, distance);
+//        List<Node> right = traverse(node.right, distance);
+//        List<Node> res = new ArrayList<>();
+//        for(Node l: left) {
+//            for(Node r: right) {
+//                if(l.d+r.d<=distance) {
+//                    count++;
+//                }
+//            }
+//        }
+//        for(Node r: right) {
+//            res.add(new Node(r.node, r.d+1));
+//        }
+//        for(Node l: left) {
+//            res.add(new Node(l.node, l.d+1));
+//        }
+//        return res;
+//    }
+//    
+//    public int countPairs(TreeNode root, int distance) {
+//        traverse(root, distance);
+//        return count;
+//    }
+	
 	public static void main(String[] args) {
 		BinaryTreeGoodLeafNodePairs instance= new BinaryTreeGoodLeafNodePairs();
-		TreeNode root= instance.new TreeNode(1);
-		root.left= instance.new TreeNode(2);
-		root.right= instance.new TreeNode(3);
-		root.left.right=instance.new TreeNode(4);
+		TreeNode root= new TreeNode(1);
+		root.left= new TreeNode(2);
+		root.right= new TreeNode(3);
+		root.left.right= new TreeNode(4);
 		System.out.println(instance.countPairs(root, 3));// 1
 
-		root.left.left= instance.new TreeNode(4);
-		root.left.right= instance.new TreeNode(5);
-		root.right.left= instance.new TreeNode(6);
-		root.right.right= instance.new TreeNode(7);
-		System.out.println(instance.countPairs(root,3));// 2
+		root.left.left= new TreeNode(4);
+		root.left.right= new TreeNode(5);
+		root.right.left= new TreeNode(6);
+		root.right.right= new TreeNode(7);
+		System.out.println(instance.countPairs(root,3));// 3
 	}
 
 }
