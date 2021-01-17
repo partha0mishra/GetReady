@@ -32,19 +32,21 @@ Constraints:
 import static org.junit.Assert.assertEquals;
 public class CountSortedVowelStrings {
 	/**
-	 * Approach 03: copied
+	 * Going through solutions: Approach 01: backtracking
+	 * O(n^5)/ O(n) recursion stack
 	 */
 	public int countVowelStrings(int n) {
-        int[][] dp = new int[n + 1][6];
-        for (int vowels = 1; vowels <= 5; vowels++)
-            dp[1][vowels] = vowels;
-        for (int nValue = 2; nValue <= n; nValue++) {
-            dp[nValue][1] = 1;
-            for (int vowels = 2; vowels <= 5; vowels++) {
-                dp[nValue][vowels] = dp[nValue][vowels - 1] + dp[nValue - 1][vowels];
-            }
+        return countVowelStringUtil(n, 1);
+    }
+
+    int countVowelStringUtil(int n, int vowels) {
+        if (n == 0)
+            return 1;
+        int result = 0;
+        for (int i = vowels; i <= 5; i++) {
+            result += countVowelStringUtil(n - 1, i);
         }
-        return dp[n][5];
+        return result;
     }
 	/**
 	 * Approach 02: Backtracking with Memo [6][n+1]
