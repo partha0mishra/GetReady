@@ -74,7 +74,7 @@ public class CountSortedVowelStrings {
 //	}
 	/**
 	 * Approach 01: Backtracking
-	 * O(5^N)/ O(5^N) => 25%, 47%
+	 * O(N^5)/ O(N^5) => 25%, 47%
 	 */
 //	int count;
 //	public int countVowelStrings(int n) {
