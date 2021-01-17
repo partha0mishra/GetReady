@@ -63,8 +63,14 @@ import java.util.Arrays;
  */
 public class CapacityToShipPackages {
 	public int shipWithinDays(int[] weights, int D) {
-        int left=Arrays.stream(weights).max().getAsInt();
-        int right=Arrays.stream(weights).sum();
+//        int left=Arrays.stream(weights).max().getAsInt();
+//        int right=Arrays.stream(weights).sum();
+		// DYI :D
+		int left=0,right=0;
+        for(int w: weights){
+            left=Math.max(left,w);// max
+            right+=w;// sum
+        }
 //        System.out.println("max: "+left+" sum: "+right);
         while(left < right) {
         	int mid= left+(right-left)/2;
@@ -91,6 +97,6 @@ public class CapacityToShipPackages {
 		assertEquals(15,instance.shipWithinDays(new int[] {1,2,3,4,5,6,7,8,9,10}, 5));
 		assertEquals( 6,instance.shipWithinDays(new int[] {3,2,2,4,1,4}, 3));
 		assertEquals( 3,instance.shipWithinDays(new int[] {1,2,3,1,1}, 4));
-//		assertEquals(15,instance.shipWithinDays(new int[] {1,2,3,4,5,6,7,8,9,10}, 5));
+		assertEquals(15,instance.shipWithinDays(new int[] {1,2,3,4,5,6,7,8,9,10}, 5));
 	}
 }
