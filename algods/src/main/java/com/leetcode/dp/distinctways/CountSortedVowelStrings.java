@@ -32,7 +32,7 @@ Constraints:
 import static org.junit.Assert.assertEquals;
 public class CountSortedVowelStrings {
 	/**
-	 * Going through solutions: Approach 01: backtracking
+	 * Going through solutions: Approach 03: backtracking
 	 * O(n^5)/ O(n) recursion stack
 	 */
 	public int countVowelStrings(int n) {
