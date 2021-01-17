@@ -33,6 +33,8 @@ public class CalculateSQRT {
 		assertEquals(1,instance.mySqrt(2));
 		assertEquals(2,instance.mySqrt(4));
 		assertEquals(2,instance.mySqrt(8));
+		assertEquals(3,instance.mySqrt(9));
+		assertEquals(4,instance.mySqrt(16));
 		assertEquals(46339,instance.mySqrt(2147395599));
 		assertEquals(46340,instance.mySqrt(2147483647));
 	}
