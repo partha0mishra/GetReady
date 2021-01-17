@@ -24,6 +24,10 @@ n will be in the range [1, 10000].
 The value of each element in nums will be in the range [-9999, 9999].
  */
 public class BinarySearch {
+	/**
+	 * Binary Search : template
+	 * O(logN)/ O(1)
+	 */
 	public int search(int[] nums, int target) {
         int left=0, right=nums.length-1;
         while(left < right){
