@@ -1,4 +1,6 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
+
+import com.leetcode.bst.TreeNode;
 
 /** TODO Anki
  *  701 Insert into a Binary Search Tree

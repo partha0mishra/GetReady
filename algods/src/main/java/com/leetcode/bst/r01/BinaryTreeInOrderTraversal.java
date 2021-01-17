@@ -1,4 +1,4 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
 // TODO Anki
 /* 94. Binary Tree InOrder Traversal
  * Given the root of a binary tree, return the inorder traversal of its nodes' values.
@@ -36,6 +36,8 @@ Follow up:
 Recursive solution is trivial, could you do it iteratively?
  */
 import java.util.*;
+
+import com.leetcode.bst.TreeNode;
 public class BinaryTreeInOrderTraversal {
 	/* Morris In-order traversal using Threaded Binary Tree O(n) O(1)
 	 * Step 1: Initialize current as root

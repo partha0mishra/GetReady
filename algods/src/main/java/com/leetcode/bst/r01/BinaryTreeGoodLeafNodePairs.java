@@ -1,4 +1,4 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
 
 /** TODO Anki
  * 1530 Number of Good Leaf Node Pairs
@@ -33,6 +33,8 @@ Each node's value is between [1, 100].
  */
 
 import java.util.*;
+
+import com.leetcode.bst.TreeNode;
 public class BinaryTreeGoodLeafNodePairs {
 	/**
 	 * Optimized: if left or right is null, take the other one

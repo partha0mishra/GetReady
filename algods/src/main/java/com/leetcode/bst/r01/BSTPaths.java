@@ -1,4 +1,4 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
 /** EASY
  * 257. Binary Tree Paths
  * Given a binary tree, return all root-to-leaf paths.
@@ -20,6 +20,8 @@ Output: ["1->2->5", "1->3"]
 Explanation: All root-to-leaf paths are: 1->2->5, 1->3
  * */
 import java.util.*;
+
+import com.leetcode.bst.TreeNode;
 public class BSTPaths {
 	/**
 	 * Trying out with StringBuilder.

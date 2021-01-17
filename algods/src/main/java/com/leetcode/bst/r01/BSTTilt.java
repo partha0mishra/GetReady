@@ -1,4 +1,4 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
 /** TODO Anki
  * 563 Binary Tree Tilt
  * Given the root of a binary tree, return the sum of every tree node's tilt.
@@ -42,6 +42,8 @@ The number of nodes in the tree is in the range [0, 104].
 * 
  */
 import java.util.*;
+
+import com.leetcode.bst.TreeNode;
 public class BSTTilt {
 	/**
 	 * Approach 03: little more streamlined

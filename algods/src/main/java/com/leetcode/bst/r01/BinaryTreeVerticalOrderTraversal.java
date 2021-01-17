@@ -1,4 +1,4 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
 
 import java.util.*;
 

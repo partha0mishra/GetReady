@@ -1,4 +1,4 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
 /** TODO Anki
  * 104. Maximum Depth of Binary Tree
  * 
@@ -20,6 +20,8 @@ Given binary tree [3,9,20,null,null,15,7],
 return its depth = 3.
  * */
 import java.util.*;
+
+import com.leetcode.bst.TreeNode;
 public class BSTMaxDepth {
 	/* Approach 02: BFS
 	 * O(n) Time as DFS

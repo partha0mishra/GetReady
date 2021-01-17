@@ -1,4 +1,7 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
+
+import com.leetcode.bst.TreeNode;
+
 // TODO Anki
 /* 110. Find if a BST is balanced
  * Given a binary tree, determine if it is height-balanced.

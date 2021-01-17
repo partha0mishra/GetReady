@@ -1,4 +1,4 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
 /** TODO Anki
  * 173. Implement the BSTIterator class that represents an iterator over the in-order traversal of a binary search tree (BST):
 
@@ -45,6 +45,9 @@ Follow up:
 Could you implement next() and hasNext() to run in average O(1) time and use O(h) memory, where h is the height of the tree?
  */
 import java.util.*;
+
+import com.leetcode.bst.TreeNode;
+
 import static org.junit.Assert.*;
 /**
  * Definition for a binary tree node.

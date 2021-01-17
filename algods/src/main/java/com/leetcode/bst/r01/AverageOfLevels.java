@@ -1,4 +1,4 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
 /** EASY 
  * 637. Average of Levels in Binary Tree
  * Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
@@ -16,6 +16,8 @@ Note:
 The range of node's value is in the range of 32-bit signed integer.
  * */
 import java.util.*;
+
+import com.leetcode.bst.TreeNode;
 public class AverageOfLevels {
 	/**
 	 * EASY BFS - O(N)/ O(N)

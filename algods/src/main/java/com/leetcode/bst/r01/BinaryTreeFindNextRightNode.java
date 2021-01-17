@@ -1,4 +1,4 @@
-package com.leetcode.bst;
+package com.leetcode.bst.r01;
 // TODO Anki
 /* 1602. Find Nearest Right Node in Binary Tree
  * Given the root of a binary tree and a node u in the tree, 
@@ -30,6 +30,8 @@ All values in the tree are distinct.
 u is a node in the binary tree rooted at root.
  */
 import java.util.*;
+
+import com.leetcode.bst.TreeNode;
 public class BinaryTreeFindNextRightNode {
 	/**
 	 * BFS. If node found, see if it's the last one in the level.
