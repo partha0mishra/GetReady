@@ -18,39 +18,71 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class KthLargestInArray {
 	/**
+	 * QuickSelect: Simpler Implementation
+	 */
+	public int findKthLargest(int[] nums, int k) {
+        if(nums.length < 1 || k < 1 || k > nums.length) return -1;
+        if(nums.length < 2) return nums[0];
+        partition(nums,0,nums.length-1,nums.length-k);
+        return nums[nums.length-k];
+    }
+    public void partition(int[] nums,int start,int end, int k){
+        int left=start,right=end;
+        int mid=(end+start)/2;
+        int pivot=nums[mid];
+        while(left<=right){
+            while(left<=right && nums[left]<pivot) left++;
+            while(left<=right && nums[right]>pivot) right--;
+            if(left<=right){
+                swap(nums, left, right);
+                left++;
+                right--;
+            }
+        }
+        if(k>=left) partition(nums,left,end,k);
+        if(k<=right) partition(nums,start,right,k);
+    }
+    
+        public void swap(int[] nums, int a, int b) {
+            if(a == b) return;
+            nums[a] += nums[b];
+            nums[b] = nums[a] - nums[b];
+            nums[a] -= nums[b];
+    }
+	/**
 	 * Approach 04: using QuickSelect O(N) avg, O(N2) worst. 
 	 * Kth largest= size-k th (0-indexed) smallest 
 	 */
-	int[] nums;
-	public int findKthLargest(int[] nums, int k) {
-		this.nums=nums;
-		return quickSelect(0, nums.length -1, nums.length -k);
-	}
-	private int quickSelect(int left, int right, int kSmallest) {
-		if(left == right) return nums[left];
-		Random random= new Random();
-		int pivotIndex=left+random.nextInt(right-left);
-		pivotIndex=partition(left, right, pivotIndex);
-		if(kSmallest == pivotIndex) return nums[pivotIndex];
-		else if(kSmallest < pivotIndex) return quickSelect(left, pivotIndex-1, kSmallest);
-		else return quickSelect(pivotIndex+1, right, kSmallest);
-	}
-	private int partition(int left, int right, int pivotIndex) {
-		int pivot=nums[pivotIndex];
-		swap(pivotIndex, right);
-		int storeIndex=left;
-		for(int i=left; i<=right; i++) {
-			if(nums[i] < pivot) {
-				swap(storeIndex, i);
-				storeIndex+=1;
-			}
-		}
-		swap(storeIndex, right);
-		return storeIndex;
-	}
-	private void swap(int a, int b) {
-		int t=nums[a]; nums[a]=nums[b]; nums[b]=t;
-	}
+//	int[] nums;
+//	public int findKthLargest(int[] nums, int k) {
+//		this.nums=nums;
+//		return quickSelect(0, nums.length -1, nums.length -k);
+//	}
+//	private int quickSelect(int left, int right, int kSmallest) {
+//		if(left == right) return nums[left];
+//		Random random= new Random();
+//		int pivotIndex=left+random.nextInt(right-left);
+//		pivotIndex=partition(left, right, pivotIndex);
+//		if(kSmallest == pivotIndex) return nums[pivotIndex];
+//		else if(kSmallest < pivotIndex) return quickSelect(left, pivotIndex-1, kSmallest);
+//		else return quickSelect(pivotIndex+1, right, kSmallest);
+//	}
+//	private int partition(int left, int right, int pivotIndex) {
+//		int pivot=nums[pivotIndex];
+//		swap(pivotIndex, right);
+//		int storeIndex=left;
+//		for(int i=left; i<=right; i++) {
+//			if(nums[i] < pivot) {
+//				swap(storeIndex, i);
+//				storeIndex+=1;
+//			}
+//		}
+//		swap(storeIndex, right);
+//		return storeIndex;
+//	}
+//	private void swap(int a, int b) {
+//		int t=nums[a]; nums[a]=nums[b]; nums[b]=t;
+//	}
 	/**
 	 * Approach 03: same as earlier but using PriorityQueue instead of TreeSet
 	 * It seems this time it's faster and consumes less memory

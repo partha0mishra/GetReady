@@ -35,6 +35,49 @@ Each node's value is between [1, 100].
 import java.util.*;
 public class BinaryTreeGoodLeafNodePairs {
 	/**
+	 * Optimized: if left or right is null, take the other one
+	 */
+	int sum = 0;
+    public int countPairs(TreeNode root, int distance) {
+        helper(root, distance);
+        return sum;
+    }
+    public int[] helper(TreeNode root, int dist){
+        int[] res = new int[dist];
+        if(root.left == null && root.right == null){
+            res[0] = 1;
+        }else if(root.left == null || root.right == null){
+            if(root.left == null){
+                int[] right = helper(root.right, dist);
+                for(int i = 1; i < dist; i++){
+                    res[i] = right[i-1];
+                }
+            }else{
+                int[] left = helper(root.left, dist);
+                for(int i = 1; i < dist; i++){
+                    res[i] = left[i-1];
+                }
+            }
+        }else{
+            int[] left = helper(root.left, dist);
+            int[] right = helper(root.right, dist);
+            for(int i = 0; i < dist; i++){
+                for(int j = 0; j < dist; j++){
+                    if(i+j+2 <= dist){
+                        sum += left[i]*right[j];
+                    }else{
+                        break;
+                    }
+                }
+            }
+            for(int i = 1; i < dist; i++){
+                res[i] = left[i-1]+right[i-1];
+            }
+        }
+        return res;
+    }
+	/**
+	 * Ref: https://leetcode.com/problems/number-of-good-leaf-nodes-pairs/discuss/756198/Java-DFS-Solution-with-a-Twist-100-Faster-Explained
 	 * We have to do normal post order tree traversal.
 	 * The trick is to keep track of number of leaf nodes with a particular distance. The arrays are used for this purpose.
 	 * For this we maintain an array of size = max distance.
@@ -52,36 +95,36 @@ public class BinaryTreeGoodLeafNodePairs {
 	 * The intuition is that, if a leaf node is at distance i from current node, it would be at distance i+1 from its parent. 
 	 * Hence, will building the res array, we are adding sum in i+1 th position and return to parent.
 	 */
-    int result = 0;
-    public int countPairs(TreeNode root, int distance) {
-        dfs(root,distance);
-        return result;
-    }
-    
-    int[] dfs(TreeNode root,int distance){
-        if(root == null)
-            return new int[distance+1];
-        if(root.left == null && root.right == null){
-            int res[] = new int[distance+1];
-            res[1]++;
-            return res;
-        }
-        int[] left = dfs(root.left,distance);
-        int[] right = dfs(root.right,distance);
-        for(int l=1;l<left.length;l++){
-            for(int r = distance-1;r>=0;r--){
-                if(l+r <=distance)
-                result += left[l]*right[r];
-            }
-        }
-        int res[] = new int[distance+1];
-        //shift by 1
-        for(int i=res.length-2;i>=1;i--){
-            res[i+1] = left[i]+right[i];
-        }
-        
-        return res;
-    }
+//    int result = 0;
+//    public int countPairs(TreeNode root, int distance) {
+//        dfs(root,distance);
+//        return result;
+//    }
+//    
+//    int[] dfs(TreeNode root,int distance){
+//        if(root == null)
+//            return new int[distance+1];
+//        if(root.left == null && root.right == null){
+//            int res[] = new int[distance+1];
+//            res[1]++;
+//            return res;
+//        }
+//        int[] left = dfs(root.left,distance);
+//        int[] right = dfs(root.right,distance);
+//        for(int l=1;l<left.length;l++){
+//            for(int r = distance-1;r>=0;r--){
+//                if(l+r <=distance)
+//                result += left[l]*right[r];
+//            }
+//        }
+//        int res[] = new int[distance+1];
+//        //shift by 1
+//        for(int i=res.length-2;i>=1;i--){
+//            res[i+1] = left[i]+right[i];
+//        }
+//        
+//        return res;
+//    }
 	/**
 	 * Approach 01 in July: copied from GFG and got TLE. Didn't understand much
 	 * Approach 02 below: 
