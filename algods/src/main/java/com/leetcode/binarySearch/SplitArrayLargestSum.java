@@ -1,5 +1,5 @@
 package com.leetcode.binarySearch;
-/*
+/**
  * 410. Split Array Largest Sum - HARD
  * Given an array nums which consists of non-negative integers and an integer m, 
  * you can split the array into m non-empty continuous subarrays.
@@ -27,13 +27,19 @@ public class SplitArrayLargestSum {
 	/**
 	 * If you take a close look, you would probably see how similar this problem is with LC 1011 above. 
 	 * Similarly, we can design a feasible function: given an input threshold, then decide if we can split the array into 
-	 * several subarrays such that every subarray-sum is less than or equal to threshold. In this way, we discover the monotonicity 
+	 * several subarrays such that every subarray-sum is less than or equal to threshold. 
+	 * In this way, we discover the monotonicity 
 	 * of the problem: if feasible(m) is True, then all inputs larger than m can satisfy feasible function. 
 	 * You can see that the solution code is exactly the same as LC 1011. 
 	 */
 	public int splitArray(int[] nums, int m) {
-        int left =Arrays.stream(nums).max().getAsInt();// important to start from Max
-        int right=Arrays.stream(nums).sum();
+		int left=0, right=0;
+//        left =Arrays.stream(nums).max().getAsInt();// important to start from Max
+//        right=Arrays.stream(nums).sum();
+		// DYI
+		for(int n: nums) {
+			right+=n;
+		}
         while(left < right) {
         	int mid=left+(right-left)/2;
         	if(isFeasible(nums,mid,m)) right=mid;
@@ -42,14 +48,20 @@ public class SplitArrayLargestSum {
         return left;
     }
 	private boolean isFeasible(int[] nums, int targetSum, int groups) {
-		int total=0, count=0;
+//		System.out.println(targetSum);
+		int total=0, count=1;
 		for(int n: nums) {
+			if(n > targetSum) return false;// this way, it won't get considered in the first place
 			total+=n;
 			if(total > targetSum) {
 				total=n;
-				count++;
-				if(count == groups) return false;
+				count+=1;
+				if(count > groups) {
+//					System.out.println(targetSum+" "+count+" "+groups);
+					return false;
+				}
 			}
+//			System.out.println("count:"+count);
 		}
 		return true;
 	}
