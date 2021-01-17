@@ -31,14 +31,24 @@ import static org.junit.Assert.assertEquals;
  */
 public class SearchInsertPosition {
 	public int searchInsert(int[] nums, int target) {
-        int left=0, right=nums.length;// the target could be bigger than the biggest element
+		if(target > nums[nums.length-1]) return nums.length;// bigger than the biggest one
+        int left=0, right=nums.length-1;// the target could be bigger than the biggest element
         while(left < right) {
         	int mid=left + (right-left)/2;
-        	if(nums[mid] >= target) right=mid;
+        	if(nums[mid] >= target) right=mid;// = when there ARE duplicates and we need to add it in the FIRST available slot
         	else left=mid+1;
         }
         return left;
     }
+//	public int searchInsert(int[] nums, int target) {
+//        int left=0, right=nums.length;// the target could be bigger than the biggest element
+//        while(left < right) {
+//        	int mid=left + (right-left)/2;
+//        	if(nums[mid] >= target) right=mid;
+//        	else left=mid+1;
+//        }
+//        return left;
+//    }
 	public static void main(String[] args) {
 		SearchInsertPosition instance = new SearchInsertPosition();
 		assertEquals(2,instance.searchInsert(new int[]{1,3,5,6},5));
