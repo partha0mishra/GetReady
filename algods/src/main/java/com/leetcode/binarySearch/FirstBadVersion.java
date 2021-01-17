@@ -35,7 +35,8 @@ public class FirstBadVersion {
 			if (isBadVersion(mid)) right=mid;
 			else left=mid+1;
 		}
-		return left;
+		return left;// Remember, left is the smallest one SATISFYING the condition
+		// last GOOD version would have been left-1
     }
 	public static void main(String[] args) {
 		FirstBadVersion instance = new FirstBadVersion(4);
