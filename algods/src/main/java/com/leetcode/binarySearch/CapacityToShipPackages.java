@@ -62,36 +62,73 @@ import java.util.Arrays;
  * Now we've got all we need to apply our binary search template:
  */
 public class CapacityToShipPackages {
+	/**
+	 * Copied: Simpler implementation
+	 */
 	public int shipWithinDays(int[] weights, int D) {
-//        int left=Arrays.stream(weights).max().getAsInt();
-//        int right=Arrays.stream(weights).sum();
-		// DYI :D
-		int left=0,right=0;
-        for(int w: weights){
-            left=Math.max(left,w);// max
-            right+=w;// sum
-        }
-//        System.out.println("max: "+left+" sum: "+right);
-        while(left < right) {
-        	int mid= left+(right-left)/2;
-        	if(isEnough(weights,mid,D)) right=mid;
-        	else left=mid+1;
-        }
-        return left;
-    }
-	private boolean isEnough(int[] weights, int capacity, int days) {
-		int count=0, total=0;
-		for(int w: weights) {
-			total+=w;
-			if(total > capacity) {
-				total=w;
-				count++;
-				if(count == days) return false;
-			}
-		}// count < days and total < capacity. 
-		// So, in worst case, the last day will take care of the residual in 'total'
-		return true;
-	}
+	    int lo = 0;
+
+	    for(int w: weights){
+	      lo = Math.max(lo, w);
+	    }  
+	    
+	    int hi = lo * weights.length / D;// Brilliant !!
+
+	    while(lo<hi){
+	      int mi = (hi+lo)/2;
+	      int days = findDays(weights, mi);
+	      if(days<=D){// Straight-forward
+	        hi=mi;
+	      }else{
+	        lo=mi+1;
+	      }
+	    }
+
+	    return lo;
+	  }
+	  
+	  int findDays(int[] weights, int cap){
+	    int ans = 1;
+	    int sum = 0;
+	    for(int w: weights){
+	      sum+=w;
+	      if(sum>cap){
+	        ans++;
+	        sum=w;
+	      }
+	    } 
+	    return ans;
+	  }
+//	public int shipWithinDays(int[] weights, int D) {
+////        int left=Arrays.stream(weights).max().getAsInt();
+////        int right=Arrays.stream(weights).sum();
+//		// DYI :D
+//		int left=0,right=0;
+//        for(int w: weights){
+//            left=Math.max(left,w);// max
+//            right+=w;// sum
+//        }
+////        System.out.println("max: "+left+" sum: "+right);
+//        while(left < right) {
+//        	int mid= left+(right-left)/2;
+//        	if(isEnough(weights,mid,D)) right=mid;
+//        	else left=mid+1;
+//        }
+//        return left;
+//    }
+//	private boolean isEnough(int[] weights, int capacity, int days) {
+//		int count=0, total=0;
+//		for(int w: weights) {
+//			total+=w;
+//			if(total > capacity) {
+//				total=w;
+//				count++;
+//				if(count == days) return false;
+//			}
+//		}// count < days and total < capacity. 
+//		// So, in worst case, the last day will take care of the residual in 'total'
+//		return true;
+//	}
 	public static void main(String[] args) {
 		CapacityToShipPackages instance= new CapacityToShipPackages();
 		assertEquals(15,instance.shipWithinDays(new int[] {1,2,3,4,5,6,7,8,9,10}, 5));
