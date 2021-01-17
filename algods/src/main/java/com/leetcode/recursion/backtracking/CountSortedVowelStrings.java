@@ -32,29 +32,69 @@ Constraints:
 import static org.junit.Assert.assertEquals;
 public class CountSortedVowelStrings {
 	/**
-	 * Approach 01: Backtracking
-	 * O(5^N)/ O(5^N)
+	 * Approach 03: copied
 	 */
-	int count;
 	public int countVowelStrings(int n) {
-		count=0;
-        for(int i=1; i<=5; i++) backtrack(i,n-1);
-        return count;
+        int[][] dp = new int[n + 1][6];
+        for (int vowels = 1; vowels <= 5; vowels++)
+            dp[1][vowels] = vowels;
+        for (int nValue = 2; nValue <= n; nValue++) {
+            dp[nValue][1] = 1;
+            for (int vowels = 2; vowels <= 5; vowels++) {
+                dp[nValue][vowels] = dp[nValue][vowels - 1] + dp[nValue - 1][vowels];
+            }
+        }
+        return dp[n][5];
     }
-	private void backtrack(int start, int remaining) {
-//		System.out.println(":"+start);
-		if(remaining == 0) {
-			count+=1;
-			return;
-		}
-		for(int i=start; i<=5; i++) {
-			backtrack(i,remaining-1);
-		}
-	}
+	/**
+	 * Approach 02: Backtracking with Memo [6][n+1]
+	 * Improved performance, but I'm sure there will be a mathemagical way as well
+	 */
+//	int[][] memo;
+//	public int countVowelStrings(int n) {
+//		int count=0;
+//		memo=new int[6][n+1];
+//        for(int i=1; i<=5; i++) count+=backtrack(i,n-1);
+//        return count;
+//    }
+//	private int backtrack(int start, int remaining) {
+////		System.out.println(":"+start);
+//		
+//		if(remaining == 0) {
+//			return 1;
+//		}
+//		if(memo[start][remaining] ==0) { 
+//			for(int i=start; i<=5; i++) {
+//				memo[start][remaining]+=backtrack(i,remaining-1);
+//			}
+//		}
+//		return memo[start][remaining];
+//	}
+	/**
+	 * Approach 01: Backtracking
+	 * O(5^N)/ O(5^N) => 25%, 47%
+	 */
+//	int count;
+//	public int countVowelStrings(int n) {
+//		count=0;
+//        for(int i=1; i<=5; i++) backtrack(i,n-1);
+//        return count;
+//    }
+//	private void backtrack(int start, int remaining) {
+////		System.out.println(":"+start);
+//		if(remaining == 0) {
+//			count+=1;
+//			return;
+//		}
+//		for(int i=start; i<=5; i++) {
+//			backtrack(i,remaining-1);
+//		}
+//	}
 	public static void main(String[] args) {
 		CountSortedVowelStrings csvs= new CountSortedVowelStrings();
 		assertEquals(5,csvs.countVowelStrings(1));
 		assertEquals(15,csvs.countVowelStrings(2));
 		assertEquals(66045,csvs.countVowelStrings(33));
+		assertEquals(316251,csvs.countVowelStrings(50));
 	}
 }
