@@ -2,6 +2,7 @@ package com.leetcode.binarySearch;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 /**
  * Binary Search: Template
  * Just using a little QuickSort to sort the array.
@@ -10,9 +11,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.algods.learn.sort.advanced.QuickSort;
-
-public class BinarySearch {
+public class BinarySearchTemplate {
 	public boolean search(int[] nums, int n) {
 		int left=0, right=nums.length;
 		while(left < right) {
@@ -24,7 +23,7 @@ public class BinarySearch {
 	}
 	public static void main(String[] args) {
 		int[] num0= {1,3,5,7,9,10,12,14,16,18};
-		BinarySearch bs= new BinarySearch();
+		BinarySearchTemplate bs= new BinarySearchTemplate();
 		assertFalse(bs.search(num0, 0));// false
 		assertTrue(bs.search(num0, 1));// true
 		//*
@@ -43,11 +42,7 @@ public class BinarySearch {
 				hm.add(newNum);
 			}
 		}
-		QuickSort quickSort= new QuickSort();
-		long tStart=System.currentTimeMillis();
-		quickSort.sort(nums);
-		long tEnd=System.currentTimeMillis();
-		System.out.println("Sort   time: "+(tEnd-tStart));
+		Arrays.sort(nums);
 		// Searching time
 		int[] searchNums=new int[10];
 		searchNums[0]=0;// 
@@ -62,7 +57,8 @@ public class BinarySearch {
 			}
 		}
 		
-		BinarySearch instance = new BinarySearch();
+		BinarySearchTemplate instance = new BinarySearchTemplate();
+		long tStart, tEnd;
 		for(int i: searchNums) {
 			tStart=System.currentTimeMillis();
 			boolean result=instance.search(nums, i);
