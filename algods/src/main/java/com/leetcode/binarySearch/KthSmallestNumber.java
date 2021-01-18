@@ -35,7 +35,8 @@ import static org.junit.Assert.assertEquals;
  * in the entire Multiplication Table, instead, we only have the height and the length of the table. 
  * If we are to apply Heap method, we need to explicitly calculate these m * n values and save them to a heap. 
  * The time complexity and space complexity of this process are both O(mn), which is quite inefficient. 
- * This is when binary search comes in. Remember we say that designing condition function is the most difficult part? 
+ * This is when binary search comes in. 
+ * Remember we say that designing condition function is the most difficult part? 
  * In order to find the k-th smallest value in the table, we can design an enough function, given an input num, 
  * determine whether there're at least k values less than or equal to num. 
  * The minimal num satisfying enough function is the answer we're looking for. 
