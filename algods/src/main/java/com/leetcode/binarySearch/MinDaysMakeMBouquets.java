@@ -76,19 +76,37 @@ public class MinDaysMakeMBouquets {
         }
         return left;
     }
-	private boolean isFeasible(int[] days, int day, int bNum, int fNum) {
+	// another implementation - seems to be SLOWER, no idea why
+	private boolean isFeasible(int[] days, int day, int m, int k) {
 		int bCount=0, fCount=0;
 		for(int d: days) {
-			if(day >=d) fCount++;
-			else fCount=0;
-			if(fCount == fNum) {
-				bCount++;
-				fCount=0;
+			if(d > day) fCount=0;
+			else {
+				bCount+=(fCount+1)/k;
+				fCount=(fCount+1) %k;
+				// earlier version
+//				fCount+=1;
+//				bCount+=fCount/k;
+//				fCount%=k;
 			}
-			if(bCount == bNum) return true;
+			if(bCount == m) return true;
 		}
 		return false;
 	}
+	// Older implementation
+//	private boolean isFeasible(int[] days, int day, int bNum, int fNum) {
+//		int bCount=0, fCount=0;
+//		for(int d: days) {
+//			if(day >=d) fCount++;
+//			else fCount=0;
+//			if(fCount == fNum) {
+//				bCount++;
+//				fCount=0;
+//			}
+//			if(bCount == bNum) return true;
+//		}
+//		return false;
+//	}
 	public static void main(String[] args) {
 		MinDaysMakeMBouquets instance= new MinDaysMakeMBouquets();
 		assertEquals(3,instance.minDays(new int[] {1,10,3,10,2}, 3, 1));
