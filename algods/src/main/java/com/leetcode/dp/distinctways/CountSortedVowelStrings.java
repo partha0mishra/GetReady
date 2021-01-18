@@ -32,22 +32,41 @@ Constraints:
 import static org.junit.Assert.assertEquals;
 public class CountSortedVowelStrings {
 	/**
+	 * DP: bottom up
+	 * dp[6][n+1]
+	 * dp[1][n]=1 and dp[v][1]=v
+	 * dp[v][n]=dp[v-1][n]+dp[v][n-1]
+	 * return dp[5][n]
+	 * O(N)/ O(N) 100%
+	 */
+	public int countVowelStrings(int n) {
+		int[][] dp=new int[6][n+1];
+		for(int v=1; v<=5; v++) dp[v][1]=v;// when n=1, I can have v combo
+		for(int i=1; i<=n; i++) dp[1][i]=1;// when v=1, I can have 1 combo
+		for(int i=2; i<=n; i++) {
+			for(int v=2; v<=5; v++) {
+				dp[v][i]=dp[v-1][i]+dp[v][i-1];
+			}
+		}
+		return dp[5][n];
+	}
+	/**
 	 * Approach 05: Recursion + memo[6][n+1]
 	 * O(N)/ O(N) 100%
 	 */
-	int[][] memo;
-	public int countVowelStrings(int n) {
-		memo=new int[6][n+1];// v+1, n+1
-		return count(n, 5); 
-	}
-	private int count(int n, int v) {
-		if(v==1) return 1;
-		if(n==1) return v;
-		if(memo[v][n]==0) {
-			memo[v][n]=count(n, v-1)+count(n-1, v);
-		}
-		return memo[v][n];
-	}
+//	int[][] memo;
+//	public int countVowelStrings(int n) {
+//		memo=new int[6][n+1];// v+1, n+1
+//		return count(n, 5); 
+//	}
+//	private int count(int n, int v) {
+//		if(v==1) return 1;
+//		if(n==1) return v;
+//		if(memo[v][n]==0) {
+//			memo[v][n]=count(n, v-1)+count(n-1, v);
+//		}
+//		return memo[v][n];
+//	}
 	/**
 	 * Approach 04: Recursion
 	 * for n=2, v=3 (a, e, i), result=6 [aa, ae, ai, ee, ei, ii]
