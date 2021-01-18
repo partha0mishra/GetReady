@@ -39,9 +39,9 @@ public class CountSortedVowelStrings {
 	 * [n, k]= (n+4)!/[n! * 4!] = (n+4)(n+3)(n+2)(n+1).n!/ 24 n! = (n+4)(n+3)(n+2)(n+1)/24
 	 * O(1)/ O(1)
 	 */
-	public int countVowelStrings(int n) {
-		return (n+4)*(n+3)*(n+2)*(n+1)/24;
-	}
+//	public int countVowelStrings(int n) {
+//		return (n+4)*(n+3)*(n+2)*(n+1)/24;
+//	}
 	/**
 	 * Approach 06: DP- bottom up
 	 * dp[6][n+1]
@@ -50,17 +50,17 @@ public class CountSortedVowelStrings {
 	 * return dp[5][n]
 	 * O(N)/ O(N) 100%
 	 */
-//	public int countVowelStrings(int n) {
-//		int[][] dp=new int[6][n+1];
-//		for(int v=1; v<=5; v++) dp[v][1]=v;// when n=1, I can have v combo
-//		for(int i=1; i<=n; i++) dp[1][i]=1;// when v=1, I can have 1 combo
-//		for(int i=2; i<=n; i++) {
-//			for(int v=2; v<=5; v++) {
-//				dp[v][i]=dp[v-1][i]+dp[v][i-1];
-//			}
-//		}
-//		return dp[5][n];
-//	}
+	public int countVowelStrings(int n) {
+		int[][] dp=new int[6][n+1];
+		for(int v=1; v<=5; v++) dp[v][1]=v;// when n=1, I can have v combo
+		for(int i=1; i<=n; i++) dp[1][i]=1;// when v=1, I can have 1 combo
+		for(int i=2; i<=n; i++) {
+			for(int v=2; v<=5; v++) {
+				dp[v][i]=dp[v-1][i]+dp[v][i-1];
+			}
+		}
+		return dp[5][n];
+	}
 	/**
 	 * Approach 05: Recursion + memo[6][n+1]
 	 * O(N)/ O(N) 100%
