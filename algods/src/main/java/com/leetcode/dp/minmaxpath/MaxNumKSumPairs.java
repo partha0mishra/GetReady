@@ -41,22 +41,45 @@ Constraints:
 import java.util.*;
 public class MaxNumKSumPairs {
 	/**
+	 * Approach 02: Two pointers
+	 */
+	public int maxOperations(int[] nums, int k) {
+        Arrays.sort(nums);
+        
+        int count = 0;
+        int left = 0, right = nums.length - 1; 
+        
+        while(left < right) {
+            if(nums[left] + nums[right] > k) {
+                right--;
+            } else if(nums[left] + nums[right] < k) {
+                left++;
+            } else {
+                count++;
+                left++;
+                right--;
+            }  
+        }
+        return count;
+    }
+	/**
+	 * Approach 01:
 	 * two numbers a + b = k
 	 * so, we're trying to find a and k-a
 	 * it will be sum of min(count(a), count(k-a)) unless a=k/2 where it's count(a)/2 as k=2a
 	 * O(N)/ O(N) keeping counts in a hashmap
 	 */
-	public int maxOperations(int[] nums, int k) {
-        Map<Integer, Integer> numCount=new HashMap<>();
-        int result=0;
-        for(int n: nums) numCount.put(n, numCount.getOrDefault(n, 0)+1);
-        for(int n: numCount.keySet()) {
-        	if(k%2 ==0 && n == k/2) result+=numCount.get(n)/2;
-        	else result+=Math.min(numCount.get(n), numCount.getOrDefault(k-n,0));
-        	numCount.put(n, 0);
-        }
-        return result;
-    }
+//	public int maxOperations(int[] nums, int k) {
+//        Map<Integer, Integer> numCount=new HashMap<>();
+//        int result=0;
+//        for(int n: nums) numCount.put(n, numCount.getOrDefault(n, 0)+1);
+//        for(int n: numCount.keySet()) {
+//        	if(k%2 ==0 && n == k/2) result+=numCount.get(n)/2;
+//        	else result+=Math.min(numCount.get(n), numCount.getOrDefault(k-n,0));
+//        	numCount.put(n, 0);
+//        }
+//        return result;
+//    }
 	public static void main(String[] args) {
 		MaxNumKSumPairs msp=new MaxNumKSumPairs();
 		System.out.println(msp.maxOperations(new int[] {1,2,3,4},5));
