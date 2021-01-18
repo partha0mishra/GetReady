@@ -28,9 +28,12 @@ import java.util.Arrays;
 public class KokoEatingBananas {
 	/**
 	 * Very similar to LC 1011 and LC 410 mentioned above. 
-	 * Let's design a feasible function, given an input speed, determine whether Koko can finish all bananas within H hours with hourly eating speed. 
+	 * Let's design a feasible function, given an input speed, 
+	 * determine whether Koko can finish all bananas within H hours with hourly eating speed. 
 	 * Obviously, the lower bound of the search space is 1, and upper bound is max(piles), 
 	 * because Koko can only choose one pile of bananas to eat every hour.
+	 * 
+	 * Binary Search: O(N log W)/ O(1) -> N= no of piles, W= max size of piles
 	 */
 	public int minEatingSpeed(int[] piles, int H) {
         int left=1;// min rate of eating
