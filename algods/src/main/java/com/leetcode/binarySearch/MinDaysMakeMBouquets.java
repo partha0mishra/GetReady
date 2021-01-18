@@ -62,11 +62,13 @@ import java.util.Arrays;
  */
 public class MinDaysMakeMBouquets {
 	public int minDays(int[] bloomDay, int m, int k) {
-		if(m==0 || k==0) return 0;
-		// VERY IMPORTANT - if search-space doesn't have the result, don't get in the search
-		if(bloomDay.length < m*k) return -1;
-        int left=Arrays.stream(bloomDay).min().getAsInt();
-        int right=Arrays.stream(bloomDay).max().getAsInt();
+		if(bloomDay.length < m*k) return -1;// no need to handle m==0 and k==0 as they fall outside the range
+		// OTHERWISE, don't get into the search space
+        int left=Integer.MAX_VALUE, right=Integer.MIN_VALUE;// we could have kept 1 and 10e9 as the range is given
+        for(int bd: bloomDay){
+            left=Math.min(left, bd);
+            right=Math.max(right, bd);
+        }
         while(left < right){
         	int mid=left+(right-left)/2;
         	if(isFeasible(bloomDay, mid, m,k)) right=mid;
@@ -89,7 +91,7 @@ public class MinDaysMakeMBouquets {
 	}
 	public static void main(String[] args) {
 		MinDaysMakeMBouquets instance= new MinDaysMakeMBouquets();
-//		assertEquals(3,instance.minDays(new int[] {1,10,3,10,2}, 3, 1));
+		assertEquals(3,instance.minDays(new int[] {1,10,3,10,2}, 3, 1));
 		assertEquals(-1,instance.minDays(new int[] {1,10,3,10,2}, 3, 2));
 		assertEquals(12,instance.minDays(new int[] {7,7,7,7,12,7,7}, 2, 3));
 		assertEquals(1000000000,instance.minDays(new int[] {1000000000,1000000000},1,1));
