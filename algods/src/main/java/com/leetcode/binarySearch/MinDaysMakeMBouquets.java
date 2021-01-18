@@ -57,7 +57,7 @@ bloomDay.length == n
 import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 /**
- * he monotonicity of this problem is very clear: if we can make m bouquets after waiting for d days, 
+ * The monotonicity of this problem is very clear: if we can make m bouquets after waiting for d days, 
  * then we can definitely finish that as well if we wait for more than d days. 
  */
 public class MinDaysMakeMBouquets {
