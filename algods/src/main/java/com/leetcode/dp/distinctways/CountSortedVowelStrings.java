@@ -32,7 +32,7 @@ Constraints:
 import static org.junit.Assert.assertEquals;
 public class CountSortedVowelStrings {
 	/**
-	 * Recursion
+	 * Approach 04: Recursion
 	 * for n=2, v=3 (a, e, i), result=6 [aa, ae, ai, ee, ei, ii]
 	 * for n=1, v=4 (a, e, i, o), result=4 [a, e, i, o]
 	 * for n=2, v=4 (a, e, i, o), result=10 [aa, ae, ai, ee, ei, ii + (a, e, i, o).o]
@@ -40,14 +40,14 @@ public class CountSortedVowelStrings {
 	 * => nv=n(v-1) + (n-1)v
 	 * Base Cases: when n=1, result=v (a,e,i,o,u); when v=1 (a), result=1;
 	 */
-	public int countVowelStrings(int n) {
-		return count(n, 5); 
-	}
-	private int count(int n, int v) {
-		if(v==1) return 1;
-		if(n==1) return v;
-		return count(n, v-1)+count(n-1, v);
-	}
+//	public int countVowelStrings(int n) {
+//		return count(n, 5); 
+//	}
+//	private int count(int n, int v) {
+//		if(v==1) return 1;
+//		if(n==1) return v;
+//		return count(n, v-1)+count(n-1, v);
+//	}
 	/**
 	 * Going through solutions: Approach 03: backtracking
 	 * O(n^5)/ O(n) recursion stack
