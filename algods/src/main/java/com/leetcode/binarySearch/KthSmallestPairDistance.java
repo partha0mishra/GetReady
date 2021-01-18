@@ -24,7 +24,7 @@ Note:
 import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 public class KthSmallestPairDistance {
-	/**
+	/** O(NlogN)/ O(1)
 	 * Very similar to LC 668 above, both are about finding Kth-Smallest. 
 	 * Just like LC 668, We can design an enough function, given an input distance, determine whether there're at least k pairs 
 	 * whose distances are less than or equal to distance. 
