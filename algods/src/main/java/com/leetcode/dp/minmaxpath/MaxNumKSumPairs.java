@@ -42,6 +42,7 @@ import java.util.*;
 public class MaxNumKSumPairs {
 	/**
 	 * Approach 02: Two pointers
+	 * sort takes O(N logN)/ O(logN) <- quicksort implementation of java at Arrays.sort()
 	 */
 	public int maxOperations(int[] nums, int k) {
         Arrays.sort(nums);
@@ -63,7 +64,27 @@ public class MaxNumKSumPairs {
         return count;
     }
 	/**
-	 * Approach 01:
+	 * Approach 01-A : HashMap - 1 pass
+	 * two numbers a + b = k
+	 * so, we're trying to find a and k-a
+	 * it will be sum of min(count(a), count(k-a)) unless a=k/2 where it's count(a)/2 as k=2a
+	 * O(N)/ O(N) keeping counts in a hashmap
+	 */
+//	public int maxOperations(int[] nums, int k) {
+//        Map<Integer, Integer> numCount=new HashMap<>();
+//        int result=0;
+//        for(int n: nums) {
+//        	int needed=k-n, neededCount=numCount.getOrDefault(needed, 0);
+//        	if( neededCount > 0) {
+//        		result+=1;
+//        		numCount.put(needed, neededCount-1);
+//        	}else numCount.put(n, numCount.getOrDefault(n,0)+1);
+//        }
+//        return result;
+//    }
+	
+	/**
+	 * Approach 01: HashMap - 2 pass
 	 * two numbers a + b = k
 	 * so, we're trying to find a and k-a
 	 * it will be sum of min(count(a), count(k-a)) unless a=k/2 where it's count(a)/2 as k=2a
@@ -83,5 +104,7 @@ public class MaxNumKSumPairs {
 	public static void main(String[] args) {
 		MaxNumKSumPairs msp=new MaxNumKSumPairs();
 		System.out.println(msp.maxOperations(new int[] {1,2,3,4},5));
+		System.out.println(msp.maxOperations(new int[] {4,3,3,3,1},5));
+		System.out.println(msp.maxOperations(new int[] {4,3,3,3,1},6));
 	}
 }
