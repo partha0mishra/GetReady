@@ -1,5 +1,5 @@
 package com.leetcode.binarySearch;
-/**
+/** TODO Anki
  * 154. Find minimum in rotated sorted array w/ DUPLICATES
  * 
  * Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
@@ -24,6 +24,10 @@ This is a follow up problem to Find Minimum in Rotated Sorted Array.
 Would allow duplicates affect the run-time complexity? How and why?
  */
 public class FindMinRotatedSortedArray2 {
+	/**
+	 * Binary Search: O(logN)
+	 * Worst case O(N)
+	 */
 	public int findMin(int[] nums) {
     	// attemp03 : non-recursive
     	int first=0;
@@ -37,4 +41,17 @@ public class FindMinRotatedSortedArray2 {
     	}
     	return nums[first];
     }
+	/**
+	 * Attempt 01: O(n)
+	 * go to the last biggest number.
+	 */
+//	public int findMin(int[] nums) {
+//    	int pivot=0;
+//        for(int i=0; i< nums.length-1;i++) {
+//        	if(nums[i] > nums[i+1]) {
+//        		pivot=i+1;// Stopped at the biggest element, next element is last (starting)
+//        	}
+//        }
+//        return nums[pivot];
+//    }
 }
