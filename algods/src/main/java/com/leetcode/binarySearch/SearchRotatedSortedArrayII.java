@@ -59,14 +59,6 @@ public class SearchRotatedSortedArrayII {
 		// we need to find the last one from rightmost ( single/group) of the mins
 		// 12345 112345 1123451 11234511
 		while(rotation > 0 && nums[rotation-1]==nums[rotation]) rotation-=1;
-		
-//		boolean foundBigger=false;
-//		for(int i=left; i< n; i++) {
-//			if(nums[i] > min) foundBigger=true;
-//			if(foundBigger && nums[i] == min) {
-//				left=i; break;
-//			}
-//		}
 		System.out.println("rotation: "+rotation);
 		while(left < right) {
 			int mid=left+(right-left)/2;
