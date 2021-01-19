@@ -34,23 +34,40 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 public class SearchRotatedSortedArrayII {
 	public boolean search(int[] nums, int target) {
-		int left=0, n=nums.length, right=n-1;
+		/**
+		 * Anyway, we wanted to find the 'rotation' value and when there are no duplicate items, we can easily do it using Binary Search
+		 * But when there're duplicate items, even the minimum value can have duplicates, we can still find it at O(n)
+		 * 
+		 * if the values were 1 1 2 3 3 4 and has become 4 1 1 2 3 3 we need the first 1 which is now at index 1. so, rotation = 1
+		 * if those were 3 3 4 1 1 2, rotation = 3 and similarly, for 2 3 3 4 1 1 it's 4 and for 1 2 3 3 4 1 it's 5 for THE LAST ONE
+		 * so, we really need to find the last index of the minimum value
+		 */
+		int left=0, n=nums.length, right=n-1, rightMostMin=0;
 		if(n < 1) return false;
+		int rotation=0;// for a 1-element array
+		
+		
 		int min=Integer.MAX_VALUE;
 		for(int i=0; i< n; i++) {
-			if(nums[i] < min) {
+			if(nums[i] <= min) {
 				min=nums[i];
-				left=i;
+				rightMostMin=i;
 			}
 		}
-		boolean foundBigger=false;
-		for(int i=left; i< n; i++) {
-			if(nums[i] > min) foundBigger=true;
-			if(foundBigger && nums[i] == min) {
-				left=i; break;
-			}
-		}
-		int rotation=left; left=0; right=n-1;
+		// the only case is when min value is duplicated. 
+		// we need to find the last one from rightmost ( single/group) of the mins
+		// 12345 112345 1123451 11234511
+		while(rightMostMin > 0 & nums[rightMostMin-1]==nums[rightMostMin]) rightMostMin-=1;
+		
+//		boolean foundBigger=false;
+//		for(int i=left; i< n; i++) {
+//			if(nums[i] > min) foundBigger=true;
+//			if(foundBigger && nums[i] == min) {
+//				left=i; break;
+//			}
+//		}
+		rotation=rightMostMin;
+		System.out.println("rotation: "+rotation);
 		while(left < right) {
 			int mid=left+(right-left)/2;
 			int midPlusRotation=(mid+rotation)%n;
