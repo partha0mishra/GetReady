@@ -41,23 +41,24 @@ public class SearchRotatedSortedArrayII {
 		 * if the values were 1 1 2 3 3 4 and has become 4 1 1 2 3 3 we need the first 1 which is now at index 1. so, rotation = 1
 		 * if those were 3 3 4 1 1 2, rotation = 3 and similarly, for 2 3 3 4 1 1 it's 4 and for 1 2 3 3 4 1 it's 5 for THE LAST ONE
 		 * so, we really need to find the last index of the minimum value
+		 * O(logN) avg case, but if all are same number it would become O(n) <- worst case
 		 */
-		int left=0, n=nums.length, right=n-1, rightMostMin=0;
+		int left=0, n=nums.length, right=n-1, rotation=0;
 		if(n < 1) return false;
-		int rotation=0;// for a 1-element array
+//		int rotation=0;// for a 1-element array
 		
 		
 		int min=Integer.MAX_VALUE;
 		for(int i=0; i< n; i++) {
 			if(nums[i] <= min) {
 				min=nums[i];
-				rightMostMin=i;
+				rotation=i;
 			}
 		}
 		// the only case is when min value is duplicated. 
 		// we need to find the last one from rightmost ( single/group) of the mins
 		// 12345 112345 1123451 11234511
-		while(rightMostMin > 0 & nums[rightMostMin-1]==nums[rightMostMin]) rightMostMin-=1;
+		while(rotation > 0 && nums[rotation-1]==nums[rotation]) rotation-=1;
 		
 //		boolean foundBigger=false;
 //		for(int i=left; i< n; i++) {
@@ -66,7 +67,6 @@ public class SearchRotatedSortedArrayII {
 //				left=i; break;
 //			}
 //		}
-		rotation=rightMostMin;
 		System.out.println("rotation: "+rotation);
 		while(left < right) {
 			int mid=left+(right-left)/2;
@@ -82,6 +82,7 @@ public class SearchRotatedSortedArrayII {
 		assertTrue(instance.search(new int[] {2,5,6,0,0,1,2}, 0));// true
 		assertFalse(instance.search(new int[] {2,5,6,0,0,1,2}, 3));// false
 		assertFalse(instance.search(new int[] {}, 5));// false
+		assertFalse(instance.search(new int[] {1}, 5));// false
 		assertTrue(instance.search(new int[] {3,1,1,1,1}, 3));// true
 		assertTrue(instance.search(new int[] {2,2,2,0,2,2}, 0));// true
 		assertTrue(instance.search(new int[] {1,3,1,1,1}, 3));// true
