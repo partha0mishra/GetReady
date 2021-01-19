@@ -45,8 +45,6 @@ public class SearchRotatedSortedArrayII {
 		 */
 		int left=0, n=nums.length, right=n-1, rotation=0;
 		if(n < 1) return false;
-//		int rotation=0;// for a 1-element array
-		
 		
 		int min=Integer.MAX_VALUE;
 		for(int i=0; i< n; i++) {
