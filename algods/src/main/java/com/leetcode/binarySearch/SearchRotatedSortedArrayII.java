@@ -46,17 +46,28 @@ public class SearchRotatedSortedArrayII {
 		int left=0, n=nums.length, right=n-1, rotation=0;
 		if(n < 1) return false;
 		
-		int min=Integer.MAX_VALUE;
-		for(int i=0; i< n; i++) {
-			if(nums[i] <= min) {
-				min=nums[i];
-				rotation=i;
-			}
-		}
+		
+		/*
+		 * another O(n) approach could have been to just stop at the last occurance of biggest number
+		 */
+        for(int i=0; i< nums.length-1;i++) {
+        	if(nums[i] > nums[i+1]) {
+        		rotation=i+1;// Stopped at the biggest element, next element is last (starting)
+        	}
+        }
+		/* Older, O(n) approach
+//		int min=Integer.MAX_VALUE;
+//		for(int i=0; i< n; i++) {
+//			if(nums[i] <= min) {
+//				min=nums[i];
+//				rotation=i;
+//			}
+//		}
 		// the only case is when min value is duplicated. 
 		// we need to find the last one from rightmost ( single/group) of the mins
 		// 12345 112345 1123451 11234511
-		while(rotation > 0 && nums[rotation-1]==nums[rotation]) rotation-=1;
+//		while(rotation > 0 && nums[rotation-1]==nums[rotation]) rotation-=1;
+		*/
 		System.out.println("rotation: "+rotation);
 		while(left < right) {
 			int mid=left+(right-left)/2;
