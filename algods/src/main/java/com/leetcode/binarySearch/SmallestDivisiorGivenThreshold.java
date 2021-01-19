@@ -1,6 +1,6 @@
 package com.leetcode.binarySearch;
 /**
- * 1283. Find the Smallest Divisor Given a Threshold - HARD
+ * 1283. Find the Smallest Divisor Given a Threshold - Medium
  * 
  * Given an array of integers nums and an integer threshold, we will choose a positive integer divisor and divide all the array by it 
  * and sum the result of the division. Find the smallest divisor such that the result mentioned above is less than or equal to threshold.
@@ -25,8 +25,18 @@ package com.leetcode.binarySearch;
 import static org.junit.Assert.assertEquals;
 import java.util.Arrays;
 public class SmallestDivisiorGivenThreshold {
-	/*
-	 * we get max-sum if divisor is 1 and min-sum if divisor is max+1
+	/**
+	 * There's no way to know but to ACTUALLY do the division.
+	 * From? 1 => the result would be = sum(elements)
+	 * To?   whatever gives the least threshold=0. that would be max(elements)+1
+	 * that means, we'll have to keep dividing by the numbers from 1 to max+1 and see what's the divisior.
+	 * 
+	 * A smarter way would be to search using Binary search. Left=1, Right=Max+1 Are we optimizing?
+	 * If we take Mid and get a threshold that's <=6, anything more than Mid will anyway give threshold <=6.
+	 * We REALLY need to look left to find any value lesser than Mid that can give us threshold <=6.
+	 * So, this is really a Binary Search problem.
+	 * 
+	 * O(logN)/ O(1)
 	 */
 	public int smallestDivisor(int[] nums, int threshold) {
         int left=1, right=Arrays.stream(nums).max().getAsInt()+1;
@@ -37,6 +47,7 @@ public class SmallestDivisiorGivenThreshold {
         }
         return left;
     }
+	// Ceiling is better implemented using (n-1)/divisor +1
 	private boolean isFeasible(int divisor, int[] nums, int threshold) {
 		for(int n: nums) {
 			threshold-=(n-1)/divisor+1;
