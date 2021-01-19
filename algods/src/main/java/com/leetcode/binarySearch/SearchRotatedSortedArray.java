@@ -35,6 +35,13 @@ public class SearchRotatedSortedArray {
 		}
 		// left is the minimum value now. Maximum value is at nums[left-1] OR at the right-most, but that doesn't matter
 //		System.out.println(left+" max: "+nums[left-1]);
+		// let's say, 
+		// original index: 0 1 2 3 4
+		// new      index: 3 4 0 1 2
+		// rotation = left= 2
+		// so, left has shifted from 0 to 2 => 2 positions right
+		// so, if I WANT to find the number at original pos 2, I'll have to add 2 (and then %n) = 4
+		// similarly, for number at original pos 3, it's (3 + 2) %5 = 0
 		// left is supposed to be at 0th position. so, Left %num should be Zero.
 		int rotation=left;// now left-rotation=0. So, the counting of indices starts from 0 as it should
 		left=0; right=n; 
