@@ -45,16 +45,22 @@ public class SearchRotatedSortedArrayII {
 		 */
 		int left=0, n=nums.length, right=n-1, rotation=0;
 		if(n < 1) return false;
-		
+		while(left < right) {
+			int mid=left+(right-left)/2;
+			if(nums[mid] > nums[right]) left=mid+1;
+			else if(nums[mid] < nums[right]) right=mid;
+			else right--;
+		}
+		rotation=left; left=0; right=n-1;
 		
 		/*
 		 * another O(n) approach could have been to just stop at the last occurance of biggest number
 		 */
-        for(int i=0; i< nums.length-1;i++) {
-        	if(nums[i] > nums[i+1]) {
-        		rotation=i+1;// Stopped at the biggest element, next element is last (starting)
-        	}
-        }
+//        for(int i=0; i< nums.length-1;i++) {
+//        	if(nums[i] > nums[i+1]) {
+//        		rotation=i+1;// Stopped at the biggest element, next element is last (starting)
+//        	}
+//        }
 		/* Older, O(n) approach
 //		int min=Integer.MAX_VALUE;
 //		for(int i=0; i< n; i++) {
@@ -80,13 +86,14 @@ public class SearchRotatedSortedArrayII {
     }
 	public static void main(String[] args) {
 		SearchRotatedSortedArrayII instance = new SearchRotatedSortedArrayII();
-		assertTrue(instance.search(new int[] {2,5,6,0,0,1,2}, 0));// true
-		assertFalse(instance.search(new int[] {2,5,6,0,0,1,2}, 3));// false
-		assertFalse(instance.search(new int[] {}, 5));// false
-		assertFalse(instance.search(new int[] {1}, 5));// false
-		assertTrue(instance.search(new int[] {3,1,1,1,1}, 3));// true
-		assertTrue(instance.search(new int[] {2,2,2,0,2,2}, 0));// true
-		assertTrue(instance.search(new int[] {1,3,1,1,1}, 3));// true
+//		assertTrue(instance.search(new int[] {2,5,6,0,0,1,2}, 0));// true
+//		assertFalse(instance.search(new int[] {2,5,6,0,0,1,2}, 3));// false
+//		assertFalse(instance.search(new int[] {}, 5));// false
+//		assertFalse(instance.search(new int[] {1}, 5));// false
+//		assertTrue(instance.search(new int[] {3,1,1,1,1}, 3));// true
+//		assertTrue(instance.search(new int[] {2,2,2,0,2,2}, 0));// true
+//		assertTrue(instance.search(new int[] {1,3,1,1,1}, 3));// true
+		assertTrue(instance.search(new int[] {1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1},2));
 	}
 
 }

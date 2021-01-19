@@ -1,6 +1,6 @@
-package com.leetcode.dp.minmaxpath;
+package com.leetcode.arrays;
 /**
- * Max Number of K-sum pairs
+ * 1679. Max Number of K-sum pairs
  * You are given an integer array nums and an integer k.
 
 In one operation, you can pick two numbers from the array whose sum equals k and remove them from the array.
