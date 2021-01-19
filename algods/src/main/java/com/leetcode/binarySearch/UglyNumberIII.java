@@ -1,5 +1,5 @@
 package com.leetcode.binarySearch;
-/*
+/** 
  * 1201. Ugly Number III - MEDIUM
  * Write a program to find the n-th ugly number.
  * Ugly numbers are positive integers which are divisible by a or b or c.
@@ -31,8 +31,18 @@ import static org.junit.Assert.assertEquals;
  * we need the help of greatest common divisor to avoid counting duplicate numbers. 
  */
 public class UglyNumberIII {
+	/**
+	 * Approach: binary Search from 1 to highest limit
+	 * find if there are >=n numbers till 'mid'
+	 * Optimizing to calculate lcm values upfront
+	 */
+	long lcmAB, lcmBC, lcmCA, lcmABC;
 	public int nthUglyNumber(int n, int a, int b, int c) {
         int left=1, right=(int)2e9;
+        lcmAB=lcm(a,b);
+        lcmBC=lcm(b,c);
+        lcmCA=lcm(c,a);
+        lcmABC=lcm(a,lcm(b,c));
         while(left < right) {
         	int mid=left+(right-left)/2;
         	if(isEnough(mid, n, a, b, c)) right=mid;
@@ -41,9 +51,8 @@ public class UglyNumberIII {
         return left;
     }
 	private boolean isEnough(long m, long n, long a, long b, long c) {
-		long count= m/a + m/b + m/c - m/lcm(a,b) -m/lcm(b,c) -m/lcm(c,a) + m/lcm(a,lcm(b,c));
-		if(count >= n) return true;
-		return false;
+		long count= m/a + m/b + m/c - m/lcmAB -m/lcmBC -m/lcmCA + m/lcmABC;
+		return count >= n;
 	}
 	long gcd(long a, long b) {// good one to remember
         if (a == 0) return b;
@@ -52,6 +61,27 @@ public class UglyNumberIII {
     long lcm(long a, long b) {// another good one to remember
         return a * b / gcd(a, b);
     }
+//	public int nthUglyNumber(int n, int a, int b, int c) {
+//        int left=1, right=(int)2e9;
+//        while(left < right) {
+//        	int mid=left+(right-left)/2;
+//        	if(isEnough(mid, n, a, b, c)) right=mid;
+//        	else left=mid+1;
+//        }
+//        return left;
+//    }
+//	private boolean isEnough(long m, long n, long a, long b, long c) {
+//		long count= m/a + m/b + m/c - m/lcm(a,b) -m/lcm(b,c) -m/lcm(c,a) + m/lcm(a,lcm(b,c));
+//		if(count >= n) return true;
+//		return false;
+//	}
+//	long gcd(long a, long b) {// good one to remember
+//        if (a == 0) return b;
+//        return gcd(b % a, a);
+//    }
+//    long lcm(long a, long b) {// another good one to remember
+//        return a * b / gcd(a, b);
+//    }
 	public static void main(String[] args) {
 		UglyNumberIII instance= new UglyNumberIII();
 		assertEquals( 4,instance.nthUglyNumber(3, 2,  3,  5));
