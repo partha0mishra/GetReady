@@ -53,9 +53,9 @@ public class LongestPalindromicSubstring {
 	        int len1 = expandAroundCenter(s, i, i);
 	        int len2 = expandAroundCenter(s, i, i + 1);
 	        int len = Math.max(len1, len2);
-	        if (len > end - start) {
-	            start = i - (len - 1) / 2;
-	            end = i + len / 2;
+	        if (len > end - start) {// that's a bigger length than previous, so start/ end of subarray to be modified
+	            start = i - (len - 1) / 2;// since the start will be i for length 2
+	            end = i + len / 2;// since end will be i+1 for length 2
 	        }
 	    }
 	    return s.substring(start, end + 1);
@@ -70,8 +70,13 @@ public class LongestPalindromicSubstring {
 	    return R - L - 1;
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		new LongestPalindromicSubstring().longestPalindrome("a");
+		new LongestPalindromicSubstring().longestPalindrome("ac");
+		new LongestPalindromicSubstring().longestPalindrome("cbbd");
+		new LongestPalindromicSubstring().longestPalindrome("babab");
+		new LongestPalindromicSubstring().longestPalindrome("abaab");
+		new LongestPalindromicSubstring().longestPalindrome("abaxabaxabb");
+		new LongestPalindromicSubstring().longestPalindrome("abaxabaxabybaxabyb");
+		
 	}
-
 }
