@@ -1,5 +1,5 @@
 package com.leetcode.dp.strings;
-/**
+/** TODO Anki
  * 5. Longest Palindromic Substring
  * 
  * Given a string s, return the longest palindromic substring in s.
@@ -70,13 +70,12 @@ public class LongestPalindromicSubstring {
 	    return R - L - 1;
 	}
 	public static void main(String[] args) {
-		new LongestPalindromicSubstring().longestPalindrome("a");
-		new LongestPalindromicSubstring().longestPalindrome("ac");
-		new LongestPalindromicSubstring().longestPalindrome("cbbd");
-		new LongestPalindromicSubstring().longestPalindrome("babab");
-		new LongestPalindromicSubstring().longestPalindrome("abaab");
-		new LongestPalindromicSubstring().longestPalindrome("abaxabaxabb");
-		new LongestPalindromicSubstring().longestPalindrome("abaxabaxabybaxabyb");
-		
+		assertEquals("a",new LongestPalindromicSubstring().longestPalindrome("a"));
+		assertEquals("c",new LongestPalindromicSubstring().longestPalindrome("ac"));
+		assertEquals("bb",new LongestPalindromicSubstring().longestPalindrome("cbbd"));
+		assertEquals("babab",new LongestPalindromicSubstring().longestPalindrome("babab"));
+		assertEquals("baab",new LongestPalindromicSubstring().longestPalindrome("abaab"));
+		assertEquals("baxabaxab",new LongestPalindromicSubstring().longestPalindrome("abaxabaxabb"));
+		assertEquals("baxabybaxab",new LongestPalindromicSubstring().longestPalindrome("abaxabaxabybaxabyb"));
 	}
 }
