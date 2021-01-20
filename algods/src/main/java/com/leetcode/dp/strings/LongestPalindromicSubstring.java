@@ -38,6 +38,49 @@ s consist of only digits and English letters (lower-case and/or upper-case),
 import static org.junit.Assert.assertEquals;
 public class LongestPalindromicSubstring {
 	/**
+	 * Manacher's Algorithm: O(2*N) => O(N)
+	 * 
+	 */
+	public String longestPalindrome(String s) {
+		String T=preProcess(s);
+		int n=T.length();
+		int[] P=new int[n];
+		int C=0, R=0;
+		for(int i=1; i< n-1; i++) {
+			int iMirror= 2*C -i; // i' = C - (i-C) = 2C -i
+			P[i]= (R > i)? Math.min(R-i, P[iMirror]): 0;
+			
+			// Try expanding palindrome centered at i
+			while(T.charAt(i+1+P[i]) == T.charAt(i-1-P[i])) P[i]+=1;
+			
+			// If palindrome centered at i expands past R
+			// Adjust center based on Expanded palindrome
+			if(i + P[i] > R) {
+				C = i;
+				R = i + P[i];
+			}
+		}
+		// Let's find the max in P
+		int maxLen=0, centerIndex=0;
+		for(int i=0; i< n-1; i++) {
+			if(P[i] > maxLen) {
+				maxLen=P[i];
+				centerIndex=i;
+			}
+		}
+		int from=(centerIndex -1 -maxLen)/2;
+		return s.substring(from, from+maxLen);
+	}
+	private String preProcess(String s) {
+		int n=s.length();
+		if(n == 0) return "^$";
+		String ret="^";
+		for(int i=0; i< n; i++)
+			ret+="#"+s.charAt(i);
+		ret+="#$";
+		return ret;
+	}
+	/**
 	 * Approach: expanding around center
 	 * We observe that a palindrome mirrors around its center. 
 	 * Therefore, a palindrome can be expanded from its center, and there are only 2n - 1 such centers.
@@ -46,32 +89,32 @@ public class LongestPalindromicSubstring {
 	 * Such palindromes have even number of letters (such as "abba") and its center are between the two 'b's.
 	 * O(n2)/ O(1)
 	 */
-	public String longestPalindrome(String s) {
-	    if (s == null || s.length() < 1) return "";
-	    int start = 0, end = 0;
-	    for (int i = 0; i < s.length(); i++) {
-	        int len1 = expandAroundCenter(s, i, i);
-	        int len2 = expandAroundCenter(s, i, i + 1);
-	        int len = Math.max(len1, len2);
-	        if (len > end - start) {// that's a bigger length than previous, so start/ end of subarray to be modified
-	            start = i - (len - 1) / 2;// since the start will be i for length 2
-	            end = i + len / 2;// since end will be i+1 for length 2
-	        }
-	    }
-	    return s.substring(start, end + 1);
-	}
-
-	private int expandAroundCenter(String s, int left, int right) {
-	    int L = left, R = right;
-	    while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
-	        L--;
-	        R++;
-	    }
-	    return R - L - 1;
-	}
+//	public String longestPalindrome(String s) {
+//	    if (s == null || s.length() < 1) return "";
+//	    int start = 0, end = 0;
+//	    for (int i = 0; i < s.length(); i++) {
+//	        int len1 = expandAroundCenter(s, i, i);
+//	        int len2 = expandAroundCenter(s, i, i + 1);
+//	        int len = Math.max(len1, len2);
+//	        if (len > end - start) {// that's a bigger length than previous, so start/ end of subarray to be modified
+//	            start = i - (len - 1) / 2;// since the start will be i for length 2
+//	            end = i + len / 2;// since end will be i+1 for length 2
+//	        }
+//	    }
+//	    return s.substring(start, end + 1);
+//	}
+//
+//	private int expandAroundCenter(String s, int left, int right) {
+//	    int L = left, R = right;
+//	    while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
+//	        L--;
+//	        R++;
+//	    }
+//	    return R - L - 1;
+//	}
 	public static void main(String[] args) {
 		assertEquals("a",new LongestPalindromicSubstring().longestPalindrome("a"));
-		assertEquals("c",new LongestPalindromicSubstring().longestPalindrome("ac"));
+		assertEquals(1,new LongestPalindromicSubstring().longestPalindrome("ac").length());// could be a or c
 		assertEquals("bb",new LongestPalindromicSubstring().longestPalindrome("cbbd"));
 		assertEquals("babab",new LongestPalindromicSubstring().longestPalindrome("babab"));
 		assertEquals("baab",new LongestPalindromicSubstring().longestPalindrome("abaab"));
