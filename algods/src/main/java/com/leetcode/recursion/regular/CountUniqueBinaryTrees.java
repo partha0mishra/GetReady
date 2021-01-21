@@ -1,4 +1,4 @@
-package com.leetcode.recursion;
+package com.leetcode.recursion.regular;
 /** TODO Anki
  * 96. Unique Binary Trees
  * Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
