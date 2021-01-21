@@ -60,6 +60,7 @@ public class CreateUniqueBinaryTrees {
 			// getting all trees with the right of the number
 			List<TreeNode> rightTrees=generateTrees(i+1,end);
 			// now creating all trees at this level
+			// NOTE: if I create the root node here, the left and right will get updated due to Reference.
 			for(TreeNode left: leftTrees)
 				for(TreeNode right: rightTrees) {
 					TreeNode root=new TreeNode(i);
