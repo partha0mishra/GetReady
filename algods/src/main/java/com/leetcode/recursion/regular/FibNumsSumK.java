@@ -57,23 +57,25 @@ public class FibNumsSumK {
 		return result;
     }
 	/* GREEDY Solution */
-//	public int findMinFibonacciNumbers(int k) {
-//		if(k<2) return k;
-//        TreeSet<Integer> ts= new TreeSet<Integer>();
-//        int a=0,b=1,tmp,result=0;
-//        while(b<k) {// generating FIB numbers
-//        	tmp=b;
-//        	b+=a;
-//        	a=tmp;
-//        	ts.add(b);
-////        	System.out.println(b);
-//        }
-//        while(k>0) {
-//        	k-=ts.floor(k);// NOTE
-//        	result++;
-//        }
-//        return result;
-//    }
+/*
+	public int findMinFibonacciNumbers(int k) {
+		if(k<2) return k;
+        TreeSet<Integer> ts= new TreeSet<Integer>();
+        int a=0,b=1,tmp,result=0;
+        while(b<k) {// generating FIB numbers
+        	tmp=b;
+        	b+=a;
+        	a=tmp;
+        	ts.add(b);
+//        	System.out.println(b);
+        }
+        while(k>0) {
+        	k-=ts.floor(k);// NOTE
+        	result++;
+        }
+        return result;
+    }
+*/
 	public static void main(String[] args) {
 		FibNumsSumK instance= new FibNumsSumK();
 		assertEquals(2,instance.findMinFibonacciNumbers(7));
