@@ -39,6 +39,8 @@ public class CountUniqueBinaryTrees {
 	 * So, we'll have to compute G[1] to G[n] and G[n] is the answer
 	 * G[0]=1 and G[1]=0 as in both cases, the number of combinations will be 1
 	 * G[n]=> for i: from 1 to n => for j: from 1 to i => G[i]+=G(j-1) * G(i-j)
+	 *
+	 * two loops - O(n2)/ O(n) - dp array
 	 */
 	public int numTrees(int n) {
       if(n==0) return 0;
