@@ -22,7 +22,22 @@ Constraints:
  */
 import static org.junit.Assert.assertEquals;
 public class CountUniqueBinaryTrees {
-	/* dp
+	/** dp [also below is a recursive/ backtracking approach that got TLE ]
+	 * let's say we have 7 numbers 1,2,3,4,5,6,7
+	 * if F(i,n) is a function of number of trees at position i for a total number of n points
+	 * then G(n), a fundtion of TOTAL number of trees for n points = sum( for i: from 1 to n) F(i, n)
+	 * Interestingly, F(i, n) is ... e.g.
+	 * F(3,7) = we are taking 3 as root. so, (3-1)= 2 points before this and (7-3)= 4 points after this
+	 * => F(3,7) = trees of 2 points * trees of 4 points
+	 * => F(3,7) = G(2) * G(4) -> it doesn't matter which point, only the COUNT Matters
+	 * i.e. F(i,n) = G(i-1) * G(n-i)
+	 *
+	 * So, G(n) is sum(i: 1-> n) F(i,n) and F(i,n)= G(i-1) * G(n-i)
+	 * => G(n) = sum(i: 1-> n) G(i-1) * G(n-i)
+	 *
+	 * So, we'll have to compute G[1] to G[n] and G[n] is the answer
+	 * G[0]=1 and G[1]=0 as in both cases, the number of combinations will be 1
+	 * G[n]=> for i: from 1 to n => for j: from 1 to i => G[i]+=G(j-1) * G(i-j)
 	 */
 	public int numTrees(int n) {
       if(n==0) return 0;
