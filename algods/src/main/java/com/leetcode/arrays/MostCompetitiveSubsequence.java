@@ -26,27 +26,38 @@ Constraints:
 0 <= nums[i] <= 109
 1 <= k <= nums.length
  */
+import java.util.*;
 public class MostCompetitiveSubsequence {
+	/*
+	 * 01 Brute force: TLE : O(N2) in worst case
+	 * 02 Using TreeSet: O(NlogN)/ O(N)
+	 */
 	public int[] mostCompetitive(int[] nums, int k) {
-        int n=nums.length, minIndex=-1;
+        int n=nums.length;
         int[] result= new int[k];
-        for(int i=0; i<k; i++) {
-        	minIndex+=1;
-        	for(int j=minIndex+1; j<=n-k+i; j++)
-        		if(nums[j]<nums[minIndex]) minIndex=j;
-        	result[i]=nums[minIndex];
+        TreeSet<Integer> indices= new TreeSet<>((i1,i2) -> {
+    		int diff=Integer.compare(nums[i1], nums[i2]);
+    		return diff==0? Integer.compare(i1,i2): diff;
+    	});
+        for(int i=0; i< n-k; i++) indices.add(i);// first set
+        int r=0, x=-1;
+        for(int i=0; i<k; i++) {// filling up the spots
+        	indices.add(n-k+i);// add a number
+        	while(x < r) x=indices.pollFirst();
+        	r=x;x-=1;
+        	result[i]=nums[r];
         }
-        for(int r: result) System.out.printf("%2d", r);
+        for(int rx: result) System.out.printf("%2d", rx);
         System.out.println();
         return result;
     }
 	public static void main(String[] args) {
-//		new MostCompetitiveSubsequence().mostCompetitive(new int[] {3,5,2,6}, 2);
-//		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 1);
-//		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 2);
-//		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 3);
-//		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 4);
-//		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 5);
+		new MostCompetitiveSubsequence().mostCompetitive(new int[] {3,5,2,6}, 2);
+		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 1);
+		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 2);
+		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 3);
+		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 4);
+		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 5);
 		new MostCompetitiveSubsequence().mostCompetitive(new int[] {2,4,3,3,5,4,9,6}, 6);
 	}
 
