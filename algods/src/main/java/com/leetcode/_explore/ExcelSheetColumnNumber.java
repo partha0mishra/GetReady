@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /**
  * Given a column title as appear in an Excel sheet, return its corresponding column number.
  * 
