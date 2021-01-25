@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /**
  * Design an Iterator class, which has:
  * A constructor that takes a string characters of sorted distinct lowercase English letters and 
