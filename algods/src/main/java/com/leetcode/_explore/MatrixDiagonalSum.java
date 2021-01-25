@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /**
  * Given a square matrix mat, return the sum of the matrix diagonals.
 
