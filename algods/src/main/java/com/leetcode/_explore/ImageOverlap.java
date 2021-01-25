@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Two images A and B are given, represented as binary, square matrices of the same size.  
  * (A binary matrix has only 0s and 1s as values.)
