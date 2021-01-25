@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /**
  * Length of Last Word
  * 
