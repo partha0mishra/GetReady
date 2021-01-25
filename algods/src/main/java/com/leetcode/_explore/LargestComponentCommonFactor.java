@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Largest Component Size by Common Factor
  * Given a non-empty array of unique positive integers A, consider the following graph:
