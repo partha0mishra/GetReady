@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * There are 3n piles of coins of varying size, you and your friends will take piles of coins as follows:
 
