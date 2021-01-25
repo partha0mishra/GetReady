@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * WEEKLY Contest 200
  * Given an integer array arr of distinct integers and an integer k.
