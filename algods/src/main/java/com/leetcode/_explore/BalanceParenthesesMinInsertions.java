@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Given a parentheses string s containing only the characters '(' and ')'. A parentheses string is balanced if:
 
