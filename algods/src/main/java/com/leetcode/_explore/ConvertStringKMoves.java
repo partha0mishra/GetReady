@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
