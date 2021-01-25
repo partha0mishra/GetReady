@@ -1,7 +1,7 @@
 /*
  * Flatten a multi-level, doubly-linked list
  */
-package com.leetcode;
+package com.leetcode._explore;
 
 //Definition for a Node.
 class Node {
