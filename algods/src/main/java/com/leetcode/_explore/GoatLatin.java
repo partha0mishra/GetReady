@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * A sentence S is given, composed of words separated by spaces. Each word consists of lowercase and uppercase letters only.
 
