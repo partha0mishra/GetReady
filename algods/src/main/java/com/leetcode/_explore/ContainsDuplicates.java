@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /**
  * Contains Duplicates III
  * Given an array of integers, find out whether there are two distinct indices i and j in the array 
