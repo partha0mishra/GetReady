@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Sum of Root To Leaf Binary Numbers
  * Given a binary tree, each node has value 0 or 1.  Each root-to-leaf path represents a binary number starting with the most significant bit.  
