@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /**
  * 605. Can Place Flowers
  * Suppose you have a long flowerbed in which some of the plots are planted and some are not. 
