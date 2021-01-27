@@ -52,6 +52,6 @@ public class CheckAllOnesKDistanceAway {
 		assertTrue(new CheckAllOnesKDistanceAway().kLengthApart(new int[] {1}, 0));
 		assertTrue(new CheckAllOnesKDistanceAway().kLengthApart(new int[] {0}, 0));
 		assertTrue(new CheckAllOnesKDistanceAway().kLengthApart(new int[] {0,0}, 0));
-		assertFalse(new CheckAllOnesKDistanceAway().kLengthApart(new int[] {1}, 1));
+		assertTrue(new CheckAllOnesKDistanceAway().kLengthApart(new int[] {1}, 1));
 	}
 }
