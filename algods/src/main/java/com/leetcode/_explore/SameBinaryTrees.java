@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 // TODO Anki
 /*
  * Given two binary trees, write a function to check if they are the same or not.
