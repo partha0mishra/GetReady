@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 
 public class NumWaysSplitBinString {
 	static final char ONE='1';
