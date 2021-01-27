@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Find the sum of all left leaves in a given binary tree.
 
