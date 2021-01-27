@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * There are n oranges in the kitchen and you decided to eat some of these oranges every day as follows:
 
