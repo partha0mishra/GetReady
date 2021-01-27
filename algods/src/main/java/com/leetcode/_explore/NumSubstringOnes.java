@@ -22,7 +22,7 @@ Explanation: Each substring contains only 1's characters.
 Input: s = "000"
 Output: 0
  */
-package com.leetcode;
+package com.leetcode._explore;
 
 public class NumSubstringOnes {
 	
