@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Detect Pattern of Length M Repeated K or More Times
  * Given an array of positive integers arr,  find a pattern of length m that is repeated k or more times.
