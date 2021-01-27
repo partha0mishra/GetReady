@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /***
  * 713. Subarray Product Less Than K
  * 
