@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /***
  * 1582. Special Positions in a Binary Matrix
  * 
