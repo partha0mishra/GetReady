@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /**
  * 5503. Sum of All Odd Length Subarrays
  * 
