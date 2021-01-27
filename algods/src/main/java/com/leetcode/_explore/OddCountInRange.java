@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Given two non-negative integers low and high. Return the count of odd numbers between low and high (inclusive).
  * Input: low = 3, high = 7
