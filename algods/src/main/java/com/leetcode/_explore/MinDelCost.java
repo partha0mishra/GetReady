@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Minimum Deletion Cost to Avoid Repeating Letters
  * Given a string s and an array of integers cost where cost[i] is the cost of deleting the character i in s.
