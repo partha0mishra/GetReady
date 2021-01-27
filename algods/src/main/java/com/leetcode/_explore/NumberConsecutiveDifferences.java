@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Numbers With Same Consecutive Differences:
  * Return all non-negative integers of length N such that the absolute difference between every two consecutive digits is K.
