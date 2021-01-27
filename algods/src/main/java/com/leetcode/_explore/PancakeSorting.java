@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 /*
  * Given an array of integers A, We need to sort the array performing a series of pancake flips.
 
