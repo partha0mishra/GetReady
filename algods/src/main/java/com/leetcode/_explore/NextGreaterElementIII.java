@@ -1,4 +1,4 @@
-package com.leetcode;
+package com.leetcode._explore;
 // TODO Anki
 /* 556. Next Greater Element III
  * 
