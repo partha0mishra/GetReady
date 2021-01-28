@@ -12,16 +12,20 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class TestGetSASToken {
 	public static void main(String[] s) {
-		String resourceUri="https://dgxsprinttservicebusdev2Ankit.servicebus.windows.net/parthatest/messages";
+//		String resourceUri="https://dgxsprinttservicebusdev2Ankit.servicebus.windows.net/parthatest/messages";
+//		String keyName="RootManageSharedAccessKey";
+//		String key="xt/yMJdyitoUThqhTMLs4nNhHOL8t6ZoL2VmtGmeNlA=";
+		String resourceUri="https://dgxsprinttservicebusdev2.servicebus.windows.net/dgxmqqueue/messages";
 		String keyName="RootManageSharedAccessKey";
-		String key="xt/yMJdyitoUThqhTMLs4nNhHOL8t6ZoL2VmtGmeNlA=";
+		String key="TST8CvrTS4BU2oP8tiV1mOTnzC+t3241SfJnuH4+v84=";
 		System.out.println(GetSASToken(resourceUri, keyName, key));
 	}
 	private static String GetSASToken(String resourceUri, String keyName, String key)
 	  {
 	      long epoch = System.currentTimeMillis()/1000L;
-	      int week = 60*60*24*7;
-	      String expiry = Long.toString(epoch + week);
+	      int duration = 60*60*24*30;// 30 days
+//	    		  60*60*24*7;// week
+	      String expiry = Long.toString(epoch + duration);
 
 	      String sasToken = null;
 	      try {
