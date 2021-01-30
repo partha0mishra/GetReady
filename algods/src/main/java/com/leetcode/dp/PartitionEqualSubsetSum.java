@@ -1,4 +1,4 @@
-package com.leetcode._explore;
+package com.leetcode.dp;
 
 import java.util.Arrays;
 import static org.junit.Assert.assertTrue;
@@ -29,14 +29,15 @@ public class PartitionEqualSubsetSum {
 	/* Approach 02: Adding memoization 
 	 * Approach 01: 
 	 * sum has to be EVEN, of course
-	 * > Recurrence relationship (either consider the current number or don't)
+	 * > Recurrence relationship (either consider the current number or don't) : 0/1 knapsack
 	 * canPartition(target, n)= canPartition(target - nums[n],n-1) || canPartition(target,n-1)
 	 * 
 	 * Base case: target ==0 : true, target < 0: false;
 	 */
-	HashMap<Long,Boolean> memo;
+	HashMap<Integer,Boolean> memo;
 	public boolean canPartition(int[] nums) {
-        int sum=Arrays.stream(nums).sum();
+        int sum=0;
+        for(int n: nums) sum+=n;
         if(sum %2 !=0 || sum==0 ) return false;
         sum/=2;
         memo=new HashMap<>();
@@ -46,12 +47,11 @@ public class PartitionEqualSubsetSum {
 	private boolean find(int target, int[] nums, int n) {
 		if(target ==0 ) return true;// found
 		if(target < 0 || n< 0) return false;// can't be found
-		long key=1000*target+n;
-		if(!memo.containsKey(key)) {
-			boolean val=find(target-nums[n],nums, n-1) || find(target,nums,n-1);
-			memo.put(key,val);
+		if(!memo.containsKey(target)) {
+			memo.put(target,
+					find(target-nums[n],nums, n-1) || find(target,nums,n-1));
 		}
-		return memo.get(key);
+		return memo.get(target);
 	}
 
 	public static void main(String[] args) {
