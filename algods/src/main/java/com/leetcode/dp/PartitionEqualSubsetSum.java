@@ -42,6 +42,7 @@ public class PartitionEqualSubsetSum {
         for(int num: nums)
         	for(int i=sum; i>0; i--) {
 //        		if(i >= num) dp[i]=dp[i-num] || dp[i];// dp[i] could be already true from last iteration
+        		if(i >= num && !dp[i]) dp[i]=dp[i-num];// skip if dp[i] is already true
         	}
         return dp[sum];
     }
