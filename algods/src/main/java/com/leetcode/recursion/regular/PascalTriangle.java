@@ -1,4 +1,4 @@
-package com.leetcode.recursion;
+package com.leetcode.recursion.regular;
 /* 118. Pascal's Triangle
  * Given a non-negative integer numRows, generate the first numRows of Pascal's triangle.
  * Input: 5
