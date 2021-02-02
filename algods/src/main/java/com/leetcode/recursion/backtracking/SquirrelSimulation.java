@@ -26,32 +26,57 @@ The given positions contain at least one nut, only one tree and one squirrel.
  */
 public class SquirrelSimulation {
 	/**
+	 * Approach 02: nimbler. copied
+	 * 
+	 * The problem is to find the min(total)
+	 * total=2*individual nut distance from tree - dist from tree to the chosen nut + dist from squirrel to the chosen nut
+	 * =2*sum - for the chosen nut[dist from tree - dist from squirrel]
+	 * 
+	 * so, to get the total to min, we need the max of [dist from tree - dist from squirrel]
+	 * 
+	 */
+	public int minDistance(int height, int width, int[] tree, int[] squirrel, int[][] nuts) {
+        int totalDistance = 0;
+        int d = Integer.MIN_VALUE;
+        for (int[] nut : nuts) {
+            totalDistance += (distance(tree, nut)*2);
+            d = Math.max(d, distance(tree,nut) - distance(nut, squirrel));
+        }
+        
+        return totalDistance - d;
+    }
+    
+    public int distance(int[] a, int[] b) {
+        return (Math.abs(a[0] - b[0]) + Math.abs(a[1]-b[1]));
+    }
+	/**
 	 * Approach 01:
 	 * Doesn't even need backtracking.
 	 * For the first nut, it's distance from squirrel + distance from tree
 	 * All other nuts, it's 2*distance from tree
+	 * O(N)/ O(N)
 	 */
-	public int minDistance(int height, int width, int[] tree, int[] squirrel, int[][] nuts) {
-		int[] firstDist=new int[nuts.length], restDist=new int[nuts.length];
-		long totalDist=0;
-		for(int i=0; i<nuts.length; i++) {
-			int[] nut=nuts[i];
-			int nutDistFromSquirrel=Math.abs(nut[0]-squirrel[0])+Math.abs(nut[1]-squirrel[1]);
-			int nutDistFromTree=Math.abs(nut[0]-tree[0])+Math.abs(nut[1]-tree[1]);
-			firstDist[i]=nutDistFromSquirrel;
-			restDist[i]=nutDistFromTree;
-			totalDist+=2*restDist[i];// total distance of all the nuts
-		}
-		long minDist=Integer.MAX_VALUE;
-		for(int i=0; i<nuts.length; i++) {
-			long localMin=firstDist[i] // squirrel to the nut
-					+ totalDist // sum of all the distances *2 - to and from
-					- restDist[i];// count it only once for the first reach
-			
-			minDist=Math.min(minDist, localMin);
-		}
-		return (int)minDist;
-    }
+//	public int minDistance(int height, int width, int[] tree, int[] squirrel, int[][] nuts) {
+//		int[] firstDist=new int[nuts.length], restDist=new int[nuts.length];
+//		long totalDist=0;
+//		for(int i=0; i<nuts.length; i++) {
+//			int[] nut=nuts[i];
+//			int nutDistFromSquirrel=Math.abs(nut[0]-squirrel[0])+Math.abs(nut[1]-squirrel[1]);
+//			int nutDistFromTree=Math.abs(nut[0]-tree[0])+Math.abs(nut[1]-tree[1]);
+//			firstDist[i]=nutDistFromSquirrel;
+//			restDist[i]=nutDistFromTree;
+//			totalDist+=2*restDist[i];// total distance of all the nuts
+//		}
+//		long minDist=Integer.MAX_VALUE;
+//		for(int i=0; i<nuts.length; i++) {
+//			long localMin=firstDist[i] // squirrel to the nut
+//					+ totalDist // sum of all the distances *2 - to and from
+//					- restDist[i];// count it only once for the first reach
+//			
+//			minDist=Math.min(minDist, localMin);
+//		}
+//		return (int)minDist;
+//    }
 	public static void main(String[] s) {
 		SquirrelSimulation ss= new SquirrelSimulation();
 		System.out.println(ss.minDistance(5, 7, new int[] {2,2}, new int[] {4,4}, new int[][] {{3,0},{2,5}}));
