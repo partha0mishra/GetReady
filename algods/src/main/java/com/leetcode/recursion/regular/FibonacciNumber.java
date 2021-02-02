@@ -1,4 +1,4 @@
-package com.leetcode.recursion;
+package com.leetcode.recursion.regular;
 /** TODO Anki
  * 509. Fibonacci Number
  * 
