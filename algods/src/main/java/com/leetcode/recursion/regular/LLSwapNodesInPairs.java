@@ -1,4 +1,4 @@
-package com.leetcode.recursion;
+package com.leetcode.recursion.regular;
 
 import com.leetcode.linkedList.ListNode;
 // TODO Anki
