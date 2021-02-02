@@ -1,4 +1,4 @@
-package com.leetcode.recursion;
+package com.leetcode.recursion.regular;
 /*** TODO Anki
  * 1414 Find the Minimum Number of Fibonacci Numbers Whose Sum Is K
  * 
