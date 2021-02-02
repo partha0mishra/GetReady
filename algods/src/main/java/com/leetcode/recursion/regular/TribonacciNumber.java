@@ -1,4 +1,4 @@
-package com.leetcode.recursion;
+package com.leetcode.recursion.regular;
 /** TODO Anki
  * 1137. N-th Tribonacci Number
  * 
