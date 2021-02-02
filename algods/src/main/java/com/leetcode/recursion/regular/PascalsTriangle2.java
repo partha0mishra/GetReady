@@ -1,4 +1,4 @@
-package com.leetcode.recursion;
+package com.leetcode.recursion.regular;
 // TODO Anki
 /*
  * Given a non-negative index k where k ≤ 33, return the kth index row of the Pascal's triangle.
