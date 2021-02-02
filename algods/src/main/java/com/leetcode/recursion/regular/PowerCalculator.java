@@ -1,4 +1,4 @@
-package com.leetcode.recursion;
+package com.leetcode.recursion.regular;
 /** TODO Anki
  * Implement pow(x, n), which calculates x raised to the power n (xn).
  * 
