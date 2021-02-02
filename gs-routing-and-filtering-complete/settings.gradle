@@ -1,4 +1,0 @@
-rootProject.name = 'gs-routing-and-filtering'
-
-include 'book'
-include 'gateway'

@@ -1,1 +1,0 @@
-insert into UserConnection (userId, providerId, providerUserId, rank, profileUrl, accessToken, secret) select member, provider, accountId, 1, profileUrl, accessToken, secret from AccountConnection;
