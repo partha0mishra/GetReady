@@ -33,29 +33,45 @@ It is guaranteed that the list represents a number that does not have leading ze
  */
 public class AddTwoNumbers {
 	/**
+	 * More compact: during revision.
+	 * still O(N) O(N)
+	 */
+	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy=new ListNode(-1), result=dummy;
+        int sum=0;
+        while(l1 != null || l2 != null){
+            if(l1 != null){sum+=l1.val; l1=l1.next;}
+            if(l2 != null){sum+=l2.val; l2=l2.next;}
+            result.next=new ListNode(sum%10); result=result.next;
+            sum/=10;
+        }
+        if(sum >0) result.next=new ListNode(sum);
+        return dummy.next;
+    }
+	/**
 	 * Easy to do as the numbers are already reversed
 	 * keep the carry.
 	 * O(N) O(N) since we're not reusing any of the LinkedLists
 	 */
-	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int carry=0;
-        ListNode result=null, current=null;
-        while(l1 != null || l2 != null){
-            if(l1 != null){carry+=l1.val; l1=l1.next;}
-            if(l2 != null){carry+=l2.val; l2=l2.next;}
-            System.out.println(carry);
-            ListNode temp=new ListNode(carry%10);
-            if(result == null){
-                result=temp;
-            }else{
-                current.next=temp;
-            }
-            current=temp;
-            carry/=10;
-        }
-        if(carry > 0){
-            current.next=new ListNode(carry);
-        }
-        return result;
-    }
+//	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+//        int carry=0;
+//        ListNode result=null, current=null;
+//        while(l1 != null || l2 != null){
+//            if(l1 != null){carry+=l1.val; l1=l1.next;}
+//            if(l2 != null){carry+=l2.val; l2=l2.next;}
+//            System.out.println(carry);
+//            ListNode temp=new ListNode(carry%10);
+//            if(result == null){
+//                result=temp;
+//            }else{
+//                current.next=temp;
+//            }
+//            current=temp;
+//            carry/=10;
+//        }
+//        if(carry > 0){
+//            current.next=new ListNode(carry);
+//        }
+//        return result;
+//    }
 }
