@@ -17,6 +17,7 @@ import java.util.*;
 public class AddTwoNumbers2 {
 	/** 
 	 * Approach 02: Using Stack since the operations need to be from Right
+	 * O(N)/ O(N)
 	 * */
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         Stack<Integer> sa= new Stack<>(), sb=new Stack<>();
