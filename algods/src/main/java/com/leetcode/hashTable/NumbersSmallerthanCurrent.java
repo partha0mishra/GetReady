@@ -1,4 +1,4 @@
-package com.leetcode.arrays;
+package com.leetcode.hashTable;
 /***
  * 1365. How Many Numbers Are Smaller Than the Current Number
  * 
