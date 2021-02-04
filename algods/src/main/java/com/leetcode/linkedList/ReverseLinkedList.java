@@ -49,7 +49,8 @@ public class ReverseLinkedList {
 //	 public ListNode reverseList(ListNode head) {
 //		 if(head == null || head.next == null) return head;
 //		 ListNode p=reverseList(head.next); // reversing up to the node to the right
-//		 head.next.next=head;// shift
+//		 head.next.next=head;// shift: NOTE: WHY NOT p.next=head?? coz p is the last node that has become first now. 
+//	 		head.next was the original second node which is the last node now and head needs to go after that 
 //		 head.next=null;// Otherwise it's a cycle
 //		 return p;
 //	 }
