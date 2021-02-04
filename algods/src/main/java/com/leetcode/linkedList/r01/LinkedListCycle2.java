@@ -1,4 +1,4 @@
-package com.leetcode.linkedList;
+package com.leetcode.linkedList.r01;
 /** TODO Anki
  * 142. Linked List Cycle II
  * Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
@@ -26,6 +26,8 @@ package com.leetcode.linkedList;
  * pos is -1 or a valid index in the linked-list.
  */
 import java.util.*;
+
+import com.leetcode.linkedList.ListNode;
 public class LinkedListCycle2 {
 	/* Approach 02: 
 	 * where the slow and fast pointers meet, if slow has taken k steps, the fast has taken 2k steps
