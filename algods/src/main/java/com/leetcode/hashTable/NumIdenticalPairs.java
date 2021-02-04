@@ -1,5 +1,6 @@
-package com.leetcode._explore;
-/*
+package com.leetcode.hashTable;
+/**
+ * 1512.
  * Given an array of integers nums.
 
 A pair (i,j) is called good if nums[i] == nums[j] and i < j.
