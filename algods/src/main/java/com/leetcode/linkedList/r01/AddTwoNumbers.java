@@ -1,4 +1,7 @@
-package com.leetcode.linkedList;
+package com.leetcode.linkedList.r01;
+
+import com.leetcode.linkedList.ListNode;
+
 /** TODO Anki
  * 2. Add Two Numbers
  * You are given two non-empty linked lists representing two non-negative integers. 
