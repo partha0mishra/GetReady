@@ -1,5 +1,6 @@
-package com.leetcode._explore;
+package com.leetcode.hashTable;
 /**
+ * 299. Bulls and Cows
  * You are playing the following Bulls and Cows game with your friend: 
  * You write down a number and ask your friend to guess what the number is. Each time your friend makes a guess, 
  * you provide a hint that indicates how many digits in said guess match your secret number exactly in both digit and 
