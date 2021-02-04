@@ -1,4 +1,4 @@
-package com.leetcode.arrays;
+package com.leetcode.hashTable;
 /** TODO Anki
  * Longest Substring Without Repeating Characters
  * 
