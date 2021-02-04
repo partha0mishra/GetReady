@@ -1,4 +1,4 @@
-package com.leetcode.linkedList;
+package com.leetcode.linkedList.r01;
 // TODO Anki
 /**
  * 206. Reverse Linked List
