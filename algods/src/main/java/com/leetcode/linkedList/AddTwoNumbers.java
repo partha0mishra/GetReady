@@ -32,6 +32,11 @@ The number of nodes in each linked list is in the range [1, 100].
 It is guaranteed that the list represents a number that does not have leading zeros.
  */
 public class AddTwoNumbers {
+	/**
+	 * Easy to do as the numbers are already reversed
+	 * keep the carry.
+	 * O(N) O(N) since we're not reusing any of the LinkedLists
+	 */
 	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         int carry=0;
         ListNode result=null, current=null;
