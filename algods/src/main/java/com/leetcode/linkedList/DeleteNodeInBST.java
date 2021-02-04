@@ -1,19 +1,15 @@
 package com.leetcode.linkedList;
 /* 237 Delete Node in a Linked List
- * Write a function to delete a node in a singly-linked list. You will not be given access to the head of the list, instead you will be given access to the node to be deleted directly.
+ * Write a function to delete a node in a singly-linked list. 
+ * You will not be given access to the head of the list, instead you will be given access to the node to be deleted directly.
 
 It is guaranteed that the node to be deleted is not a tail node in the list.
-
- 
-
 Example 1:
-
 
 Input: head = [4,5,1,9], node = 5
 Output: [4,1,9]
 Explanation: You are given the second node with value 5, the linked list should become 4 -> 1 -> 9 after calling your function.
 Example 2:
-
 
 Input: head = [4,5,1,9], node = 1
 Output: [4,5,9]
@@ -40,6 +36,11 @@ The value of each node in the list is unique.
 The node to be deleted is in the list and is not a tail node
  * */
 public class DeleteNodeInBST {
+	/**
+	 * Since this is a singly-linked-list, there's no way to actually delete the node
+	 * Max we can do is to copy values of the right nodes to the left and set the last one as null
+	 * O(N)/ O(1)
+	 */
 	public void deleteNode(ListNode node) {
         while(node.next !=null){
             node.val=node.next.val;
@@ -47,7 +48,8 @@ public class DeleteNodeInBST {
                 node.next=null;
                 break;
             }
-            node=node.next;
+            node=node.next;// we couldn't just go usual in the previous loop and then do node=null
+            // since 'node' is a pointer to the actual object
         }
     }
 }
