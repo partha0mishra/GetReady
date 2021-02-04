@@ -1,5 +1,6 @@
 package com.leetcode.linkedList;
-/* 141. Linked List Cycle
+/**
+ * 141. Linked List Cycle
  * Given head, the head of a linked list, determine if the linked list has a cycle in it.
 
 There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
@@ -39,6 +40,11 @@ The number of the nodes in the list is in the range [0, 104].
 pos is -1 or a valid index in the linked-list.
  * */
 public class LinkedListCycle {
+	/**
+	 * Two pointers - fast and slow.
+	 * If they meet before fast.next or fast.next.next reaches null, there's a cycle.
+	 * O(N)/ O(1)
+	 */
 	public boolean hasCycle(ListNode head) {
         if(head == null || head.next == null) return false;
         ListNode slow=head, fast=head;
