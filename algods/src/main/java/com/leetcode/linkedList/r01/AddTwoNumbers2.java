@@ -1,4 +1,4 @@
-package com.leetcode.linkedList;
+package com.leetcode.linkedList.r01;
 /** TODO Anki 
  * 445: Add Two Numbers II
  * You are given two non-empty linked lists representing two non-negative integers. The most significant digit comes first and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
@@ -14,6 +14,8 @@ Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 8 -> 0 -> 7
  */
 import java.util.*;
+
+import com.leetcode.linkedList.ListNode;
 public class AddTwoNumbers2 {
 	/** 
 	 * Approach 02: Using Stack since the operations need to be from Right
