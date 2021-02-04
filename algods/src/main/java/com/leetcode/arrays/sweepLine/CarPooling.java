@@ -1,4 +1,4 @@
-package com.leetcode.sweepLine;
+package com.leetcode.arrays.sweepLine;
 
 /**
  * CAR Pooling

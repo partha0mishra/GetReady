@@ -1,4 +1,4 @@
-package com.leetcode.sweepLine;
+package com.leetcode.arrays.sweepLine;
 /**
  * 1589. Maximum Sum Obtained of Any Permutation
  * 
