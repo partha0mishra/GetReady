@@ -1,6 +1,6 @@
-package com.leetcode.arrays;
+package com.leetcode.hashTable;
 /** TODO Anki
- * Given a string, determine if a permutation of the string could form a palindrome.
+ * 266. Given a string, determine if a permutation of the string could form a palindrome.
 
 Example 1:
 
