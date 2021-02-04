@@ -1,8 +1,9 @@
-package com.leetcode._explore;
+package com.leetcode.hashTable;
 
 import java.util.Arrays;
 
-/*
+/**
+ * 274. Calculate H Index
  * Given an array of citations (each citation is a non-negative integer) of a researcher, 
  * write a function to compute the researcher's h-index.
  * According to the definition of h-index on Wikipedia: 
