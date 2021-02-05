@@ -1,4 +1,4 @@
-package com.leetcode.hashTable;
+package com.leetcode.hashTable._easy;
 /**
  * 409. Longest Palindrome
  * Given a string which consists of lowercase or uppercase letters, find the length of the longest palindromes 
