@@ -16,23 +16,40 @@ package com.leetcode.hashTable;
  */
 import java.util.*;
 public class LongestPalindrome {
-	/* Approach 01: with HashSet*/
+	/* Approach 02: with count[] since the values are ASCII
+	 * O(N)/ O(N) */
     public int longestPalindrome(String s) {
     	if(s == null || s.length()==0) return 0;
-        HashSet<Character> hs= new HashSet<Character>();
-        int result=0;
-        for(Character c:s.toCharArray()) {
-        	if(hs.contains(c)) {
-        		result++;
-        		hs.remove(c);// to make sure 4 As make 2 pairs.
-        	}else {
-        		hs.add(c);
-        	}
-        }
-        result*=2;
-        if(hs.size()>0) result=result+1;// there can be only 1 in the middle 
+    	int[] count=new int[256];
+    	int result=0;
+    	for(char c: s.toCharArray()) {
+    		if(count[c] == 1) {
+    			count[c]=0;
+    			result+=2;
+    		}else {
+    			count[c]=1;
+    		}
+    	}
+    	for(int i: count) if(i==1) return result+1;
         return result;
     }
+	/* Approach 01: with HashSet*/
+//    public int longestPalindrome(String s) {
+//    	if(s == null || s.length()==0) return 0;
+//        HashSet<Character> hs= new HashSet<Character>();
+//        int result=0;
+//        for(Character c:s.toCharArray()) {
+//        	if(hs.contains(c)) {
+//        		result++;
+//        		hs.remove(c);// to make sure 4 As make 2 pairs.
+//        	}else {
+//        		hs.add(c);
+//        	}
+//        }
+//        result*=2;
+//        if(hs.size()>0) result=result+1;// there can be only 1 in the middle 
+//        return result;
+//    }
 	public static void main(String[] args) {
 		System.out.println(new LongestPalindrome().longestPalindrome("abccccdd"));// 7
 		System.out.println(new LongestPalindrome().longestPalindrome(""));// 0
