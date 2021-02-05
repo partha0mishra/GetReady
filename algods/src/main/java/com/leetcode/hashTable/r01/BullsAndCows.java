@@ -1,4 +1,4 @@
-package com.leetcode.hashTable;
+package com.leetcode.hashTable.r01;
 /**
  * 299. Bulls and Cows
  * You are playing the following Bulls and Cows game with your friend: 
@@ -18,6 +18,12 @@ package com.leetcode.hashTable;
  */
 import static org.junit.Assert.assertEquals;
 public class BullsAndCows {
+	/**
+	 * O(N)/ O(1)
+	 * check all the bulls
+	 * increment counts for unmatched secret digits or guess digits
+	 * sum of min(secret, guess) per digit is the cows count
+	 */
 	public String getHint(String secret, String guess) {
         StringBuffer result= new StringBuffer();
         int[] unmatchedSecret= new int[10];
