@@ -39,6 +39,63 @@ All the integers in s are in the range [1, 300].
 import java.util.*;
 public class DecodeString {
 	/**
+	 * Stack: 2 stacks - for count and for strings
+	 * 
+	 * Intuition
+
+In the previous approach, we used a single character stack to store the digits(0-9) as well as letters (a-z). We could instead maintain 2 separate stacks.
+
+countStack: The stack would store all the integer k.
+stringStack: The stack would store all the decoded strings.
+Also, instead of pushing the decoded string to the stack character by character, we could improve our algorithm by appending all the characters into the string first and then push the entire string into the stringStack. Let's look at the algorithm in detail.
+
+Algorithm
+
+Iterate over the string s and process each character as follows:
+
+Case 1) If the current character is a digit (0-9), append it to the number k.
+
+Case 2) If the current character is a letter (a-z), append it to the currentString.
+
+Case 3) If current character is a opening bracket [, push k and currentString intocountStack and stringStack respectively.
+
+Case 4) Closing bracket ]: We must begin the decoding process,
+
+We must decode the currentString. Pop currentK from the countStack and decode the pattern currentK[currentString]
+
+As the stringStack contains the previously decoded string, pop the decodedString from the stringStack. Update the decodedString = decodedString + currentK[currentString]
+	 */
+	String decodeString(String s) {
+        Stack<Integer> countStack = new Stack<>();
+        Stack<StringBuilder> stringStack = new Stack<>();
+        StringBuilder currentString = new StringBuilder();
+        int k = 0;
+        for (char ch : s.toCharArray()) {
+            if (Character.isDigit(ch)) {
+                k = k * 10 + ch - '0';
+            } else if (ch == '[') {
+                // push the number k to countStack
+                countStack.push(k);
+                // push the currentString to stringStack
+                stringStack.push(currentString);
+                // reset currentString and k
+                currentString = new StringBuilder();
+                k = 0;
+            } else if (ch == ']') {
+                StringBuilder decodedString = stringStack.pop();
+                // decode currentK[currentString] by appending currentString k times
+                for (int currentK = countStack.pop(); currentK > 0; currentK--) {
+                    decodedString.append(currentString);
+                }
+                currentString = decodedString;
+            } else {
+                currentString.append(ch);
+            }
+        }
+        return currentString.toString();
+    }
+	
+	/**
 	 * Stack implementation
 	 * 
 	 * Approach 1: Using Stack
@@ -69,45 +126,45 @@ Pop opening bracket [ from the stack.
 Pop from the stack while the next character is a digit (0-9) and build the number k.
 Now that we have k and decodedString , decode the pattern k[decodedString] by pushing the decodedString to stack k times.
 	 */
-	public String decodeString(String s) {
-        Stack<Character> stack = new Stack<>();
-        for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == ']') {
-                List<Character> decodedString = new ArrayList<>();
-                // get the encoded string
-                while (stack.peek() != '[') {
-                    decodedString.add(stack.pop());
-                }
-                // pop [ from the stack
-                stack.pop();
-                int base = 1;
-                int k = 0;
-                // get the number k
-                while (!stack.isEmpty() && Character.isDigit(stack.peek())) {
-                    k = k + (stack.pop() - '0') * base;
-                    base *= 10;
-                }
-                // decode k[decodedString], by pushing decodedString k times into stack
-                while (k != 0) {
-                    for (int j = decodedString.size() - 1; j >= 0; j--) {
-                        stack.push(decodedString.get(j));
-                    }
-                    k--;
-                }
-            }
-            // push the current character to stack
-            else {
-                stack.push(s.charAt(i));
-            }
-        }      
-        // get the result from stack
-        char[] result = new char[stack.size()];
-        for (int i = result.length - 1; i >= 0; i--) {
-            result[i] = stack.pop();
-        }
-        return new String(result);
-    }
-	
+//	public String decodeString(String s) {
+//        Stack<Character> stack = new Stack<>();
+//        for (int i = 0; i < s.length(); i++) {
+//            if (s.charAt(i) == ']') {
+//                List<Character> decodedString = new ArrayList<>();
+//                // get the encoded string
+//                while (stack.peek() != '[') {
+//                    decodedString.add(stack.pop());
+//                }
+//                // pop [ from the stack
+//                stack.pop();
+//                int base = 1;
+//                int k = 0;
+//                // get the number k
+//                while (!stack.isEmpty() && Character.isDigit(stack.peek())) {
+//                    k = k + (stack.pop() - '0') * base;
+//                    base *= 10;
+//                }
+//                // decode k[decodedString], by pushing decodedString k times into stack
+//                while (k != 0) {
+//                    for (int j = decodedString.size() - 1; j >= 0; j--) {
+//                        stack.push(decodedString.get(j));
+//                    }
+//                    k--;
+//                }
+//            }
+//            // push the current character to stack
+//            else {
+//                stack.push(s.charAt(i));
+//            }
+//        }      
+//        // get the result from stack
+//        char[] result = new char[stack.size()];
+//        for (int i = result.length - 1; i >= 0; i--) {
+//            result[i] = stack.pop();
+//        }
+//        return new String(result);
+//    }
+//	
 	/**
 	 * Approach 01: recursion - copied
 	 */
