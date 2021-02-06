@@ -1,4 +1,4 @@
-package com.leetcode.stack;
+package com.leetcode.stack.r01;
 /** 
  * 394. Decode String
  * Given an encoded string, return its decoded string.
