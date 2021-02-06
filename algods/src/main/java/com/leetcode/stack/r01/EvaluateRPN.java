@@ -1,4 +1,4 @@
-package com.leetcode.stack;
+package com.leetcode.stack.r01;
 /**
  * 150. Evaluate Reverse Polish Notation
  * Evaluate the value of an arithmetic expression in Reverse Polish Notation.
