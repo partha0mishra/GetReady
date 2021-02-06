@@ -1,4 +1,4 @@
-package com.leetcode.stack;
+package com.leetcode.stack.r01;
 /** TODO Anki
  * 735. Asteroid Collision
  * We are given an array asteroids of integers representing asteroids in a row.
