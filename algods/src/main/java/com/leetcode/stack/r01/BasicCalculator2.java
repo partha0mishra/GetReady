@@ -1,4 +1,4 @@
-package com.leetcode.stack;
+package com.leetcode.stack.r01;
 /** TODO Anki
  *  227 Basic Calculator II ?? what if the numbers are NOT SINGLE DIGITS ??
  * 
@@ -35,8 +35,8 @@ public class BasicCalculator2 {
         if (s == null || s.isEmpty()) return 0;
         int len = s.length();
         Stack<Integer> stack = new Stack<Integer>();
-        int currentNumber = 0;
-        char operation = '+';
+        int currentNumber = 0;// nice trick to have this here
+        char operation = '+';// nice trick to have this as default operation
         for (int i = 0; i < len; i++) {
             char currentChar = s.charAt(i);
             if (Character.isDigit(currentChar)) {
@@ -47,7 +47,7 @@ public class BasicCalculator2 {
                     stack.push(-currentNumber);
                 }
                 else if (operation == '+') {
-                    stack.push(currentNumber);
+                    stack.push(currentNumber);// Default
                 }
                 else if (operation == '*') {
                     stack.push(stack.pop() * currentNumber);
