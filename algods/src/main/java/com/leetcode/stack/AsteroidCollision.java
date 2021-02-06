@@ -1,5 +1,6 @@
 package com.leetcode.stack;
-/* Asteroid Collision
+/**
+ * 735. Asteroid Collision
  * We are given an array asteroids of integers representing asteroids in a row.
 
 For each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left). Each asteroid moves at the same speed.
@@ -38,39 +39,74 @@ asteroids[i] != 0
  */
 import java.util.Deque;
 import java.util.ArrayDeque;
+import java.util.*;
 public class AsteroidCollision {
 	public int[] asteroidCollision(int[] asteroids) {
-        Deque<Integer> list= new ArrayDeque<>();
-        for(int a: asteroids) {
-        	if(a < 0) {
-        		boolean survived=true;
-        		while(!list.isEmpty() && list.getLast() >= 0) {
-        			int t=list.removeLast();
-        			if(t+a ==0) {
-        				survived=false;
-        				break;// none survived
-        			}
-        			else if(t+a > 0) {
-        				list.addLast(t);// t survived. a destroyed
-        				survived=false;
-        				break;
-        			}
-        		}
-        		if(survived) list.addLast(a);// winner
-        	}else list.addLast(a);// positive number
-        }
-                
-        int[] result=new int[list.size()];
-        for(int i=0; i< result.length; i++) result[i]=list.removeFirst();
-//        for(int i: result) System.out.println(i);
-        return result;
-    }
+		Deque<Integer> stack= new ArrayDeque<>();
+		for(int a: asteroids) {
+			boolean destroyed=false;
+			if(a < 0) {
+				while(!stack.isEmpty()) {
+					if(stack.peek() < 0) {
+						stack.offerFirst(a);
+						break;
+					}
+					else if(stack.peek() +a > 0) {
+						break;
+					}
+					else if(stack.peek() +a == 0) {
+						stack.pollFirst();
+						destroyed=true;
+						break;// both vanishes
+					}
+					else stack.pollFirst();// pop out the existing one
+				}
+				if(stack.isEmpty() && !destroyed) stack.offerFirst(a);// 
+			}else stack.offerFirst(a);// a Positive
+		}
+		int[] result= new int[stack.size()];
+		int i=stack.size() -1;
+		while(i>=0) result[i--]=stack.pollFirst();
+		return result;
+	}
+	/* Approach 01: Queue 
+	 * 
+	 */
+//	public int[] asteroidCollision(int[] asteroids) {
+//        Deque<Integer> list= new ArrayDeque<>();
+//        for(int a: asteroids) {
+//        	if(a < 0) {
+//        		boolean survived=true;
+//        		while(!list.isEmpty() && list.getLast() >= 0) {
+//        			int t=list.removeLast();
+//        			if(t+a ==0) {
+//        				survived=false;
+//        				break;// none survived
+//        			}
+//        			else if(t+a > 0) {
+//        				list.addLast(t);// t survived. a destroyed
+//        				survived=false;
+//        				break;
+//        			}
+//        		}
+//        		if(survived) list.addLast(a);// winner
+//        	}else list.addLast(a);// positive number
+//        }
+//                
+//        int[] result=new int[list.size()];
+//        for(int i=0; i< result.length; i++) result[i]=list.removeFirst();
+////        for(int i: result) System.out.println(i);
+//        return result;
+//    }
 	public static void main(String[] args) {
 		AsteroidCollision instance= new AsteroidCollision();
-		System.out.println(instance.asteroidCollision(new int[] {5,10,-5}));
-		System.out.println(instance.asteroidCollision(new int[] {8,-8}));
-		System.out.println(instance.asteroidCollision(new int[] {10,2,-5}));
-		System.out.println(instance.asteroidCollision(new int[] {-2,-1,1,2}));
+		printArray(instance.asteroidCollision(new int[] {5,10,-5}));
+		printArray(instance.asteroidCollision(new int[] {8,-8}));
+		printArray(instance.asteroidCollision(new int[] {10,2,-5}));
+		printArray(instance.asteroidCollision(new int[] {-2,-1,1,2}));
 	}
-
+	public static void printArray(int[] result) {
+		for(int i: result) System.out.printf("%3d",i);
+		System.out.println();
+	}
 }
