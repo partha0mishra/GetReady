@@ -41,28 +41,32 @@ import java.util.Deque;
 import java.util.ArrayDeque;
 import java.util.*;
 public class AsteroidCollision {
+	/**
+	 * Approach 02: Stack
+	 * Positive - add
+	 * Negative - add if the stack is empty or peek is < 0
+	 * O(N)/ O(N)
+	 */
 	public int[] asteroidCollision(int[] asteroids) {
 		Deque<Integer> stack= new ArrayDeque<>();
 		for(int a: asteroids) {
-			boolean destroyed=false;
-			if(a < 0) {
-				while(!stack.isEmpty()) {
-					if(stack.peek() < 0) {
-						stack.offerFirst(a);
-						break;
+			if(a>0) stack.offerFirst(a);
+			else {
+				while(true) {
+					if(stack.isEmpty() || stack.peek() < 0) {
+						stack.offerFirst(a); break;
 					}
-					else if(stack.peek() +a > 0) {
-						break;
-					}
-					else if(stack.peek() +a == 0) {
+					int val=stack.peek()+a;
+					if(val < 0) {
 						stack.pollFirst();
-						destroyed=true;
-						break;// both vanishes
+					}else if(val == 0) {
+						stack.pop();
+						break;
+					}else {
+						break;
 					}
-					else stack.pollFirst();// pop out the existing one
 				}
-				if(stack.isEmpty() && !destroyed) stack.offerFirst(a);// 
-			}else stack.offerFirst(a);// a Positive
+			}
 		}
 		int[] result= new int[stack.size()];
 		int i=stack.size() -1;
