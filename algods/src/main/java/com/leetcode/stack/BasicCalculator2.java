@@ -1,5 +1,5 @@
 package com.leetcode.stack;
-/**
+/** TODO Anki
  *  227 Basic Calculator II ?? what if the numbers are NOT SINGLE DIGITS ??
  * 
  * Implement a basic calculator to evaluate a simple expression string.
@@ -26,6 +26,45 @@ Do not use the eval built-in library function.
 import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class BasicCalculator2 {
+	/**
+	 * Approach 02: Stack
+	 * O(N)/ O(N)
+	 */
+	public int calculate(String s) {
+
+        if (s == null || s.isEmpty()) return 0;
+        int len = s.length();
+        Stack<Integer> stack = new Stack<Integer>();
+        int currentNumber = 0;
+        char operation = '+';
+        for (int i = 0; i < len; i++) {
+            char currentChar = s.charAt(i);
+            if (Character.isDigit(currentChar)) {
+                currentNumber = (currentNumber * 10) + (currentChar - '0');
+            }
+            if (!Character.isDigit(currentChar) && !Character.isWhitespace(currentChar) || i == len - 1) {
+                if (operation == '-') {
+                    stack.push(-currentNumber);
+                }
+                else if (operation == '+') {
+                    stack.push(currentNumber);
+                }
+                else if (operation == '*') {
+                    stack.push(stack.pop() * currentNumber);
+                }
+                else if (operation == '/') {
+                    stack.push(stack.pop() / currentNumber);
+                }
+                operation = currentChar;
+                currentNumber = 0;
+            }
+        }
+        int result = 0;
+        while (!stack.isEmpty()) {
+            result += stack.pop();
+        }
+        return result;
+    }
 	/**
 	 * Approach 01: one Queue for numbers another for operations.
 	 * quite redundant although O(N)/ O(N)
@@ -79,7 +118,7 @@ public class BasicCalculator2 {
 //        }
 //        
 //        return result;
-    }
+//    }
 	public static void main(String[] args) {
 		BasicCalculator2 instance= new BasicCalculator2();
 //		assertEquals(5,(instance.calculate("5")));
