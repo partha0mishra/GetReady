@@ -64,6 +64,8 @@ Case 4) Closing bracket ]: We must begin the decoding process,
 We must decode the currentString. Pop currentK from the countStack and decode the pattern currentK[currentString]
 
 As the stringStack contains the previously decoded string, pop the decodedString from the stringStack. Update the decodedString = decodedString + currentK[currentString]
+	* 	O(T) => O(maxK * n) where K= digits
+	*   O(M) => O(m + n)    where m = num of chars (a-z) and n= num of digits (0-9)
 	 */
 	String decodeString(String s) {
         Stack<Integer> countStack = new Stack<>();
