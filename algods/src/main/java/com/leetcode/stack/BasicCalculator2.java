@@ -1,5 +1,6 @@
 package com.leetcode.stack;
-/* 227 Basic Calculator II ?? what if the numbers are NOT SINGLE DIGITS ??
+/**
+ *  227 Basic Calculator II ?? what if the numbers are NOT SINGLE DIGITS ??
  * 
  * Implement a basic calculator to evaluate a simple expression string.
 
@@ -25,55 +26,59 @@ Do not use the eval built-in library function.
 import java.util.*;
 import static org.junit.Assert.assertEquals;
 public class BasicCalculator2 {
-	public static final char PLUS='+';
-	public static final char MINUS='-';
-	public static final char MULT='*';
-	public static final char DIVIDE='/';
-	public static final char SPACE=' ';
-	public static final char ZERO='0';
-	public int calculate(String s) {
-        Deque<Integer> nums= new ArrayDeque<Integer>();
-        Deque<Character> ops= new ArrayDeque<Character>();
-        for(int index=0; index< s.length();) {
-        	char c=s.charAt(index);
-        	if(c == SPACE) {
-        		index+=1;
-        		continue;
-        	}
-        	if(Character.isDigit(c)) {
-        		int n=0;
-        		while(index< s.length() && Character.isDigit(s.charAt(index))){
-        			n=10*n+(s.charAt(index) -ZERO);
-        			index++;
-        		}
-//        		System.out.println(n);
-        		nums.addLast(n);
-        		if(ops.isEmpty()) continue;
-        		char op=ops.peekLast();
-        		if(op == MULT || op == DIVIDE) {
-        			op=ops.removeLast();
-        			int num2=nums.removeLast();
-        			int num1=nums.removeLast();
-        			
-        			if(op == MULT) nums.addLast(num1 * num2);
-        			else nums.addLast(num1 / num2);
-        		}
-        	}else {
-        		index+=1;
-        		ops.addLast(c);
-        	}
-        }
-        if(nums.isEmpty()) return 0;
-
-        int result=nums.removeFirst();
-        while(!nums.isEmpty() && !ops.isEmpty()) {
-        	int num=nums.removeFirst();
-        	char op=ops.removeFirst();
-        	if(op == PLUS) result+=num;
-        	else result-=num;
-        }
-        
-        return result;
+	/**
+	 * Approach 01: one Queue for numbers another for operations.
+	 * quite redundant although O(N)/ O(N)
+	 */
+//	public static final char PLUS='+';
+//	public static final char MINUS='-';
+//	public static final char MULT='*';
+//	public static final char DIVIDE='/';
+//	public static final char SPACE=' ';
+//	public static final char ZERO='0';
+//	public int calculate(String s) {
+//        Deque<Integer> nums= new ArrayDeque<Integer>();
+//        Deque<Character> ops= new ArrayDeque<Character>();
+//        for(int index=0; index< s.length();) {
+//        	char c=s.charAt(index);
+//        	if(c == SPACE) {
+//        		index+=1;
+//        		continue;
+//        	}
+//        	if(Character.isDigit(c)) {
+//        		int n=0;
+//        		while(index< s.length() && Character.isDigit(s.charAt(index))){
+//        			n=10*n+(s.charAt(index) -ZERO);
+//        			index++;
+//        		}
+////        		System.out.println(n);
+//        		nums.addLast(n);
+//        		if(ops.isEmpty()) continue;
+//        		char op=ops.peekLast();
+//        		if(op == MULT || op == DIVIDE) {
+//        			op=ops.removeLast();
+//        			int num2=nums.removeLast();
+//        			int num1=nums.removeLast();
+//        			
+//        			if(op == MULT) nums.addLast(num1 * num2);
+//        			else nums.addLast(num1 / num2);
+//        		}
+//        	}else {
+//        		index+=1;
+//        		ops.addLast(c);
+//        	}
+//        }
+//        if(nums.isEmpty()) return 0;
+//
+//        int result=nums.removeFirst();
+//        while(!nums.isEmpty() && !ops.isEmpty()) {
+//        	int num=nums.removeFirst();
+//        	char op=ops.removeFirst();
+//        	if(op == PLUS) result+=num;
+//        	else result-=num;
+//        }
+//        
+//        return result;
     }
 	public static void main(String[] args) {
 		BasicCalculator2 instance= new BasicCalculator2();
