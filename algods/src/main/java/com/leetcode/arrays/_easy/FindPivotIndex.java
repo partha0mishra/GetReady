@@ -1,4 +1,4 @@
-package com.leetcode.arrays;
+package com.leetcode.arrays._easy;
 /**
  * 724. Find Pivot Index
  * Given an array of integers nums, write a method that returns the "pivot" index of this array.
