@@ -1,6 +1,6 @@
 package com.leetcode.arrays.boyerMoore;
-/*
- * Majority Element
+/**
+ * 169. Majority Element
  * 
  * Given an array of size n, find the majority element. The majority element is the element that appears more than ⌊ n/2 ⌋ times.
  * You may assume that the array is non-empty and the majority element always exist in the array.
@@ -15,7 +15,7 @@ package com.leetcode.arrays.boyerMoore;
 //import java.util.TreeMap;
 import static org.junit.Assert.assertEquals;
 public class MajorityElement {
-	/* Approach 02: Boyer-Moore - easy to understand for n/2 - O(n) - O(1)*/
+	/* Approach 02: Boyer-Moore - easy to understand for n/2 - O(n)/ O(1)*/
 	public int majorityElement(int[] nums) {
 		int top=nums[0], count=0;
 		for(int n: nums) {
