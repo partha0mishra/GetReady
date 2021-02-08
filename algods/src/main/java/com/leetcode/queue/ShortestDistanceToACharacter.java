@@ -1,6 +1,6 @@
 package com.leetcode.queue;
 /**
- * Shortest Distance to a Character
+ * 821. Shortest Distance to a Character
  * Given a string s and a character c that occurs in s, return an array of integers answer where answer.length == s.length and answer[i] is the shortest distance from s[i] to the character c in s.
 Example 1:
 
@@ -31,7 +31,26 @@ public class ShortestDistanceToACharacter {
 	 * Takes a little more memory for the queue.
 	 * 
 	 * Complexity of both solutions would be O(N)/ O(N)
+	 * *** The first solution seems to be equivalent/ better :D
 	 */
+//	public int[] shortestToChar(String S, char C) {
+//        int N = S.length();
+//        int[] ans = new int[N];
+//        int prev = Integer.MIN_VALUE / 2;
+//
+//        for (int i = 0; i < N; ++i) {
+//            if (S.charAt(i) == C) prev = i;
+//            ans[i] = i - prev;
+//        }
+//
+//        prev = Integer.MAX_VALUE / 2;
+//        for (int i = N-1; i >= 0; --i) {
+//            if (S.charAt(i) == C) prev = i;
+//            ans[i] = Math.min(ans[i], prev - i);
+//        }
+//
+//        return ans;
+//    }
 	public int[] shortestToChar(String s, char c) {
         Deque<Integer> queue= new ArrayDeque<>();
         for(int i=0; i< s.length(); i++) if(s.charAt(i)==c) queue.offerLast(i);// indices of occurences
