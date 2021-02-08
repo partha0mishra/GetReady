@@ -20,6 +20,18 @@ c occurs at least once in s.
  */
 import java.util.*;
 public class ShortestDistanceToACharacter {
+	/**
+	 * Easy: could have just done Array Scan.
+	 * Go from left to right and populate distance using i-prev where prev= index of 'c'
+	 * Then go from right to left and populate distance using next-i where next=index of 'c' 
+	 * and when this is a lower value than previous distance.
+	 * 
+	 * The first approach below is keeping the instances of 'c' in a queue 
+	 * and then referring to those while going from left to right.
+	 * Takes a little more memory for the queue.
+	 * 
+	 * Complexity of both solutions would be O(N)/ O(N)
+	 */
 	public int[] shortestToChar(String s, char c) {
         Deque<Integer> queue= new ArrayDeque<>();
         for(int i=0; i< s.length(); i++) if(s.charAt(i)==c) queue.offerLast(i);// indices of occurences
