@@ -1,4 +1,4 @@
-package com.leetcode.arrays;
+package com.leetcode.arrays.r01;
 /** 
  * 561. Array Partition I
  * Given an array of 2n integers, your task is to group these integers into n pairs of integer, 
