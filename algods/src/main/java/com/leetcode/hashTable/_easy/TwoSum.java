@@ -1,5 +1,6 @@
-package com.leetcode.hashTable;
-/* 1. Two Sum
+package com.leetcode.hashTable._easy;
+/** 
+ * 1. Two Sum
  * Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
 
 You may assume that each input would have exactly one solution, and you may not use the same element twice.
@@ -32,6 +33,11 @@ Only one valid answer exists.
  */
 import java.util.*;
 public class TwoSum {
+	/**
+	 * O(n2)/ O(1) if we run two loops and then find if nums[i] + nums[j] == target
+	 * O(N) / O(N) if we keep the values and their indices in HashMap and if the target-num is found, 
+	 * return i and hm.get(target - number)
+	 */
 	public int[] twoSum(int[] nums, int target) {
         Map<Integer,Integer> hmnum = new HashMap<>();
         for(int i=0; i<nums.length; i++){
