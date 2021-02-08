@@ -1,4 +1,4 @@
-package com.leetcode.arrays;
+package com.leetcode.arrays._easy;
 /***
  * 1480. Running Sum of 1d Array
  * 
