@@ -1,4 +1,4 @@
-package com.leetcode.arrays;
+package com.leetcode.arrays.r01;
 // Just for the COUNT SORT
 import java.util.Arrays;
 
