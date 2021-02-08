@@ -33,16 +33,31 @@ Then for each index, the left sum is P[i], and the right sum is P[P.length - 1] 
  */
 import java.util.Arrays;
 public class FindPivotIndex {
-	/* Earlier approach. This is an Easy problem anyway
-	 * 
+	/**
+	 * Better approach.
+	 * This goes on to prove how important it is to revisit Problem Solving
 	 */
 	public int pivotIndex(int[] nums) {
-        int sum=Arrays.stream(nums).sum();
-        int prevSum=0, index=-1;
+        if(nums.length ==1) return 0;
+        int sum=0;
+        for(int n: nums) sum+=n;
+        int prevSum=0;
         for(int i=0; i< nums.length; i++){
-            if(2*prevSum + nums[i] == sum) {index=i; break;}
-            else prevSum+=nums[i];
+            if(prevSum == sum - prevSum - nums[i]) return i;
+            prevSum+=nums[i];
         }
-        return index;
+        return -1;
     }
+	/**
+	 *  Earlier approach. This is an Easy problem anyway
+	 */
+//	public int pivotIndex(int[] nums) {
+//        int sum=Arrays.stream(nums).sum();
+//        int prevSum=0, index=-1;
+//        for(int i=0; i< nums.length; i++){
+//            if(2*prevSum + nums[i] == sum) {index=i; break;}
+//            else prevSum+=nums[i];
+//        }
+//        return index;
+//    }
 }
