@@ -29,6 +29,9 @@ Note: The length of each dimension in the given grid does not exceed 50.
  */
 import java.util.*;
 public class NumDistinctIslands {
+	/**
+	 * Approach 01: with coordinates - but should change as it doesn't need to be comparable
+	 */
 	class Coordinates implements Comparable<Coordinates>{
 		int row, col;
 		public Coordinates(int r, int c) {this.row=r; this.col=c;}
