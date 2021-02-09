@@ -28,38 +28,71 @@ are considered different island shapes, because we do not consider reflection / 
 Note: The length of each dimension in the given grid does not exceed 50.
  */
 import java.util.*;
+
+import javafx.util.Pair;
 public class NumDistinctIslands {
 	/**
-	 * Approach 02: Optimized
-	 * O(MN)/ O(MN)
+	 * Approach 03:
+	 * Set<Set<Pair<Integer,Integer>>> => Hashset <Islands>
+	 * Island = Set<Pair<Integer, Integer>> => Set <Pairs>
+	 * O(MN)/ O(MN) but more elegant using java HashSet<>
+	 * 
+	 * Performance-wise a little worse than calculating own hash function though :D
 	 */
 	public int numDistinctIslands(int[][] grid) {
         int rows=grid.length, cols=grid[0].length;
-        HashSet<Integer> islandHashes= new HashSet<>();
+        Set<Set<Pair<Integer,Integer>>> islandHashes= new HashSet<>();
         for(int r=0; r< rows; r++) {
         	for(int c=0; c< cols; c++) {
         		if(grid[r][c] == 1) {
-        			List<int[]> rcList= new ArrayList<>();
-        			dfs(grid, r, c, 50, 50, rows, cols, rcList);
-        			int hashCode=0;
-        			for(int[] co: rcList) {
-        				hashCode+=(997*hashCode+10000*co[0]+co[1])%100000009;
-        			}
-        			islandHashes.add(hashCode);
+        			Set<Pair<Integer,Integer>> island= new HashSet<>();
+        			dfs(grid, r, c, 50, 50, rows, cols, island);
+        			islandHashes.add(island);
         		}
         	}
         }
         return islandHashes.size();
     }
-	private void dfs(int[][] grid, int row, int col, int scoreR, int scoreC, int rows, int cols, List<int[]> rcList) {
+	private void dfs(int[][] grid, int row, int col, int scoreR, int scoreC, int rows, int cols, Set<Pair<Integer,Integer>> rcPairSet) {
 		if(grid[row][col] == 0) return;
-		rcList.add(new int[]{scoreR, scoreC});
+		rcPairSet.add(new Pair<>(scoreR, scoreC));
 		grid[row][col]=0;// no more
-		if(row < rows -1) 	dfs(grid, row+1, col, scoreR+1, scoreC, rows, cols, rcList);
-		if(col < cols -1) 	dfs(grid, row, col+1, scoreR, scoreC+1, rows, cols, rcList);
-		if(row > 0) 		dfs(grid, row-1, col, scoreR-1, scoreC, rows, cols, rcList);
-		if(col > 0)			dfs(grid, row, col-1, scoreR, scoreC-1, rows, cols, rcList);
+		if(row < rows -1) 	dfs(grid, row+1, col, scoreR+1, scoreC, rows, cols, rcPairSet);
+		if(col < cols -1) 	dfs(grid, row, col+1, scoreR, scoreC+1, rows, cols, rcPairSet);
+		if(row > 0) 		dfs(grid, row-1, col, scoreR-1, scoreC, rows, cols, rcPairSet);
+		if(col > 0)			dfs(grid, row, col-1, scoreR, scoreC-1, rows, cols, rcPairSet);
 	}
+//	/**
+//	 * Approach 02: Optimized
+//	 * O(MN)/ O(MN)
+//	 */
+//	public int numDistinctIslands(int[][] grid) {
+//        int rows=grid.length, cols=grid[0].length;
+//        HashSet<Integer> islandHashes= new HashSet<>();
+//        for(int r=0; r< rows; r++) {
+//        	for(int c=0; c< cols; c++) {
+//        		if(grid[r][c] == 1) {
+//        			List<int[]> rcList= new ArrayList<>();
+//        			dfs(grid, r, c, 50, 50, rows, cols, rcList);
+//        			int hashCode=0;
+//        			for(int[] co: rcList) {
+//        				hashCode+=(997*hashCode+10000*co[0]+co[1])%100000009;
+//        			}
+//        			islandHashes.add(hashCode);
+//        		}
+//        	}
+//        }
+//        return islandHashes.size();
+//    }
+//	private void dfs(int[][] grid, int row, int col, int scoreR, int scoreC, int rows, int cols, List<int[]> rcList) {
+//		if(grid[row][col] == 0) return;
+//		rcList.add(new int[]{scoreR, scoreC});
+//		grid[row][col]=0;// no more
+//		if(row < rows -1) 	dfs(grid, row+1, col, scoreR+1, scoreC, rows, cols, rcList);
+//		if(col < cols -1) 	dfs(grid, row, col+1, scoreR, scoreC+1, rows, cols, rcList);
+//		if(row > 0) 		dfs(grid, row-1, col, scoreR-1, scoreC, rows, cols, rcList);
+//		if(col > 0)			dfs(grid, row, col-1, scoreR, scoreC-1, rows, cols, rcList);
+//	}
 	/**
 	 * Approach 01: with coordinates - but should change as it doesn't need to be comparable
 	 */
