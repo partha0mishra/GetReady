@@ -32,10 +32,9 @@ import java.util.*;
 import javafx.util.Pair;
 public class NumDistinctIslands {
 	/**
-	 * Approach 04:
-	 * Another way to take care of the hashing beast.
-	 * create a string out of the positions and create hash
-	 * O(MN)/ O(MN) but more elegant using java HashSet<>
+	 * Approach 05:
+	 * We can even just keep the directions U (up) D (down) L (left) R (right) in StringBuilder
+	 * O(MN)/ O(MN) 
 	 * 
 	 * Performance-wise a little worse than calculating own hash function though :D
 	 */
@@ -46,22 +45,54 @@ public class NumDistinctIslands {
         	for(int c=0; c< cols; c++) {
         		if(grid[r][c] == 1) {
         			StringBuilder island= new StringBuilder();
-        			dfs(grid, r, c, 0, 0, rows, cols, island);
+        			dfs(grid, r, c, island, 'o');// origin
         			islandHashes.add(island.toString());
         		}
         	}
         }
         return islandHashes.size();
     }
-	private void dfs(int[][] grid, int row, int col, int scoreR, int scoreC, int rows, int cols, StringBuilder sb) {
+	private void dfs(int[][] grid, int row, int col, StringBuilder sb, char dir) {
 		if(grid[row][col] == 0) return;
-		sb.append(scoreR+""+scoreC);
+		sb.append(dir);
 		grid[row][col]=0;// no more
-		if(row < rows -1) 	dfs(grid, row+1, col, scoreR+1, scoreC, rows, cols, sb);
-		if(col < cols -1) 	dfs(grid, row, col+1, scoreR, scoreC+1, rows, cols, sb);
-		if(row > 0) 		dfs(grid, row-1, col, scoreR-1, scoreC, rows, cols, sb);
-		if(col > 0)			dfs(grid, row, col-1, scoreR, scoreC-1, rows, cols, sb);
+		if(row < grid.length -1) 	dfs(grid, row+1, col, sb, 'd');// down
+		if(col < grid[0].length -1) 	dfs(grid, row, col+1, sb, 'r');// right
+		if(row > 0) 		dfs(grid, row-1, col, sb, 'u');// up
+		if(col > 0)			dfs(grid, row, col-1, sb, 'l');// left
+		sb.append('b');// back
 	}
+	/**
+	 * Approach 04:
+	 * Another way to take care of the hashing beast.
+	 * just add the positions to a StringBuilder and put that into a HashSet
+	 * O(MN)/ O(MN) 
+	 * 
+	 * Performance-wise a little worse than calculating own hash function though :D
+	 */
+//	public int numDistinctIslands(int[][] grid) {
+//        int rows=grid.length, cols=grid[0].length;
+//        Set<String> islandHashes= new HashSet<>();
+//        for(int r=0; r< rows; r++) {
+//        	for(int c=0; c< cols; c++) {
+//        		if(grid[r][c] == 1) {
+//        			StringBuilder island= new StringBuilder();
+//        			dfs(grid, r, c, 0, 0, rows, cols, island);
+//        			islandHashes.add(island.toString());
+//        		}
+//        	}
+//        }
+//        return islandHashes.size();
+//    }
+//	private void dfs(int[][] grid, int row, int col, int scoreR, int scoreC, int rows, int cols, StringBuilder sb) {
+//		if(grid[row][col] == 0) return;
+//		sb.append(scoreR+""+scoreC);
+//		grid[row][col]=0;// no more
+//		if(row < rows -1) 	dfs(grid, row+1, col, scoreR+1, scoreC, rows, cols, sb);
+//		if(col < cols -1) 	dfs(grid, row, col+1, scoreR, scoreC+1, rows, cols, sb);
+//		if(row > 0) 		dfs(grid, row-1, col, scoreR-1, scoreC, rows, cols, sb);
+//		if(col > 0)			dfs(grid, row, col-1, scoreR, scoreC-1, rows, cols, sb);
+//	}
 	/**
 	 * Approach 03:
 	 * Set<Set<Pair<Integer,Integer>>> => Hashset <Islands>
