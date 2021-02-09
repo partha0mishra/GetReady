@@ -32,6 +32,37 @@ import java.util.*;
 import javafx.util.Pair;
 public class NumDistinctIslands {
 	/**
+	 * Approach 04:
+	 * Another way to take care of the hashing beast.
+	 * create a string out of the positions and create hash
+	 * O(MN)/ O(MN) but more elegant using java HashSet<>
+	 * 
+	 * Performance-wise a little worse than calculating own hash function though :D
+	 */
+	public int numDistinctIslands(int[][] grid) {
+        int rows=grid.length, cols=grid[0].length;
+        Set<String> islandHashes= new HashSet<>();
+        for(int r=0; r< rows; r++) {
+        	for(int c=0; c< cols; c++) {
+        		if(grid[r][c] == 1) {
+        			StringBuilder island= new StringBuilder();
+        			dfs(grid, r, c, 0, 0, rows, cols, island);
+        			islandHashes.add(island.toString());
+        		}
+        	}
+        }
+        return islandHashes.size();
+    }
+	private void dfs(int[][] grid, int row, int col, int scoreR, int scoreC, int rows, int cols, StringBuilder sb) {
+		if(grid[row][col] == 0) return;
+		sb.append(scoreR+""+scoreC);
+		grid[row][col]=0;// no more
+		if(row < rows -1) 	dfs(grid, row+1, col, scoreR+1, scoreC, rows, cols, sb);
+		if(col < cols -1) 	dfs(grid, row, col+1, scoreR, scoreC+1, rows, cols, sb);
+		if(row > 0) 		dfs(grid, row-1, col, scoreR-1, scoreC, rows, cols, sb);
+		if(col > 0)			dfs(grid, row, col-1, scoreR, scoreC-1, rows, cols, sb);
+	}
+	/**
 	 * Approach 03:
 	 * Set<Set<Pair<Integer,Integer>>> => Hashset <Islands>
 	 * Island = Set<Pair<Integer, Integer>> => Set <Pairs>
@@ -39,29 +70,29 @@ public class NumDistinctIslands {
 	 * 
 	 * Performance-wise a little worse than calculating own hash function though :D
 	 */
-	public int numDistinctIslands(int[][] grid) {
-        int rows=grid.length, cols=grid[0].length;
-        Set<Set<Pair<Integer,Integer>>> islandHashes= new HashSet<>();
-        for(int r=0; r< rows; r++) {
-        	for(int c=0; c< cols; c++) {
-        		if(grid[r][c] == 1) {
-        			Set<Pair<Integer,Integer>> island= new HashSet<>();
-        			dfs(grid, r, c, 50, 50, rows, cols, island);
-        			islandHashes.add(island);
-        		}
-        	}
-        }
-        return islandHashes.size();
-    }
-	private void dfs(int[][] grid, int row, int col, int scoreR, int scoreC, int rows, int cols, Set<Pair<Integer,Integer>> rcPairSet) {
-		if(grid[row][col] == 0) return;
-		rcPairSet.add(new Pair<>(scoreR, scoreC));
-		grid[row][col]=0;// no more
-		if(row < rows -1) 	dfs(grid, row+1, col, scoreR+1, scoreC, rows, cols, rcPairSet);
-		if(col < cols -1) 	dfs(grid, row, col+1, scoreR, scoreC+1, rows, cols, rcPairSet);
-		if(row > 0) 		dfs(grid, row-1, col, scoreR-1, scoreC, rows, cols, rcPairSet);
-		if(col > 0)			dfs(grid, row, col-1, scoreR, scoreC-1, rows, cols, rcPairSet);
-	}
+//	public int numDistinctIslands(int[][] grid) {
+//        int rows=grid.length, cols=grid[0].length;
+//        Set<Set<Pair<Integer,Integer>>> islandHashes= new HashSet<>();
+//        for(int r=0; r< rows; r++) {
+//        	for(int c=0; c< cols; c++) {
+//        		if(grid[r][c] == 1) {
+//        			Set<Pair<Integer,Integer>> island= new HashSet<>();
+//        			dfs(grid, r, c, 50, 50, rows, cols, island);
+//        			islandHashes.add(island);
+//        		}
+//        	}
+//        }
+//        return islandHashes.size();
+//    }
+//	private void dfs(int[][] grid, int row, int col, int scoreR, int scoreC, int rows, int cols, Set<Pair<Integer,Integer>> rcPairSet) {
+//		if(grid[row][col] == 0) return;
+//		rcPairSet.add(new Pair<>(scoreR, scoreC));
+//		grid[row][col]=0;// no more
+//		if(row < rows -1) 	dfs(grid, row+1, col, scoreR+1, scoreC, rows, cols, rcPairSet);
+//		if(col < cols -1) 	dfs(grid, row, col+1, scoreR, scoreC+1, rows, cols, rcPairSet);
+//		if(row > 0) 		dfs(grid, row-1, col, scoreR-1, scoreC, rows, cols, rcPairSet);
+//		if(col > 0)			dfs(grid, row, col-1, scoreR, scoreC-1, rows, cols, rcPairSet);
+//	}
 //	/**
 //	 * Approach 02: Optimized
 //	 * O(MN)/ O(MN)
