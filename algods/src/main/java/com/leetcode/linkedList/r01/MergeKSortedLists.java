@@ -1,7 +1,9 @@
-package com.leetcode.linkedList;
+package com.leetcode.linkedList.r01;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import com.leetcode.linkedList.ListNode;
 
 /**
  * 23. Merge K sorted lists
