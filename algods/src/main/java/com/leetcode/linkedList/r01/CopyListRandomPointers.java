@@ -1,4 +1,4 @@
-package com.leetcode.linkedList;
+package com.leetcode.linkedList.r01;
 /**
  * 138. Copy List with Random Pointer
  * 
