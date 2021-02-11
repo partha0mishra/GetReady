@@ -1,4 +1,4 @@
-package com.leetcode.linkedList;
+package com.leetcode.linkedList.r01;
 /**
  * 382. Linked List Random Node
  * Given a singly linked list, return a random node's value from the linked list. Each node must have the same probability of being chosen.
@@ -20,6 +20,8 @@ solution.getRandom();
  */
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
+
+import com.leetcode.linkedList.ListNode;
 public class LLRandomNode {
 	/**
 	 * Approach 02: Reservoir Sampling
