@@ -23,26 +23,39 @@ Note:
 A, B have equal lengths in range [1, 100].
 A[i], B[i] are integers in range [0, 10^5].
  */
+import java.util.*;
 public class FindAnagramMappings {
+	/**
+	 * Approach 02: of course keeping {B[i], i} in hashmap
+	 * Works out much better, performance-wise
+	 * O(N)/ O(N) 
+	 */
+	public int[] anagramMappings(int[] A, int[] B) {
+		HashMap<Integer, Integer> hm= new HashMap<>();
+		for(int i=0; i< B.length; i++) hm.put(B[i],i);
+		int[] result= new int[A.length];
+		for(int i=0; i< A.length; i++) result[i]=hm.get(A[i]);
+		return result;
+	}
 	/**
 	 * Approach 01: 
 	 * keeping indices and sorting based on actual values
 	 * O(N)/ O(N)
 	 */
-	public int[] anagramMappings(int[] A, int[] B) {
-		Integer[] ai=new Integer[A.length], bi=new Integer[B.length];
-		int[] result=new int[A.length];
-		for(int i=0; i< A.length; i++) {
-			ai[i]=i;
-			bi[i]=i;
-		}
-		Arrays.sort(ai, (n1,n2) -> Integer.compare(A[n1], A[n2]));
-		Arrays.sort(bi, (n1,n2) -> Integer.compare(B[n1], B[n2]));
-		for(int i=0; i< A.length; i++) {
-			result[ai[i]]=bi[i];
-		}
-		return result;
-    }
+//	public int[] anagramMappings(int[] A, int[] B) {
+//		Integer[] ai=new Integer[A.length], bi=new Integer[B.length];
+//		int[] result=new int[A.length];
+//		for(int i=0; i< A.length; i++) {
+//			ai[i]=i;
+//			bi[i]=i;
+//		}
+//		Arrays.sort(ai, (n1,n2) -> Integer.compare(A[n1], A[n2]));
+//		Arrays.sort(bi, (n1,n2) -> Integer.compare(B[n1], B[n2]));
+//		for(int i=0; i< A.length; i++) {
+//			result[ai[i]]=bi[i];
+//		}
+//		return result;
+//    }
 	public static void main(String[] a) {
 		new FindAnagramMappings().anagramMappings(new int[] {12, 28, 46, 32, 50}, new int[] {50, 12, 32, 46, 28});
 	}
