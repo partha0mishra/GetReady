@@ -1,7 +1,7 @@
 package com.leetcode.linkedList.r01;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.PriorityQueue;
 
 import com.leetcode.linkedList.ListNode;
 
@@ -92,18 +92,40 @@ public class MergeKSortedLists {
 	 * Sort the ArrayList
 	 * Create a new LinkedList with nodes from the ArrayList
 	 */
+//	public ListNode mergeKLists(ListNode[] lists) {
+//		ArrayList<ListNode> allNodes= new ArrayList<>();
+//		for(ListNode ln: lists) {
+//			while(ln != null) {
+//				allNodes.add(ln);
+//				ln=ln.next;
+//			}
+//		}
+//		Collections.sort(allNodes, (n1, n2) -> Integer.compare(n1.val, n2.val));
+//		ListNode result= new ListNode(0), temp=result;
+//		for(ListNode n: allNodes) {
+//			result.next=n;
+//			result=result.next;
+//		}
+//		return temp.next;
+//	}
+	/**
+	 * Still brute but priority queue instead of Collections.sort
+	 * that's log(n) instead of NlogN
+	 */
 	public ListNode mergeKLists(ListNode[] lists) {
-		ArrayList<ListNode> allNodes= new ArrayList<>();
+		PriorityQueue<ListNode> allNodes= new PriorityQueue<ListNode>((n1,n2)->Integer.compare(n1.val, n2.val));
 		for(ListNode ln: lists) {
 			while(ln != null) {
 				allNodes.add(ln);
+				ListNode temp=ln;
 				ln=ln.next;
+				temp.next=null;// to remove the original pointers as the last one might remain after merges
 			}
 		}
-		Collections.sort(allNodes, (n1, n2) -> Integer.compare(n1.val, n2.val));
+		
 		ListNode result= new ListNode(0), temp=result;
-		for(ListNode n: allNodes) {
-			result.next=n;
+		while(!allNodes.isEmpty()) {
+			result.next=allNodes.remove();
 			result=result.next;
 		}
 		return temp.next;
