@@ -1,4 +1,4 @@
-package com.leetcode.hashTable;
+package com.leetcode.hashTable._easy;
 /**
  * 242. Valid Anagram
  * 
