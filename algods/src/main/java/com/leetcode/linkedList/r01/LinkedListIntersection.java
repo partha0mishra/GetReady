@@ -1,4 +1,4 @@
-package com.leetcode.linkedList;
+package com.leetcode.linkedList.r01;
 /**
  * 160. Intersection of Two Linked Lists
  * Write a program to find the node at which the intersection of two singly linked lists begins.
@@ -44,6 +44,8 @@ Each value on each linked list is in the range [1, 10^9].
 Your code should preferably run in O(n) time and use only O(1) memory.
  */
 import java.util.*;
+
+import com.leetcode.linkedList.ListNode;
 public class LinkedListIntersection {
 	/**
 	 * Brute force would have been O(N)/ O(N)
