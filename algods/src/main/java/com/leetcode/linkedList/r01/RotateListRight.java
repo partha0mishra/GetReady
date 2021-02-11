@@ -37,7 +37,7 @@ public class RotateListRight {
         ListNode current=head;
         while(current.next !=null){
             current=current.next;
-            length++;
+            length+=1;
         }
         current.next=head;// now this is circular
         k=k%length;// the is the 'real' rotation we need to do
