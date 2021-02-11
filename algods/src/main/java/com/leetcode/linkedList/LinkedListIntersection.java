@@ -1,5 +1,6 @@
 package com.leetcode.linkedList;
-/* 160. Intersection of Two Linked Lists
+/**
+ * 160. Intersection of Two Linked Lists
  * Write a program to find the node at which the intersection of two singly linked lists begins.
 
 For example, the following two linked lists:
@@ -44,6 +45,16 @@ Your code should preferably run in O(n) time and use only O(1) memory.
  */
 import java.util.*;
 public class LinkedListIntersection {
+	/**
+	 * Brute force would have been O(N)/ O(N)
+	 * Traverse 1st LL and keep all nodes in HashSet
+	 * Traverse 2nd LL and see if HashSet contains any
+	 * 
+	 * Trickier:
+	 * when the first one is traversed, make the next node as the second's head and vice versa
+	 * they'll meet at the second iteration.
+	 * O(N)/ O(1)
+	 */
 	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
 	    //boundary check
 	    if(headA == null || headB == null) return null;
