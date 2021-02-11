@@ -1,4 +1,4 @@
-package com.leetcode.linkedList;
+package com.leetcode.linkedList.r01;
 
 /** TODO Anki
  * 82. Remove Duplicates from Sorted List II
