@@ -23,32 +23,10 @@ rotate 4 steps to the right: 2->0->1->NULL
  * */
 public class RotateListRight {
 	/**
-	 * Approach 02:
-	 */
-	public ListNode rotateRight(ListNode head, int k) {
-        if(head == null || head.next==null) return head;
-        int length=1;// let's find the length first
-        ListNode current=head;
-        while(current.next !=null){
-            current=current.next;
-            length++;
-        }
-        k=k%length;// the is the 'real' rotation we need to do
-        // System.out.println(k+" "+length);
-        for(int i=1; i<= k; i++){
-            current=head;
-            while(current.next.next != null){// at the end, current.next will be the last node
-                current=current.next;
-            }
-            current.next.next=head;// connecting last node to the Head
-            head=current.next;// changing 'head' pointer
-            current.next=null;// ending the list at the previous node
-        }
-        return head;
-    }
-	/**
 	 * Approach 01:
-	 * 
+	 * k = k%length, in case k>=length :D
+	 * traverse for i=1 -> k
+	 * assign nodes accordingly to break the current chain and create the new chain.
 	 */
 	public ListNode rotateRight(ListNode head, int k) {
         if(head == null || head.next==null) return head;
