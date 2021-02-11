@@ -5,7 +5,8 @@ package com.leetcode.linkedList;
  * Algorithm of Insertion Sort:
 
 Insertion sort iterates, consuming one input element each repetition, and growing a sorted output list.
-At each iteration, insertion sort removes one element from the input data, finds the location it belongs within the sorted list, and inserts it there.
+At each iteration, insertion sort removes one element from the input data, 
+finds the location it belongs within the sorted list, and inserts it there.
 It repeats until no input elements remain.
 
 Example 1:
@@ -27,33 +28,64 @@ public class InsertionSortList {
 	     ListNode(int val) { this.val = val; }
 	     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 	 }
-	
-	public ListNode insertionSortList(ListNode head) {
-		if(head == null) return head;
-		ListNode start=head;
-		
-		while(start.next !=null) {
-			ListNode current=start.next, start2=head, prev=head;
-			boolean shifted=false;
-			while(start2 !=current) {
-				if(current.val < start2.val) {
-					start.next=current.next;// getting current out of the link
-					current.next=start2;
-					if(start2 == head) {
-						head=current;
-					}else{
-						prev.next=current;
-					}
-					shifted=true;
-					break;
-				}
-				prev=start2;
-				start2=start2.next;
-			}
-			if(!shifted) start=start.next;
-		}
-		return head;
-	}
+	 /**
+	  * Approach 02:
+	  * Getting comfortable with a Dummy node
+	  */
+	 public ListNode insertionSortList(ListNode head) {
+		 if(head == null) return head;
+		 ListNode dummy= new ListNode(0);
+		 dummy.next=new ListNode(head.val);
+		 head=head.next;// first one is inserted already
+		 while(head != null) {
+			 ListNode prev=dummy, tempHead=prev.next;
+			 while(tempHead != null) {
+				 if(head.val< tempHead.val) {
+					 break;
+				 }
+				 prev=prev.next;
+				 tempHead=tempHead.next;
+			 }
+			 // now tempHead==null or < head.val, prev = previous node
+			 ListNode newNode= new ListNode(head.val);
+			 prev.next=newNode;
+			 newNode.next=tempHead;
+			 head=head.next;
+		 }
+		 return dummy.next;
+	 }
+	/**
+	 * Approach 01: My regular approach
+	 * I was not comfortable using Dummy node
+	 * 
+	 * O(N2)/ O(N)
+	 */
+//	public ListNode insertionSortList(ListNode head) {
+//		if(head == null) return head;
+//		ListNode start=head;
+//		
+//		while(start.next !=null) {
+//			ListNode current=start.next, start2=head, prev=head;
+//			boolean shifted=false;
+//			while(start2 !=current) {
+//				if(current.val < start2.val) {
+//					start.next=current.next;// getting current out of the link
+//					current.next=start2;
+//					if(start2 == head) {
+//						head=current;
+//					}else{
+//						prev.next=current;
+//					}
+//					shifted=true;
+//					break;
+//				}
+//				prev=start2;
+//				start2=start2.next;
+//			}
+//			if(!shifted) start=start.next;
+//		}
+//		return head;
+//	}
 	public static void main(String[] args) {
 		InsertionSortList instance = new InsertionSortList();
 		ListNode head=instance.new ListNode(4);
