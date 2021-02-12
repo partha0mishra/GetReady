@@ -33,6 +33,7 @@ public class ContainsDuplicates {
 		if (nums.length < 2 || k == 0) {
 			return false;
 		}
+		// probably good idea to have <Long> set instead of Integer to avoid overflow during floor/ ceiling
 		TreeSet<Integer> set = new TreeSet<>();// keeping things sorted and using ceiling/ floor
 		// Note: don't worry about duplicates. Duplicates will be <=t apart anyway
 
