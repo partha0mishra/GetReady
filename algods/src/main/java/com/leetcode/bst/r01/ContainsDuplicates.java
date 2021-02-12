@@ -33,19 +33,20 @@ public class ContainsDuplicates {
 		if (nums.length < 2 || k == 0) {
 			return false;
 		}
-		TreeSet<Long> set = new TreeSet<>();
+		TreeSet<Integer> set = new TreeSet<>();// keeping things sorted and using ceiling/ floor
+		// Note: don't worry about duplicates. Duplicates will be <=t apart anyway
 
 		int i = 0;
-		while (i < nums.length) {
-			Long floor = set.floor((long) nums[i]);
-			Long ceiling = set.ceiling((long) nums[i]);
-			if ((floor != null && nums[i] - floor <= t ) ||
-					(ceiling != null && ceiling - nums[i] <= t)) {
-				return true;
+		while (i < nums.length) {// where does nums[i] fit? are the two nearest numbers within 't' range??
+			Integer floor = set.floor(nums[i]);// previous number
+			Integer ceiling = set.ceiling(nums[i]);// next number
+			if ((floor != null && nums[i] - floor <= t ) || // NOTE: floor & ceiling are NOT '<= t' apart 
+					(ceiling != null && ceiling - nums[i] <= t)) {// otherwise this would have returned true
+				return true;// when the later of the two were inserted in the first place
 			}
-			set.add((long) nums[i++]);
-			if (i > k) {
-				set.remove((long) nums[i - k - 1]);
+			set.add(nums[i++]);// no luck. add this number to the set
+			if (i > k) {// we don't need to keep numbers more distant than k
+				set.remove(nums[i - k - 1]);// prune the oldest one
 			}
 		}
 		return false;
