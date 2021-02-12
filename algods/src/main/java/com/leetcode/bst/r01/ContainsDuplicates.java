@@ -1,6 +1,6 @@
-package com.leetcode._explore;
+package com.leetcode.bst.r01;
 /**
- * Contains Duplicates III
+ * 220. Contains Duplicates III
  * Given an array of integers, find out whether there are two distinct indices i and j in the array 
  * such that the absolute difference between nums[i] and nums[j] is at most t 
  * and the absolute difference between i and j is at most k.
@@ -20,7 +20,7 @@ package com.leetcode._explore;
 import java.util.*;
 public class ContainsDuplicates {
 	/**
-	 * Approach 01: O(n logK) COPIED
+	 * Approach 01: O(n logK) COPIED -> Understood.
 	 * https://leetcode.com/problems/contains-duplicate-iii/discuss/61655/Java-O(N-lg-K)-solution
 	 * 
 	 * This problem requires to maintain a window of size k of the previous values that can be queried for value ranges. 
