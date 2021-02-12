@@ -1,10 +1,8 @@
-package com.leetcode.hashTable;
+package com.leetcode.hashTable.r01;
 /** TODO Anki
- * Longest Substring Without Repeating Characters
+ * 3. Longest Substring Without Repeating Characters
  * 
  * Given a string s, find the length of the longest substring without repeating characters.
-
- 
 
 Example 1:
 
