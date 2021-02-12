@@ -42,6 +42,10 @@ public class CalculateHindex {
 	 * Count sort:
 	 * Also, citations more than n doesn't matter
 	 * O(n)/ O(n)
+	 * 
+	 * [1,3,2,3,100] -> one paper having 100 means at least 1 has 100. so, this value is going to cascade down
+	 * [0,1,1,2,0,1] <- 100 is cascading down to 5 and then cascading down to 0 during accumulation as
+	 * [5,5,4,3,1,1] -> since we're accumulating from right side, as soon as we find for i=3, acc[i] >=i, we return
 	 */
 	public int hIndex(int[] citations) {
         int n = citations.length;
