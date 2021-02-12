@@ -1,4 +1,4 @@
-package com.leetcode.hashTable;
+package com.leetcode.hashTable._easy;
 /**
  *  219. Contains Duplicate II
  * Given an array of integers and an integer k, find out whether there are two distinct indices i and j 
