@@ -1,6 +1,7 @@
 package com.leetcode.hashTable;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * 274. Calculate H Index
@@ -22,23 +23,40 @@ import java.util.Arrays;
  */
 public class CalculateHindex {
     /* Approach 02: Count Sort - O(N) */
+//	public int hIndex(int[] citations) {
+//		int[] countOfCitations= new int[citations.length+2];
+//    	for(int i =0; i< citations.length; i++)	{
+//    		int citation= citations[i] > citations.length? citations.length: citations[i];
+//    		countOfCitations[citation]++;
+//    	}
+//    	
+//    	for(int i=citations.length; i>=0; i--) {
+//    		// Accumulation: This is the reason behind citations.length+2
+//    		countOfCitations[i]+=countOfCitations[i+1];
+//    		// we don't have to go backward if a higher number is matched.
+//    		if(countOfCitations[i] >= i) return i;
+//    	}
+//    	return 0;
+//    }
+	/**
+	 * Count sort:
+	 * Also, citations more than n doesn't matter
+	 * O(n)/ O(n)
+	 */
 	public int hIndex(int[] citations) {
-		int[] countOfCitations= new int[citations.length+2];
-    	for(int i =0; i< citations.length; i++)	{
-    		int citation= citations[i] > citations.length? citations.length: citations[i];
-    		countOfCitations[citation]++;
-    	}
-    	
-    	for(int i=citations.length; i>=0; i--) {
-    		// Accumulation: This is the reason behind citations.length+2
-    		countOfCitations[i]+=countOfCitations[i+1];
-    		// we don't have to go backward if a higher number is matched.
-    		if(countOfCitations[i] >= i) return i;
-    	}
-    	
-    	return 0;
+        int n = citations.length;
+        int[] papers = new int[n + 1];
+        // counting papers for each citation number
+        for (int c: citations)
+            papers[Math.min(n, c)]++;
+        // finding the h-index
+        int k = n;
+        for (int s = papers[n]; k > s; s += papers[k])
+            k--;
+        return k;
     }
-	/* Approach 01: sort and find from last: Sub-optimum */
+	/* Approach 01: sort and find from last: Sub-optimum 
+	 * O(nlogn)/ O(1) */
 //    public int hIndex(int[] citations) {
 //    	Arrays.sort(citations);
 //    	int hIndex=1;
