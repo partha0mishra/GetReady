@@ -1,4 +1,4 @@
-package com.leetcode.hashTable.r01;
+package com.leetcode.hashTable;
 /**
  * 454. 4sum II
  * Given four lists A, B, C, D of integer values, compute how many tuples (i, j, k, l) 
