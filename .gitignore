@@ -86,6 +86,7 @@ nb-configuration.xml
 ## Servers folder
 ##############################
 Servers/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
